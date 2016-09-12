@@ -36,7 +36,7 @@ module.exports = (function() {
   /**
    * Print service.
    * @module api/PrintApi
-   * @version 0.1.4
+   * @version 0.1.5
    */
 
   /**
@@ -148,7 +148,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
+      var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
       var returnType = Task;
 

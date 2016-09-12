@@ -39,7 +39,7 @@ module.exports = (function() {
   /**
    * Objects service.
    * @module api/ObjectsApi
-   * @version 0.1.4
+   * @version 0.1.5
    */
 
   /**
@@ -93,7 +93,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
+      var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
       var returnType = ObjectDetails;
 
@@ -147,7 +147,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
+      var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
       var returnType = PostObjectSigned;
 
@@ -190,7 +190,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
+      var contentTypes = ['application/json'];
       var accepts = [];
       var returnType = null;
 
@@ -231,7 +231,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
+      var contentTypes = ['application/json'];
       var accepts = ['text/plain'];
       var returnType = InputStream;
 
@@ -285,7 +285,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
+      var contentTypes = ['application/json'];
       var accepts = ['application/octet-stream'];
       var returnType = InputStream;
 
@@ -335,7 +335,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
+      var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
       var returnType = ObjectFullDetails;
 
@@ -380,7 +380,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
+      var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
       var returnType = InlineResponse2001;
 
@@ -431,7 +431,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
+      var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
       var returnType = Result;
 
@@ -480,7 +480,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
+      var contentTypes = ['application/json'];
       var accepts = ['application/octet-stream'];
       var returnType = InputStream;
 

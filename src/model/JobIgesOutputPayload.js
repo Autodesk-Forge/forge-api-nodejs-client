@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The JobIgesOutputPayload model module.
    * @module model/JobIgesOutputPayload
-   * @version 0.1.4
+   * @version 0.1.5
    */
 
    /**

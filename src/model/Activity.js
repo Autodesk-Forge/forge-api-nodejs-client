@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The Activity model module.
    * @module model/Activity
-   * @version 0.1.4
+   * @version 0.1.5
    */
 
    /**

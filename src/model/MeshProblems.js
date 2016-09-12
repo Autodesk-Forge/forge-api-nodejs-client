@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The MeshProblems model module.
    * @module model/MeshProblems
-   * @version 0.1.4
+   * @version 0.1.5
    */
 
    /**

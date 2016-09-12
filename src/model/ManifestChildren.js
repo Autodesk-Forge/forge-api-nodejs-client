@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The ManifestChildren model module.
    * @module model/ManifestChildren
-   * @version 0.1.4
+   * @version 0.1.5
    */
 
    /**

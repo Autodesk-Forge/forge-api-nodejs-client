@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The ImportMeshParams model module.
    * @module model/ImportMeshParams
-   * @version 0.1.4
+   * @version 0.1.5
    */
 
    /**

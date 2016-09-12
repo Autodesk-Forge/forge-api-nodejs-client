@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The BucketsPermissions model module.
    * @module model/BucketsPermissions
-   * @version 0.1.4
+   * @version 0.1.5
    */
 
    /**

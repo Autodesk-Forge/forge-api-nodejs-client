@@ -34,7 +34,7 @@ module.exports = (function() {
   /**
    * The Task model module.
    * @module model/Task
-   * @version 0.1.4
+   * @version 0.1.5
    */
 
    /**

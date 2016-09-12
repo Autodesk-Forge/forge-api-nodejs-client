@@ -1,7 +1,11 @@
 # Forge Node.js SDK
 
 ## Overview
-This [Node.js](https://nodejs.org/) SDK (version 0.1.4) enables you to easily integrate the Forge REST APIs into your application, including [Data Management](https://developer.autodesk.com/en/docs/data/v2/overview/), [Model Derivative](https://developer.autodesk.com/en/docs/model-derivative/v2/overview/), [3D Print](https://developer.autodesk.com/en/docs/print/v1/overview/), and [Design Automation](https://developer.autodesk.com/en/docs/design-automation/v2/overview/).
+This [Node.js](https://nodejs.org/) SDK (version 0.1.5) enables you to easily integrate the Forge REST APIs
+into your application, including [Data Management](https://developer.autodesk.com/en/docs/data/v2/overview/),
+[Model Derivative](https://developer.autodesk.com/en/docs/model-derivative/v2/overview/),
+[3D Print](https://developer.autodesk.com/en/docs/print/v1/overview/),
+and [Design Automation](https://developer.autodesk.com/en/docs/design-automation/v2/overview/).
 
 ## Requirements
 * Node.js version 4 and above.
@@ -32,11 +36,11 @@ To get a 2-legged token run the following code:
 var ForgeSDK = require('forge-apis');
 var CLIENT_ID = '<your-client-id>' , CLIENT_SECRET = '<your-client-secret>';
 
-// Initialize the 2-legged OAuth2 client, and optionally set specific scopes. 
+// Initialize the 2-legged OAuth2 client, and optionally set specific scopes.
 // If you omit scopes, the generated token will have all scope permissions.
 var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(CLIENT_ID, CLIENT_SECRET, [
-'data:read',
-'data:write'
+    'data:read',
+    'data:write'
 ]);
 
 oAuth2TwoLegged.authenticate().then(function(credentials){
@@ -58,7 +62,7 @@ redirect the user to a consent page. Run this code to create a consent page URL:
 var ForgeSDK = require('forge-apis');
 var CLIENT_ID = '' , CLIENT_SECRET = '', REDIRECT_URL = '';
 
-// Initialize the 3-legged OAuth2 client, and optionally set specific scopes. 
+// Initialize the 3-legged OAuth2 client, and optionally set specific scopes.
 // If you omit scopes, the generated token will have all scope permissions.
 var oAuth2ThreeLegged = new ForgeSDK.AuthClientThreeLegged(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, [
     'data:read',

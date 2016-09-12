@@ -34,7 +34,7 @@ module.exports = (function() {
   /**
    * The Mesh model module.
    * @module model/Mesh
-   * @version 0.1.4
+   * @version 0.1.5
    */
 
    /**

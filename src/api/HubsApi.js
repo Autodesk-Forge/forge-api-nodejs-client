@@ -31,7 +31,7 @@ module.exports = (function() {
   /**
    * Hubs service.
    * @module api/HubsApi
-   * @version 0.1.4
+   * @version 0.1.5
    */
 
   /**
@@ -70,7 +70,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
+      var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
       var returnType = null;
 
@@ -113,7 +113,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
+      var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
       var returnType = Object;
 
@@ -149,7 +149,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
+      var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
       var returnType = Object;
 

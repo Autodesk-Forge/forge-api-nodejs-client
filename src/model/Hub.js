@@ -35,7 +35,7 @@ module.exports = (function() {
   /**
    * The Hub model module.
    * @module model/Hub
-   * @version 0.1.4
+   * @version 0.1.5
    */
 
    /**
