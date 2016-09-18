@@ -25,11 +25,11 @@ Create an app on the Forge Developer portal, and select the desired API products
 
 ### Authentication
 
-This SDK comes with an [OAuth2](https://developer.autodesk.com/en/docs/oauth/v2/overview/) client that allows you to retrieve 2-legged and 3-legged tokens. It also enables you to refresh 3-legged tokens. The tutorial uses 2-legged and 3-legged tokens for calling different Data Management endpoints.
+This SDK comes with an [OAuth2](https://developer.autodesk.com/en/docs/oauth/v2/overview/) client that allows you to retrieve 2-legged and 3-legged tokens. It also enables you to refresh 3-legged tokens. The tutorial uses both 2-legged and 3-legged tokens for calling different Data Management endpoints.
 
 #### 2-Legged Token
 
-This type of token is given directly to the application without the user's consent.
+This type of token is given directly to the application.
 To get a 2-legged token run the following code:
 
 ``` JavaScript
