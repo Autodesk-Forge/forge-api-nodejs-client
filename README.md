@@ -92,7 +92,7 @@ oAuth2ThreeLegged.getToken(authorizationCode).then(function (credentials) {
 });
 ```
 
-To refresh your access token, call the `oAuth2ThreeLegged.refreshToken(credentials);` method.
+Note that access tokens expire after a short period of time. To refresh your access token, call the `oAuth2ThreeLegged.refreshToken(credentials);` method. 
 
 #### Example API Calls
 
