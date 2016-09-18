@@ -70,7 +70,10 @@ var oAuth2ThreeLegged = new ForgeSDK.AuthClientThreeLegged(CLIENT_ID, CLIENT_SEC
 ]);
 
 // Generate a URL page that asks for permissions for the specified scopes.
-oAuth2ThreeLegged.generateAuthUrl();
+var authUrl = oAuth2ThreeLegged.generateAuthUrl();
+
+//Redirect the user to authUrl (the user consent page)
+
 ```
 
 ##### Retrieve an Authorization Code
