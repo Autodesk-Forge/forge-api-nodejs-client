@@ -7,19 +7,19 @@ into your application, including [Data Management](https://developer.autodesk.co
 [3D Print](https://developer.autodesk.com/en/docs/print/v1/overview/),
 and [Design Automation](https://developer.autodesk.com/en/docs/design-automation/v2/overview/).
 
-## Requirements
+### Requirements
 * Node.js version 4 and above.
 * A registered app on the [Forge Developer portal](https://developer.autodesk.com/myapps).
 * A Node.js web server (such as Express) for 3-legged authentication.
 
 
-## Installation
+### Installation
 ```sh
     npm install forge-apis --save
 ```
 
 ## Tutorial
-Follow this tutorial to see a step-by-step authentication guide, and examples of how to use the (Data Management) APIs.
+Follow this tutorial to see a step-by-step authentication guide, and examples of how to use the Forge APIs.
 
 Create an app on the Forge Developer portal, and select the desired API products in the app creation page (e.g., Data Management API). Note the app key and app secret.
 
