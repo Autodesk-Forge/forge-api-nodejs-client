@@ -128,4 +128,4 @@ HubsApi.getHubs({}, threeLeggedCredentials).then(function(hubs) {
 
 ## Support
 
-<a href="forge.help@autodesk.com" target="_blank">New Tab</a>
+<a href="forge.help@autodesk.com" target="_blank">Forge Support</a>
