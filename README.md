@@ -1,15 +1,15 @@
 # Forge Node.js SDK
 
 ## Overview
-This [Node.js](https://nodejs.org/) SDK (version 0.1.5) enables you to easily integrate the Forge REST APIs
-into your application, including [Data Management](https://developer.autodesk.com/en/docs/data/v2/overview/),
-[Model Derivative](https://developer.autodesk.com/en/docs/model-derivative/v2/overview/),
-[3D Print](https://developer.autodesk.com/en/docs/print/v1/overview/),
-and [Design Automation](https://developer.autodesk.com/en/docs/design-automation/v2/overview/).
+This <a href="https://nodejs.org/" target="_blank">Node.js</a> SDK (version 0.1.5) enables you to easily integrate the Forge REST APIs
+into your application, including <a href="https://developer.autodesk.com/en/docs/data/v2/overview/" target="_blank">Data Management</a>,
+<a href="https://developer.autodesk.com/en/docs/model-derivative/v2/overview/" target="_blank">,
+,
+and <a href="https://developer.autodesk.com/en/docs/design-automation/v2/overview/" target="_blank">Design Automation</a>.
 
 ### Requirements
 * Node.js version 4 and above.
-* A registered app on the [Forge Developer portal](https://developer.autodesk.com/myapps).
+* A registered app on the <a href="https://developer.autodesk.com/myapps" target="_blank">Forge Developer portal</a>.
 * A Node.js web server (such as Express) for 3-legged authentication.
 
 
@@ -25,7 +25,7 @@ Create an app on the Forge Developer portal, and select the desired API products
 
 ### Authentication
 
-This SDK comes with an [OAuth2](https://developer.autodesk.com/en/docs/oauth/v2/overview/) client that allows you to retrieve 2-legged and 3-legged tokens. It also enables you to refresh 3-legged tokens. The tutorial uses both 2-legged and 3-legged tokens for calling different Data Management endpoints.
+This SDK comes with an <a href="https://developer.autodesk.com/en/docs/oauth/v2/overview/" target="_blank">OAuth 2.0</a> client that allows you to retrieve 2-legged and 3-legged tokens. It also enables you to refresh 3-legged tokens. The tutorial uses both 2-legged and 3-legged tokens for calling different Data Management endpoints.
 
 #### 2-Legged Token
 
@@ -128,4 +128,4 @@ HubsApi.getHubs({}, threeLeggedCredentials).then(function(hubs) {
 
 ## Support
 
-<a href="forge.help@autodesk.com" target="_blank">Forge Support</a>
+forge.help@autodesk.com
