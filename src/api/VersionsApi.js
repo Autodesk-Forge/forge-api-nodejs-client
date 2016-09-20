@@ -80,7 +80,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/json'];
+      var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
       var returnType = Object;
 
@@ -124,7 +124,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/json'];
+      var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
       var returnType = Object;
 
@@ -176,7 +176,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/json'];
+      var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
       var returnType = JsonApiCollection;
 
@@ -232,7 +232,7 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/json'];
+      var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
       var returnType = Object;
 
@@ -281,9 +281,9 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/json'];
+      var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = null;
+      var returnType = Object;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/versions/{version_id}/relationships/refs', 'POST',

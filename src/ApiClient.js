@@ -256,6 +256,24 @@ module.exports = (function() {
     return exports.convertToType(response, returnType);
   };
 
+
+  /**
+   * Enable working in debug mode
+   * To activate, simple set ForgeSDK.setDebug(true);
+   */
+  exports.prototype.debug = function debug(){
+    if (this.isDebugMode){
+      var args = Array.prototype.slice.call(arguments);
+      args.map(function(arg){
+        if (typeof arg === 'string'){
+          console.log(arg + ': ');
+        } else {
+          console.log(arg);
+        }
+      })
+    }
+  };
+  
   /**
    * Invokes the REST service using the supplied settings and parameters.
    * @param {String} path The base URL to invoke.
@@ -308,6 +326,7 @@ module.exports = (function() {
       requestParams.headers.Accept = accepts.join(',');
     }
 
+    _this.debug('request params were', requestParams);
     return new Promise(function(resolve, reject) {
       request(requestParams,
           function (error, response, body) {
@@ -319,10 +338,10 @@ module.exports = (function() {
               catch(e) {resp = body}
 
               if (response.statusCode >= 400){
-                reject(response);
+                _this.debug('error response', {statusCode: response.statusCode, statusMessage: response.statusMessage});
+                reject({statusCode: response.statusCode, statusMessage: response.statusMessage});
               } else {
-                var data = typeof resp == 'string' ? resp : _this.deserialize(resp, returnType);
-                resolve(data);
+                resolve(resp);
               }
             }
           });

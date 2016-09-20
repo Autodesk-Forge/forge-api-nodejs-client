@@ -784,7 +784,14 @@ module.exports = (function() {
      * The AuthClient service constructor for 3-legged flow.
      * @property {module:auth/OAuth2ThreeLegged}
      */
-    AuthClientThreeLegged: authClientThreeLegged
+    AuthClientThreeLegged: authClientThreeLegged,
+    /**
+     * Optionally enable debugging
+     * @param isDebug
+     */
+    setDebug: function(isDebug){
+      ApiClient.instance.isDebugMode = isDebug;
+    }
 
   };
 
