@@ -20,10 +20,10 @@ and <a href="https://developer.autodesk.com/en/docs/design-automation/v2/overvie
 ## Tutorial
 Follow this tutorial to see a step-by-step authentication guide, and examples of how to use the Forge APIs.
 
-Create an app on the Forge Developer portal, and select the desired API products in the app creation page (e.g., Data Management API). Note the app key and app secret.
+Create an app on the Forge Developer portal, and select the desired API products in the app creation page (e.g., Data Management API). Note the client key and client secret.
 
 ### Authentication
-
+a
 This SDK comes with an <a href="https://developer.autodesk.com/en/docs/oauth/v2/overview/" target="_blank">OAuth 2.0</a> client that allows you to retrieve 2-legged and 3-legged tokens. It also enables you to refresh 3-legged tokens. The tutorial uses both 2-legged and 3-legged tokens for calling different Data Management endpoints.
 
 #### 2-Legged Token
@@ -88,13 +88,13 @@ Request an access token using the authorization code you received, as shown belo
 
 ``` JavaScript
 oAuth2ThreeLegged.getToken(authorizationCode).then(function (credentials) {
-    // The `credentials` object contains an access_token and an optional refresh_token that you can use to call the endpoints.
+    // The `credentials` object contains an `access_token` and an optional `refresh_token` that you can use to call the endpoints.
 }, function(err){
     console.error(err);
 });
 ```
 
-************Note that access tokens expire after a short period of time (see the `expires_in` property in the `credentials` object seconds). To refresh your access token, call the `oAuth2ThreeLegged.refreshToken(credentials);` method. 
+Note that access tokens expire after a short period of time. The `expires_in` field in the `credentials` object gives the validity of an access token in seconds). To refresh your access token, call the `oAuth2ThreeLegged.refreshToken(credentials);` method. 
 
 #### Example API Calls
 
