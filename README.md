@@ -1,42 +1,41 @@
 # Forge Node.js SDK
 
 ## Overview
-This [Node.js](https://nodejs.org/) SDK (version 0.1.6) enables you to easily integrate the Forge REST APIs
-into your application, including [Data Management](https://developer.autodesk.com/en/docs/data/v2/overview/),
-[Model Derivative](https://developer.autodesk.com/en/docs/model-derivative/v2/overview/),
-[3D Print](https://developer.autodesk.com/en/docs/print/v1/overview/),
-and [Design Automation](https://developer.autodesk.com/en/docs/design-automation/v2/overview/).
+This <a href="https://nodejs.org/" target="_blank">Node.js</a> SDK (version 0.1.7) enables you to easily integrate the Forge REST APIs
+into your application, including <a href="https://developer.autodesk.com/en/docs/oauth/v2/overview/" target="_blank">OAuth</a>, <a href="https://developer.autodesk.com/en/docs/data/v2/overview/" target="_blank">Data Management</a>,
+<a href="https://developer.autodesk.com/en/docs/model-derivative/v2/overview/" target="_blank">Model Derivative</a>,
+and <a href="https://developer.autodesk.com/en/docs/design-automation/v2/overview/" target="_blank">Design Automation</a>.
 
-## Requirements
+### Requirements
 * Node.js version 4 and above.
-* A registered app on the [Forge Developer portal](https://developer.autodesk.com/myapps).
+* A registered app on the <a href="https://developer.autodesk.com/myapps" target="_blank">Forge Developer portal</a>.
 * A Node.js web server (such as Express) for 3-legged authentication.
 
 
-## Installation
+### Installation
 ```sh
     npm install forge-apis --save
 ```
 
 ## Tutorial
-Follow this tutorial to see a step-by-step authentication guide, and examples of how to use the (Data Management) APIs.
+Follow this tutorial to see a step-by-step authentication guide, and examples of how to use the Forge APIs.
 
-Create an app on the Forge Developer portal, and select the desired API products in the app creation page (e.g., Data Management API). Note the app key and app secret.
+### Create an App
+Create an app on the Forge Developer portal. Note the client key and client secret.
 
 ### Authentication
-
-This SDK comes with an [OAuth2](https://developer.autodesk.com/en/docs/oauth/v2/overview/) client that allows you to retrieve 2-legged and 3-legged tokens. It also enables you to refresh 3-legged tokens. The tutorial uses 2-legged and 3-legged tokens for calling different Data Management endpoints.
+This SDK comes with an <a href="https://developer.autodesk.com/en/docs/oauth/v2/overview/" target="_blank">OAuth 2.0</a> client that allows you to retrieve 2-legged and 3-legged tokens. It also enables you to refresh 3-legged tokens. This tutorial uses both 2-legged and 3-legged tokens for calling different Data Management endpoints.
 
 #### 2-Legged Token
 
-This type of token is given directly to the application without the user's consent.
+This type of token is given directly to the application.
 To get a 2-legged token run the following code:
 
 ``` JavaScript
 var ForgeSDK = require('forge-apis');
 var CLIENT_ID = '<your-client-id>' , CLIENT_SECRET = '<your-client-secret>';
 
-// Initialize the 2-legged OAuth2 client, and optionally set specific scopes.
+// Initialize the 2-legged OAuth 2.0 client, and optionally set specific scopes.
 // If you omit scopes, the generated token will have all scope permissions.
 var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(CLIENT_ID, CLIENT_SECRET, [
     'data:read',
@@ -45,7 +44,7 @@ var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(CLIENT_ID, CLIENT_SECRET,
 
 oAuth2TwoLegged.authenticate().then(function(credentials){
     // The `credentials` object contains an access_token that you use to call the endpoints.
-    // You can set the credentials globally on the oauth client and retrieve them later on.
+    // You can set the credentials globally on the OAuth client and retrieve them later on.
     oAuth2TwoLegged.setCredentials(credentials);
 }, function(err){
     console.error(err);
@@ -62,7 +61,7 @@ redirect the user to a consent page. Run this code to create a consent page URL:
 var ForgeSDK = require('forge-apis');
 var CLIENT_ID = '' , CLIENT_SECRET = '', REDIRECT_URL = '';
 
-// Initialize the 3-legged OAuth2 client, and optionally set specific scopes.
+// Initialize the 3-legged OAuth 2.0 client, and optionally set specific scopes.
 // If you omit scopes, the generated token will have all scope permissions.
 var oAuth2ThreeLegged = new ForgeSDK.AuthClientThreeLegged(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, [
     'data:read',
@@ -70,12 +69,15 @@ var oAuth2ThreeLegged = new ForgeSDK.AuthClientThreeLegged(CLIENT_ID, CLIENT_SEC
 ]);
 
 // Generate a URL page that asks for permissions for the specified scopes.
-oAuth2ThreeLegged.generateAuthUrl();
+var authUrl = oAuth2ThreeLegged.generateAuthUrl();
+
+//Redirect the user to authUrl (the user consent page).
+
 ```
 
 ##### Retrieve an Authorization Code
 
-Once a user has given permissions on the consent page, Forge will redirect
+Once a user receives permissions on the consent page, Forge will redirect
 the page to the redirect URL you provided when you created the app. An authorization code is returned in the query string.
 
 GET /callback?code={authorizationCode}
@@ -86,13 +88,13 @@ Request an access token using the authorization code you received, as shown belo
 
 ``` JavaScript
 oAuth2ThreeLegged.getToken(authorizationCode).then(function (credentials) {
-    // The `credentials` object contains an access_token and an optional refresh_token that you can use to call the endpoints.
+    // The `credentials` object contains an `access_token` and an optional `refresh_token` that you can use to call the endpoints.
 }, function(err){
     console.error(err);
 });
 ```
 
-To refresh your access token, call the `oAuth2ThreeLegged.refreshToken(credentials);` method.
+Note that access tokens expire after a short period of time. The `expires_in` field in the `credentials` object gives the validity of an access token in seconds). To refresh your access token, call the `oAuth2ThreeLegged.refreshToken(credentials);` method. 
 
 #### Example API Calls
 
@@ -108,16 +110,14 @@ var HubsApi = new ForgeSDK.HubsApi(); //Hubs Client
 var BucketsApi = new ForgeSDK.BucketsApi(); //Buckets Client
 
 // Get the buckets owned by an application.
-// Use the twoLeggedCredentials that you retrieved above.
+// Use the twoLeggedCredentials that you retrieved previously.
 BucketsApi.getBuckets({}, twoLeggedCredentials).then(function(buckets){
-    console.log('buckets details response:');
     console.log(buckets);
 });
 
 // Get the hubs that are accessible for a member.
-// Use the threeLeggedCredentials that you retrieved above.
+// Use the threeLeggedCredentials that you retrieved previously.
 HubsApi.getHubs({}, threeLeggedCredentials).then(function(hubs) {
-    console.log('hubs details response:');
     console.log(hubs);
 });
 
