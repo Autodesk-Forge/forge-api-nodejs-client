@@ -36,7 +36,7 @@ module.exports = (function() {
   /**
    * The Version model module.
    * @module model/Version
-   * @version 0.1.6
+   * @version 0.1.7
    */
 
    /**

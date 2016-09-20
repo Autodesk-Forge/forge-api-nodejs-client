@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The Diagnostics model module.
    * @module model/Diagnostics
-   * @version 0.1.6
+   * @version 0.1.7
    */
 
    /**

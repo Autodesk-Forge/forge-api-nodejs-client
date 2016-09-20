@@ -34,7 +34,7 @@ module.exports = (function() {
   /**
    * The JsonApiRelationshipsLinksInternalResource model module.
    * @module model/JsonApiRelationshipsLinksInternalResource
-   * @version 0.1.6
+   * @version 0.1.7
    */
 
    /**

@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The MeshObj model module.
    * @module model/MeshObj
-   * @version 0.1.6
+   * @version 0.1.7
    */
 
    /**

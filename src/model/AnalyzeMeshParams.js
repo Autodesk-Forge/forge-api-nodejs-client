@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The AnalyzeMeshParams model module.
    * @module model/AnalyzeMeshParams
-   * @version 0.1.6
+   * @version 0.1.7
    */
 
    /**

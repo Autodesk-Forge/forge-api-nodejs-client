@@ -35,7 +35,7 @@ module.exports = (function() {
   /**
    * Buckets service.
    * @module api/BucketsApi
-   * @version 0.1.6
+   * @version 0.1.7
    */
 
   /**

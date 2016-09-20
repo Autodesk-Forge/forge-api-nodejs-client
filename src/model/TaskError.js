@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The TaskError model module.
    * @module model/TaskError
-   * @version 0.1.6
+   * @version 0.1.7
    */
 
    /**

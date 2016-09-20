@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The RepairMeshParams model module.
    * @module model/RepairMeshParams
-   * @version 0.1.6
+   * @version 0.1.7
    */
 
    /**

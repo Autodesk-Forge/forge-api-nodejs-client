@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The JobAcceptedJobs model module.
    * @module model/JobAcceptedJobs
-   * @version 0.1.6
+   * @version 0.1.7
    */
 
    /**

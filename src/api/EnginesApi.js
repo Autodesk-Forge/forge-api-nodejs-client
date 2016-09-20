@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * Engines service.
    * @module api/EnginesApi
-   * @version 0.1.6
+   * @version 0.1.7
    */
 
   /**

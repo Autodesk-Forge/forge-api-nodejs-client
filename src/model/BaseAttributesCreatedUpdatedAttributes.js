@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The BaseAttributesCreatedUpdatedAttributes model module.
    * @module model/BaseAttributesCreatedUpdatedAttributes
-   * @version 0.1.6
+   * @version 0.1.7
    */
 
    /**

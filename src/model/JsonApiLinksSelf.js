@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The JsonApiLinksSelf model module.
    * @module model/JsonApiLinksSelf
-   * @version 0.1.6
+   * @version 0.1.7
    */
 
    /**

@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The PostObjectSigned model module.
    * @module model/PostObjectSigned
-   * @version 0.1.6
+   * @version 0.1.7
    */
 
    /**

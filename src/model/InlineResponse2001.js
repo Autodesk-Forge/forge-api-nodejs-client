@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The InlineResponse2001 model module.
    * @module model/InlineResponse2001
-   * @version 0.1.6
+   * @version 0.1.7
    */
 
    /**

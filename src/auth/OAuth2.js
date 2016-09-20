@@ -27,6 +27,7 @@ module.exports = (function () {
 
     var request = require('request');
     var ApiClient = require('../ApiClient').instance;
+    var Config = require('../Config');
 
     /**
      * Construct the scope string
@@ -91,7 +92,7 @@ module.exports = (function () {
 
     /**
      * @module auth/OAuth2
-     * @version 0.1.6
+     * @version 0.1.7
      */
 
     /**
@@ -111,7 +112,7 @@ module.exports = (function () {
         this.scope = buildScope(this.authentication.scopes, scope);
 
         //set the base path for the auth endpoints
-        this.basePath = ApiClient.basePath;
+        this.basePath = ApiClient.getBasePath(Config.overridedEnv);
 
         // Implement a sort of interface in JS
         if (!this.hasMember('authentication')) {
@@ -120,6 +121,30 @@ module.exports = (function () {
     };
 
     OAuth2.prototype.doPostRequest = doPostRequest;
+
+
+    /**
+     * Authorize and get an access token
+     * @return Promise
+     */
+    OAuth2.prototype.validateToken = function (accessToken) {
+        var _this = this;
+        return new Promise(function(resolve) {
+            var url = _this.basePath + _this.validateTokenUrl;
+
+            var body = {
+                grant_type: 'urn:pingidentity.com:oauth2:grant_type:validate_bearer',
+                client_id: _this.clientId,
+                client_secret: _this.clientSecret,
+                token: accessToken
+            };
+
+            doPostRequest(url, body, function (response) {
+                resolve(response);
+            });
+
+        });
+    };
 
     // This allows us to create class members that
     // must be present in the child object
