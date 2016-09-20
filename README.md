@@ -44,7 +44,7 @@ var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(CLIENT_ID, CLIENT_SECRET,
 
 oAuth2TwoLegged.authenticate().then(function(credentials){
     // The `credentials` object contains an access_token that you use to call the endpoints.
-    // You can set the credentials globally on the oauth client and retrieve them later on.
+    // You can set the credentials globally on the OAuth client and retrieve them later on.
     oAuth2TwoLegged.setCredentials(credentials);
 }, function(err){
     console.error(err);
