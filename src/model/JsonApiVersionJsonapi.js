@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The JsonApiVersionJsonapi model module.
    * @module model/JsonApiVersionJsonapi
-   * @version 0.1.5
+   * @version 0.1.6
    */
 
    /**

@@ -36,7 +36,7 @@ module.exports = (function() {
   /**
    * The RelRef model module.
    * @module model/RelRef
-   * @version 0.1.5
+   * @version 0.1.6
    */
 
    /**

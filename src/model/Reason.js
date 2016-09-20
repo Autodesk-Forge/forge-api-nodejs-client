@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The Reason model module.
    * @module model/Reason
-   * @version 0.1.5
+   * @version 0.1.6
    */
 
    /**

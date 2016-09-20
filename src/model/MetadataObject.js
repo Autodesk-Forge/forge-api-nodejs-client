@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The MetadataObject model module.
    * @module model/MetadataObject
-   * @version 0.1.5
+   * @version 0.1.6
    */
 
    /**

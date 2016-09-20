@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The UploadFile model module.
    * @module model/UploadFile
-   * @version 0.1.5
+   * @version 0.1.6
    */
 
    /**

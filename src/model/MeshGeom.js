@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The MeshGeom model module.
    * @module model/MeshGeom
-   * @version 0.1.5
+   * @version 0.1.6
    */
 
    /**

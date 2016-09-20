@@ -36,7 +36,7 @@ module.exports = (function() {
   /**
    * The Health model module.
    * @module model/Health
-   * @version 0.1.5
+   * @version 0.1.6
    */
 
    /**
