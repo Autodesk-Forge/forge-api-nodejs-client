@@ -110,16 +110,14 @@ var HubsApi = new ForgeSDK.HubsApi(); //Hubs Client
 var BucketsApi = new ForgeSDK.BucketsApi(); //Buckets Client
 
 // Get the buckets owned by an application.
-// Use the twoLeggedCredentials that you retrieved *******previously.
+// Use the twoLeggedCredentials that you retrieved previously.
 BucketsApi.getBuckets({}, twoLeggedCredentials).then(function(buckets){
-    console.log('buckets details response:');
     console.log(buckets);
 });
 
 // Get the hubs that are accessible for a member.
-// Use the threeLeggedCredentials that you retrieved ******above.
+// Use the threeLeggedCredentials that you retrieved previously.
 HubsApi.getHubs({}, threeLeggedCredentials).then(function(hubs) {
-    console.log('hubs details response:');
     console.log(hubs);
 });
 
