@@ -95,7 +95,7 @@ oAuth2ThreeLegged.getToken(authorizationCode).then(function (credentials) {
 });
 ```
 
-Note that access tokens expire after a short period of time. To refresh your access token, call the `oAuth2ThreeLegged.refreshToken(credentials);` method. 
+************Note that access tokens expire after a short period of time (see the `expires_in` property in the `credentials` object seconds). To refresh your access token, call the `oAuth2ThreeLegged.refreshToken(credentials);` method. 
 
 #### Example API Calls
 
@@ -111,14 +111,14 @@ var HubsApi = new ForgeSDK.HubsApi(); //Hubs Client
 var BucketsApi = new ForgeSDK.BucketsApi(); //Buckets Client
 
 // Get the buckets owned by an application.
-// Use the twoLeggedCredentials that you retrieved above.
+// Use the twoLeggedCredentials that you retrieved *******previously.
 BucketsApi.getBuckets({}, twoLeggedCredentials).then(function(buckets){
     console.log('buckets details response:');
     console.log(buckets);
 });
 
 // Get the hubs that are accessible for a member.
-// Use the threeLeggedCredentials that you retrieved above.
+// Use the threeLeggedCredentials that you retrieved ******above.
 HubsApi.getHubs({}, threeLeggedCredentials).then(function(hubs) {
     console.log('hubs details response:');
     console.log(hubs);
@@ -128,4 +128,4 @@ HubsApi.getHubs({}, threeLeggedCredentials).then(function(hubs) {
 
 ## Support
 
-forge.help@autodesk.com
+<a href="forge.help@autodesk.com" target="_blank">New Tab</a>
