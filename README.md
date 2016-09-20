@@ -24,7 +24,7 @@ Follow this tutorial to see a step-by-step authentication guide, and examples of
 Create an app on the Forge Developer portal. Note the client key and client secret.
 
 ### Authentication
-This SDK comes with an <a href="https://developer.autodesk.com/en/docs/oauth/v2/overview/" target="_blank">OAuth 2.0</a> client that allows you to retrieve 2-legged and 3-legged tokens. It also enables you to refresh 3-legged tokens. The tutorial uses both 2-legged and 3-legged tokens for calling different Data Management endpoints.
+This SDK comes with an <a href="https://developer.autodesk.com/en/docs/oauth/v2/overview/" target="_blank">OAuth 2.0</a> client that allows you to retrieve 2-legged and 3-legged tokens. It also enables you to refresh 3-legged tokens. This tutorial uses both 2-legged and 3-legged tokens for calling different Data Management endpoints.
 
 #### 2-Legged Token
 
