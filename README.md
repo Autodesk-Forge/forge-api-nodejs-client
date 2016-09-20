@@ -21,7 +21,7 @@ and <a href="https://developer.autodesk.com/en/docs/design-automation/v2/overvie
 Follow this tutorial to see a step-by-step authentication guide, and examples of how to use the Forge APIs.
 
 ### Create an App
-Create an app on the Forge Developer portal, and select the desired API products in the app creation page (e.g., Data Management API). Note the client key and client secret.
+Create an app on the Forge Developer portal. Note the client key and client secret.
 
 ### Authentication
 a
