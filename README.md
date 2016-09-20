@@ -35,7 +35,7 @@ To get a 2-legged token run the following code:
 var ForgeSDK = require('forge-apis');
 var CLIENT_ID = '<your-client-id>' , CLIENT_SECRET = '<your-client-secret>';
 
-// Initialize the 2-legged OAuth2 client, and optionally set specific scopes.
+// Initialize the 2-legged OAuth 2.0 client, and optionally set specific scopes.
 // If you omit scopes, the generated token will have all scope permissions.
 var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(CLIENT_ID, CLIENT_SECRET, [
     'data:read',
@@ -61,7 +61,7 @@ redirect the user to a consent page. Run this code to create a consent page URL:
 var ForgeSDK = require('forge-apis');
 var CLIENT_ID = '' , CLIENT_SECRET = '', REDIRECT_URL = '';
 
-// Initialize the 3-legged OAuth2 client, and optionally set specific scopes.
+// Initialize the 3-legged OAuth 2.0 client, and optionally set specific scopes.
 // If you omit scopes, the generated token will have all scope permissions.
 var oAuth2ThreeLegged = new ForgeSDK.AuthClientThreeLegged(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, [
     'data:read',
@@ -71,13 +71,13 @@ var oAuth2ThreeLegged = new ForgeSDK.AuthClientThreeLegged(CLIENT_ID, CLIENT_SEC
 // Generate a URL page that asks for permissions for the specified scopes.
 var authUrl = oAuth2ThreeLegged.generateAuthUrl();
 
-//Redirect the user to authUrl (the user consent page)
+//Redirect the user to authUrl (the user consent page).
 
 ```
 
 ##### Retrieve an Authorization Code
 
-Once a user has given permissions on the consent page, Forge will redirect
+Once a user receives permissions on the consent page, Forge will redirect
 the page to the redirect URL you provided when you created the app. An authorization code is returned in the query string.
 
 GET /callback?code={authorizationCode}
