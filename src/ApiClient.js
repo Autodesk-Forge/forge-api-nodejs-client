@@ -341,7 +341,7 @@ module.exports = (function() {
                 _this.debug('error response', {statusCode: response.statusCode, statusMessage: response.statusMessage});
                 reject({statusCode: response.statusCode, statusMessage: response.statusMessage});
               } else {
-                resolve(resp);
+                resolve({statusCode: response.statusCode, headers: response.headers, body: resp});
               }
             }
           });
