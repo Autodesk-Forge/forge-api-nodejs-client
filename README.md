@@ -21,7 +21,7 @@ and <a href="https://developer.autodesk.com/en/docs/design-automation/v2/overvie
 Follow this tutorial to see a step-by-step authentication guide, and examples of how to use the Forge APIs.
 
 ### Create an App
-Create an app on the Forge Developer portal. Note the client key and client secret.
+Create an app on the Forge Developer portal. Note the client ID and client secret.
 
 ### Authentication
 This SDK comes with an <a href="https://developer.autodesk.com/en/docs/oauth/v2/overview/" target="_blank">OAuth 2.0</a> client that allows you to retrieve 2-legged and 3-legged tokens. It also enables you to refresh 3-legged tokens. This tutorial uses both 2-legged and 3-legged tokens for calling different Data Management endpoints.
@@ -94,7 +94,7 @@ oAuth2ThreeLegged.getToken(authorizationCode).then(function (credentials) {
 });
 ```
 
-Note that access tokens expire after a short period of time. The `expires_in` field in the `credentials` object gives the validity of an access token in seconds). To refresh your access token, call the `oAuth2ThreeLegged.refreshToken(credentials);` method. 
+Note that access tokens expire after a short period of time. The `expires_in` field in the `credentials` object gives the validity of an access token in seconds. To refresh your access token, call the `oAuth2ThreeLegged.refreshToken(credentials);` method. 
 
 #### Example API Calls
 
