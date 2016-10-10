@@ -2,13 +2,25 @@
   "name": "forge-apis",
   "version": "0.1.7",
   "description": "The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.",
+  "homepage": "https://developer.autodesk.com/",
   "license": "Apache-2.0",
   "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Autodesk-Forge/forge-api-nodejs-client"
   },
+  "bugs": {
+    "url": "https://github.com/Autodesk-Forge/forge-api-nodejs-client/issues"
+  },
+  "author": "Autodesk Inc.",
   "dependencies": {
     "request": "2.74.0"
-  }
+  },
+  "keywords": [
+    "autodesk",
+    "autodesk-forge",
+    "rest",
+    "restful",
+    "api"
+  ]
 }
