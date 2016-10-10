@@ -35,7 +35,7 @@ module.exports = (function() {
   /**
    * The JsonApiDocumentBase model module.
    * @module model/JsonApiDocumentBase
-   * @version 0.1.7
+   * @version 0.1.8
    */
 
    /**

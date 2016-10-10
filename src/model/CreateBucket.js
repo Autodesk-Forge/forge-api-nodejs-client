@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The CreateBucket model module.
    * @module model/CreateBucket
-   * @version 0.1.7
+   * @version 0.1.8
    */
 
    /**

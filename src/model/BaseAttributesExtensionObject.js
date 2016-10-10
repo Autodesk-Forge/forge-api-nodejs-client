@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The BaseAttributesExtensionObject model module.
    * @module model/BaseAttributesExtensionObject
-   * @version 0.1.7
+   * @version 0.1.8
    */
 
    /**

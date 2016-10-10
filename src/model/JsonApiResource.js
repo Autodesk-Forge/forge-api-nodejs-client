@@ -37,7 +37,7 @@ module.exports = (function() {
   /**
    * The JsonApiResource model module.
    * @module model/JsonApiResource
-   * @version 0.1.7
+   * @version 0.1.8
    */
 
    /**

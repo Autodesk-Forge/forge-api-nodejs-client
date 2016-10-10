@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The JobObjOutputPayloadAdvanced model module.
    * @module model/JobObjOutputPayloadAdvanced
-   * @version 0.1.7
+   * @version 0.1.8
    */
 
    /**

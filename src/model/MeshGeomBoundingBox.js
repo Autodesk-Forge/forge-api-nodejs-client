@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The MeshGeomBoundingBox model module.
    * @module model/MeshGeomBoundingBox
-   * @version 0.1.7
+   * @version 0.1.8
    */
 
    /**

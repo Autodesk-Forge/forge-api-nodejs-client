@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The WorkItemResp model module.
    * @module model/WorkItemResp
-   * @version 0.1.7
+   * @version 0.1.8
    */
 
    /**

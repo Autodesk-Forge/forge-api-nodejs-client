@@ -34,7 +34,7 @@ module.exports = (function() {
   /**
    * The JsonApiError model module.
    * @module model/JsonApiError
-   * @version 0.1.7
+   * @version 0.1.8
    */
 
    /**

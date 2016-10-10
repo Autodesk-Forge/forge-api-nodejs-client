@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * WorkItems service.
    * @module api/WorkItemsApi
-   * @version 0.1.7
+   * @version 0.1.8
    */
 
   /**

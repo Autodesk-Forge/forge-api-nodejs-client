@@ -36,7 +36,7 @@ module.exports = (function() {
   /**
    * The Folder model module.
    * @module model/Folder
-   * @version 0.1.7
+   * @version 0.1.8
    */
 
    /**

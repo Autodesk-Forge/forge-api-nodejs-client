@@ -1,7 +1,7 @@
 # Forge Node.js SDK
 
 ## Overview
-This <a href="https://nodejs.org/" target="_blank">Node.js</a> SDK (version 0.1.7) enables you to easily integrate the Forge REST APIs
+This <a href="https://nodejs.org/" target="_blank">Node.js</a> SDK (version 0.1.8) enables you to easily integrate the Forge REST APIs
 into your application, including <a href="https://developer.autodesk.com/en/docs/oauth/v2/overview/" target="_blank">OAuth</a>, <a href="https://developer.autodesk.com/en/docs/data/v2/overview/" target="_blank">Data Management</a>,
 <a href="https://developer.autodesk.com/en/docs/model-derivative/v2/overview/" target="_blank">Model Derivative</a>,
 and <a href="https://developer.autodesk.com/en/docs/design-automation/v2/overview/" target="_blank">Design Automation</a>.

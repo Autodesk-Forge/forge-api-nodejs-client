@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The InlineResponse200Items model module.
    * @module model/InlineResponse200Items
-   * @version 0.1.7
+   * @version 0.1.8
    */
 
    /**
