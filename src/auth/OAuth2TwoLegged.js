@@ -88,7 +88,7 @@ module.exports = (function () {
      * @returns {boolean}
      */
     OAuth2TwoLegged.prototype.isAuthorized = function(){
-        return !!(this.token_expires_at && this.token_expires_at > Date.now());
+        return !!(this.credentials && this.credentials.token_expires_at && this.credentials.token_expires_at > Date.now());
     };
 
     /**
