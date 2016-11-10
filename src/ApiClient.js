@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -231,13 +231,45 @@ module.exports = (function() {
   /**
     * Applies authentication header to the request.
     * @param {Object} requestParams The requestParams object created by a <code>request()</code> call.
-    * @param {Object} credentials - Credentials for the call
+    * @param {Object} oauth2client - OAuth2 client that has a credentials object
     */
-   exports.prototype.applyAuthToRequest = function(requestParams, credentials) {
-    // set access token
-    if (credentials.access_token){
-      requestParams.headers.Authorization = 'Bearer ' + credentials.access_token;
-    }
+   exports.prototype.applyAuthToRequest = function(requestParams, oauth2client) {
+
+     var _this = this;
+     function setAuthHeader(credentials){
+       if (credentials.access_token) {
+         requestParams.headers.Authorization = 'Bearer ' + credentials.access_token;
+       }
+     }
+
+     return new Promise(function(resolve, reject) {
+       //if the request doesn't require authentication, just resolve the promise
+       if (!oauth2client.credentials || (oauth2client.credentials && !oauth2client.credentials.access_token)) {
+         resolve();
+       }
+
+       // let's see if the token is already expired?
+       if (oauth2client.autoRefresh && new Date(oauth2client.credentials.expires_at).getTime() <= Date.now()) {
+
+         // set the correct promiseObj, for 2 or 3 legged token
+         var getCredentialsPromise = (oauth2client.credentials.refresh_token)
+             ? oauth2client.refreshToken(oauth2client.credentials) // 3-legged: use refresh
+             : oauth2client.authenticate(); // 2-legged: create a new credentials object
+
+         getCredentialsPromise.then(function(newCredentials){
+           _this.debug('credentials were refreshed, new credentials:', newCredentials);
+           oauth2client.credentials = newCredentials;
+           setAuthHeader(oauth2client.credentials);
+           resolve();
+         }, function(err){
+           reject(err);
+         });
+       } else {
+         setAuthHeader(oauth2client.credentials);
+         _this.debug('set current credentials to header', oauth2client.credentials);
+         resolve();
+       }
+     });
    };
 
   /**
@@ -259,7 +291,7 @@ module.exports = (function() {
 
   /**
    * Enable working in debug mode
-   * To activate, simple set ForgeSDK.setDebug(true);
+   * To activate, simple set ForgeSdk.setDebug(true);
    */
   exports.prototype.debug = function debug(){
     if (this.isDebugMode){
@@ -273,7 +305,7 @@ module.exports = (function() {
       })
     }
   };
-  
+
   /**
    * Invokes the REST service using the supplied settings and parameters.
    * @param {String} path The base URL to invoke.
@@ -287,12 +319,12 @@ module.exports = (function() {
    * @param {Array.<String>} accepts An array of acceptable response MIME types.
    * @param {(String|Array|Object|Function)} returnType The required type to return; can be a string for simple types or the
    *    constructor for a complex type.
-   * @param {Object} credentials Credentials for the call
+   * @param {Object} oauth2client oauth2client for the call
    * @returns {Object} A Promise object.
    */
   exports.prototype.callApi = function callApi(path, httpMethod, pathParams,
       queryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
-      returnType, credentials) {
+      returnType, oauth2client) {
 
     var _this = this;
     var requestParams = {};
@@ -305,10 +337,6 @@ module.exports = (function() {
     var contentType = this.jsonPreferredMime(contentTypes);
     if (contentType) {
       requestParams.headers['Content-Type'] = contentType;
-    }
-
-    if (credentials && !headerParams.Authorization) {
-      this.applyAuthToRequest(requestParams, credentials);
     }
 
     if (contentType === 'application/x-www-form-urlencoded') {
@@ -325,26 +353,37 @@ module.exports = (function() {
     if (accepts.length > 0) {
       requestParams.headers.Accept = accepts.join(',');
     }
-
     _this.debug('request params were', requestParams);
-    return new Promise(function(resolve, reject) {
-      request(requestParams,
-          function (error, response, body) {
-            if (error) {
-              reject(error);
-            } else {
-              var resp;
-              try {resp = JSON.parse(body)}
-              catch(e) {resp = body}
 
-              if (response.statusCode >= 400){
-                _this.debug('error response', {statusCode: response.statusCode, statusMessage: response.statusMessage});
-                reject({statusCode: response.statusCode, statusMessage: response.statusMessage});
+    return new Promise(function(resolve, reject) {
+      _this.applyAuthToRequest(requestParams, oauth2client).then(function() {
+        request(requestParams,
+            function (error, response, body) {
+              if (error) {
+                reject(error);
               } else {
-                resolve({statusCode: response.statusCode, headers: response.headers, body: resp});
+                var resp;
+                try {
+                  resp = JSON.parse(body)
+                }
+                catch(e) {
+                  resp = body
+                }
+
+                if (response.statusCode >= 400) {
+                  _this.debug('error response', {
+                    statusCode: response.statusCode,
+                    statusMessage: response.statusMessage
+                  });
+                  reject({statusCode: response.statusCode, statusMessage: response.statusMessage});
+                } else {
+                  resolve(resp);
+                }
               }
-            }
-          });
+            });
+      }, function(err){
+        throw new Error(err.toString);
+      });
     });
   };
 

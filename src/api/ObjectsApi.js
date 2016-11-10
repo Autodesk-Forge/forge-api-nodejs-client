@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -32,7 +32,7 @@ module.exports = (function() {
        PostBucketsSigned = require('../model/PostBucketsSigned'),
        InputStream = require('../model/InputStream'),
        ObjectFullDetails = require('../model/ObjectFullDetails'),
-       InlineResponse2001 = require('../model/InlineResponse2001'),
+       BucketObjects = require('../model/BucketObjects'),
        Reason = require('../model/Reason'),
        Result = require('../model/Result');
 
@@ -60,24 +60,24 @@ module.exports = (function() {
      * @param {String} objectName URL-encoded object name
      * @param {String} newObjName URL-encoded Object key to use as the destination
      * data is of type: {module:model/ObjectDetails}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.copyTo = function(bucketKey, objectName, newObjName, credentials) {
+    this.copyTo = function(bucketKey, objectName, newObjName, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'bucketKey' is set
       if (bucketKey == undefined || bucketKey == null) {
-        throw "Missing the required parameter 'bucketKey' when calling copyTo";
+        return Promise.reject("Missing the required parameter 'bucketKey' when calling copyTo");
       }
 
       // verify the required parameter 'objectName' is set
       if (objectName == undefined || objectName == null) {
-        throw "Missing the required parameter 'objectName' when calling copyTo";
+        return Promise.reject("Missing the required parameter 'objectName' when calling copyTo");
       }
 
       // verify the required parameter 'newObjName' is set
       if (newObjName == undefined || newObjName == null) {
-        throw "Missing the required parameter 'newObjName' when calling copyTo";
+        return Promise.reject("Missing the required parameter 'newObjName' when calling copyTo");
       }
 
 
@@ -100,7 +100,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}/copyTo/{newObjName}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -113,25 +113,25 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {module:model/String} opts.access Access for signed resource Acceptable values: &#x60;read&#x60;, &#x60;write&#x60;, &#x60;readwrite&#x60;. Default value: &#x60;read&#x60;  (default to read)
      * data is of type: {module:model/PostObjectSigned}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.createSignedResource = function(bucketKey, objectName, postBucketsSigned, opts, credentials) {
+    this.createSignedResource = function(bucketKey, objectName, postBucketsSigned, opts, oauth2client) {
       opts = opts || {};
       var postBody = postBucketsSigned;
 
       // verify the required parameter 'bucketKey' is set
       if (bucketKey == undefined || bucketKey == null) {
-        throw "Missing the required parameter 'bucketKey' when calling createSignedResource";
+        return Promise.reject("Missing the required parameter 'bucketKey' when calling createSignedResource");
       }
 
       // verify the required parameter 'objectName' is set
       if (objectName == undefined || objectName == null) {
-        throw "Missing the required parameter 'objectName' when calling createSignedResource";
+        return Promise.reject("Missing the required parameter 'objectName' when calling createSignedResource");
       }
 
       // verify the required parameter 'postBucketsSigned' is set
       if (postBucketsSigned == undefined || postBucketsSigned == null) {
-        throw "Missing the required parameter 'postBucketsSigned' when calling createSignedResource";
+        return Promise.reject("Missing the required parameter 'postBucketsSigned' when calling createSignedResource");
       }
 
 
@@ -154,7 +154,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}/signed', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -163,19 +163,19 @@ module.exports = (function() {
      * Deletes an object from the bucket.
      * @param {String} bucketKey URL-encoded bucket key
      * @param {String} objectName URL-encoded object name
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.deleteObject = function(bucketKey, objectName, credentials) {
+    this.deleteObject = function(bucketKey, objectName, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'bucketKey' is set
       if (bucketKey == undefined || bucketKey == null) {
-        throw "Missing the required parameter 'bucketKey' when calling deleteObject";
+        return Promise.reject("Missing the required parameter 'bucketKey' when calling deleteObject");
       }
 
       // verify the required parameter 'objectName' is set
       if (objectName == undefined || objectName == null) {
-        throw "Missing the required parameter 'objectName' when calling deleteObject";
+        return Promise.reject("Missing the required parameter 'objectName' when calling deleteObject");
       }
 
 
@@ -197,7 +197,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -208,15 +208,15 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
      * data is of type: {module:model/InputStream}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.deleteSignedResource = function(id, opts, credentials) {
+    this.deleteSignedResource = function(id, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling deleteSignedResource";
+        return Promise.reject("Missing the required parameter 'id' when calling deleteSignedResource");
       }
 
 
@@ -238,7 +238,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/signedresources/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -253,20 +253,20 @@ module.exports = (function() {
      * @param {Date} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
      * @param {String} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used. 
      * data is of type: {module:model/InputStream}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getObject = function(bucketKey, objectName, opts, credentials) {
+    this.getObject = function(bucketKey, objectName, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'bucketKey' is set
       if (bucketKey == undefined || bucketKey == null) {
-        throw "Missing the required parameter 'bucketKey' when calling getObject";
+        return Promise.reject("Missing the required parameter 'bucketKey' when calling getObject");
       }
 
       // verify the required parameter 'objectName' is set
       if (objectName == undefined || objectName == null) {
-        throw "Missing the required parameter 'objectName' when calling getObject";
+        return Promise.reject("Missing the required parameter 'objectName' when calling getObject");
       }
 
 
@@ -292,7 +292,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -305,20 +305,20 @@ module.exports = (function() {
      * @param {Date} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
      * @param {module:model/String} opts._with Extra information in details; multiple uses are supported Acceptable values: &#x60;createdDate&#x60;, &#x60;lastAccessedDate&#x60;, &#x60;lastModifiedDate&#x60; 
      * data is of type: {module:model/ObjectFullDetails}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getObjectDetails = function(bucketKey, objectName, opts, credentials) {
+    this.getObjectDetails = function(bucketKey, objectName, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'bucketKey' is set
       if (bucketKey == undefined || bucketKey == null) {
-        throw "Missing the required parameter 'bucketKey' when calling getObjectDetails";
+        return Promise.reject("Missing the required parameter 'bucketKey' when calling getObjectDetails");
       }
 
       // verify the required parameter 'objectName' is set
       if (objectName == undefined || objectName == null) {
-        throw "Missing the required parameter 'objectName' when calling getObjectDetails";
+        return Promise.reject("Missing the required parameter 'objectName' when calling getObjectDetails");
       }
 
 
@@ -342,7 +342,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}/details', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -354,16 +354,16 @@ module.exports = (function() {
      * @param {Integer} opts.limit Limit to the response size, Acceptable values: 1-100 Default &#x3D; 10  (default to 10)
      * @param {String} opts.beginsWith Provides a way to filter the based on object key name
      * @param {String} opts.startAt Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response 
-     * data is of type: {module:model/InlineResponse2001}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/BucketObjects}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getObjects = function(bucketKey, opts, credentials) {
+    this.getObjects = function(bucketKey, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'bucketKey' is set
       if (bucketKey == undefined || bucketKey == null) {
-        throw "Missing the required parameter 'bucketKey' when calling getObjects";
+        return Promise.reject("Missing the required parameter 'bucketKey' when calling getObjects");
       }
 
 
@@ -382,12 +382,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = InlineResponse2001;
+      var returnType = BucketObjects;
 
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -398,24 +398,24 @@ module.exports = (function() {
      * @param {String} objectName URL-encoded object name
      * @param {String} sessionId Unique identifier of a session of a file being uploaded
      * data is of type: {module:model/Result}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getSessionid = function(bucketKey, objectName, sessionId, credentials) {
+    this.getSessionid = function(bucketKey, objectName, sessionId, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'bucketKey' is set
       if (bucketKey == undefined || bucketKey == null) {
-        throw "Missing the required parameter 'bucketKey' when calling getSessionid";
+        return Promise.reject("Missing the required parameter 'bucketKey' when calling getSessionid");
       }
 
       // verify the required parameter 'objectName' is set
       if (objectName == undefined || objectName == null) {
-        throw "Missing the required parameter 'objectName' when calling getSessionid";
+        return Promise.reject("Missing the required parameter 'objectName' when calling getSessionid");
       }
 
       // verify the required parameter 'sessionId' is set
       if (sessionId == undefined || sessionId == null) {
-        throw "Missing the required parameter 'sessionId' when calling getSessionid";
+        return Promise.reject("Missing the required parameter 'sessionId' when calling getSessionid");
       }
 
 
@@ -438,7 +438,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}/status/{sessionId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -453,15 +453,15 @@ module.exports = (function() {
      * @param {String} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used. 
      * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
      * data is of type: {module:model/InputStream}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getSignedResource = function(id, opts, credentials) {
+    this.getSignedResource = function(id, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling getSignedResource";
+        return Promise.reject("Missing the required parameter 'id' when calling getSignedResource");
       }
 
 
@@ -487,7 +487,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/signedresources/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -504,40 +504,40 @@ module.exports = (function() {
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
      * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
      * data is of type: {module:model/ObjectDetails}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.uploadChunk = function(bucketKey, objectName, contentLength, contentRange, sessionId, body, opts, credentials) {
+    this.uploadChunk = function(bucketKey, objectName, contentLength, contentRange, sessionId, body, opts, oauth2client) {
       opts = opts || {};
       var postBody = body;
 
       // verify the required parameter 'bucketKey' is set
       if (bucketKey == undefined || bucketKey == null) {
-        throw "Missing the required parameter 'bucketKey' when calling uploadChunk";
+        return Promise.reject("Missing the required parameter 'bucketKey' when calling uploadChunk");
       }
 
       // verify the required parameter 'objectName' is set
       if (objectName == undefined || objectName == null) {
-        throw "Missing the required parameter 'objectName' when calling uploadChunk";
+        return Promise.reject("Missing the required parameter 'objectName' when calling uploadChunk");
       }
 
       // verify the required parameter 'contentLength' is set
       if (contentLength == undefined || contentLength == null) {
-        throw "Missing the required parameter 'contentLength' when calling uploadChunk";
+        return Promise.reject("Missing the required parameter 'contentLength' when calling uploadChunk");
       }
 
       // verify the required parameter 'contentRange' is set
       if (contentRange == undefined || contentRange == null) {
-        throw "Missing the required parameter 'contentRange' when calling uploadChunk";
+        return Promise.reject("Missing the required parameter 'contentRange' when calling uploadChunk");
       }
 
       // verify the required parameter 'sessionId' is set
       if (sessionId == undefined || sessionId == null) {
-        throw "Missing the required parameter 'sessionId' when calling uploadChunk";
+        return Promise.reject("Missing the required parameter 'sessionId' when calling uploadChunk");
       }
 
       // verify the required parameter 'body' is set
       if (body == undefined || body == null) {
-        throw "Missing the required parameter 'body' when calling uploadChunk";
+        return Promise.reject("Missing the required parameter 'body' when calling uploadChunk");
       }
 
 
@@ -564,7 +564,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}/resumable', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -579,30 +579,30 @@ module.exports = (function() {
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
      * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
      * data is of type: {module:model/ObjectDetails}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.uploadObject = function(bucketKey, objectName, contentLength, body, opts, credentials) {
+    this.uploadObject = function(bucketKey, objectName, contentLength, body, opts, oauth2client) {
       opts = opts || {};
       var postBody = body;
 
       // verify the required parameter 'bucketKey' is set
       if (bucketKey == undefined || bucketKey == null) {
-        throw "Missing the required parameter 'bucketKey' when calling uploadObject";
+        return Promise.reject("Missing the required parameter 'bucketKey' when calling uploadObject");
       }
 
       // verify the required parameter 'objectName' is set
       if (objectName == undefined || objectName == null) {
-        throw "Missing the required parameter 'objectName' when calling uploadObject";
+        return Promise.reject("Missing the required parameter 'objectName' when calling uploadObject");
       }
 
       // verify the required parameter 'contentLength' is set
       if (contentLength == undefined || contentLength == null) {
-        throw "Missing the required parameter 'contentLength' when calling uploadObject";
+        return Promise.reject("Missing the required parameter 'contentLength' when calling uploadObject");
       }
 
       // verify the required parameter 'body' is set
       if (body == undefined || body == null) {
-        throw "Missing the required parameter 'body' when calling uploadObject";
+        return Promise.reject("Missing the required parameter 'body' when calling uploadObject");
       }
 
 
@@ -627,7 +627,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -642,25 +642,25 @@ module.exports = (function() {
      * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
      * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
      * data is of type: {module:model/PostObjectSigned}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.uploadSignedResource = function(id, contentLength, body, opts, credentials) {
+    this.uploadSignedResource = function(id, contentLength, body, opts, oauth2client) {
       opts = opts || {};
       var postBody = body;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling uploadSignedResource";
+        return Promise.reject("Missing the required parameter 'id' when calling uploadSignedResource");
       }
 
       // verify the required parameter 'contentLength' is set
       if (contentLength == undefined || contentLength == null) {
-        throw "Missing the required parameter 'contentLength' when calling uploadSignedResource";
+        return Promise.reject("Missing the required parameter 'contentLength' when calling uploadSignedResource");
       }
 
       // verify the required parameter 'body' is set
       if (body == undefined || body == null) {
-        throw "Missing the required parameter 'body' when calling uploadSignedResource";
+        return Promise.reject("Missing the required parameter 'body' when calling uploadSignedResource");
       }
 
 
@@ -685,7 +685,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/signedresources/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -700,30 +700,30 @@ module.exports = (function() {
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
      * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
      * data is of type: {module:model/PostObjectSigned}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.uploadSignedResourcesChunk = function(id, contentRange, sessionId, body, opts, credentials) {
+    this.uploadSignedResourcesChunk = function(id, contentRange, sessionId, body, opts, oauth2client) {
       opts = opts || {};
       var postBody = body;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling uploadSignedResourcesChunk";
+        return Promise.reject("Missing the required parameter 'id' when calling uploadSignedResourcesChunk");
       }
 
       // verify the required parameter 'contentRange' is set
       if (contentRange == undefined || contentRange == null) {
-        throw "Missing the required parameter 'contentRange' when calling uploadSignedResourcesChunk";
+        return Promise.reject("Missing the required parameter 'contentRange' when calling uploadSignedResourcesChunk");
       }
 
       // verify the required parameter 'sessionId' is set
       if (sessionId == undefined || sessionId == null) {
-        throw "Missing the required parameter 'sessionId' when calling uploadSignedResourcesChunk";
+        return Promise.reject("Missing the required parameter 'sessionId' when calling uploadSignedResourcesChunk");
       }
 
       // verify the required parameter 'body' is set
       if (body == undefined || body == null) {
-        throw "Missing the required parameter 'body' when calling uploadSignedResourcesChunk";
+        return Promise.reject("Missing the required parameter 'body' when calling uploadSignedResourcesChunk");
       }
 
 
@@ -748,7 +748,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/signedresources/{id}/resumable', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
   };

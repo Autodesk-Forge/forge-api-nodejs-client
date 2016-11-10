@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -53,14 +53,14 @@ module.exports = (function() {
      * Creates an AppPackage module.
      * @param {module:model/AppPackage} appPackage 
      * data is of type: {module:model/AppPackage}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.createAppPackage = function(appPackage, credentials) {
+    this.createAppPackage = function(appPackage, oauth2client) {
       var postBody = appPackage;
 
       // verify the required parameter 'appPackage' is set
       if (appPackage == undefined || appPackage == null) {
-        throw "Missing the required parameter 'appPackage' when calling createAppPackage";
+        return Promise.reject("Missing the required parameter 'appPackage' when calling createAppPackage");
       }
 
 
@@ -80,7 +80,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/AppPackages', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -88,14 +88,14 @@ module.exports = (function() {
     /**
      * Removes a specific AppPackage.
      * @param {String} id 
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.deleteAppPackage = function(id, credentials) {
+    this.deleteAppPackage = function(id, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling deleteAppPackage";
+        return Promise.reject("Missing the required parameter 'id' when calling deleteAppPackage");
       }
 
 
@@ -116,7 +116,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/AppPackages(%27{id}%27)', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -124,14 +124,14 @@ module.exports = (function() {
     /**
      * Removes the version history of the specified AppPackage.
      * @param {String} id 
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.deleteAppPackageHistory = function(id, credentials) {
+    this.deleteAppPackageHistory = function(id, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling deleteAppPackageHistory";
+        return Promise.reject("Missing the required parameter 'id' when calling deleteAppPackageHistory");
       }
 
 
@@ -152,7 +152,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/AppPackages(%27{id}%27)/Operations.DeleteHistory', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -160,9 +160,9 @@ module.exports = (function() {
     /**
      * Returns the details of all AppPackages.
      * data is of type: {Array.<module:model/AppPackage>}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getAllAppPackages = function(credentials) {
+    this.getAllAppPackages = function(oauth2client) {
       var postBody = null;
 
 
@@ -182,7 +182,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/AppPackages', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -191,14 +191,14 @@ module.exports = (function() {
      * Returns the details of a specific AppPackage.
      * @param {String} id 
      * data is of type: {module:model/AppPackage}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getAppPackage = function(id, credentials) {
+    this.getAppPackage = function(id, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling getAppPackage";
+        return Promise.reject("Missing the required parameter 'id' when calling getAppPackage");
       }
 
 
@@ -219,7 +219,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/AppPackages(%27{id}%27)', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -228,14 +228,14 @@ module.exports = (function() {
      * Returns all old versions of a specified AppPackage.
      * @param {String} id 
      * data is of type: {Array.<module:model/AppPackage>}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getAppPackageVersions = function(id, credentials) {
+    this.getAppPackageVersions = function(id, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling getAppPackageVersions";
+        return Promise.reject("Missing the required parameter 'id' when calling getAppPackageVersions");
       }
 
 
@@ -256,16 +256,16 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/AppPackages(%27{id}%27)/Operations.GetVersions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
 
     /**
      * Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage.
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getUploadUrl = function(credentials) {
+    this.getUploadUrl = function(oauth2client) {
       var postBody = null;
 
 
@@ -285,7 +285,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/AppPackages/Operations.GetUploadUrl', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -293,14 +293,14 @@ module.exports = (function() {
     /**
      * Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage. Unlike the GetUploadUrl method that takes no parameters, this method allows the client to request that the pre-signed URL to be issued so that the subsequent HTTP PUT operation will require Content-Type&#x3D;binary/octet-stream.
      * @param {Boolean} require 
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getUploadUrlWithRequireContentType = function(require, credentials) {
+    this.getUploadUrlWithRequireContentType = function(require, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'require' is set
       if (require == undefined || require == null) {
-        throw "Missing the required parameter 'require' when calling getUploadUrlWithRequireContentType";
+        return Promise.reject("Missing the required parameter 'require' when calling getUploadUrlWithRequireContentType");
       }
 
 
@@ -321,7 +321,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/AppPackage/Operations.GetUploadUrl(RequireContentType={require})', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -330,19 +330,19 @@ module.exports = (function() {
      * Updates an AppPackage by specifying only the changed attributes.
      * @param {String} id 
      * @param {module:model/AppPackageOptional} appPackage 
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.patchAppPackage = function(id, appPackage, credentials) {
+    this.patchAppPackage = function(id, appPackage, oauth2client) {
       var postBody = appPackage;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling patchAppPackage";
+        return Promise.reject("Missing the required parameter 'id' when calling patchAppPackage");
       }
 
       // verify the required parameter 'appPackage' is set
       if (appPackage == undefined || appPackage == null) {
-        throw "Missing the required parameter 'appPackage' when calling patchAppPackage";
+        return Promise.reject("Missing the required parameter 'appPackage' when calling patchAppPackage");
       }
 
 
@@ -363,7 +363,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/AppPackages(%27{id}%27)', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -372,19 +372,19 @@ module.exports = (function() {
      * Sets the AppPackage to the specified version.
      * @param {String} id 
      * @param {module:model/AppPackageVersion} appPackageVersion 
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.setAppPackageVersion = function(id, appPackageVersion, credentials) {
+    this.setAppPackageVersion = function(id, appPackageVersion, oauth2client) {
       var postBody = appPackageVersion;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling setAppPackageVersion";
+        return Promise.reject("Missing the required parameter 'id' when calling setAppPackageVersion");
       }
 
       // verify the required parameter 'appPackageVersion' is set
       if (appPackageVersion == undefined || appPackageVersion == null) {
-        throw "Missing the required parameter 'appPackageVersion' when calling setAppPackageVersion";
+        return Promise.reject("Missing the required parameter 'appPackageVersion' when calling setAppPackageVersion");
       }
 
 
@@ -405,7 +405,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/AppPackages(%27{id}%27)/Operations.SetVersion', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -414,19 +414,19 @@ module.exports = (function() {
      * Updates an AppPackage by redefining the entire Activity object.
      * @param {String} id 
      * @param {module:model/AppPackage} appPackage 
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.updateAppPackage = function(id, appPackage, credentials) {
+    this.updateAppPackage = function(id, appPackage, oauth2client) {
       var postBody = appPackage;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling updateAppPackage";
+        return Promise.reject("Missing the required parameter 'id' when calling updateAppPackage");
       }
 
       // verify the required parameter 'appPackage' is set
       if (appPackage == undefined || appPackage == null) {
-        throw "Missing the required parameter 'appPackage' when calling updateAppPackage";
+        return Promise.reject("Missing the required parameter 'appPackage' when calling updateAppPackage");
       }
 
 
@@ -447,7 +447,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/AppPackages(%27{id}%27)', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
   };

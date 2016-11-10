@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -29,34 +29,57 @@ module.exports = (function() {
       Activity = require('./model/Activity'),
       ActivityOptional = require('./model/ActivityOptional'),
       ActivityVersion = require('./model/ActivityVersion'),
-      AnalyzeMeshParams = require('./model/AnalyzeMeshParams'),
       AppPackage = require('./model/AppPackage'),
       AppPackageOptional = require('./model/AppPackageOptional'),
       AppPackageVersion = require('./model/AppPackageVersion'),
+      BadInput = require('./model/BadInput'),
       BaseAttributesCreatedUpdated = require('./model/BaseAttributesCreatedUpdated'),
       BaseAttributesCreatedUpdatedAttributes = require('./model/BaseAttributesCreatedUpdatedAttributes'),
       BaseAttributesExtensionObject = require('./model/BaseAttributesExtensionObject'),
       Bucket = require('./model/Bucket'),
+      BucketObjects = require('./model/BucketObjects'),
       Buckets = require('./model/Buckets'),
-      BucketsPermissions = require('./model/BucketsPermissions'),
-      CreateBucket = require('./model/CreateBucket'),
+      BucketsItems = require('./model/BucketsItems'),
+      Conflict = require('./model/Conflict'),
       CreateItem = require('./model/CreateItem'),
+      CreateItemData = require('./model/CreateItemData'),
+      CreateItemDataRelationships = require('./model/CreateItemDataRelationships'),
+      CreateItemDataRelationshipsTip = require('./model/CreateItemDataRelationshipsTip'),
+      CreateItemDataRelationshipsTipData = require('./model/CreateItemDataRelationshipsTipData'),
+      CreateItemIncluded = require('./model/CreateItemIncluded'),
+      CreateItemRelationships = require('./model/CreateItemRelationships'),
+      CreateItemRelationshipsStorage = require('./model/CreateItemRelationshipsStorage'),
+      CreateItemRelationshipsStorageData = require('./model/CreateItemRelationshipsStorageData'),
       CreateRef = require('./model/CreateRef'),
+      CreateRefData = require('./model/CreateRefData'),
+      CreateRefDataMeta = require('./model/CreateRefDataMeta'),
       CreateStorage = require('./model/CreateStorage'),
+      CreateStorageData = require('./model/CreateStorageData'),
+      CreateStorageDataAttributes = require('./model/CreateStorageDataAttributes'),
+      CreateStorageDataRelationships = require('./model/CreateStorageDataRelationships'),
+      CreateStorageDataRelationshipsTarget = require('./model/CreateStorageDataRelationshipsTarget'),
       CreateVersion = require('./model/CreateVersion'),
+      CreateVersionData = require('./model/CreateVersionData'),
+      CreateVersionDataRelationships = require('./model/CreateVersionDataRelationships'),
+      CreateVersionDataRelationshipsItem = require('./model/CreateVersionDataRelationshipsItem'),
+      CreateVersionDataRelationshipsItemData = require('./model/CreateVersionDataRelationshipsItemData'),
       Diagnostics = require('./model/Diagnostics'),
       Engine = require('./model/Engine'),
       Folder = require('./model/Folder'),
+      FolderAttributes = require('./model/FolderAttributes'),
+      FolderRelationships = require('./model/FolderRelationships'),
+      Forbidden = require('./model/Forbidden'),
       Formats = require('./model/Formats'),
       FormatsFormats = require('./model/FormatsFormats'),
-      Health = require('./model/Health'),
       Hub = require('./model/Hub'),
-      ImportMeshParams = require('./model/ImportMeshParams'),
-      InlineResponse200 = require('./model/InlineResponse200'),
-      InlineResponse2001 = require('./model/InlineResponse2001'),
-      InlineResponse200Items = require('./model/InlineResponse200Items'),
+      HubAttributes = require('./model/HubAttributes'),
+      HubRelationships = require('./model/HubRelationships'),
+      Hubs = require('./model/Hubs'),
       InputStream = require('./model/InputStream'),
       Item = require('./model/Item'),
+      ItemAttributes = require('./model/ItemAttributes'),
+      ItemCreated = require('./model/ItemCreated'),
+      ItemRelationships = require('./model/ItemRelationships'),
       Job = require('./model/Job'),
       JobAcceptedJobs = require('./model/JobAcceptedJobs'),
       JobIgesOutputPayload = require('./model/JobIgesOutputPayload'),
@@ -79,6 +102,8 @@ module.exports = (function() {
       JsonApiDocument = require('./model/JsonApiDocument'),
       JsonApiDocumentBase = require('./model/JsonApiDocumentBase'),
       JsonApiError = require('./model/JsonApiError'),
+      JsonApiErrorErrors = require('./model/JsonApiErrorErrors'),
+      JsonApiErrorLinks = require('./model/JsonApiErrorLinks'),
       JsonApiLink = require('./model/JsonApiLink'),
       JsonApiLinks = require('./model/JsonApiLinks'),
       JsonApiLinksPaging = require('./model/JsonApiLinksPaging'),
@@ -99,11 +124,6 @@ module.exports = (function() {
       Manifest = require('./model/Manifest'),
       ManifestChildren = require('./model/ManifestChildren'),
       ManifestDerivative = require('./model/ManifestDerivative'),
-      Mesh = require('./model/Mesh'),
-      MeshGeom = require('./model/MeshGeom'),
-      MeshGeomBoundingBox = require('./model/MeshGeomBoundingBox'),
-      MeshObj = require('./model/MeshObj'),
-      MeshProblems = require('./model/MeshProblems'),
       Message = require('./model/Message'),
       Messages = require('./model/Messages'),
       Metadata = require('./model/Metadata'),
@@ -111,6 +131,7 @@ module.exports = (function() {
       MetadataData = require('./model/MetadataData'),
       MetadataMetadata = require('./model/MetadataMetadata'),
       MetadataObject = require('./model/MetadataObject'),
+      NotFound = require('./model/NotFound'),
       ObjectDetails = require('./model/ObjectDetails'),
       ObjectFullDetails = require('./model/ObjectFullDetails'),
       ObjectFullDetailsDeltas = require('./model/ObjectFullDetailsDeltas'),
@@ -120,15 +141,24 @@ module.exports = (function() {
       PostBucketsSigned = require('./model/PostBucketsSigned'),
       PostObjectSigned = require('./model/PostObjectSigned'),
       Project = require('./model/Project'),
+      ProjectAttributes = require('./model/ProjectAttributes'),
+      ProjectRelationships = require('./model/ProjectRelationships'),
+      Projects = require('./model/Projects'),
       Reason = require('./model/Reason'),
+      Refs = require('./model/Refs'),
       RelRef = require('./model/RelRef'),
-      RepairMeshParams = require('./model/RepairMeshParams'),
+      RelRefMeta = require('./model/RelRefMeta'),
       Result = require('./model/Result'),
       Storage = require('./model/Storage'),
-      Task = require('./model/Task'),
-      TaskError = require('./model/TaskError'),
-      UploadFile = require('./model/UploadFile'),
+      StorageCreated = require('./model/StorageCreated'),
+      StorageRelationships = require('./model/StorageRelationships'),
+      StorageRelationshipsTarget = require('./model/StorageRelationshipsTarget'),
+      StorageRelationshipsTargetData = require('./model/StorageRelationshipsTargetData'),
       Version = require('./model/Version'),
+      VersionAttributes = require('./model/VersionAttributes'),
+      VersionCreated = require('./model/VersionCreated'),
+      VersionRelationships = require('./model/VersionRelationships'),
+      Versions = require('./model/Versions'),
       WorkItem = require('./model/WorkItem'),
       WorkItemResp = require('./model/WorkItemResp'),
       ActivitiesApi = require('./api/ActivitiesApi'),
@@ -140,7 +170,6 @@ module.exports = (function() {
       HubsApi = require('./api/HubsApi'),
       ItemsApi = require('./api/ItemsApi'),
       ObjectsApi = require('./api/ObjectsApi'),
-      PrintApi = require('./api/PrintApi'),
       ProjectsApi = require('./api/ProjectsApi'),
       VersionsApi = require('./api/VersionsApi'),
       WorkItemsApi = require('./api/WorkItemsApi'),
@@ -149,7 +178,7 @@ module.exports = (function() {
 
 
   /**
-   * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering..<br>
+   * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering..<br>
    * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
    * <p>
    * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
@@ -201,11 +230,6 @@ module.exports = (function() {
      */
     ActivityVersion: ActivityVersion,
     /**
-     * The AnalyzeMeshParams model constructor.
-     * @property {module:model/AnalyzeMeshParams}
-     */
-    AnalyzeMeshParams: AnalyzeMeshParams,
-    /**
      * The AppPackage model constructor.
      * @property {module:model/AppPackage}
      */
@@ -220,6 +244,11 @@ module.exports = (function() {
      * @property {module:model/AppPackageVersion}
      */
     AppPackageVersion: AppPackageVersion,
+    /**
+     * The BadInput model constructor.
+     * @property {module:model/BadInput}
+     */
+    BadInput: BadInput,
     /**
      * The BaseAttributesCreatedUpdated model constructor.
      * @property {module:model/BaseAttributesCreatedUpdated}
@@ -241,40 +270,135 @@ module.exports = (function() {
      */
     Bucket: Bucket,
     /**
+     * The BucketObjects model constructor.
+     * @property {module:model/BucketObjects}
+     */
+    BucketObjects: BucketObjects,
+    /**
      * The Buckets model constructor.
      * @property {module:model/Buckets}
      */
     Buckets: Buckets,
     /**
-     * The BucketsPermissions model constructor.
-     * @property {module:model/BucketsPermissions}
+     * The BucketsItems model constructor.
+     * @property {module:model/BucketsItems}
      */
-    BucketsPermissions: BucketsPermissions,
+    BucketsItems: BucketsItems,
     /**
-     * The CreateBucket model constructor.
-     * @property {module:model/CreateBucket}
+     * The Conflict model constructor.
+     * @property {module:model/Conflict}
      */
-    CreateBucket: CreateBucket,
+    Conflict: Conflict,
     /**
      * The CreateItem model constructor.
      * @property {module:model/CreateItem}
      */
     CreateItem: CreateItem,
     /**
+     * The CreateItemData model constructor.
+     * @property {module:model/CreateItemData}
+     */
+    CreateItemData: CreateItemData,
+    /**
+     * The CreateItemDataRelationships model constructor.
+     * @property {module:model/CreateItemDataRelationships}
+     */
+    CreateItemDataRelationships: CreateItemDataRelationships,
+    /**
+     * The CreateItemDataRelationshipsTip model constructor.
+     * @property {module:model/CreateItemDataRelationshipsTip}
+     */
+    CreateItemDataRelationshipsTip: CreateItemDataRelationshipsTip,
+    /**
+     * The CreateItemDataRelationshipsTipData model constructor.
+     * @property {module:model/CreateItemDataRelationshipsTipData}
+     */
+    CreateItemDataRelationshipsTipData: CreateItemDataRelationshipsTipData,
+    /**
+     * The CreateItemIncluded model constructor.
+     * @property {module:model/CreateItemIncluded}
+     */
+    CreateItemIncluded: CreateItemIncluded,
+    /**
+     * The CreateItemRelationships model constructor.
+     * @property {module:model/CreateItemRelationships}
+     */
+    CreateItemRelationships: CreateItemRelationships,
+    /**
+     * The CreateItemRelationshipsStorage model constructor.
+     * @property {module:model/CreateItemRelationshipsStorage}
+     */
+    CreateItemRelationshipsStorage: CreateItemRelationshipsStorage,
+    /**
+     * The CreateItemRelationshipsStorageData model constructor.
+     * @property {module:model/CreateItemRelationshipsStorageData}
+     */
+    CreateItemRelationshipsStorageData: CreateItemRelationshipsStorageData,
+    /**
      * The CreateRef model constructor.
      * @property {module:model/CreateRef}
      */
     CreateRef: CreateRef,
+    /**
+     * The CreateRefData model constructor.
+     * @property {module:model/CreateRefData}
+     */
+    CreateRefData: CreateRefData,
+    /**
+     * The CreateRefDataMeta model constructor.
+     * @property {module:model/CreateRefDataMeta}
+     */
+    CreateRefDataMeta: CreateRefDataMeta,
     /**
      * The CreateStorage model constructor.
      * @property {module:model/CreateStorage}
      */
     CreateStorage: CreateStorage,
     /**
+     * The CreateStorageData model constructor.
+     * @property {module:model/CreateStorageData}
+     */
+    CreateStorageData: CreateStorageData,
+    /**
+     * The CreateStorageDataAttributes model constructor.
+     * @property {module:model/CreateStorageDataAttributes}
+     */
+    CreateStorageDataAttributes: CreateStorageDataAttributes,
+    /**
+     * The CreateStorageDataRelationships model constructor.
+     * @property {module:model/CreateStorageDataRelationships}
+     */
+    CreateStorageDataRelationships: CreateStorageDataRelationships,
+    /**
+     * The CreateStorageDataRelationshipsTarget model constructor.
+     * @property {module:model/CreateStorageDataRelationshipsTarget}
+     */
+    CreateStorageDataRelationshipsTarget: CreateStorageDataRelationshipsTarget,
+    /**
      * The CreateVersion model constructor.
      * @property {module:model/CreateVersion}
      */
     CreateVersion: CreateVersion,
+    /**
+     * The CreateVersionData model constructor.
+     * @property {module:model/CreateVersionData}
+     */
+    CreateVersionData: CreateVersionData,
+    /**
+     * The CreateVersionDataRelationships model constructor.
+     * @property {module:model/CreateVersionDataRelationships}
+     */
+    CreateVersionDataRelationships: CreateVersionDataRelationships,
+    /**
+     * The CreateVersionDataRelationshipsItem model constructor.
+     * @property {module:model/CreateVersionDataRelationshipsItem}
+     */
+    CreateVersionDataRelationshipsItem: CreateVersionDataRelationshipsItem,
+    /**
+     * The CreateVersionDataRelationshipsItemData model constructor.
+     * @property {module:model/CreateVersionDataRelationshipsItemData}
+     */
+    CreateVersionDataRelationshipsItemData: CreateVersionDataRelationshipsItemData,
     /**
      * The Diagnostics model constructor.
      * @property {module:model/Diagnostics}
@@ -291,6 +415,21 @@ module.exports = (function() {
      */
     Folder: Folder,
     /**
+     * The FolderAttributes model constructor.
+     * @property {module:model/FolderAttributes}
+     */
+    FolderAttributes: FolderAttributes,
+    /**
+     * The FolderRelationships model constructor.
+     * @property {module:model/FolderRelationships}
+     */
+    FolderRelationships: FolderRelationships,
+    /**
+     * The Forbidden model constructor.
+     * @property {module:model/Forbidden}
+     */
+    Forbidden: Forbidden,
+    /**
      * The Formats model constructor.
      * @property {module:model/Formats}
      */
@@ -301,35 +440,25 @@ module.exports = (function() {
      */
     FormatsFormats: FormatsFormats,
     /**
-     * The Health model constructor.
-     * @property {module:model/Health}
-     */
-    Health: Health,
-    /**
      * The Hub model constructor.
      * @property {module:model/Hub}
      */
     Hub: Hub,
     /**
-     * The ImportMeshParams model constructor.
-     * @property {module:model/ImportMeshParams}
+     * The HubAttributes model constructor.
+     * @property {module:model/HubAttributes}
      */
-    ImportMeshParams: ImportMeshParams,
+    HubAttributes: HubAttributes,
     /**
-     * The InlineResponse200 model constructor.
-     * @property {module:model/InlineResponse200}
+     * The HubRelationships model constructor.
+     * @property {module:model/HubRelationships}
      */
-    InlineResponse200: InlineResponse200,
+    HubRelationships: HubRelationships,
     /**
-     * The InlineResponse2001 model constructor.
-     * @property {module:model/InlineResponse2001}
+     * The Hubs model constructor.
+     * @property {module:model/Hubs}
      */
-    InlineResponse2001: InlineResponse2001,
-    /**
-     * The InlineResponse200Items model constructor.
-     * @property {module:model/InlineResponse200Items}
-     */
-    InlineResponse200Items: InlineResponse200Items,
+    Hubs: Hubs,
     /**
      * The InputStream model constructor.
      * @property {module:model/InputStream}
@@ -340,6 +469,21 @@ module.exports = (function() {
      * @property {module:model/Item}
      */
     Item: Item,
+    /**
+     * The ItemAttributes model constructor.
+     * @property {module:model/ItemAttributes}
+     */
+    ItemAttributes: ItemAttributes,
+    /**
+     * The ItemCreated model constructor.
+     * @property {module:model/ItemCreated}
+     */
+    ItemCreated: ItemCreated,
+    /**
+     * The ItemRelationships model constructor.
+     * @property {module:model/ItemRelationships}
+     */
+    ItemRelationships: ItemRelationships,
     /**
      * The Job model constructor.
      * @property {module:model/Job}
@@ -451,6 +595,16 @@ module.exports = (function() {
      */
     JsonApiError: JsonApiError,
     /**
+     * The JsonApiErrorErrors model constructor.
+     * @property {module:model/JsonApiErrorErrors}
+     */
+    JsonApiErrorErrors: JsonApiErrorErrors,
+    /**
+     * The JsonApiErrorLinks model constructor.
+     * @property {module:model/JsonApiErrorLinks}
+     */
+    JsonApiErrorLinks: JsonApiErrorLinks,
+    /**
      * The JsonApiLink model constructor.
      * @property {module:model/JsonApiLink}
      */
@@ -551,31 +705,6 @@ module.exports = (function() {
      */
     ManifestDerivative: ManifestDerivative,
     /**
-     * The Mesh model constructor.
-     * @property {module:model/Mesh}
-     */
-    Mesh: Mesh,
-    /**
-     * The MeshGeom model constructor.
-     * @property {module:model/MeshGeom}
-     */
-    MeshGeom: MeshGeom,
-    /**
-     * The MeshGeomBoundingBox model constructor.
-     * @property {module:model/MeshGeomBoundingBox}
-     */
-    MeshGeomBoundingBox: MeshGeomBoundingBox,
-    /**
-     * The MeshObj model constructor.
-     * @property {module:model/MeshObj}
-     */
-    MeshObj: MeshObj,
-    /**
-     * The MeshProblems model constructor.
-     * @property {module:model/MeshProblems}
-     */
-    MeshProblems: MeshProblems,
-    /**
      * The Message model constructor.
      * @property {module:model/Message}
      */
@@ -610,6 +739,11 @@ module.exports = (function() {
      * @property {module:model/MetadataObject}
      */
     MetadataObject: MetadataObject,
+    /**
+     * The NotFound model constructor.
+     * @property {module:model/NotFound}
+     */
+    NotFound: NotFound,
     /**
      * The ObjectDetails model constructor.
      * @property {module:model/ObjectDetails}
@@ -656,20 +790,40 @@ module.exports = (function() {
      */
     Project: Project,
     /**
+     * The ProjectAttributes model constructor.
+     * @property {module:model/ProjectAttributes}
+     */
+    ProjectAttributes: ProjectAttributes,
+    /**
+     * The ProjectRelationships model constructor.
+     * @property {module:model/ProjectRelationships}
+     */
+    ProjectRelationships: ProjectRelationships,
+    /**
+     * The Projects model constructor.
+     * @property {module:model/Projects}
+     */
+    Projects: Projects,
+    /**
      * The Reason model constructor.
      * @property {module:model/Reason}
      */
     Reason: Reason,
+    /**
+     * The Refs model constructor.
+     * @property {module:model/Refs}
+     */
+    Refs: Refs,
     /**
      * The RelRef model constructor.
      * @property {module:model/RelRef}
      */
     RelRef: RelRef,
     /**
-     * The RepairMeshParams model constructor.
-     * @property {module:model/RepairMeshParams}
+     * The RelRefMeta model constructor.
+     * @property {module:model/RelRefMeta}
      */
-    RepairMeshParams: RepairMeshParams,
+    RelRefMeta: RelRefMeta,
     /**
      * The Result model constructor.
      * @property {module:model/Result}
@@ -681,25 +835,50 @@ module.exports = (function() {
      */
     Storage: Storage,
     /**
-     * The Task model constructor.
-     * @property {module:model/Task}
+     * The StorageCreated model constructor.
+     * @property {module:model/StorageCreated}
      */
-    Task: Task,
+    StorageCreated: StorageCreated,
     /**
-     * The TaskError model constructor.
-     * @property {module:model/TaskError}
+     * The StorageRelationships model constructor.
+     * @property {module:model/StorageRelationships}
      */
-    TaskError: TaskError,
+    StorageRelationships: StorageRelationships,
     /**
-     * The UploadFile model constructor.
-     * @property {module:model/UploadFile}
+     * The StorageRelationshipsTarget model constructor.
+     * @property {module:model/StorageRelationshipsTarget}
      */
-    UploadFile: UploadFile,
+    StorageRelationshipsTarget: StorageRelationshipsTarget,
+    /**
+     * The StorageRelationshipsTargetData model constructor.
+     * @property {module:model/StorageRelationshipsTargetData}
+     */
+    StorageRelationshipsTargetData: StorageRelationshipsTargetData,
     /**
      * The Version model constructor.
      * @property {module:model/Version}
      */
     Version: Version,
+    /**
+     * The VersionAttributes model constructor.
+     * @property {module:model/VersionAttributes}
+     */
+    VersionAttributes: VersionAttributes,
+    /**
+     * The VersionCreated model constructor.
+     * @property {module:model/VersionCreated}
+     */
+    VersionCreated: VersionCreated,
+    /**
+     * The VersionRelationships model constructor.
+     * @property {module:model/VersionRelationships}
+     */
+    VersionRelationships: VersionRelationships,
+    /**
+     * The Versions model constructor.
+     * @property {module:model/Versions}
+     */
+    Versions: Versions,
     /**
      * The WorkItem model constructor.
      * @property {module:model/WorkItem}
@@ -755,11 +934,6 @@ module.exports = (function() {
      * @property {module:api/ObjectsApi}
      */
     ObjectsApi: ObjectsApi,
-    /**
-     * The PrintApi service constructor.
-     * @property {module:api/PrintApi}
-     */
-    PrintApi: PrintApi,
     /**
      * The ProjectsApi service constructor.
      * @property {module:api/ProjectsApi}

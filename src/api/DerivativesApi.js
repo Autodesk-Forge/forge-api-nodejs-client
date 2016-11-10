@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -58,14 +58,14 @@ module.exports = (function() {
      * Deletes the manifest and all its translated output files (derivatives). However, it does not delete the design source file. 
      * @param {String} urn The Base64 (URL Safe) encoded design URN 
      * data is of type: {module:model/Result}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.deleteManifest = function(urn, credentials) {
+    this.deleteManifest = function(urn, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'urn' is set
       if (urn == undefined || urn == null) {
-        throw "Missing the required parameter 'urn' when calling deleteManifest";
+        return Promise.reject("Missing the required parameter 'urn' when calling deleteManifest");
       }
 
 
@@ -86,7 +86,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/manifest', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -97,20 +97,20 @@ module.exports = (function() {
      * @param {String} derivativeUrn The URL-encoded URN of the derivatives. The URN is retrieved from the GET :urn/manifest endpoint. 
      * @param {Object} opts Optional parameters
      * @param {Integer} opts.range This is the standard RFC 2616 range request header. It only supports one range specifier per request: 1. Range:bytes&#x3D;0-63 (returns the first 64 bytes) 2. Range:bytes&#x3D;64-127 (returns the second set of 64 bytes) 3. Range:bytes&#x3D;1022- (returns all the bytes from offset 1022 to the end) 4. If the range header is not specified, the whole content is returned. 
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getDerivativeManifest = function(urn, derivativeUrn, opts, credentials) {
+    this.getDerivativeManifest = function(urn, derivativeUrn, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'urn' is set
       if (urn == undefined || urn == null) {
-        throw "Missing the required parameter 'urn' when calling getDerivativeManifest";
+        return Promise.reject("Missing the required parameter 'urn' when calling getDerivativeManifest");
       }
 
       // verify the required parameter 'derivativeUrn' is set
       if (derivativeUrn == undefined || derivativeUrn == null) {
-        throw "Missing the required parameter 'derivativeUrn' when calling getDerivativeManifest";
+        return Promise.reject("Missing the required parameter 'derivativeUrn' when calling getDerivativeManifest");
       }
 
 
@@ -133,7 +133,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/manifest/{derivativeUrn}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -144,9 +144,9 @@ module.exports = (function() {
      * @param {Date} opts.ifModifiedSince The supported formats are only returned if they were modified since the specified date. An invalid date returns the latest supported format list. If the supported formats have not been modified since the specified date, the endpoint returns a &#x60;NOT MODIFIED&#x60; (304) response. 
      * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Formats}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getFormats = function(opts, credentials) {
+    this.getFormats = function(opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
@@ -169,7 +169,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/formats', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -180,15 +180,15 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Manifest}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getManifest = function(urn, opts, credentials) {
+    this.getManifest = function(urn, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'urn' is set
       if (urn == undefined || urn == null) {
-        throw "Missing the required parameter 'urn' when calling getManifest";
+        return Promise.reject("Missing the required parameter 'urn' when calling getManifest");
       }
 
 
@@ -210,7 +210,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/manifest', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -221,15 +221,15 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Metadata}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getMetadata = function(urn, opts, credentials) {
+    this.getMetadata = function(urn, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'urn' is set
       if (urn == undefined || urn == null) {
-        throw "Missing the required parameter 'urn' when calling getMetadata";
+        return Promise.reject("Missing the required parameter 'urn' when calling getMetadata");
       }
 
 
@@ -251,7 +251,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/metadata', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -263,20 +263,20 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Metadata}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getModelviewMetadata = function(urn, guid, opts, credentials) {
+    this.getModelviewMetadata = function(urn, guid, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'urn' is set
       if (urn == undefined || urn == null) {
-        throw "Missing the required parameter 'urn' when calling getModelviewMetadata";
+        return Promise.reject("Missing the required parameter 'urn' when calling getModelviewMetadata");
       }
 
       // verify the required parameter 'guid' is set
       if (guid == undefined || guid == null) {
-        throw "Missing the required parameter 'guid' when calling getModelviewMetadata";
+        return Promise.reject("Missing the required parameter 'guid' when calling getModelviewMetadata");
       }
 
 
@@ -299,7 +299,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/metadata/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -311,20 +311,20 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Metadata}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getModelviewProperties = function(urn, guid, opts, credentials) {
+    this.getModelviewProperties = function(urn, guid, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'urn' is set
       if (urn == undefined || urn == null) {
-        throw "Missing the required parameter 'urn' when calling getModelviewProperties";
+        return Promise.reject("Missing the required parameter 'urn' when calling getModelviewProperties");
       }
 
       // verify the required parameter 'guid' is set
       if (guid == undefined || guid == null) {
-        throw "Missing the required parameter 'guid' when calling getModelviewProperties";
+        return Promise.reject("Missing the required parameter 'guid' when calling getModelviewProperties");
       }
 
 
@@ -347,7 +347,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/metadata/{guid}/properties', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -359,15 +359,15 @@ module.exports = (function() {
      * @param {Integer} opts.width The desired width of the thumbnail. Possible values are 100, 200 and 400. 
      * @param {Integer} opts.height The desired height of the thumbnail. Possible values are 100, 200 and 400. 
      * data is of type: {module:model/InputStream}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getThumbnail = function(urn, opts, credentials) {
+    this.getThumbnail = function(urn, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'urn' is set
       if (urn == undefined || urn == null) {
-        throw "Missing the required parameter 'urn' when calling getThumbnail";
+        return Promise.reject("Missing the required parameter 'urn' when calling getThumbnail");
       }
 
 
@@ -390,7 +390,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/thumbnail', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -401,15 +401,15 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.xAdsForce &#x60;true&#x60;: the endpoint replaces previously translated output file types with the newly generated derivatives  &#x60;false&#x60; (default): previously created derivatives are not replaced  (default to false)
      * data is of type: {module:model/Job}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.translate = function(job, opts, credentials) {
+    this.translate = function(job, opts, oauth2client) {
       opts = opts || {};
       var postBody = job;
 
       // verify the required parameter 'job' is set
       if (job == undefined || job == null) {
-        throw "Missing the required parameter 'job' when calling translate";
+        return Promise.reject("Missing the required parameter 'job' when calling translate");
       }
 
 
@@ -430,7 +430,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/job', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
   };

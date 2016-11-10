@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -27,7 +27,15 @@ module.exports = (function() {
    'use strict';
 
    var ApiClient = require('../ApiClient'),
+       Item = require('../model/Item'),
+       BadInput = require('../model/BadInput'),
+       Forbidden = require('../model/Forbidden'),
+       NotFound = require('../model/NotFound'),
+       Folder = require('../model/Folder'),
        JsonApiCollection = require('../model/JsonApiCollection'),
+       Refs = require('../model/Refs'),
+       Version = require('../model/Version'),
+       Versions = require('../model/Versions'),
        CreateRef = require('../model/CreateRef');
 
   /**
@@ -49,52 +57,23 @@ module.exports = (function() {
 
 
     /**
-     * Returns the health information for the &#x60;data&#x60; domain. The health check assesses the current working status of the &#39;data&#39; domain service. 
-     * @param {Object} credentials Credentials for the call
-     */
-    this.getDataHealth = function(credentials) {
-      var postBody = null;
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/data/v1/health', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
-      );
-    };
-
-
-    /**
      * Returns a resource item by ID for any item within a given project. Resource items represent word documents, fusion design files, drawings, spreadsheets, etc. 
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} itemId the &#x60;item id&#x60;
-     * data is of type: {Object}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Item}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getItem = function(projectId, itemId, credentials) {
+    this.getItem = function(projectId, itemId, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getItem";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getItem");
       }
 
       // verify the required parameter 'itemId' is set
       if (itemId == undefined || itemId == null) {
-        throw "Missing the required parameter 'itemId' when calling getItem";
+        return Promise.reject("Missing the required parameter 'itemId' when calling getItem");
       }
 
 
@@ -111,12 +90,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Item;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/items/{item_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -125,19 +104,20 @@ module.exports = (function() {
      * Returns the \&quot;parent\&quot; folder for the given item. 
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} itemId the &#x60;item id&#x60;
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Folder}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getItemParentFolder = function(projectId, itemId, credentials) {
+    this.getItemParentFolder = function(projectId, itemId, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getItemParentFolder";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getItemParentFolder");
       }
 
       // verify the required parameter 'itemId' is set
       if (itemId == undefined || itemId == null) {
-        throw "Missing the required parameter 'itemId' when calling getItemParentFolder";
+        return Promise.reject("Missing the required parameter 'itemId' when calling getItemParentFolder");
       }
 
 
@@ -154,12 +134,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = null;
+      var returnType = Folder;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/items/{item_id}/parent', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -173,20 +153,20 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterId filter by the &#x60;id&#x60; of the &#x60;ref&#x60; target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/JsonApiCollection}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getItemRefs = function(projectId, itemId, opts, credentials) {
+    this.getItemRefs = function(projectId, itemId, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getItemRefs";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getItemRefs");
       }
 
       // verify the required parameter 'itemId' is set
       if (itemId == undefined || itemId == null) {
-        throw "Missing the required parameter 'itemId' when calling getItemRefs";
+        return Promise.reject("Missing the required parameter 'itemId' when calling getItemRefs");
       }
 
 
@@ -195,9 +175,9 @@ module.exports = (function() {
         'item_id': itemId
       };
       var queryParams = {
-        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'multi'),
-        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'multi'),
-        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'multi')
+        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
+        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
       };
       var headerParams = {
       };
@@ -211,7 +191,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/items/{item_id}/refs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -226,21 +206,21 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterRefType filter by &#x60;refType&#x60;
      * @param {module:model/String} opts.filterDirection filter by the direction of the reference
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
-     * data is of type: {Object}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Refs}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getItemRelationshipsRefs = function(projectId, itemId, opts, credentials) {
+    this.getItemRelationshipsRefs = function(projectId, itemId, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getItemRelationshipsRefs";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getItemRelationshipsRefs");
       }
 
       // verify the required parameter 'itemId' is set
       if (itemId == undefined || itemId == null) {
-        throw "Missing the required parameter 'itemId' when calling getItemRelationshipsRefs";
+        return Promise.reject("Missing the required parameter 'itemId' when calling getItemRelationshipsRefs");
       }
 
 
@@ -249,11 +229,11 @@ module.exports = (function() {
         'item_id': itemId
       };
       var queryParams = {
-        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'multi'),
-        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'multi'),
-        'filter[refType]': this.apiClient.buildCollectionParam(opts['filterRefType'], 'multi'),
+        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
+        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+        'filter[refType]': this.apiClient.buildCollectionParam(opts['filterRefType'], 'csv'),
         'filter[direction]': opts['filterDirection'],
-        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'multi')
+        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
       };
       var headerParams = {
       };
@@ -262,12 +242,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Refs;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/items/{item_id}/relationships/refs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -276,20 +256,20 @@ module.exports = (function() {
      * Returns the \&quot;tip\&quot; version for the given item. Multiple versions of a resource item can be uploaded in a project. The tip version is the most recent one. 
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} itemId the &#x60;item id&#x60;
-     * data is of type: {Object}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Version}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getItemTip = function(projectId, itemId, credentials) {
+    this.getItemTip = function(projectId, itemId, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getItemTip";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getItemTip");
       }
 
       // verify the required parameter 'itemId' is set
       if (itemId == undefined || itemId == null) {
-        throw "Missing the required parameter 'itemId' when calling getItemTip";
+        return Promise.reject("Missing the required parameter 'itemId' when calling getItemTip");
       }
 
 
@@ -306,12 +286,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Version;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/items/{item_id}/tip', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -327,21 +307,21 @@ module.exports = (function() {
      * @param {Array.<Integer>} opts.filterVersionNumber filter by &#x60;versionNumber&#x60;
      * @param {Integer} opts.pageNumber specify the page number
      * @param {Integer} opts.pageLimit specify the maximal number of elements per page
-     * data is of type: {Object}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Versions}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getItemVersions = function(projectId, itemId, opts, credentials) {
+    this.getItemVersions = function(projectId, itemId, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getItemVersions";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getItemVersions");
       }
 
       // verify the required parameter 'itemId' is set
       if (itemId == undefined || itemId == null) {
-        throw "Missing the required parameter 'itemId' when calling getItemVersions";
+        return Promise.reject("Missing the required parameter 'itemId' when calling getItemVersions");
       }
 
 
@@ -350,10 +330,10 @@ module.exports = (function() {
         'item_id': itemId
       };
       var queryParams = {
-        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'multi'),
-        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'multi'),
-        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'multi'),
-        'filter[versionNumber]': this.apiClient.buildCollectionParam(opts['filterVersionNumber'], 'multi'),
+        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
+        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
+        'filter[versionNumber]': this.apiClient.buildCollectionParam(opts['filterVersionNumber'], 'csv'),
         'page[number]': opts['pageNumber'],
         'page[limit]': opts['pageLimit']
       };
@@ -364,12 +344,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Versions;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/items/{item_id}/versions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -379,24 +359,24 @@ module.exports = (function() {
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} itemId the &#x60;item id&#x60;
      * @param {module:model/CreateRef} body describe the ref to be created
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.postItemRelationshipsRef = function(projectId, itemId, body, credentials) {
+    this.postItemRelationshipsRef = function(projectId, itemId, body, oauth2client) {
       var postBody = body;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling postItemRelationshipsRef";
+        return Promise.reject("Missing the required parameter 'projectId' when calling postItemRelationshipsRef");
       }
 
       // verify the required parameter 'itemId' is set
       if (itemId == undefined || itemId == null) {
-        throw "Missing the required parameter 'itemId' when calling postItemRelationshipsRef";
+        return Promise.reject("Missing the required parameter 'itemId' when calling postItemRelationshipsRef");
       }
 
       // verify the required parameter 'body' is set
       if (body == undefined || body == null) {
-        throw "Missing the required parameter 'body' when calling postItemRelationshipsRef";
+        return Promise.reject("Missing the required parameter 'body' when calling postItemRelationshipsRef");
       }
 
 
@@ -413,12 +393,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = null;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/items/{item_id}/relationships/refs', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
   };

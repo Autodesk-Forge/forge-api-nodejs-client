@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -32,36 +32,33 @@ module.exports = (function () {
      * Construct the scope string
      * @param allScopes
      * @param specificScope
-     * @returns {string}
+     * @returns {Boolean}
      */
-    var buildScope = function (allScopes, specificScope) {
-        var scopes = [];
+    var validateScope = function (allScopes, specificScope) {
         if (allScopes) {
             if (specificScope) {
-                for (var key in allScopes) {
-                    if (allScopes.hasOwnProperty(key) && specificScope.indexOf(key) > -1) {
-                        scopes.push(key);
+                for (var key in specificScope) {
+                    if (!allScopes.hasOwnProperty(specificScope[key])) {
+                        throw specificScope[key] + " scope is not allowed";
                     }
                 }
-            } else {
-                // default is all scopes
-                for (var key in allScopes) {
-                    if (allScopes.hasOwnProperty(key)) {
-                        scopes.push(key);
-                    }
-                }
+            } else { // throw if scope is null or undefined
+                throw "Scope is missing or empty, you must provide a valid scope";
             }
+        } else {
+            throw "Authentication does not allow any scopes";
         }
-        return scopes.join(' ');
+        return true;
     };
 
     /**
      * A general POST request
      * @param url
      * @param params
-     * @param callback
+     * @param callbackSuccess
+     * @param callbackError
      */
-    var doPostRequest = function (url, params, callback) {
+    var doPostRequest = function (url, params, callbackSuccess, callbackError) {
         var headers = {
             'Content-Type': 'application/x-www-form-urlencoded'
         };
@@ -85,7 +82,15 @@ module.exports = (function () {
             } catch(e) {
                 resp = body;
             }
-            callback(resp);
+            if (!err && response.statusCode === 200) {
+                callbackSuccess(resp);
+            } else if (callbackError){
+                if (err) {
+                    callbackError(err);
+                } else {
+                    callbackError(resp);
+                }
+            }
         });
     };
 
@@ -99,16 +104,22 @@ module.exports = (function () {
      * Constructs a new <code>oAuth2</code>.
      * @alias module:auth/OAuth2
      */
-    var OAuth2 = function (clientId, clientSecret, scope) {
+    var OAuth2 = function (clientId, clientSecret, scope, autoRefresh) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-        this.token_expires_at = Date.now();
         this.credentials = {};
+        this.credentials.expires_at = Date.now();
+        this.autoRefresh = autoRefresh || false; // don't auto refresh by default
 
         this.validateTokenUrl = '/validation/v1/validatetoken';
 
         //this.authentications must be implemented in the child Class
-        this.scope = buildScope(this.authentication.scopes, scope);
+        var validScope = validateScope(this.authentication.scopes, scope);
+
+        //Make sure passed scope is valid
+        if (validScope){
+            this.scope = scope.join(' ');
+        }
 
         //set the base path for the auth endpoints
         this.basePath = ApiClient.basePath;

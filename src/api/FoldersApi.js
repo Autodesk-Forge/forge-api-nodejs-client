@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -27,7 +27,12 @@ module.exports = (function() {
    'use strict';
 
    var ApiClient = require('../ApiClient'),
+       BadInput = require('../model/BadInput'),
+       Forbidden = require('../model/Forbidden'),
+       Folder = require('../model/Folder'),
+       NotFound = require('../model/NotFound'),
        JsonApiCollection = require('../model/JsonApiCollection'),
+       Refs = require('../model/Refs'),
        CreateRef = require('../model/CreateRef');
 
   /**
@@ -52,19 +57,20 @@ module.exports = (function() {
      * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project are associated with their own unique ID, including the root folder. 
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} folderId the &#x60;folder id&#x60;
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Folder}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getFolder = function(projectId, folderId, credentials) {
+    this.getFolder = function(projectId, folderId, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getFolder";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getFolder");
       }
 
       // verify the required parameter 'folderId' is set
       if (folderId == undefined || folderId == null) {
-        throw "Missing the required parameter 'folderId' when calling getFolder";
+        return Promise.reject("Missing the required parameter 'folderId' when calling getFolder");
       }
 
 
@@ -81,12 +87,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Folder;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/folders/{folder_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -102,20 +108,20 @@ module.exports = (function() {
      * @param {Integer} opts.pageNumber specify the page number
      * @param {Integer} opts.pageLimit specify the maximal number of elements per page
      * data is of type: {module:model/JsonApiCollection}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getFolderContents = function(projectId, folderId, opts, credentials) {
+    this.getFolderContents = function(projectId, folderId, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getFolderContents";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getFolderContents");
       }
 
       // verify the required parameter 'folderId' is set
       if (folderId == undefined || folderId == null) {
-        throw "Missing the required parameter 'folderId' when calling getFolderContents";
+        return Promise.reject("Missing the required parameter 'folderId' when calling getFolderContents");
       }
 
 
@@ -124,9 +130,9 @@ module.exports = (function() {
         'folder_id': folderId
       };
       var queryParams = {
-        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'multi'),
-        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'multi'),
-        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'multi'),
+        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
+        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
         'page[number]': opts['pageNumber'],
         'page[limit]': opts['pageLimit']
       };
@@ -142,7 +148,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/folders/{folder_id}/contents', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -151,19 +157,20 @@ module.exports = (function() {
      * Returns the parent folder (if it exists). In a project, subfolders and resource items are stored under a folder except the root folder which does not have a parent of its own. 
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} folderId the &#x60;folder id&#x60;
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Folder}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getFolderParent = function(projectId, folderId, credentials) {
+    this.getFolderParent = function(projectId, folderId, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getFolderParent";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getFolderParent");
       }
 
       // verify the required parameter 'folderId' is set
       if (folderId == undefined || folderId == null) {
-        throw "Missing the required parameter 'folderId' when calling getFolderParent";
+        return Promise.reject("Missing the required parameter 'folderId' when calling getFolderParent");
       }
 
 
@@ -180,12 +187,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Folder;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/folders/{folder_id}/parent', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -199,20 +206,20 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterId filter by the &#x60;id&#x60; of the &#x60;ref&#x60; target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/JsonApiCollection}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getFolderRefs = function(projectId, folderId, opts, credentials) {
+    this.getFolderRefs = function(projectId, folderId, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getFolderRefs";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getFolderRefs");
       }
 
       // verify the required parameter 'folderId' is set
       if (folderId == undefined || folderId == null) {
-        throw "Missing the required parameter 'folderId' when calling getFolderRefs";
+        return Promise.reject("Missing the required parameter 'folderId' when calling getFolderRefs");
       }
 
 
@@ -221,9 +228,9 @@ module.exports = (function() {
         'folder_id': folderId
       };
       var queryParams = {
-        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'multi'),
-        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'multi'),
-        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'multi')
+        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
+        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
       };
       var headerParams = {
       };
@@ -237,7 +244,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/folders/{folder_id}/refs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -252,21 +259,21 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterRefType filter by &#x60;refType&#x60;
      * @param {module:model/String} opts.filterDirection filter by the direction of the reference
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
-     * data is of type: {Object}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Refs}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getFolderRelationshipsRefs = function(projectId, folderId, opts, credentials) {
+    this.getFolderRelationshipsRefs = function(projectId, folderId, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getFolderRelationshipsRefs";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getFolderRelationshipsRefs");
       }
 
       // verify the required parameter 'folderId' is set
       if (folderId == undefined || folderId == null) {
-        throw "Missing the required parameter 'folderId' when calling getFolderRelationshipsRefs";
+        return Promise.reject("Missing the required parameter 'folderId' when calling getFolderRelationshipsRefs");
       }
 
 
@@ -275,11 +282,11 @@ module.exports = (function() {
         'folder_id': folderId
       };
       var queryParams = {
-        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'multi'),
-        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'multi'),
-        'filter[refType]': this.apiClient.buildCollectionParam(opts['filterRefType'], 'multi'),
+        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
+        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+        'filter[refType]': this.apiClient.buildCollectionParam(opts['filterRefType'], 'csv'),
         'filter[direction]': opts['filterDirection'],
-        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'multi')
+        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
       };
       var headerParams = {
       };
@@ -288,12 +295,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Refs;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/folders/{folder_id}/relationships/refs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -303,24 +310,24 @@ module.exports = (function() {
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} folderId the &#x60;folder id&#x60;
      * @param {module:model/CreateRef} body describe the ref to be created
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.postFolderRelationshipsRef = function(projectId, folderId, body, credentials) {
+    this.postFolderRelationshipsRef = function(projectId, folderId, body, oauth2client) {
       var postBody = body;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling postFolderRelationshipsRef";
+        return Promise.reject("Missing the required parameter 'projectId' when calling postFolderRelationshipsRef");
       }
 
       // verify the required parameter 'folderId' is set
       if (folderId == undefined || folderId == null) {
-        throw "Missing the required parameter 'folderId' when calling postFolderRelationshipsRef";
+        return Promise.reject("Missing the required parameter 'folderId' when calling postFolderRelationshipsRef");
       }
 
       // verify the required parameter 'body' is set
       if (body == undefined || body == null) {
-        throw "Missing the required parameter 'body' when calling postFolderRelationshipsRef";
+        return Promise.reject("Missing the required parameter 'body' when calling postFolderRelationshipsRef");
       }
 
 
@@ -337,12 +344,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = null;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/folders/{folder_id}/relationships/refs', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
   };

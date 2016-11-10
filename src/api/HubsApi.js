@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -26,7 +26,12 @@
 module.exports = (function() {
    'use strict';
 
-   var ApiClient = require('../ApiClient');
+   var ApiClient = require('../ApiClient'),
+       Hub = require('../model/Hub'),
+       Forbidden = require('../model/Forbidden'),
+       NotFound = require('../model/NotFound'),
+       Projects = require('../model/Projects'),
+       Hubs = require('../model/Hubs');
 
   /**
    * Hubs service.
@@ -49,9 +54,10 @@ module.exports = (function() {
     /**
      * Returns data on a specific &#x60;hub_id&#x60;. 
      * @param {String} hubId the &#x60;hub id&#x60; for the current operation
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Hub}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getHub = function(hubId, credentials) {
+    this.getHub = function(hubId, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'hubId' is set
@@ -72,12 +78,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Hub;
 
       return this.apiClient.callApi(
         '/project/v1/hubs/{hub_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -88,16 +94,16 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} opts.filterId filter by the &#x60;id&#x60; of the &#x60;ref&#x60; target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
-     * data is of type: {Object}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Projects}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getHubProjects = function(hubId, opts, credentials) {
+    this.getHubProjects = function(hubId, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'hubId' is set
       if (hubId == undefined || hubId == null) {
-        throw "Missing the required parameter 'hubId' when calling getHubProjects";
+        return Promise.reject("Missing the required parameter 'hubId' when calling getHubProjects");
       }
 
 
@@ -105,8 +111,8 @@ module.exports = (function() {
         'hub_id': hubId
       };
       var queryParams = {
-        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'multi'),
-        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'multi')
+        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
       };
       var headerParams = {
       };
@@ -115,12 +121,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Projects;
 
       return this.apiClient.callApi(
         '/project/v1/hubs/{hub_id}/projects', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -130,10 +136,10 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} opts.filterId filter by the &#x60;id&#x60; of the &#x60;ref&#x60; target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
-     * data is of type: {Object}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Hubs}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getHubs = function(opts, credentials) {
+    this.getHubs = function(opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
@@ -141,8 +147,8 @@ module.exports = (function() {
       var pathParams = {
       };
       var queryParams = {
-        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'multi'),
-        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'multi')
+        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
       };
       var headerParams = {
       };
@@ -151,12 +157,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Hubs;
 
       return this.apiClient.callApi(
         '/project/v1/hubs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
   };

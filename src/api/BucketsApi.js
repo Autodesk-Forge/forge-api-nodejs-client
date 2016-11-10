@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -28,9 +28,9 @@ module.exports = (function() {
 
    var ApiClient = require('../ApiClient'),
        PostBucketsPayload = require('../model/PostBucketsPayload'),
-       Buckets = require('../model/Buckets'),
+       Bucket = require('../model/Bucket'),
        Reason = require('../model/Reason'),
-       InlineResponse200 = require('../model/InlineResponse200');
+       Buckets = require('../model/Buckets');
 
   /**
    * Buckets service.
@@ -55,16 +55,16 @@ module.exports = (function() {
      * @param {module:model/PostBucketsPayload} postBuckets Body Structure
      * @param {Object} opts Optional parameters
      * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
-     * data is of type: {module:model/Buckets}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Bucket}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.createBucket = function(postBuckets, opts, credentials) {
+    this.createBucket = function(postBuckets, opts, oauth2client) {
       opts = opts || {};
       var postBody = postBuckets;
 
       // verify the required parameter 'postBuckets' is set
       if (postBuckets == undefined || postBuckets == null) {
-        throw "Missing the required parameter 'postBuckets' when calling createBucket";
+        return Promise.reject("Missing the required parameter 'postBuckets' when calling createBucket");
       }
 
 
@@ -80,12 +80,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Buckets;
+      var returnType = Bucket;
 
       return this.apiClient.callApi(
         '/oss/v2/buckets', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -93,14 +93,14 @@ module.exports = (function() {
     /**
      * This endpoint will delete a bucket. 
      * @param {String} bucketKey URL-encoded bucket key
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.deleteBucket = function(bucketKey, credentials) {
+    this.deleteBucket = function(bucketKey, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'bucketKey' is set
       if (bucketKey == undefined || bucketKey == null) {
-        throw "Missing the required parameter 'bucketKey' when calling deleteBucket";
+        return Promise.reject("Missing the required parameter 'bucketKey' when calling deleteBucket");
       }
 
 
@@ -121,7 +121,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -129,15 +129,15 @@ module.exports = (function() {
     /**
      * This endpoint will return the buckets owned by the application. This endpoint supports pagination.
      * @param {String} bucketKey URL-encoded bucket key
-     * data is of type: {module:model/Buckets}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Bucket}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getBucketDetails = function(bucketKey, credentials) {
+    this.getBucketDetails = function(bucketKey, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'bucketKey' is set
       if (bucketKey == undefined || bucketKey == null) {
-        throw "Missing the required parameter 'bucketKey' when calling getBucketDetails";
+        return Promise.reject("Missing the required parameter 'bucketKey' when calling getBucketDetails");
       }
 
 
@@ -153,12 +153,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Buckets;
+      var returnType = Bucket;
 
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/details', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -169,10 +169,10 @@ module.exports = (function() {
      * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
      * @param {Integer} opts.limit Limit to the response size, Acceptable values: 1-100 Default &#x3D; 10  (default to 10)
      * @param {String} opts.startAt Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response 
-     * data is of type: {module:model/InlineResponse200}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Buckets}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getBuckets = function(opts, credentials) {
+    this.getBuckets = function(opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
@@ -191,12 +191,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = InlineResponse200;
+      var returnType = Buckets;
 
       return this.apiClient.callApi(
         '/oss/v2/buckets', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
   };

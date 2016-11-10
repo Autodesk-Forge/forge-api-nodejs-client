@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -112,7 +112,12 @@ module.exports = (function () {
                 };
 
                 _this.doPostRequest(url, body, function(response){
-                    resolve(response);
+                    // add expires_at property
+                    var credentials = Object.assign({}, response,
+                        {expires_at: new Date(Date.now() + response.expires_in * 1000)});
+                    resolve(credentials);
+                }, function(errResponse){
+                    reject(errResponse);
                 });
             } else {
                 reject(new Error('tokenUrl is not defined in the authentication object'));
@@ -143,10 +148,15 @@ module.exports = (function () {
 
                     _this.doPostRequest(url, body, function(response){
                         if (response.access_token) {
-                            resolve(response);
+                            var credentials = Object.assign({}, response,
+                                {expires_at: new Date(Date.now() + response.expires_in * 1000)});
+                            _this.credentials = credentials;
+                            resolve(credentials);
                         } else {
                             reject(response);
                         }
+                    }, function(errResponse){
+                        reject(errResponse);
                     });
                 } else {
                     reject(new Error('No refresh token present'));

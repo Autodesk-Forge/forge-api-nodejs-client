@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -52,14 +52,14 @@ module.exports = (function() {
      * Creates a new WorkItem.
      * @param {module:model/WorkItem} workItem 
      * data is of type: {module:model/WorkItemResp}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.createWorkItem = function(workItem, credentials) {
+    this.createWorkItem = function(workItem, oauth2client) {
       var postBody = workItem;
 
       // verify the required parameter 'workItem' is set
       if (workItem == undefined || workItem == null) {
-        throw "Missing the required parameter 'workItem' when calling createWorkItem";
+        return Promise.reject("Missing the required parameter 'workItem' when calling createWorkItem");
       }
 
 
@@ -79,7 +79,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/WorkItems', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -87,14 +87,14 @@ module.exports = (function() {
     /**
      * Removes a specific WorkItem.
      * @param {String} id 
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.deleteWorkItem = function(id, credentials) {
+    this.deleteWorkItem = function(id, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling deleteWorkItem";
+        return Promise.reject("Missing the required parameter 'id' when calling deleteWorkItem");
       }
 
 
@@ -115,7 +115,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/WorkItems(%27{id}%27)', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -125,9 +125,9 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {Integer} opts.skip 
      * data is of type: {Array.<module:model/WorkItemResp>}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getAllWorkItems = function(opts, credentials) {
+    this.getAllWorkItems = function(opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
@@ -149,7 +149,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/WorkItems', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -158,14 +158,14 @@ module.exports = (function() {
      * Returns the details of a specific WorkItem.
      * @param {String} id 
      * data is of type: {module:model/WorkItemResp}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getWorkItem = function(id, credentials) {
+    this.getWorkItem = function(id, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling getWorkItem";
+        return Promise.reject("Missing the required parameter 'id' when calling getWorkItem");
       }
 
 
@@ -186,7 +186,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/WorkItems(%27{id}%27)', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
   };

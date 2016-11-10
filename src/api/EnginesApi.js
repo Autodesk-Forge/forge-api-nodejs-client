@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -50,9 +50,9 @@ module.exports = (function() {
     /**
      * Returns the details of all available AutoCAD core engines.
      * data is of type: {Array.<module:model/Engine>}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getAllEngines = function(credentials) {
+    this.getAllEngines = function(oauth2client) {
       var postBody = null;
 
 
@@ -72,7 +72,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Engines', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -81,14 +81,14 @@ module.exports = (function() {
      * Returns the details of a specific AutoCAD core engine.
      * @param {String} id 
      * data is of type: {module:model/Engine}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getEngine = function(id, credentials) {
+    this.getEngine = function(id, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling getEngine";
+        return Promise.reject("Missing the required parameter 'id' when calling getEngine");
       }
 
 
@@ -109,7 +109,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Engines(%27{id}%27)', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
   };

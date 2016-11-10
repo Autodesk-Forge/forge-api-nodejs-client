@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -27,7 +27,13 @@ module.exports = (function() {
    'use strict';
 
    var ApiClient = require('../ApiClient'),
+       BadInput = require('../model/BadInput'),
+       Version = require('../model/Version'),
+       Forbidden = require('../model/Forbidden'),
+       NotFound = require('../model/NotFound'),
+       Item = require('../model/Item'),
        JsonApiCollection = require('../model/JsonApiCollection'),
+       Refs = require('../model/Refs'),
        CreateRef = require('../model/CreateRef');
 
   /**
@@ -52,20 +58,20 @@ module.exports = (function() {
      * Returns the version with the given &#x60;version_id&#x60;. 
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} versionId the &#x60;version id&#x60;
-     * data is of type: {Object}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Version}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getVersion = function(projectId, versionId, credentials) {
+    this.getVersion = function(projectId, versionId, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getVersion";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getVersion");
       }
 
       // verify the required parameter 'versionId' is set
       if (versionId == undefined || versionId == null) {
-        throw "Missing the required parameter 'versionId' when calling getVersion";
+        return Promise.reject("Missing the required parameter 'versionId' when calling getVersion");
       }
 
 
@@ -82,12 +88,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Version;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/versions/{version_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -96,20 +102,20 @@ module.exports = (function() {
      * Returns the item the given version is associated with. 
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} versionId the &#x60;version id&#x60;
-     * data is of type: {Object}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Item}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getVersionItem = function(projectId, versionId, credentials) {
+    this.getVersionItem = function(projectId, versionId, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getVersionItem";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getVersionItem");
       }
 
       // verify the required parameter 'versionId' is set
       if (versionId == undefined || versionId == null) {
-        throw "Missing the required parameter 'versionId' when calling getVersionItem";
+        return Promise.reject("Missing the required parameter 'versionId' when calling getVersionItem");
       }
 
 
@@ -126,12 +132,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Item;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/versions/{version_id}/item', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -145,20 +151,20 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterId filter by the &#x60;id&#x60; of the &#x60;ref&#x60; target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/JsonApiCollection}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getVersionRefs = function(projectId, versionId, opts, credentials) {
+    this.getVersionRefs = function(projectId, versionId, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getVersionRefs";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getVersionRefs");
       }
 
       // verify the required parameter 'versionId' is set
       if (versionId == undefined || versionId == null) {
-        throw "Missing the required parameter 'versionId' when calling getVersionRefs";
+        return Promise.reject("Missing the required parameter 'versionId' when calling getVersionRefs");
       }
 
 
@@ -167,9 +173,9 @@ module.exports = (function() {
         'version_id': versionId
       };
       var queryParams = {
-        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'multi'),
-        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'multi'),
-        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'multi')
+        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
+        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
       };
       var headerParams = {
       };
@@ -183,7 +189,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/versions/{version_id}/refs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -198,21 +204,21 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterRefType filter by &#x60;refType&#x60;
      * @param {module:model/String} opts.filterDirection filter by the direction of the reference
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
-     * data is of type: {Object}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Refs}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getVersionRelationshipsRefs = function(projectId, versionId, opts, credentials) {
+    this.getVersionRelationshipsRefs = function(projectId, versionId, opts, oauth2client) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getVersionRelationshipsRefs";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getVersionRelationshipsRefs");
       }
 
       // verify the required parameter 'versionId' is set
       if (versionId == undefined || versionId == null) {
-        throw "Missing the required parameter 'versionId' when calling getVersionRelationshipsRefs";
+        return Promise.reject("Missing the required parameter 'versionId' when calling getVersionRelationshipsRefs");
       }
 
 
@@ -221,11 +227,11 @@ module.exports = (function() {
         'version_id': versionId
       };
       var queryParams = {
-        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'multi'),
-        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'multi'),
-        'filter[refType]': this.apiClient.buildCollectionParam(opts['filterRefType'], 'multi'),
+        'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
+        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+        'filter[refType]': this.apiClient.buildCollectionParam(opts['filterRefType'], 'csv'),
         'filter[direction]': opts['filterDirection'],
-        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'multi')
+        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
       };
       var headerParams = {
       };
@@ -234,12 +240,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Refs;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/versions/{version_id}/relationships/refs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -249,24 +255,24 @@ module.exports = (function() {
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} versionId the &#x60;version id&#x60;
      * @param {module:model/CreateRef} body describe the ref to be created
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.postVersionRelationshipsRef = function(projectId, versionId, body, credentials) {
+    this.postVersionRelationshipsRef = function(projectId, versionId, body, oauth2client) {
       var postBody = body;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling postVersionRelationshipsRef";
+        return Promise.reject("Missing the required parameter 'projectId' when calling postVersionRelationshipsRef");
       }
 
       // verify the required parameter 'versionId' is set
       if (versionId == undefined || versionId == null) {
-        throw "Missing the required parameter 'versionId' when calling postVersionRelationshipsRef";
+        return Promise.reject("Missing the required parameter 'versionId' when calling postVersionRelationshipsRef");
       }
 
       // verify the required parameter 'body' is set
       if (body == undefined || body == null) {
-        throw "Missing the required parameter 'body' when calling postVersionRelationshipsRef";
+        return Promise.reject("Missing the required parameter 'body' when calling postVersionRelationshipsRef");
       }
 
 
@@ -283,12 +289,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = null;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/versions/{version_id}/relationships/refs', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
   };

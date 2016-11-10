@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -88,7 +88,7 @@ module.exports = (function () {
      * @returns {boolean}
      */
     OAuth2TwoLegged.prototype.isAuthorized = function(){
-        return !!(this.credentials && this.credentials.token_expires_at && this.credentials.token_expires_at > Date.now());
+        return !!(this.credentials && this.credentials.expires_at && this.credentials.expires_at > Date.now());
     };
 
     /**
@@ -109,7 +109,13 @@ module.exports = (function () {
                 };
 
                 _this.doPostRequest(url, body, function(response){
-                    resolve(response);
+                    // add expires_at property
+                    var credentials = Object.assign({}, response,
+                        {expires_at: new Date(Date.now() + response.expires_in * 1000)});
+                    _this.setCredentials(credentials);
+                    resolve(credentials);
+                }, function(errResponse){
+                    reject(errResponse);
                 });
 
             } else {

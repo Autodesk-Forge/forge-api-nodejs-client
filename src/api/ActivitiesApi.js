@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -53,14 +53,14 @@ module.exports = (function() {
      * Creates a new Activity.
      * @param {module:model/Activity} activity 
      * data is of type: {module:model/Activity}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.createActivity = function(activity, credentials) {
+    this.createActivity = function(activity, oauth2client) {
       var postBody = activity;
 
       // verify the required parameter 'activity' is set
       if (activity == undefined || activity == null) {
-        throw "Missing the required parameter 'activity' when calling createActivity";
+        return Promise.reject("Missing the required parameter 'activity' when calling createActivity");
       }
 
 
@@ -80,7 +80,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Activities', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -88,14 +88,14 @@ module.exports = (function() {
     /**
      * Removes a specific Activity.
      * @param {String} id 
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.deleteActivity = function(id, credentials) {
+    this.deleteActivity = function(id, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling deleteActivity";
+        return Promise.reject("Missing the required parameter 'id' when calling deleteActivity");
       }
 
 
@@ -116,7 +116,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Activities(%27{id}%27)', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -124,14 +124,14 @@ module.exports = (function() {
     /**
      * Removes the version history of the specified Activity.
      * @param {String} id 
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.deleteActivityHistory = function(id, credentials) {
+    this.deleteActivityHistory = function(id, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling deleteActivityHistory";
+        return Promise.reject("Missing the required parameter 'id' when calling deleteActivityHistory");
       }
 
 
@@ -152,7 +152,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.DeleteHistory', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -161,14 +161,14 @@ module.exports = (function() {
      * Returns the details of a specific Activity.
      * @param {String} id 
      * data is of type: {module:model/Activity}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getActivity = function(id, credentials) {
+    this.getActivity = function(id, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling getActivity";
+        return Promise.reject("Missing the required parameter 'id' when calling getActivity");
       }
 
 
@@ -189,7 +189,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Activities(%27{id}%27)', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -198,14 +198,14 @@ module.exports = (function() {
      * Returns all old versions of a specified Activity.
      * @param {String} id 
      * data is of type: {Array.<module:model/Activity>}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getActivityVersions = function(id, credentials) {
+    this.getActivityVersions = function(id, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling getActivityVersions";
+        return Promise.reject("Missing the required parameter 'id' when calling getActivityVersions");
       }
 
 
@@ -226,7 +226,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.GetVersions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -234,9 +234,9 @@ module.exports = (function() {
     /**
      * Returns the details of all Activities.
      * data is of type: {Array.<module:model/Activity>}
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getAllActivities = function(credentials) {
+    this.getAllActivities = function(oauth2client) {
       var postBody = null;
 
 
@@ -256,7 +256,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Activities', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -265,19 +265,19 @@ module.exports = (function() {
      * Updates an Activity by specifying only the changed attributes.
      * @param {String} id 
      * @param {module:model/ActivityOptional} activity 
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.patchActivity = function(id, activity, credentials) {
+    this.patchActivity = function(id, activity, oauth2client) {
       var postBody = activity;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling patchActivity";
+        return Promise.reject("Missing the required parameter 'id' when calling patchActivity");
       }
 
       // verify the required parameter 'activity' is set
       if (activity == undefined || activity == null) {
-        throw "Missing the required parameter 'activity' when calling patchActivity";
+        return Promise.reject("Missing the required parameter 'activity' when calling patchActivity");
       }
 
 
@@ -298,7 +298,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Activities(%27{id}%27)', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -307,19 +307,19 @@ module.exports = (function() {
      * Sets the Activity to the specified version.
      * @param {String} id 
      * @param {module:model/ActivityVersion} activityVersion 
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.setActivityVersion = function(id, activityVersion, credentials) {
+    this.setActivityVersion = function(id, activityVersion, oauth2client) {
       var postBody = activityVersion;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling setActivityVersion";
+        return Promise.reject("Missing the required parameter 'id' when calling setActivityVersion");
       }
 
       // verify the required parameter 'activityVersion' is set
       if (activityVersion == undefined || activityVersion == null) {
-        throw "Missing the required parameter 'activityVersion' when calling setActivityVersion";
+        return Promise.reject("Missing the required parameter 'activityVersion' when calling setActivityVersion");
       }
 
 
@@ -340,7 +340,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.SetVersion', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -349,19 +349,19 @@ module.exports = (function() {
      * Updates an Activity by redefining the entire Activity object.
      * @param {String} id 
      * @param {module:model/Activity} activity 
-     * @param {Object} credentials Credentials for the call
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.updateActivity = function(id, activity, credentials) {
+    this.updateActivity = function(id, activity, oauth2client) {
       var postBody = activity;
 
       // verify the required parameter 'id' is set
       if (id == undefined || id == null) {
-        throw "Missing the required parameter 'id' when calling updateActivity";
+        return Promise.reject("Missing the required parameter 'id' when calling updateActivity");
       }
 
       // verify the required parameter 'activity' is set
       if (activity == undefined || activity == null) {
-        throw "Missing the required parameter 'activity' when calling updateActivity";
+        return Promise.reject("Missing the required parameter 'activity' when calling updateActivity");
       }
 
 
@@ -382,7 +382,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Activities(%27{id}%27)', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
   };

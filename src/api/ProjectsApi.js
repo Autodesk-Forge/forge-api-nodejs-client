@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -27,9 +27,18 @@ module.exports = (function() {
    'use strict';
 
    var ApiClient = require('../ApiClient'),
+       Project = require('../model/Project'),
+       Forbidden = require('../model/Forbidden'),
+       NotFound = require('../model/NotFound'),
+       Hub = require('../model/Hub'),
+       ItemCreated = require('../model/ItemCreated'),
+       BadInput = require('../model/BadInput'),
+       Conflict = require('../model/Conflict'),
        CreateItem = require('../model/CreateItem'),
+       StorageCreated = require('../model/StorageCreated'),
        CreateStorage = require('../model/CreateStorage'),
-       CreateVersion = require('../model/CreateVersion');
+       CreateVersion = require('../model/CreateVersion'),
+       VersionCreated = require('../model/VersionCreated');
 
   /**
    * Projects service.
@@ -53,19 +62,20 @@ module.exports = (function() {
      * Returns a project for a given &#x60;project_id&#x60;. 
      * @param {String} hubId the &#x60;hub id&#x60; for the current operation
      * @param {String} projectId the &#x60;project id&#x60;
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Project}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getProject = function(hubId, projectId, credentials) {
+    this.getProject = function(hubId, projectId, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'hubId' is set
       if (hubId == undefined || hubId == null) {
-        throw "Missing the required parameter 'hubId' when calling getProject";
+        return Promise.reject("Missing the required parameter 'hubId' when calling getProject");
       }
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getProject";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getProject");
       }
 
 
@@ -82,41 +92,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Project;
 
       return this.apiClient.callApi(
         '/project/v1/hubs/{hub_id}/projects/{project_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
-      );
-    };
-
-
-    /**
-     * Returns health information for the &#x60;project&#x60; domain. The health check assesses the current working status of the &#39;project&#39; domain service. 
-     * @param {Object} credentials Credentials for the call
-     */
-    this.getProjectHealth = function(credentials) {
-      var postBody = null;
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
-
-      return this.apiClient.callApi(
-        '/project/v1/health', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -125,19 +106,20 @@ module.exports = (function() {
      * Returns the hub for a given &#x60;project_id&#x60;. 
      * @param {String} hubId the &#x60;hub id&#x60; for the current operation
      * @param {String} projectId the &#x60;project id&#x60;
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/Hub}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.getProjectHub = function(hubId, projectId, credentials) {
+    this.getProjectHub = function(hubId, projectId, oauth2client) {
       var postBody = null;
 
       // verify the required parameter 'hubId' is set
       if (hubId == undefined || hubId == null) {
-        throw "Missing the required parameter 'hubId' when calling getProjectHub";
+        return Promise.reject("Missing the required parameter 'hubId' when calling getProjectHub");
       }
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling getProjectHub";
+        return Promise.reject("Missing the required parameter 'projectId' when calling getProjectHub");
       }
 
 
@@ -154,12 +136,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = Hub;
 
       return this.apiClient.callApi(
         '/project/v1/hubs/{hub_id}/projects/{project_id}/hub', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -168,20 +150,20 @@ module.exports = (function() {
      * Creates a new item in the &#39;data&#39; domain service. 
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {module:model/CreateItem} body describe the item to be created
-     * data is of type: {Object}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/ItemCreated}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.postItem = function(projectId, body, credentials) {
+    this.postItem = function(projectId, body, oauth2client) {
       var postBody = body;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling postItem";
+        return Promise.reject("Missing the required parameter 'projectId' when calling postItem");
       }
 
       // verify the required parameter 'body' is set
       if (body == undefined || body == null) {
-        throw "Missing the required parameter 'body' when calling postItem";
+        return Promise.reject("Missing the required parameter 'body' when calling postItem");
       }
 
 
@@ -197,12 +179,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = ItemCreated;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/items', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -211,20 +193,20 @@ module.exports = (function() {
      * Creates a storage location in the OSS where data can be uploaded to. 
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {module:model/CreateStorage} body describe the file the storage is created for
-     * data is of type: {Object}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/StorageCreated}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.postStorage = function(projectId, body, credentials) {
+    this.postStorage = function(projectId, body, oauth2client) {
       var postBody = body;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling postStorage";
+        return Promise.reject("Missing the required parameter 'projectId' when calling postStorage");
       }
 
       // verify the required parameter 'body' is set
       if (body == undefined || body == null) {
-        throw "Missing the required parameter 'body' when calling postStorage";
+        return Promise.reject("Missing the required parameter 'body' when calling postStorage");
       }
 
 
@@ -240,12 +222,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = StorageCreated;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/storage', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
 
@@ -254,20 +236,20 @@ module.exports = (function() {
      * Creates a new version of an item in the &#39;data&#39; domain service. 
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {module:model/CreateVersion} body describe the version to be created
-     * data is of type: {Object}
-     * @param {Object} credentials Credentials for the call
+     * data is of type: {module:model/VersionCreated}
+     * @param {Object} oauth2client oauth2client for the call
      */
-    this.postVersion = function(projectId, body, credentials) {
+    this.postVersion = function(projectId, body, oauth2client) {
       var postBody = body;
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        throw "Missing the required parameter 'projectId' when calling postVersion";
+        return Promise.reject("Missing the required parameter 'projectId' when calling postVersion");
       }
 
       // verify the required parameter 'body' is set
       if (body == undefined || body == null) {
-        throw "Missing the required parameter 'body' when calling postVersion";
+        return Promise.reject("Missing the required parameter 'body' when calling postVersion");
       }
 
 
@@ -283,12 +265,12 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Object;
+      var returnType = VersionCreated;
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/versions', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, credentials
+        contentTypes, accepts, returnType, oauth2client
       );
     };
   };
