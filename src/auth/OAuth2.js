@@ -111,8 +111,6 @@ module.exports = (function () {
         this.credentials.expires_at = Date.now();
         this.autoRefresh = autoRefresh || false; // don't auto refresh by default
 
-        this.validateTokenUrl = '/validation/v1/validatetoken';
-
         //this.authentications must be implemented in the child Class
         var validScope = validateScope(this.authentication.scopes, scope);
 
