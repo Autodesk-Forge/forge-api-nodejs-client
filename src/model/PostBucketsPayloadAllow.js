@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The PostBucketsPayloadAllow model module.
    * @module model/PostBucketsPayloadAllow
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
    /**

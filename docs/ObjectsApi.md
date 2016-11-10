@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 <a name="copyTo"></a>
 # **copyTo**
-> ObjectDetails copyTo(bucketKey, objectName, newObjName, oauth2client)
+> ObjectDetails copyTo(bucketKey, objectName, newObjName, oauth2client, credentials)
 
 
 
@@ -50,7 +50,7 @@ Name | Type | Description  | Notes
 
 <a name="createSignedResource"></a>
 # **createSignedResource**
-> PostObjectSigned createSignedResource(bucketKey, objectName, postBucketsSigned, opts, oauth2client)
+> PostObjectSigned createSignedResource(bucketKey, objectName, postBucketsSigned, opts, oauth2client, credentials)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 <a name="deleteObject"></a>
 # **deleteObject**
-> deleteObject(bucketKey, objectName, oauth2client)
+> deleteObject(bucketKey, objectName, oauth2client, credentials)
 
 
 
@@ -108,7 +108,7 @@ null (empty response body)
 
 <a name="deleteSignedResource"></a>
 # **deleteSignedResource**
-> InputStream deleteSignedResource(id, opts, oauth2client)
+> InputStream deleteSignedResource(id, opts, oauth2client, credentials)
 
 
 
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 <a name="getObject"></a>
 # **getObject**
-> InputStream getObject(bucketKey, objectName, opts, oauth2client)
+> InputStream getObject(bucketKey, objectName, opts, oauth2client, credentials)
 
 
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 <a name="getObjectDetails"></a>
 # **getObjectDetails**
-> ObjectFullDetails getObjectDetails(bucketKey, objectName, opts, oauth2client)
+> ObjectFullDetails getObjectDetails(bucketKey, objectName, opts, oauth2client, credentials)
 
 
 
@@ -198,7 +198,7 @@ Name | Type | Description  | Notes
 
 <a name="getObjects"></a>
 # **getObjects**
-> BucketObjects getObjects(bucketKey, opts, oauth2client)
+> BucketObjects getObjects(bucketKey, opts, oauth2client, credentials)
 
 
 
@@ -228,7 +228,7 @@ Name | Type | Description  | Notes
 
 <a name="getSessionid"></a>
 # **getSessionid**
-> Result getSessionid(bucketKey, objectName, sessionId, oauth2client)
+> Result getSessionid(bucketKey, objectName, sessionId, oauth2client, credentials)
 
 
 
@@ -257,7 +257,7 @@ Name | Type | Description  | Notes
 
 <a name="getSignedResource"></a>
 # **getSignedResource**
-> InputStream getSignedResource(id, opts, oauth2client)
+> InputStream getSignedResource(id, opts, oauth2client, credentials)
 
 
 
@@ -289,7 +289,7 @@ Name | Type | Description  | Notes
 
 <a name="uploadChunk"></a>
 # **uploadChunk**
-> ObjectDetails uploadChunk(bucketKey, objectName, contentLength, contentRange, sessionId, body, opts, oauth2client)
+> ObjectDetails uploadChunk(bucketKey, objectName, contentLength, contentRange, sessionId, body, opts, oauth2client, credentials)
 
 
 
@@ -323,7 +323,7 @@ Name | Type | Description  | Notes
 
 <a name="uploadObject"></a>
 # **uploadObject**
-> ObjectDetails uploadObject(bucketKey, objectName, contentLength, body, opts, oauth2client)
+> ObjectDetails uploadObject(bucketKey, objectName, contentLength, body, opts, oauth2client, credentials)
 
 
 
@@ -355,7 +355,7 @@ Name | Type | Description  | Notes
 
 <a name="uploadSignedResource"></a>
 # **uploadSignedResource**
-> PostObjectSigned uploadSignedResource(id, contentLength, body, opts, oauth2client)
+> PostObjectSigned uploadSignedResource(id, contentLength, body, opts, oauth2client, credentials)
 
 
 
@@ -387,7 +387,7 @@ Name | Type | Description  | Notes
 
 <a name="uploadSignedResourcesChunk"></a>
 # **uploadSignedResourcesChunk**
-> PostObjectSigned uploadSignedResourcesChunk(id, contentRange, sessionId, body, opts, oauth2client)
+> PostObjectSigned uploadSignedResourcesChunk(id, contentRange, sessionId, body, opts, oauth2client, credentials)
 
 
 

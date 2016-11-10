@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 <a name="createActivity"></a>
 # **createActivity**
-> Activity createActivity(activity, oauth2client)
+> Activity createActivity(activity, oauth2client, credentials)
 
 Creates a new Activity.
 
@@ -42,7 +42,7 @@ Name | Type | Description  | Notes
 
 <a name="deleteActivity"></a>
 # **deleteActivity**
-> deleteActivity(id, oauth2client)
+> deleteActivity(id, oauth2client, credentials)
 
 Removes a specific Activity.
 
@@ -67,7 +67,7 @@ null (empty response body)
 
 <a name="deleteActivityHistory"></a>
 # **deleteActivityHistory**
-> deleteActivityHistory(id, oauth2client)
+> deleteActivityHistory(id, oauth2client, credentials)
 
 Removes the version history of the specified Activity.
 
@@ -92,7 +92,7 @@ null (empty response body)
 
 <a name="getActivity"></a>
 # **getActivity**
-> Activity getActivity(id, oauth2client)
+> Activity getActivity(id, oauth2client, credentials)
 
 Returns the details of a specific Activity.
 
@@ -117,7 +117,7 @@ Name | Type | Description  | Notes
 
 <a name="getActivityVersions"></a>
 # **getActivityVersions**
-> [Activity] getActivityVersions(id, oauth2client)
+> [Activity] getActivityVersions(id, oauth2client, credentials)
 
 Returns all old versions of a specified Activity.
 
@@ -142,7 +142,7 @@ Name | Type | Description  | Notes
 
 <a name="getAllActivities"></a>
 # **getAllActivities**
-> [Activity] getAllActivities(oauth2client)
+> [Activity] getAllActivities(oauth2client, credentials)
 
 Returns the details of all Activities.
 
@@ -164,7 +164,7 @@ This endpoint does not need any parameter.
 
 <a name="patchActivity"></a>
 # **patchActivity**
-> patchActivity(id, activity, oauth2client)
+> patchActivity(id, activity, oauth2client, credentials)
 
 Updates an Activity by specifying only the changed attributes.
 
@@ -190,7 +190,7 @@ null (empty response body)
 
 <a name="setActivityVersion"></a>
 # **setActivityVersion**
-> setActivityVersion(id, activityVersion, oauth2client)
+> setActivityVersion(id, activityVersion, oauth2client, credentials)
 
 Sets the Activity to the specified version.
 
@@ -216,7 +216,7 @@ null (empty response body)
 
 <a name="updateActivity"></a>
 # **updateActivity**
-> updateActivity(id, activity, oauth2client)
+> updateActivity(id, activity, oauth2client, credentials)
 
 Updates an Activity by redefining the entire Activity object.
 

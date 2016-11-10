@@ -36,7 +36,7 @@ module.exports = (function() {
   /**
    * The CreateItem model module.
    * @module model/CreateItem
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
    /**

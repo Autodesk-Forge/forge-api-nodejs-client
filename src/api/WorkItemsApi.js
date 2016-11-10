@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * WorkItems service.
    * @module api/WorkItemsApi
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
   /**
@@ -53,8 +53,9 @@ module.exports = (function() {
      * @param {module:model/WorkItem} workItem 
      * data is of type: {module:model/WorkItemResp}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.createWorkItem = function(workItem, oauth2client) {
+    this.createWorkItem = function(workItem, oauth2client, credentials) {
       var postBody = workItem;
 
       // verify the required parameter 'workItem' is set
@@ -79,7 +80,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/WorkItems', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -88,8 +89,9 @@ module.exports = (function() {
      * Removes a specific WorkItem.
      * @param {String} id 
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.deleteWorkItem = function(id, oauth2client) {
+    this.deleteWorkItem = function(id, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
@@ -115,7 +117,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/WorkItems(%27{id}%27)', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -126,8 +128,9 @@ module.exports = (function() {
      * @param {Integer} opts.skip 
      * data is of type: {Array.<module:model/WorkItemResp>}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getAllWorkItems = function(opts, oauth2client) {
+    this.getAllWorkItems = function(opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -149,7 +152,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/WorkItems', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -159,8 +162,9 @@ module.exports = (function() {
      * @param {String} id 
      * data is of type: {module:model/WorkItemResp}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getWorkItem = function(id, oauth2client) {
+    this.getWorkItem = function(id, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
@@ -186,7 +190,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/WorkItems(%27{id}%27)', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
   };

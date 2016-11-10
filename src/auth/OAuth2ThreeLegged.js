@@ -29,7 +29,7 @@ module.exports = (function () {
 
     /**
      * @module auth/OAuth2ThreeLegged
-     * @version 0.2.1
+     * @version 0.2.2
      */
 
     /**
@@ -150,7 +150,6 @@ module.exports = (function () {
                         if (response.access_token) {
                             var credentials = Object.assign({}, response,
                                 {expires_at: new Date(Date.now() + response.expires_in * 1000)});
-                            _this.credentials = credentials;
                             resolve(credentials);
                         } else {
                             reject(response);

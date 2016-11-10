@@ -43,7 +43,7 @@ module.exports = (function() {
   /**
    * Projects service.
    * @module api/ProjectsApi
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
   /**
@@ -64,8 +64,9 @@ module.exports = (function() {
      * @param {String} projectId the &#x60;project id&#x60;
      * data is of type: {module:model/Project}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getProject = function(hubId, projectId, oauth2client) {
+    this.getProject = function(hubId, projectId, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'hubId' is set
@@ -97,7 +98,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/project/v1/hubs/{hub_id}/projects/{project_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -108,8 +109,9 @@ module.exports = (function() {
      * @param {String} projectId the &#x60;project id&#x60;
      * data is of type: {module:model/Hub}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getProjectHub = function(hubId, projectId, oauth2client) {
+    this.getProjectHub = function(hubId, projectId, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'hubId' is set
@@ -141,7 +143,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/project/v1/hubs/{hub_id}/projects/{project_id}/hub', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -152,8 +154,9 @@ module.exports = (function() {
      * @param {module:model/CreateItem} body describe the item to be created
      * data is of type: {module:model/ItemCreated}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.postItem = function(projectId, body, oauth2client) {
+    this.postItem = function(projectId, body, oauth2client, credentials) {
       var postBody = body;
 
       // verify the required parameter 'projectId' is set
@@ -184,7 +187,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/items', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -195,8 +198,9 @@ module.exports = (function() {
      * @param {module:model/CreateStorage} body describe the file the storage is created for
      * data is of type: {module:model/StorageCreated}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.postStorage = function(projectId, body, oauth2client) {
+    this.postStorage = function(projectId, body, oauth2client, credentials) {
       var postBody = body;
 
       // verify the required parameter 'projectId' is set
@@ -227,7 +231,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/storage', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -238,8 +242,9 @@ module.exports = (function() {
      * @param {module:model/CreateVersion} body describe the version to be created
      * data is of type: {module:model/VersionCreated}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.postVersion = function(projectId, body, oauth2client) {
+    this.postVersion = function(projectId, body, oauth2client, credentials) {
       var postBody = body;
 
       // verify the required parameter 'projectId' is set
@@ -270,7 +275,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/versions', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
   };

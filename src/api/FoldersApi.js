@@ -38,7 +38,7 @@ module.exports = (function() {
   /**
    * Folders service.
    * @module api/FoldersApi
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
   /**
@@ -59,8 +59,9 @@ module.exports = (function() {
      * @param {String} folderId the &#x60;folder id&#x60;
      * data is of type: {module:model/Folder}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getFolder = function(projectId, folderId, oauth2client) {
+    this.getFolder = function(projectId, folderId, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
@@ -92,7 +93,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/folders/{folder_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -109,8 +110,9 @@ module.exports = (function() {
      * @param {Integer} opts.pageLimit specify the maximal number of elements per page
      * data is of type: {module:model/JsonApiCollection}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getFolderContents = function(projectId, folderId, opts, oauth2client) {
+    this.getFolderContents = function(projectId, folderId, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -148,7 +150,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/folders/{folder_id}/contents', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -159,8 +161,9 @@ module.exports = (function() {
      * @param {String} folderId the &#x60;folder id&#x60;
      * data is of type: {module:model/Folder}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getFolderParent = function(projectId, folderId, oauth2client) {
+    this.getFolderParent = function(projectId, folderId, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
@@ -192,7 +195,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/folders/{folder_id}/parent', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -207,8 +210,9 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/JsonApiCollection}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getFolderRefs = function(projectId, folderId, opts, oauth2client) {
+    this.getFolderRefs = function(projectId, folderId, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -244,7 +248,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/folders/{folder_id}/refs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -261,8 +265,9 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/Refs}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getFolderRelationshipsRefs = function(projectId, folderId, opts, oauth2client) {
+    this.getFolderRelationshipsRefs = function(projectId, folderId, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -300,7 +305,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/folders/{folder_id}/relationships/refs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -311,8 +316,9 @@ module.exports = (function() {
      * @param {String} folderId the &#x60;folder id&#x60;
      * @param {module:model/CreateRef} body describe the ref to be created
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.postFolderRelationshipsRef = function(projectId, folderId, body, oauth2client) {
+    this.postFolderRelationshipsRef = function(projectId, folderId, body, oauth2client, credentials) {
       var postBody = body;
 
       // verify the required parameter 'projectId' is set
@@ -349,7 +355,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/folders/{folder_id}/relationships/refs', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
   };

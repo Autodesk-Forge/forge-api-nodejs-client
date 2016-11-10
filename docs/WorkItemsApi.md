@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 <a name="createWorkItem"></a>
 # **createWorkItem**
-> WorkItemResp createWorkItem(workItem, oauth2client)
+> WorkItemResp createWorkItem(workItem, oauth2client, credentials)
 
 Creates a new WorkItem.
 
@@ -37,7 +37,7 @@ Name | Type | Description  | Notes
 
 <a name="deleteWorkItem"></a>
 # **deleteWorkItem**
-> deleteWorkItem(id, oauth2client)
+> deleteWorkItem(id, oauth2client, credentials)
 
 Removes a specific WorkItem.
 
@@ -62,7 +62,7 @@ null (empty response body)
 
 <a name="getAllWorkItems"></a>
 # **getAllWorkItems**
-> [WorkItemResp] getAllWorkItems(opts, oauth2client)
+> [WorkItemResp] getAllWorkItems(opts, oauth2client, credentials)
 
 Returns the details of all WorkItems.
 
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 <a name="getWorkItem"></a>
 # **getWorkItem**
-> WorkItemResp getWorkItem(id, oauth2client)
+> WorkItemResp getWorkItem(id, oauth2client, credentials)
 
 Returns the details of a specific WorkItem.
 

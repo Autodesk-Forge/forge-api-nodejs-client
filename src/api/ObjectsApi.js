@@ -39,7 +39,7 @@ module.exports = (function() {
   /**
    * Objects service.
    * @module api/ObjectsApi
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
   /**
@@ -61,8 +61,9 @@ module.exports = (function() {
      * @param {String} newObjName URL-encoded Object key to use as the destination
      * data is of type: {module:model/ObjectDetails}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.copyTo = function(bucketKey, objectName, newObjName, oauth2client) {
+    this.copyTo = function(bucketKey, objectName, newObjName, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'bucketKey' is set
@@ -100,7 +101,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}/copyTo/{newObjName}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -114,8 +115,9 @@ module.exports = (function() {
      * @param {module:model/String} opts.access Access for signed resource Acceptable values: &#x60;read&#x60;, &#x60;write&#x60;, &#x60;readwrite&#x60;. Default value: &#x60;read&#x60;  (default to read)
      * data is of type: {module:model/PostObjectSigned}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.createSignedResource = function(bucketKey, objectName, postBucketsSigned, opts, oauth2client) {
+    this.createSignedResource = function(bucketKey, objectName, postBucketsSigned, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = postBucketsSigned;
 
@@ -154,7 +156,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}/signed', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -164,8 +166,9 @@ module.exports = (function() {
      * @param {String} bucketKey URL-encoded bucket key
      * @param {String} objectName URL-encoded object name
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.deleteObject = function(bucketKey, objectName, oauth2client) {
+    this.deleteObject = function(bucketKey, objectName, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'bucketKey' is set
@@ -197,7 +200,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -209,8 +212,9 @@ module.exports = (function() {
      * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
      * data is of type: {module:model/InputStream}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.deleteSignedResource = function(id, opts, oauth2client) {
+    this.deleteSignedResource = function(id, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -238,7 +242,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/signedresources/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -254,8 +258,9 @@ module.exports = (function() {
      * @param {String} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used. 
      * data is of type: {module:model/InputStream}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getObject = function(bucketKey, objectName, opts, oauth2client) {
+    this.getObject = function(bucketKey, objectName, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -292,7 +297,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -306,8 +311,9 @@ module.exports = (function() {
      * @param {module:model/String} opts._with Extra information in details; multiple uses are supported Acceptable values: &#x60;createdDate&#x60;, &#x60;lastAccessedDate&#x60;, &#x60;lastModifiedDate&#x60; 
      * data is of type: {module:model/ObjectFullDetails}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getObjectDetails = function(bucketKey, objectName, opts, oauth2client) {
+    this.getObjectDetails = function(bucketKey, objectName, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -342,7 +348,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}/details', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -356,8 +362,9 @@ module.exports = (function() {
      * @param {String} opts.startAt Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response 
      * data is of type: {module:model/BucketObjects}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getObjects = function(bucketKey, opts, oauth2client) {
+    this.getObjects = function(bucketKey, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -387,7 +394,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -399,8 +406,9 @@ module.exports = (function() {
      * @param {String} sessionId Unique identifier of a session of a file being uploaded
      * data is of type: {module:model/Result}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getSessionid = function(bucketKey, objectName, sessionId, oauth2client) {
+    this.getSessionid = function(bucketKey, objectName, sessionId, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'bucketKey' is set
@@ -438,7 +446,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}/status/{sessionId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -454,8 +462,9 @@ module.exports = (function() {
      * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
      * data is of type: {module:model/InputStream}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getSignedResource = function(id, opts, oauth2client) {
+    this.getSignedResource = function(id, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -487,7 +496,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/signedresources/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -505,8 +514,9 @@ module.exports = (function() {
      * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
      * data is of type: {module:model/ObjectDetails}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.uploadChunk = function(bucketKey, objectName, contentLength, contentRange, sessionId, body, opts, oauth2client) {
+    this.uploadChunk = function(bucketKey, objectName, contentLength, contentRange, sessionId, body, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = body;
 
@@ -564,7 +574,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}/resumable', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -580,8 +590,9 @@ module.exports = (function() {
      * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
      * data is of type: {module:model/ObjectDetails}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.uploadObject = function(bucketKey, objectName, contentLength, body, opts, oauth2client) {
+    this.uploadObject = function(bucketKey, objectName, contentLength, body, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = body;
 
@@ -627,7 +638,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -643,8 +654,9 @@ module.exports = (function() {
      * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
      * data is of type: {module:model/PostObjectSigned}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.uploadSignedResource = function(id, contentLength, body, opts, oauth2client) {
+    this.uploadSignedResource = function(id, contentLength, body, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = body;
 
@@ -685,7 +697,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/signedresources/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -701,8 +713,9 @@ module.exports = (function() {
      * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
      * data is of type: {module:model/PostObjectSigned}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.uploadSignedResourcesChunk = function(id, contentRange, sessionId, body, opts, oauth2client) {
+    this.uploadSignedResourcesChunk = function(id, contentRange, sessionId, body, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = body;
 
@@ -748,7 +761,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/signedresources/{id}/resumable', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
   };

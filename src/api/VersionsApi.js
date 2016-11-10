@@ -39,7 +39,7 @@ module.exports = (function() {
   /**
    * Versions service.
    * @module api/VersionsApi
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
   /**
@@ -60,8 +60,9 @@ module.exports = (function() {
      * @param {String} versionId the &#x60;version id&#x60;
      * data is of type: {module:model/Version}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getVersion = function(projectId, versionId, oauth2client) {
+    this.getVersion = function(projectId, versionId, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
@@ -93,7 +94,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/versions/{version_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -104,8 +105,9 @@ module.exports = (function() {
      * @param {String} versionId the &#x60;version id&#x60;
      * data is of type: {module:model/Item}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getVersionItem = function(projectId, versionId, oauth2client) {
+    this.getVersionItem = function(projectId, versionId, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'projectId' is set
@@ -137,7 +139,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/versions/{version_id}/item', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -152,8 +154,9 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/JsonApiCollection}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getVersionRefs = function(projectId, versionId, opts, oauth2client) {
+    this.getVersionRefs = function(projectId, versionId, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -189,7 +192,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/versions/{version_id}/refs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -206,8 +209,9 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/Refs}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getVersionRelationshipsRefs = function(projectId, versionId, opts, oauth2client) {
+    this.getVersionRelationshipsRefs = function(projectId, versionId, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -245,7 +249,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/versions/{version_id}/relationships/refs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -256,8 +260,9 @@ module.exports = (function() {
      * @param {String} versionId the &#x60;version id&#x60;
      * @param {module:model/CreateRef} body describe the ref to be created
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.postVersionRelationshipsRef = function(projectId, versionId, body, oauth2client) {
+    this.postVersionRelationshipsRef = function(projectId, versionId, body, oauth2client, credentials) {
       var postBody = body;
 
       // verify the required parameter 'projectId' is set
@@ -294,7 +299,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/versions/{version_id}/relationships/refs', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
   };

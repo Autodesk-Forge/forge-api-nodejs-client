@@ -29,7 +29,7 @@ module.exports = (function() {
 
   /**
    * @module ApiClient
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
   /**
@@ -232,8 +232,9 @@ module.exports = (function() {
     * Applies authentication header to the request.
     * @param {Object} requestParams The requestParams object created by a <code>request()</code> call.
     * @param {Object} oauth2client - OAuth2 client that has a credentials object
+    * @param {Object} credentials - The credentials object
     */
-   exports.prototype.applyAuthToRequest = function(requestParams, oauth2client) {
+   exports.prototype.applyAuthToRequest = function(requestParams, oauth2client, credentials) {
 
      var _this = this;
      function setAuthHeader(credentials){
@@ -244,29 +245,40 @@ module.exports = (function() {
 
      return new Promise(function(resolve, reject) {
        //if the request doesn't require authentication, just resolve the promise
-       if (!oauth2client.credentials || (oauth2client.credentials && !oauth2client.credentials.access_token)) {
+       if (!credentials || (credentials && !credentials.access_token)) {
          resolve();
        }
 
        // let's see if the token is already expired?
-       if (oauth2client.autoRefresh && new Date(oauth2client.credentials.expires_at).getTime() <= Date.now()) {
+       if (oauth2client.autoRefresh && new Date(credentials.expires_at).getTime() <= Date.now()) {
 
          // set the correct promiseObj, for 2 or 3 legged token
-         var getCredentialsPromise = (oauth2client.credentials.refresh_token)
-             ? oauth2client.refreshToken(oauth2client.credentials) // 3-legged: use refresh
-             : oauth2client.authenticate(); // 2-legged: create a new credentials object
+         var isCredentialsTypeTwoLegged = true;
+
+         if (credentials.refresh_token){
+           isCredentialsTypeTwoLegged = false;
+         }
+
+         var getCredentialsPromise = isCredentialsTypeTwoLegged
+             ? oauth2client.authenticate() // 2-legged: create a new credentials object
+             : oauth2client.refreshToken(credentials); // 3-legged: use refresh
+
 
          getCredentialsPromise.then(function(newCredentials){
            _this.debug('credentials were refreshed, new credentials:', newCredentials);
-           oauth2client.credentials = newCredentials;
-           setAuthHeader(oauth2client.credentials);
+
+           // For a 2-legged token just update the credentials object
+           if (isCredentialsTypeTwoLegged){
+             oauth2client.setCredentials(newCredentials);
+           }
+           setAuthHeader(newCredentials);
            resolve();
          }, function(err){
            reject(err);
          });
        } else {
-         setAuthHeader(oauth2client.credentials);
-         _this.debug('set current credentials to header', oauth2client.credentials);
+         setAuthHeader(credentials);
+         _this.debug('set current credentials to header', credentials);
          resolve();
        }
      });
@@ -320,11 +332,12 @@ module.exports = (function() {
    * @param {(String|Array|Object|Function)} returnType The required type to return; can be a string for simple types or the
    *    constructor for a complex type.
    * @param {Object} oauth2client oauth2client for the call
+   * @param {Object} Credentials credentials for the call
    * @returns {Object} A Promise object.
    */
   exports.prototype.callApi = function callApi(path, httpMethod, pathParams,
       queryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
-      returnType, oauth2client) {
+      returnType, oauth2client, credentials) {
 
     var _this = this;
     var requestParams = {};
@@ -356,7 +369,7 @@ module.exports = (function() {
     _this.debug('request params were', requestParams);
 
     return new Promise(function(resolve, reject) {
-      _this.applyAuthToRequest(requestParams, oauth2client).then(function() {
+      _this.applyAuthToRequest(requestParams, oauth2client, credentials).then(function() {
         request(requestParams,
             function (error, response, body) {
               if (error) {

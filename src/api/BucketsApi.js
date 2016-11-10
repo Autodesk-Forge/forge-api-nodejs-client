@@ -35,7 +35,7 @@ module.exports = (function() {
   /**
    * Buckets service.
    * @module api/BucketsApi
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
   /**
@@ -57,8 +57,9 @@ module.exports = (function() {
      * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
      * data is of type: {module:model/Bucket}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.createBucket = function(postBuckets, opts, oauth2client) {
+    this.createBucket = function(postBuckets, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = postBuckets;
 
@@ -85,7 +86,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -94,8 +95,9 @@ module.exports = (function() {
      * This endpoint will delete a bucket. 
      * @param {String} bucketKey URL-encoded bucket key
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.deleteBucket = function(bucketKey, oauth2client) {
+    this.deleteBucket = function(bucketKey, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'bucketKey' is set
@@ -121,7 +123,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -131,8 +133,9 @@ module.exports = (function() {
      * @param {String} bucketKey URL-encoded bucket key
      * data is of type: {module:model/Bucket}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getBucketDetails = function(bucketKey, oauth2client) {
+    this.getBucketDetails = function(bucketKey, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'bucketKey' is set
@@ -158,7 +161,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/details', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -171,8 +174,9 @@ module.exports = (function() {
      * @param {String} opts.startAt Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response 
      * data is of type: {module:model/Buckets}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getBuckets = function(opts, oauth2client) {
+    this.getBuckets = function(opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -196,7 +200,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/oss/v2/buckets', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
   };

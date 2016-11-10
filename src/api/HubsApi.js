@@ -36,7 +36,7 @@ module.exports = (function() {
   /**
    * Hubs service.
    * @module api/HubsApi
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
   /**
@@ -56,8 +56,9 @@ module.exports = (function() {
      * @param {String} hubId the &#x60;hub id&#x60; for the current operation
      * data is of type: {module:model/Hub}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getHub = function(hubId, oauth2client) {
+    this.getHub = function(hubId, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'hubId' is set
@@ -83,7 +84,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/project/v1/hubs/{hub_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -96,8 +97,9 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/Projects}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getHubProjects = function(hubId, opts, oauth2client) {
+    this.getHubProjects = function(hubId, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -126,7 +128,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/project/v1/hubs/{hub_id}/projects', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -138,8 +140,9 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/Hubs}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getHubs = function(opts, oauth2client) {
+    this.getHubs = function(opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -162,7 +165,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/project/v1/hubs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
   };

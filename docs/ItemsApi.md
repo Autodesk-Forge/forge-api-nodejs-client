@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 <a name="getItem"></a>
 # **getItem**
-> Item getItem(projectId, itemId, oauth2client)
+> Item getItem(projectId, itemId, oauth2client, credentials)
 
 
 
@@ -43,7 +43,7 @@ Name | Type | Description  | Notes
 
 <a name="getItemParentFolder"></a>
 # **getItemParentFolder**
-> Folder getItemParentFolder(projectId, itemId, oauth2client)
+> Folder getItemParentFolder(projectId, itemId, oauth2client, credentials)
 
 
 
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 <a name="getItemRefs"></a>
 # **getItemRefs**
-> JsonApiCollection getItemRefs(projectId, itemId, opts, oauth2client)
+> JsonApiCollection getItemRefs(projectId, itemId, opts, oauth2client, credentials)
 
 
 
@@ -102,7 +102,7 @@ Name | Type | Description  | Notes
 
 <a name="getItemRelationshipsRefs"></a>
 # **getItemRelationshipsRefs**
-> Refs getItemRelationshipsRefs(projectId, itemId, opts, oauth2client)
+> Refs getItemRelationshipsRefs(projectId, itemId, opts, oauth2client, credentials)
 
 
 
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
 
 <a name="getItemTip"></a>
 # **getItemTip**
-> Version getItemTip(projectId, itemId, oauth2client)
+> Version getItemTip(projectId, itemId, oauth2client, credentials)
 
 
 
@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 
 <a name="getItemVersions"></a>
 # **getItemVersions**
-> Versions getItemVersions(projectId, itemId, opts, oauth2client)
+> Versions getItemVersions(projectId, itemId, opts, oauth2client, credentials)
 
 
 
@@ -197,7 +197,7 @@ Name | Type | Description  | Notes
 
 <a name="postItemRelationshipsRef"></a>
 # **postItemRelationshipsRef**
-> postItemRelationshipsRef(projectId, itemId, body, oauth2client)
+> postItemRelationshipsRef(projectId, itemId, body, oauth2client, credentials)
 
 
 

@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The HubAttributes model module.
    * @module model/HubAttributes
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
    /**

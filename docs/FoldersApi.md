@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 <a name="getFolder"></a>
 # **getFolder**
-> Folder getFolder(projectId, folderId, oauth2client)
+> Folder getFolder(projectId, folderId, oauth2client, credentials)
 
 
 
@@ -42,7 +42,7 @@ Name | Type | Description  | Notes
 
 <a name="getFolderContents"></a>
 # **getFolderContents**
-> JsonApiCollection getFolderContents(projectId, folderId, opts, oauth2client)
+> JsonApiCollection getFolderContents(projectId, folderId, opts, oauth2client, credentials)
 
 
 
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 <a name="getFolderParent"></a>
 # **getFolderParent**
-> Folder getFolderParent(projectId, folderId, oauth2client)
+> Folder getFolderParent(projectId, folderId, oauth2client, credentials)
 
 
 
@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
 
 <a name="getFolderRefs"></a>
 # **getFolderRefs**
-> JsonApiCollection getFolderRefs(projectId, folderId, opts, oauth2client)
+> JsonApiCollection getFolderRefs(projectId, folderId, opts, oauth2client, credentials)
 
 
 
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 <a name="getFolderRelationshipsRefs"></a>
 # **getFolderRelationshipsRefs**
-> Refs getFolderRelationshipsRefs(projectId, folderId, opts, oauth2client)
+> Refs getFolderRelationshipsRefs(projectId, folderId, opts, oauth2client, credentials)
 
 
 
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 <a name="postFolderRelationshipsRef"></a>
 # **postFolderRelationshipsRef**
-> postFolderRelationshipsRef(projectId, folderId, body, oauth2client)
+> postFolderRelationshipsRef(projectId, folderId, body, oauth2client, credentials)
 
 
 

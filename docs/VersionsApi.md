@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 <a name="getVersion"></a>
 # **getVersion**
-> Version getVersion(projectId, versionId, oauth2client)
+> Version getVersion(projectId, versionId, oauth2client, credentials)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description  | Notes
 
 <a name="getVersionItem"></a>
 # **getVersionItem**
-> Item getVersionItem(projectId, versionId, oauth2client)
+> Item getVersionItem(projectId, versionId, oauth2client, credentials)
 
 
 
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 <a name="getVersionRefs"></a>
 # **getVersionRefs**
-> JsonApiCollection getVersionRefs(projectId, versionId, opts, oauth2client)
+> JsonApiCollection getVersionRefs(projectId, versionId, opts, oauth2client, credentials)
 
 
 
@@ -100,7 +100,7 @@ Name | Type | Description  | Notes
 
 <a name="getVersionRelationshipsRefs"></a>
 # **getVersionRelationshipsRefs**
-> Refs getVersionRelationshipsRefs(projectId, versionId, opts, oauth2client)
+> Refs getVersionRelationshipsRefs(projectId, versionId, opts, oauth2client, credentials)
 
 
 
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 
 <a name="postVersionRelationshipsRef"></a>
 # **postVersionRelationshipsRef**
-> postVersionRelationshipsRef(projectId, versionId, body, oauth2client)
+> postVersionRelationshipsRef(projectId, versionId, body, oauth2client, credentials)
 
 
 

@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The Bucket model module.
    * @module model/Bucket
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
    /**

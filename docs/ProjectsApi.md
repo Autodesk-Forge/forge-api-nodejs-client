@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 <a name="getProject"></a>
 # **getProject**
-> Project getProject(hubId, projectId, oauth2client)
+> Project getProject(hubId, projectId, oauth2client, credentials)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description  | Notes
 
 <a name="getProjectHub"></a>
 # **getProjectHub**
-> Hub getProjectHub(hubId, projectId, oauth2client)
+> Hub getProjectHub(hubId, projectId, oauth2client, credentials)
 
 
 
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 <a name="postItem"></a>
 # **postItem**
-> ItemCreated postItem(projectId, body, oauth2client)
+> ItemCreated postItem(projectId, body, oauth2client, credentials)
 
 
 
@@ -97,7 +97,7 @@ Name | Type | Description  | Notes
 
 <a name="postStorage"></a>
 # **postStorage**
-> StorageCreated postStorage(projectId, body, oauth2client)
+> StorageCreated postStorage(projectId, body, oauth2client, credentials)
 
 
 
@@ -125,7 +125,7 @@ Name | Type | Description  | Notes
 
 <a name="postVersion"></a>
 # **postVersion**
-> VersionCreated postVersion(projectId, body, oauth2client)
+> VersionCreated postVersion(projectId, body, oauth2client, credentials)
 
 
 

@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 <a name="createBucket"></a>
 # **createBucket**
-> Bucket createBucket(postBuckets, opts, oauth2client)
+> Bucket createBucket(postBuckets, opts, oauth2client, credentials)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description  | Notes
 
 <a name="deleteBucket"></a>
 # **deleteBucket**
-> deleteBucket(bucketKey, oauth2client)
+> deleteBucket(bucketKey, oauth2client, credentials)
 
 
 
@@ -67,7 +67,7 @@ null (empty response body)
 
 <a name="getBucketDetails"></a>
 # **getBucketDetails**
-> Bucket getBucketDetails(bucketKey, oauth2client)
+> Bucket getBucketDetails(bucketKey, oauth2client, credentials)
 
 
 
@@ -94,7 +94,7 @@ Name | Type | Description  | Notes
 
 <a name="getBuckets"></a>
 # **getBuckets**
-> Buckets getBuckets(opts, oauth2client)
+> Buckets getBuckets(opts, oauth2client, credentials)
 
 
 

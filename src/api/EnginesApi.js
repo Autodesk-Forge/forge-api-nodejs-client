@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * Engines service.
    * @module api/EnginesApi
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
   /**
@@ -51,8 +51,9 @@ module.exports = (function() {
      * Returns the details of all available AutoCAD core engines.
      * data is of type: {Array.<module:model/Engine>}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getAllEngines = function(oauth2client) {
+    this.getAllEngines = function(oauth2client, credentials) {
       var postBody = null;
 
 
@@ -72,7 +73,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Engines', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -82,8 +83,9 @@ module.exports = (function() {
      * @param {String} id 
      * data is of type: {module:model/Engine}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getEngine = function(id, oauth2client) {
+    this.getEngine = function(id, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
@@ -109,7 +111,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Engines(%27{id}%27)', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
   };

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 <a name="getHub"></a>
 # **getHub**
-> Hub getHub(hubId, oauth2client)
+> Hub getHub(hubId, oauth2client, credentials)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description  | Notes
 
 <a name="getHubProjects"></a>
 # **getHubProjects**
-> Projects getHubProjects(hubId, opts, oauth2client)
+> Projects getHubProjects(hubId, opts, oauth2client, credentials)
 
 
 
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 <a name="getHubs"></a>
 # **getHubs**
-> Hubs getHubs(opts, oauth2client)
+> Hubs getHubs(opts, oauth2client, credentials)
 
 
 

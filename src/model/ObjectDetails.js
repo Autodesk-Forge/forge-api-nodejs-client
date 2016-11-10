@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The ObjectDetails model module.
    * @module model/ObjectDetails
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
    /**

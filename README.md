@@ -1,7 +1,7 @@
 # Forge Node.js SDK
 
 ## Overview
-This [Node.js](https://nodejs.org/) SDK (version 0.2.1) enables you to easily integrate the Forge REST APIs
+This [Node.js](https://nodejs.org/) SDK (version 0.2.2) enables you to easily integrate the Forge REST APIs
 into your application, including [OAuth](https://developer.autodesk.com/en/docs/oauth/v2/overview/),
 [Data Management](https://developer.autodesk.com/en/docs/data/v2/overview/),
 [Model Derivative](https://developer.autodesk.com/en/docs/model-derivative/v2/overview/),
@@ -102,7 +102,7 @@ the validity of an access token in seconds. To refresh your access token, call t
 
 #### Example API Calls
 
-Use the `oauth2client` (2-legged or 3-legged) object to call the Forge APIs.
+Use the `oauth2client` (2-legged or 3-legged) object and the `credentials` object to call the Forge APIs.
 
 ``` JavaScript
 
@@ -114,14 +114,16 @@ var HubsApi = new ForgeSDK.HubsApi(); //Hubs Client
 var BucketsApi = new ForgeSDK.BucketsApi(); //Buckets Client
 
 // Get the buckets owned by an application.
-// Use the oAuth2TwoLegged client object from the previous step.
-BucketsApi.getBuckets({}, oAuth2TwoLegged).then(function(buckets){
+// Use the oAuth2TwoLegged client object and the credentials object that were
+// obtained from the previous step
+BucketsApi.getBuckets({}, oAuth2TwoLegged, credentials).then(function(buckets){
     console.log(buckets);
 });
 
 // Get the hubs that are accessible for a member.
-// Use the oAuth2ThreeLegged client object from the previous step.
-HubsApi.getHubs({}, oAuth2ThreeLegged).then(function(hubs) {
+// Use the oAuth2TwoLegged client object and the credentials object that were
+// obtained from the previous step
+HubsApi.getHubs({}, oAuth2ThreeLegged, credentials).then(function(hubs) {
     console.log(hubs);
 });
 

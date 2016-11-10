@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The CreateStorageDataAttributes model module.
    * @module model/CreateStorageDataAttributes
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
    /**

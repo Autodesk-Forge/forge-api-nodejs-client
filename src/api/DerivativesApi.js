@@ -39,7 +39,7 @@ module.exports = (function() {
   /**
    * Derivatives service.
    * @module api/DerivativesApi
-   * @version 0.2.1
+   * @version 0.2.2
    */
 
   /**
@@ -59,8 +59,9 @@ module.exports = (function() {
      * @param {String} urn The Base64 (URL Safe) encoded design URN 
      * data is of type: {module:model/Result}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.deleteManifest = function(urn, oauth2client) {
+    this.deleteManifest = function(urn, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'urn' is set
@@ -86,7 +87,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/manifest', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -98,8 +99,9 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {Integer} opts.range This is the standard RFC 2616 range request header. It only supports one range specifier per request: 1. Range:bytes&#x3D;0-63 (returns the first 64 bytes) 2. Range:bytes&#x3D;64-127 (returns the second set of 64 bytes) 3. Range:bytes&#x3D;1022- (returns all the bytes from offset 1022 to the end) 4. If the range header is not specified, the whole content is returned. 
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getDerivativeManifest = function(urn, derivativeUrn, opts, oauth2client) {
+    this.getDerivativeManifest = function(urn, derivativeUrn, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -133,7 +135,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/manifest/{derivativeUrn}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -145,8 +147,9 @@ module.exports = (function() {
      * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Formats}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getFormats = function(opts, oauth2client) {
+    this.getFormats = function(opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -169,7 +172,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/formats', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -181,8 +184,9 @@ module.exports = (function() {
      * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Manifest}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getManifest = function(urn, opts, oauth2client) {
+    this.getManifest = function(urn, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -210,7 +214,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/manifest', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -222,8 +226,9 @@ module.exports = (function() {
      * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Metadata}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getMetadata = function(urn, opts, oauth2client) {
+    this.getMetadata = function(urn, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -251,7 +256,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/metadata', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -264,8 +269,9 @@ module.exports = (function() {
      * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Metadata}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getModelviewMetadata = function(urn, guid, opts, oauth2client) {
+    this.getModelviewMetadata = function(urn, guid, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -299,7 +305,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/metadata/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -312,8 +318,9 @@ module.exports = (function() {
      * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Metadata}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getModelviewProperties = function(urn, guid, opts, oauth2client) {
+    this.getModelviewProperties = function(urn, guid, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -347,7 +354,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/metadata/{guid}/properties', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -360,8 +367,9 @@ module.exports = (function() {
      * @param {Integer} opts.height The desired height of the thumbnail. Possible values are 100, 200 and 400. 
      * data is of type: {module:model/InputStream}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.getThumbnail = function(urn, opts, oauth2client) {
+    this.getThumbnail = function(urn, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
 
@@ -390,7 +398,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/thumbnail', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
 
@@ -402,8 +410,9 @@ module.exports = (function() {
      * @param {Boolean} opts.xAdsForce &#x60;true&#x60;: the endpoint replaces previously translated output file types with the newly generated derivatives  &#x60;false&#x60; (default): previously created derivatives are not replaced  (default to false)
      * data is of type: {module:model/Job}
      * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} Credentials credentials for the call
      */
-    this.translate = function(job, opts, oauth2client) {
+    this.translate = function(job, opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = job;
 
@@ -430,7 +439,7 @@ module.exports = (function() {
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/job', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client
+        contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
   };

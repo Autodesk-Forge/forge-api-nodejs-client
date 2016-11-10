@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 <a name="deleteManifest"></a>
 # **deleteManifest**
-> Result deleteManifest(urn, oauth2client)
+> Result deleteManifest(urn, oauth2client, credentials)
 
 
 
@@ -44,7 +44,7 @@ Name | Type | Description  | Notes
 
 <a name="getDerivativeManifest"></a>
 # **getDerivativeManifest**
-> getDerivativeManifest(urn, derivativeUrn, opts, oauth2client)
+> getDerivativeManifest(urn, derivativeUrn, opts, oauth2client, credentials)
 
 
 
@@ -73,7 +73,7 @@ null (empty response body)
 
 <a name="getFormats"></a>
 # **getFormats**
-> Formats getFormats(opts, oauth2client)
+> Formats getFormats(opts, oauth2client, credentials)
 
 
 
@@ -101,7 +101,7 @@ Name | Type | Description  | Notes
 
 <a name="getManifest"></a>
 # **getManifest**
-> Manifest getManifest(urn, opts, oauth2client)
+> Manifest getManifest(urn, opts, oauth2client, credentials)
 
 
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 <a name="getMetadata"></a>
 # **getMetadata**
-> Metadata getMetadata(urn, opts, oauth2client)
+> Metadata getMetadata(urn, opts, oauth2client, credentials)
 
 
 
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 
 <a name="getModelviewMetadata"></a>
 # **getModelviewMetadata**
-> Metadata getModelviewMetadata(urn, guid, opts, oauth2client)
+> Metadata getModelviewMetadata(urn, guid, opts, oauth2client, credentials)
 
 
 
@@ -186,7 +186,7 @@ Name | Type | Description  | Notes
 
 <a name="getModelviewProperties"></a>
 # **getModelviewProperties**
-> Metadata getModelviewProperties(urn, guid, opts, oauth2client)
+> Metadata getModelviewProperties(urn, guid, opts, oauth2client, credentials)
 
 
 
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 
 <a name="getThumbnail"></a>
 # **getThumbnail**
-> InputStream getThumbnail(urn, opts, oauth2client)
+> InputStream getThumbnail(urn, opts, oauth2client, credentials)
 
 
 
@@ -244,7 +244,7 @@ Name | Type | Description  | Notes
 
 <a name="translate"></a>
 # **translate**
-> Job translate(job, opts, oauth2client)
+> Job translate(job, opts, oauth2client, credentials)
 
 
 

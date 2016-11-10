@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 <a name="createAppPackage"></a>
 # **createAppPackage**
-> AppPackage createAppPackage(appPackage, oauth2client)
+> AppPackage createAppPackage(appPackage, oauth2client, credentials)
 
 Creates an AppPackage module.
 
@@ -44,7 +44,7 @@ Name | Type | Description  | Notes
 
 <a name="deleteAppPackage"></a>
 # **deleteAppPackage**
-> deleteAppPackage(id, oauth2client)
+> deleteAppPackage(id, oauth2client, credentials)
 
 Removes a specific AppPackage.
 
@@ -69,7 +69,7 @@ null (empty response body)
 
 <a name="deleteAppPackageHistory"></a>
 # **deleteAppPackageHistory**
-> deleteAppPackageHistory(id, oauth2client)
+> deleteAppPackageHistory(id, oauth2client, credentials)
 
 Removes the version history of the specified AppPackage.
 
@@ -94,7 +94,7 @@ null (empty response body)
 
 <a name="getAllAppPackages"></a>
 # **getAllAppPackages**
-> [AppPackage] getAllAppPackages(oauth2client)
+> [AppPackage] getAllAppPackages(oauth2client, credentials)
 
 Returns the details of all AppPackages.
 
@@ -116,7 +116,7 @@ This endpoint does not need any parameter.
 
 <a name="getAppPackage"></a>
 # **getAppPackage**
-> AppPackage getAppPackage(id, oauth2client)
+> AppPackage getAppPackage(id, oauth2client, credentials)
 
 Returns the details of a specific AppPackage.
 
@@ -141,7 +141,7 @@ Name | Type | Description  | Notes
 
 <a name="getAppPackageVersions"></a>
 # **getAppPackageVersions**
-> [AppPackage] getAppPackageVersions(id, oauth2client)
+> [AppPackage] getAppPackageVersions(id, oauth2client, credentials)
 
 Returns all old versions of a specified AppPackage.
 
@@ -166,7 +166,7 @@ Name | Type | Description  | Notes
 
 <a name="getUploadUrl"></a>
 # **getUploadUrl**
-> getUploadUrl(oauth2client)
+> getUploadUrl(oauth2client, credentials)
 
 Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage.
 
@@ -188,7 +188,7 @@ null (empty response body)
 
 <a name="getUploadUrlWithRequireContentType"></a>
 # **getUploadUrlWithRequireContentType**
-> getUploadUrlWithRequireContentType(require, oauth2client)
+> getUploadUrlWithRequireContentType(require, oauth2client, credentials)
 
 Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage. Unlike the GetUploadUrl method that takes no parameters, this method allows the client to request that the pre-signed URL to be issued so that the subsequent HTTP PUT operation will require Content-Type&#x3D;binary/octet-stream.
 
@@ -213,7 +213,7 @@ null (empty response body)
 
 <a name="patchAppPackage"></a>
 # **patchAppPackage**
-> patchAppPackage(id, appPackage, oauth2client)
+> patchAppPackage(id, appPackage, oauth2client, credentials)
 
 Updates an AppPackage by specifying only the changed attributes.
 
@@ -239,7 +239,7 @@ null (empty response body)
 
 <a name="setAppPackageVersion"></a>
 # **setAppPackageVersion**
-> setAppPackageVersion(id, appPackageVersion, oauth2client)
+> setAppPackageVersion(id, appPackageVersion, oauth2client, credentials)
 
 Sets the AppPackage to the specified version.
 
@@ -265,7 +265,7 @@ null (empty response body)
 
 <a name="updateAppPackage"></a>
 # **updateAppPackage**
-> updateAppPackage(id, appPackage, oauth2client)
+> updateAppPackage(id, appPackage, oauth2client, credentials)
 
 Updates an AppPackage by redefining the entire Activity object.
 
