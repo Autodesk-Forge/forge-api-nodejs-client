@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The ObjectFullDetailsDeltas model module.
    * @module model/ObjectFullDetailsDeltas
-   * @version 0.1.9
+   * @version 0.2.0
    */
 
    /**

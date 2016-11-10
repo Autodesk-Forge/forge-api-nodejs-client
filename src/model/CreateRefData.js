@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The CreateRefData model module.
    * @module model/CreateRefData
-   * @version 0.1.9
+   * @version 0.2.0
    */
 
    /**

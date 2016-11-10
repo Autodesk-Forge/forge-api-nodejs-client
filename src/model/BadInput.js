@@ -35,7 +35,7 @@ module.exports = (function() {
   /**
    * The BadInput model module.
    * @module model/BadInput
-   * @version 0.1.9
+   * @version 0.2.0
    */
 
    /**

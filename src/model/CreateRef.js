@@ -35,7 +35,7 @@ module.exports = (function() {
   /**
    * The CreateRef model module.
    * @module model/CreateRef
-   * @version 0.1.9
+   * @version 0.2.0
    */
 
    /**

@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The BucketsItems model module.
    * @module model/BucketsItems
-   * @version 0.1.9
+   * @version 0.2.0
    */
 
    /**
