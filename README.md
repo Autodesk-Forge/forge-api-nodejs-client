@@ -102,7 +102,7 @@ the validity of an access token in seconds. To refresh your access token, call t
 
 #### Example API Calls
 
-Use the `credentials` object to call the Forge APIs.
+Use the `oauth2client` (2-legged or 3-legged) object to call the Forge APIs.
 
 ``` JavaScript
 
@@ -114,14 +114,14 @@ var HubsApi = new ForgeSDK.HubsApi(); //Hubs Client
 var BucketsApi = new ForgeSDK.BucketsApi(); //Buckets Client
 
 // Get the buckets owned by an application.
-// Use the twoLeggedCredentials that you retrieved previously.
-BucketsApi.getBuckets({}, twoLeggedCredentials).then(function(buckets){
+// Use the oAuth2TwoLegged client object from the previous step.
+BucketsApi.getBuckets({}, oAuth2TwoLegged).then(function(buckets){
     console.log(buckets);
 });
 
 // Get the hubs that are accessible for a member.
-// Use the threeLeggedCredentials that you retrieved previously.
-HubsApi.getHubs({}, threeLeggedCredentials).then(function(hubs) {
+// Use the oAuth2ThreeLegged client object from the previous step.
+HubsApi.getHubs({}, oAuth2ThreeLegged).then(function(hubs) {
     console.log(hubs);
 });
 
