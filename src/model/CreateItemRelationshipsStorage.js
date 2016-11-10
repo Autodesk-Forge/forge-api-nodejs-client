@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -25,40 +25,41 @@
 module.exports = (function() {
   'use strict';
 
-  var ApiClient = require('../ApiClient');
+  var ApiClient = require('../ApiClient'),
+      CreateItemRelationshipsStorageData = require('./CreateItemRelationshipsStorageData');
 
 
 
   /**
-   * The MeshProblems model module.
-   * @module model/MeshProblems
-   * @version 0.1.8
+   * The CreateItemRelationshipsStorage model module.
+   * @module model/CreateItemRelationshipsStorage
+   * @version 0.1.9
    */
 
    /**
-    * Constructs a <code>MeshProblems</code> from a plain JavaScript object, optionally creating a new instance.
+    * Constructs a <code>CreateItemRelationshipsStorage</code> from a plain JavaScript object, optionally creating a new instance.
     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
     * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/MeshProblems} obj Optional instance to populate.
-    * @return {module:model/MeshProblems} The populated <code>MeshProblems</code> instance.
+    * @param {module:model/CreateItemRelationshipsStorage} obj Optional instance to populate.
+    * @return {module:model/CreateItemRelationshipsStorage} The populated <code>CreateItemRelationshipsStorage</code> instance.
     */
   var constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
   
-      if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+      if (data.hasOwnProperty('data')) {
+        obj['data'] = CreateItemRelationshipsStorageData.constructFromObject(data['data']);
       }
     }
     return obj;
   };
 
   /**
-   * Constructs a new <code>MeshProblems</code>.
-   * @alias module:model/MeshProblems
+   * Constructs a new <code>CreateItemRelationshipsStorage</code>.
+   * @alias module:model/CreateItemRelationshipsStorage
    * @class
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
-   * @param {module:model/MeshProblems} obj Optional instance to populate.
+   * @param {module:model/CreateItemRelationshipsStorage} obj Optional instance to populate.
    */
   var exports = function(theData, obj) {
     var _this = this;
@@ -69,18 +70,18 @@ module.exports = (function() {
   };
 
   /**
-   * Constructs a <code>MeshProblems</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>CreateItemRelationshipsStorage</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/MeshProblems} obj Optional instance to populate.
-   * @return {module:model/MeshProblems} The populated <code>MeshProblems</code> instance.
+   * @param {module:model/CreateItemRelationshipsStorage} obj Optional instance to populate.
+   * @return {module:model/CreateItemRelationshipsStorage} The populated <code>CreateItemRelationshipsStorage</code> instance.
    */
   exports.constructFromObject = constructFromObject;
 
   /**
-   * @member {String} type
+   * @member {module:model/CreateItemRelationshipsStorageData} data
    */
-  exports.prototype['type'] = undefined;
+  exports.prototype['data'] = undefined;
 
 
 

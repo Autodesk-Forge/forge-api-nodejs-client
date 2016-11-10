@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -30,68 +30,80 @@ module.exports = (function() {
 
 
   /**
-   * The MeshObj model module.
-   * @module model/MeshObj
-   * @version 0.1.8
+   * The StorageRelationshipsTargetData model module.
+   * @module model/StorageRelationshipsTargetData
+   * @version 0.1.9
    */
 
    /**
-    * Constructs a <code>MeshObj</code> from a plain JavaScript object, optionally creating a new instance.
+    * Constructs a <code>StorageRelationshipsTargetData</code> from a plain JavaScript object, optionally creating a new instance.
     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
     * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/MeshObj} obj Optional instance to populate.
-    * @return {module:model/MeshObj} The populated <code>MeshObj</code> instance.
+    * @param {module:model/StorageRelationshipsTargetData} obj Optional instance to populate.
+    * @return {module:model/StorageRelationshipsTargetData} The populated <code>StorageRelationshipsTargetData</code> instance.
     */
   var constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
   
+      if (data.hasOwnProperty('type')) {
+        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+      }
       if (data.hasOwnProperty('id')) {
         obj['id'] = ApiClient.convertToType(data['id'], 'String');
-      }
-      if (data.hasOwnProperty('file_type')) {
-        obj['file_type'] = ApiClient.convertToType(data['file_type'], 'String');
       }
     }
     return obj;
   };
 
   /**
-   * Constructs a new <code>MeshObj</code>.
-   * @alias module:model/MeshObj
+   * Constructs a new <code>StorageRelationshipsTargetData</code>.
+   * @alias module:model/StorageRelationshipsTargetData
    * @class
+   * @param type {module:model/StorageRelationshipsTargetData.TypeEnum} 
    * @param id {String} 
-   * @param fileType {String} 
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
-   * @param {module:model/MeshObj} obj Optional instance to populate.
+   * @param {module:model/StorageRelationshipsTargetData} obj Optional instance to populate.
    */
-  var exports = function(id, fileType, theData, obj) {
+  var exports = function(type, id, theData, obj) {
     var _this = this;
 
+    _this['type'] = type;
     _this['id'] = id;
-    _this['file_type'] = fileType;
 
     return constructFromObject(theData, obj);
   };
 
   /**
-   * Constructs a <code>MeshObj</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>StorageRelationshipsTargetData</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/MeshObj} obj Optional instance to populate.
-   * @return {module:model/MeshObj} The populated <code>MeshObj</code> instance.
+   * @param {module:model/StorageRelationshipsTargetData} obj Optional instance to populate.
+   * @return {module:model/StorageRelationshipsTargetData} The populated <code>StorageRelationshipsTargetData</code> instance.
    */
   exports.constructFromObject = constructFromObject;
 
   /**
+   * @member {module:model/StorageRelationshipsTargetData.TypeEnum} type
+   */
+  exports.prototype['type'] = undefined;
+  /**
    * @member {String} id
    */
   exports.prototype['id'] = undefined;
-  /**
-   * @member {String} file_type
-   */
-  exports.prototype['file_type'] = undefined;
 
+
+  /**
+   * Allowed values for the <code>type</code> property.
+   * @enum {String}
+   * @readonly
+   */
+  exports.TypeEnum = {
+    /**
+     * value: "folders"
+     * @const
+     */
+    "folders": "folders"  };
 
 
   return exports;

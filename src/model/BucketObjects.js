@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -26,29 +26,29 @@ module.exports = (function() {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      InlineResponse200Items = require('./InlineResponse200Items');
+      ObjectDetails = require('./ObjectDetails');
 
 
 
   /**
-   * The InlineResponse200 model module.
-   * @module model/InlineResponse200
-   * @version 0.1.8
+   * The BucketObjects model module.
+   * @module model/BucketObjects
+   * @version 0.1.9
    */
 
    /**
-    * Constructs a <code>InlineResponse200</code> from a plain JavaScript object, optionally creating a new instance.
+    * Constructs a <code>BucketObjects</code> from a plain JavaScript object, optionally creating a new instance.
     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
     * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/InlineResponse200} obj Optional instance to populate.
-    * @return {module:model/InlineResponse200} The populated <code>InlineResponse200</code> instance.
+    * @param {module:model/BucketObjects} obj Optional instance to populate.
+    * @return {module:model/BucketObjects} The populated <code>BucketObjects</code> instance.
     */
   var constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('items')) {
-        obj['items'] = ApiClient.convertToType(data['items'], [InlineResponse200Items]);
+        obj['items'] = ApiClient.convertToType(data['items'], [ObjectDetails]);
       }
       if (data.hasOwnProperty('next')) {
         obj['next'] = ApiClient.convertToType(data['next'], 'String');
@@ -58,35 +58,32 @@ module.exports = (function() {
   };
 
   /**
-   * Constructs a new <code>InlineResponse200</code>.
-   * @alias module:model/InlineResponse200
+   * Constructs a new <code>BucketObjects</code>.
+   * @alias module:model/BucketObjects
    * @class
-   * @param items {Array.<module:model/InlineResponse200Items>} Array of items representing the buckets
-   * @param next {String} Next possible request
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
-   * @param {module:model/InlineResponse200} obj Optional instance to populate.
+   * @param {module:model/BucketObjects} obj Optional instance to populate.
    */
-  var exports = function(items, next, theData, obj) {
+  var exports = function(theData, obj) {
     var _this = this;
 
-    _this['items'] = items;
-    _this['next'] = next;
+
+
 
     return constructFromObject(theData, obj);
   };
 
   /**
-   * Constructs a <code>InlineResponse200</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>BucketObjects</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/InlineResponse200} obj Optional instance to populate.
-   * @return {module:model/InlineResponse200} The populated <code>InlineResponse200</code> instance.
+   * @param {module:model/BucketObjects} obj Optional instance to populate.
+   * @return {module:model/BucketObjects} The populated <code>BucketObjects</code> instance.
    */
   exports.constructFromObject = constructFromObject;
 
   /**
-   * Array of items representing the buckets
-   * @member {Array.<module:model/InlineResponse200Items>} items
+   * @member {Array.<module:model/ObjectDetails>} items
    */
   exports.prototype['items'] = undefined;
   /**

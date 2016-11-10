@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -25,71 +25,63 @@
 module.exports = (function() {
   'use strict';
 
-  var ApiClient = require('../ApiClient');
+  var ApiClient = require('../ApiClient'),
+      CreateItemRelationshipsStorage = require('./CreateItemRelationshipsStorage');
 
 
 
   /**
-   * The RepairMeshParams model module.
-   * @module model/RepairMeshParams
-   * @version 0.1.8
+   * The CreateItemRelationships model module.
+   * @module model/CreateItemRelationships
+   * @version 0.1.9
    */
 
    /**
-    * Constructs a <code>RepairMeshParams</code> from a plain JavaScript object, optionally creating a new instance.
+    * Constructs a <code>CreateItemRelationships</code> from a plain JavaScript object, optionally creating a new instance.
     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
     * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/RepairMeshParams} obj Optional instance to populate.
-    * @return {module:model/RepairMeshParams} The populated <code>RepairMeshParams</code> instance.
+    * @param {module:model/CreateItemRelationships} obj Optional instance to populate.
+    * @return {module:model/CreateItemRelationships} The populated <code>CreateItemRelationships</code> instance.
     */
   var constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
   
-      if (data.hasOwnProperty('id')) {
-        obj['id'] = ApiClient.convertToType(data['id'], 'String');
-      }
-      if (data.hasOwnProperty('all')) {
-        obj['all'] = ApiClient.convertToType(data['all'], 'Boolean');
+      if (data.hasOwnProperty('storage')) {
+        obj['storage'] = CreateItemRelationshipsStorage.constructFromObject(data['storage']);
       }
     }
     return obj;
   };
 
   /**
-   * Constructs a new <code>RepairMeshParams</code>.
-   * @alias module:model/RepairMeshParams
+   * Constructs a new <code>CreateItemRelationships</code>.
+   * @alias module:model/CreateItemRelationships
    * @class
-   * @param id {String} 
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
-   * @param {module:model/RepairMeshParams} obj Optional instance to populate.
+   * @param {module:model/CreateItemRelationships} obj Optional instance to populate.
    */
-  var exports = function(id, theData, obj) {
+  var exports = function(theData, obj) {
     var _this = this;
 
-    _this['id'] = id;
 
 
     return constructFromObject(theData, obj);
   };
 
   /**
-   * Constructs a <code>RepairMeshParams</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>CreateItemRelationships</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/RepairMeshParams} obj Optional instance to populate.
-   * @return {module:model/RepairMeshParams} The populated <code>RepairMeshParams</code> instance.
+   * @param {module:model/CreateItemRelationships} obj Optional instance to populate.
+   * @return {module:model/CreateItemRelationships} The populated <code>CreateItemRelationships</code> instance.
    */
   exports.constructFromObject = constructFromObject;
 
   /**
-   * @member {String} id
+   * @member {module:model/CreateItemRelationshipsStorage} storage
    */
-  exports.prototype['id'] = undefined;
-  /**
-   * @member {Boolean} all
-   */
-  exports.prototype['all'] = undefined;
+  exports.prototype['storage'] = undefined;
 
 
 

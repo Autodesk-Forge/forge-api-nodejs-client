@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The JobObjOutputPayload model module.
    * @module model/JobObjOutputPayload
-   * @version 0.1.8
+   * @version 0.1.9
    */
 
    /**
@@ -61,7 +61,7 @@ module.exports = (function() {
    * Constructs a new <code>JobObjOutputPayload</code>.
    * @alias module:model/JobObjOutputPayload
    * @class
-   * @param type {module:model/JobObjOutputPayload.TypeEnum} The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
+   * @param type {module:model/JobPayloadItem.TypeEnum} The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/JobObjOutputPayload} obj Optional instance to populate.
    */
@@ -85,7 +85,7 @@ module.exports = (function() {
 
   /**
    * The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
-   * @member {module:model/JobObjOutputPayload.TypeEnum} type
+   * @member {module:model/JobPayloadItem.TypeEnum} type
    */
   exports.prototype['type'] = undefined;
   /**

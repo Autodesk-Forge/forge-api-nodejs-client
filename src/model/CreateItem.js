@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -26,6 +26,8 @@ module.exports = (function() {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
+      CreateItemData = require('./CreateItemData'),
+      CreateItemIncluded = require('./CreateItemIncluded'),
       JsonApiVersion = require('./JsonApiVersion'),
       JsonApiVersionJsonapi = require('./JsonApiVersionJsonapi');
 
@@ -34,7 +36,7 @@ module.exports = (function() {
   /**
    * The CreateItem model module.
    * @module model/CreateItem
-   * @version 0.1.8
+   * @version 0.1.9
    */
 
    /**
@@ -49,11 +51,14 @@ module.exports = (function() {
       obj = obj || new exports();
   
         JsonApiVersion.constructFromObject(data, obj);
+      if (data.hasOwnProperty('jsonapi')) {
+        obj['jsonapi'] = JsonApiVersionJsonapi.constructFromObject(data['jsonapi']);
+      }
       if (data.hasOwnProperty('data')) {
-        obj['data'] = ApiClient.convertToType(data['data'], Object);
+        obj['data'] = CreateItemData.constructFromObject(data['data']);
       }
       if (data.hasOwnProperty('included')) {
-        obj['included'] = ApiClient.convertToType(data['included'], [Object]);
+        obj['included'] = ApiClient.convertToType(data['included'], [CreateItemIncluded]);
       }
     }
     return obj;
@@ -64,16 +69,16 @@ module.exports = (function() {
    * @alias module:model/CreateItem
    * @class
    * @implements module:model/JsonApiVersion
-   * @param data {Object} 
-   * @param included {Array.<Object>} 
+   * @param included {Array.<module:model/CreateItemIncluded>} 
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/CreateItem} obj Optional instance to populate.
    */
-  var exports = function(data, included, theData, obj) {
+  var exports = function(included, theData, obj) {
     var _this = this;
 
     JsonApiVersion.call(_this);
-    _this['data'] = data;
+
+
     _this['included'] = included;
 
     return constructFromObject(theData, obj);
@@ -89,11 +94,15 @@ module.exports = (function() {
   exports.constructFromObject = constructFromObject;
 
   /**
-   * @member {Object} data
+   * @member {module:model/JsonApiVersionJsonapi} jsonapi
+   */
+  exports.prototype['jsonapi'] = undefined;
+  /**
+   * @member {module:model/CreateItemData} data
    */
   exports.prototype['data'] = undefined;
   /**
-   * @member {Array.<Object>} included
+   * @member {Array.<module:model/CreateItemIncluded>} included
    */
   exports.prototype['included'] = undefined;
 

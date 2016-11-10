@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -30,17 +30,17 @@ module.exports = (function() {
 
 
   /**
-   * The InlineResponse200Items model module.
-   * @module model/InlineResponse200Items
-   * @version 0.1.8
+   * The BucketsItems model module.
+   * @module model/BucketsItems
+   * @version 0.1.9
    */
 
    /**
-    * Constructs a <code>InlineResponse200Items</code> from a plain JavaScript object, optionally creating a new instance.
+    * Constructs a <code>BucketsItems</code> from a plain JavaScript object, optionally creating a new instance.
     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
     * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/InlineResponse200Items} obj Optional instance to populate.
-    * @return {module:model/InlineResponse200Items} The populated <code>InlineResponse200Items</code> instance.
+    * @param {module:model/BucketsItems} obj Optional instance to populate.
+    * @return {module:model/BucketsItems} The populated <code>BucketsItems</code> instance.
     */
   var constructFromObject = function(data, obj) {
     if (data) {
@@ -60,14 +60,14 @@ module.exports = (function() {
   };
 
   /**
-   * Constructs a new <code>InlineResponse200Items</code>.
-   * @alias module:model/InlineResponse200Items
+   * Constructs a new <code>BucketsItems</code>.
+   * @alias module:model/BucketsItems
    * @class
    * @param bucketKey {String} Bucket key
    * @param createdDate {Integer} Timestamp in epoch time
-   * @param policyKey {module:model/InlineResponse200Items.PolicyKeyEnum} Policy values: `transient`, `temporary` or `persistent` 
+   * @param policyKey {module:model/BucketsItems.PolicyKeyEnum} Policy values: `transient`, `temporary` or `persistent` 
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
-   * @param {module:model/InlineResponse200Items} obj Optional instance to populate.
+   * @param {module:model/BucketsItems} obj Optional instance to populate.
    */
   var exports = function(bucketKey, createdDate, policyKey, theData, obj) {
     var _this = this;
@@ -80,11 +80,11 @@ module.exports = (function() {
   };
 
   /**
-   * Constructs a <code>InlineResponse200Items</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>BucketsItems</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/InlineResponse200Items} obj Optional instance to populate.
-   * @return {module:model/InlineResponse200Items} The populated <code>InlineResponse200Items</code> instance.
+   * @param {module:model/BucketsItems} obj Optional instance to populate.
+   * @return {module:model/BucketsItems} The populated <code>BucketsItems</code> instance.
    */
   exports.constructFromObject = constructFromObject;
 
@@ -100,7 +100,7 @@ module.exports = (function() {
   exports.prototype['createdDate'] = undefined;
   /**
    * Policy values: `transient`, `temporary` or `persistent` 
-   * @member {module:model/InlineResponse200Items.PolicyKeyEnum} policyKey
+   * @member {module:model/BucketsItems.PolicyKeyEnum} policyKey
    */
   exports.prototype['policyKey'] = undefined;
 

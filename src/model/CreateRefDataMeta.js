@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -26,71 +26,63 @@ module.exports = (function() {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      ObjectDetails = require('./ObjectDetails');
+      BaseAttributesExtensionObject = require('./BaseAttributesExtensionObject');
 
 
 
   /**
-   * The InlineResponse2001 model module.
-   * @module model/InlineResponse2001
-   * @version 0.1.8
+   * The CreateRefDataMeta model module.
+   * @module model/CreateRefDataMeta
+   * @version 0.1.9
    */
 
    /**
-    * Constructs a <code>InlineResponse2001</code> from a plain JavaScript object, optionally creating a new instance.
+    * Constructs a <code>CreateRefDataMeta</code> from a plain JavaScript object, optionally creating a new instance.
     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
     * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/InlineResponse2001} obj Optional instance to populate.
-    * @return {module:model/InlineResponse2001} The populated <code>InlineResponse2001</code> instance.
+    * @param {module:model/CreateRefDataMeta} obj Optional instance to populate.
+    * @return {module:model/CreateRefDataMeta} The populated <code>CreateRefDataMeta</code> instance.
     */
   var constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
   
-      if (data.hasOwnProperty('items')) {
-        obj['items'] = ApiClient.convertToType(data['items'], [ObjectDetails]);
-      }
-      if (data.hasOwnProperty('next')) {
-        obj['next'] = ApiClient.convertToType(data['next'], 'String');
+      if (data.hasOwnProperty('extension')) {
+        obj['extension'] = BaseAttributesExtensionObject.constructFromObject(data['extension']);
       }
     }
     return obj;
   };
 
   /**
-   * Constructs a new <code>InlineResponse2001</code>.
-   * @alias module:model/InlineResponse2001
+   * Constructs a new <code>CreateRefDataMeta</code>.
+   * @alias module:model/CreateRefDataMeta
    * @class
+   * @param extension {module:model/BaseAttributesExtensionObject} 
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
-   * @param {module:model/InlineResponse2001} obj Optional instance to populate.
+   * @param {module:model/CreateRefDataMeta} obj Optional instance to populate.
    */
-  var exports = function(theData, obj) {
+  var exports = function(extension, theData, obj) {
     var _this = this;
 
-
-
+    _this['extension'] = extension;
 
     return constructFromObject(theData, obj);
   };
 
   /**
-   * Constructs a <code>InlineResponse2001</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>CreateRefDataMeta</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/InlineResponse2001} obj Optional instance to populate.
-   * @return {module:model/InlineResponse2001} The populated <code>InlineResponse2001</code> instance.
+   * @param {module:model/CreateRefDataMeta} obj Optional instance to populate.
+   * @return {module:model/CreateRefDataMeta} The populated <code>CreateRefDataMeta</code> instance.
    */
   exports.constructFromObject = constructFromObject;
 
   /**
-   * @member {Array.<module:model/ObjectDetails>} items
+   * @member {module:model/BaseAttributesExtensionObject} extension
    */
-  exports.prototype['items'] = undefined;
-  /**
-   * Next possible request
-   * @member {String} next
-   */
-  exports.prototype['next'] = undefined;
+  exports.prototype['extension'] = undefined;
 
 
 

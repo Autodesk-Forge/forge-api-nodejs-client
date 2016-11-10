@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -27,16 +27,20 @@ module.exports = (function() {
 
   var ApiClient = require('../ApiClient'),
       BaseAttributesCreatedUpdated = require('./BaseAttributesCreatedUpdated'),
+      FolderAttributes = require('./FolderAttributes'),
+      FolderRelationships = require('./FolderRelationships'),
+      JsonApiDocument = require('./JsonApiDocument'),
       JsonApiLinks = require('./JsonApiLinks'),
       JsonApiMeta = require('./JsonApiMeta'),
-      JsonApiResource = require('./JsonApiResource');
+      JsonApiResource = require('./JsonApiResource'),
+      JsonApiVersionJsonapi = require('./JsonApiVersionJsonapi');
 
 
 
   /**
    * The Folder model module.
    * @module model/Folder
-   * @version 0.1.8
+   * @version 0.1.9
    */
 
    /**
@@ -50,16 +54,35 @@ module.exports = (function() {
     if (data) {
       obj = obj || new exports();
   
+        JsonApiDocument.constructFromObject(data, obj);
         JsonApiResource.constructFromObject(data, obj);
         BaseAttributesCreatedUpdated.constructFromObject(data, obj);
+      if (data.hasOwnProperty('jsonapi')) {
+        obj['jsonapi'] = JsonApiVersionJsonapi.constructFromObject(data['jsonapi']);
+      }
+      if (data.hasOwnProperty('data')) {
+        obj['data'] = JsonApiResource.constructFromObject(data['data']);
+      }
+      if (data.hasOwnProperty('included')) {
+        obj['included'] = ApiClient.convertToType(data['included'], [JsonApiResource]);
+      }
+      if (data.hasOwnProperty('links')) {
+        obj['links'] = JsonApiLinks.constructFromObject(data['links']);
+      }
+      if (data.hasOwnProperty('id')) {
+        obj['id'] = ApiClient.convertToType(data['id'], 'String');
+      }
       if (data.hasOwnProperty('type')) {
         obj['type'] = ApiClient.convertToType(data['type'], 'String');
       }
       if (data.hasOwnProperty('attributes')) {
-        obj['attributes'] = ApiClient.convertToType(data['attributes'], Object);
+        obj['attributes'] = FolderAttributes.constructFromObject(data['attributes']);
+      }
+      if (data.hasOwnProperty('meta')) {
+        obj['meta'] = JsonApiMeta.constructFromObject(data['meta']);
       }
       if (data.hasOwnProperty('relationships')) {
-        obj['relationships'] = ApiClient.convertToType(data['relationships'], Object);
+        obj['relationships'] = FolderRelationships.constructFromObject(data['relationships']);
       }
     }
     return obj;
@@ -69,23 +92,31 @@ module.exports = (function() {
    * Constructs a new <code>Folder</code>.
    * @alias module:model/Folder
    * @class
+   * @implements module:model/JsonApiDocument
    * @implements module:model/JsonApiResource
    * @implements module:model/BaseAttributesCreatedUpdated
+   * @param data {module:model/JsonApiResource} 
+   * @param links {module:model/JsonApiLinks} 
    * @param id {String} resource id
    * @param type {module:model/Folder.TypeEnum} 
-   * @param attributes {Object} 
-   * @param relationships {Object} 
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/Folder} obj Optional instance to populate.
    */
-  var exports = function(id, type, attributes, relationships, theData, obj) {
+  var exports = function(data, links, id, type, theData, obj) {
     var _this = this;
 
+    JsonApiDocument.call(_this, data, links);
     JsonApiResource.call(_this, id, type);
     BaseAttributesCreatedUpdated.call(_this);
+
+    _this['data'] = data;
+
+    _this['links'] = links;
+    _this['id'] = id;
     _this['type'] = type;
-    _this['attributes'] = attributes;
-    _this['relationships'] = relationships;
+
+
+
 
     return constructFromObject(theData, obj);
   };
@@ -100,17 +131,63 @@ module.exports = (function() {
   exports.constructFromObject = constructFromObject;
 
   /**
+   * @member {module:model/JsonApiVersionJsonapi} jsonapi
+   */
+  exports.prototype['jsonapi'] = undefined;
+  /**
+   * @member {module:model/JsonApiResource} data
+   */
+  exports.prototype['data'] = undefined;
+  /**
+   * @member {Array.<module:model/JsonApiResource>} included
+   */
+  exports.prototype['included'] = undefined;
+  /**
+   * @member {module:model/JsonApiLinks} links
+   */
+  exports.prototype['links'] = undefined;
+  /**
+   * resource id
+   * @member {String} id
+   */
+  exports.prototype['id'] = undefined;
+  /**
    * @member {module:model/Folder.TypeEnum} type
    */
   exports.prototype['type'] = undefined;
   /**
-   * @member {Object} attributes
+   * @member {module:model/FolderAttributes} attributes
    */
   exports.prototype['attributes'] = undefined;
   /**
-   * @member {Object} relationships
+   * @member {module:model/JsonApiMeta} meta
+   */
+  exports.prototype['meta'] = undefined;
+  /**
+   * @member {module:model/FolderRelationships} relationships
    */
   exports.prototype['relationships'] = undefined;
+
+  // Implement JsonApiDocument interface:
+  /**
+   * @member {module:model/JsonApiVersionJsonapi} jsonapi
+   */
+exports.prototype['jsonapi'] = undefined;
+
+  /**
+   * @member {module:model/JsonApiResource} data
+   */
+exports.prototype['data'] = undefined;
+
+  /**
+   * @member {Array.<module:model/JsonApiResource>} included
+   */
+exports.prototype['included'] = undefined;
+
+  /**
+   * @member {module:model/JsonApiLinksSelf} links
+   */
+exports.prototype['links'] = undefined;
 
   // Implement JsonApiResource interface:
   /**

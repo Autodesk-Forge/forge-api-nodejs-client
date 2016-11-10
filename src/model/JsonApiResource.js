@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -37,7 +37,7 @@ module.exports = (function() {
   /**
    * The JsonApiResource model module.
    * @module model/JsonApiResource
-   * @version 0.1.8
+   * @version 0.1.9
    */
 
    /**
@@ -52,6 +52,12 @@ module.exports = (function() {
       obj = obj || new exports();
   
         JsonApiTypeId.constructFromObject(data, obj);
+      if (data.hasOwnProperty('id')) {
+        obj['id'] = ApiClient.convertToType(data['id'], 'String');
+      }
+      if (data.hasOwnProperty('type')) {
+        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+      }
       if (data.hasOwnProperty('attributes')) {
         obj['attributes'] = JsonApiAttributes.constructFromObject(data['attributes']);
       }
@@ -82,6 +88,8 @@ module.exports = (function() {
     var _this = this;
 
     JsonApiTypeId.call(_this, id, type);
+    _this['id'] = id;
+    _this['type'] = type;
 
 
 
@@ -99,6 +107,16 @@ module.exports = (function() {
    */
   exports.constructFromObject = constructFromObject;
 
+  /**
+   * resource id
+   * @member {String} id
+   */
+  exports.prototype['id'] = undefined;
+  /**
+   * resource type
+   * @member {String} type
+   */
+  exports.prototype['type'] = undefined;
   /**
    * @member {module:model/JsonApiAttributes} attributes
    */

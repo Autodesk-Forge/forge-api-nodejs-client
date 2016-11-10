@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -39,7 +39,7 @@ module.exports = (function() {
   /**
    * The JobPayloadItem model module.
    * @module model/JobPayloadItem
-   * @version 0.1.8
+   * @version 0.1.9
    */
 
    /**
@@ -59,6 +59,15 @@ module.exports = (function() {
         JobStepOutputPayload.constructFromObject(data, obj);
         JobIgesOutputPayload.constructFromObject(data, obj);
         JobObjOutputPayload.constructFromObject(data, obj);
+      if (data.hasOwnProperty('type')) {
+        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+      }
+      if (data.hasOwnProperty('views')) {
+        obj['views'] = ApiClient.convertToType(data['views'], ['String']);
+      }
+      if (data.hasOwnProperty('advanced')) {
+        obj['advanced'] = JobObjOutputPayloadAdvanced.constructFromObject(data['advanced']);
+      }
     }
     return obj;
   };
@@ -74,7 +83,7 @@ module.exports = (function() {
    * @implements module:model/JobStepOutputPayload
    * @implements module:model/JobIgesOutputPayload
    * @implements module:model/JobObjOutputPayload
-   * @param type {module:model/JobObjOutputPayload.TypeEnum} The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
+   * @param type {module:model/JobPayloadItem.TypeEnum} The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/JobPayloadItem} obj Optional instance to populate.
    */
@@ -87,6 +96,9 @@ module.exports = (function() {
     JobStepOutputPayload.call(_this, type);
     JobIgesOutputPayload.call(_this, type);
     JobObjOutputPayload.call(_this, type);
+    _this['type'] = type;
+
+
 
     return constructFromObject(theData, obj);
   };
@@ -100,6 +112,19 @@ module.exports = (function() {
    */
   exports.constructFromObject = constructFromObject;
 
+  /**
+   * The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
+   * @member {module:model/JobPayloadItem.TypeEnum} type
+   */
+  exports.prototype['type'] = undefined;
+  /**
+   * @member {Array.<module:model/JobPayloadItem.ViewsEnum>} views
+   */
+  exports.prototype['views'] = undefined;
+  /**
+   * @member {module:model/JobObjOutputPayloadAdvanced} advanced
+   */
+  exports.prototype['advanced'] = undefined;
 
   // Implement JobSvfOutputPayload interface:
   /**
@@ -109,7 +134,7 @@ module.exports = (function() {
 exports.prototype['type'] = undefined;
 
   /**
-   * @member {Array.<module:model/JobSvfOutputPayload.ViewsEnum>} views
+   * @member {Array.<module:model/JobPayloadItem.ViewsEnum>} views
    */
 exports.prototype['views'] = undefined;
 
@@ -164,7 +189,7 @@ exports.prototype['advanced'] = undefined;
   // Implement JobObjOutputPayload interface:
   /**
    * The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
-   * @member {module:model/JobObjOutputPayload.TypeEnum} type
+   * @member {module:model/JobPayloadItem.TypeEnum} type
    */
 exports.prototype['type'] = undefined;
 
@@ -173,6 +198,60 @@ exports.prototype['type'] = undefined;
    */
 exports.prototype['advanced'] = undefined;
 
+
+  /**
+   * Allowed values for the <code>type</code> property.
+   * @enum {String}
+   * @readonly
+   */
+  exports.TypeEnum = {
+    /**
+     * value: "svf"
+     * @const
+     */
+    "svf": "svf",
+    /**
+     * value: "thumbnail"
+     * @const
+     */
+    "thumbnail": "thumbnail",
+    /**
+     * value: "stl"
+     * @const
+     */
+    "stl": "stl",
+    /**
+     * value: "step"
+     * @const
+     */
+    "step": "step",
+    /**
+     * value: "iges"
+     * @const
+     */
+    "iges": "iges",
+    /**
+     * value: "obj"
+     * @const
+     */
+    "obj": "obj"  };
+
+  /**
+   * Allowed values for the <code>views</code> property.
+   * @enum {String}
+   * @readonly
+   */
+  exports.ViewsEnum = {
+    /**
+     * value: "2d"
+     * @const
+     */
+    "2d": "2d",
+    /**
+     * value: "3d"
+     * @const
+     */
+    "3d": "3d"  };
 
 
   return exports;

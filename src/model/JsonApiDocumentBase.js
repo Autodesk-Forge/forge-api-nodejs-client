@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -35,7 +35,7 @@ module.exports = (function() {
   /**
    * The JsonApiDocumentBase model module.
    * @module model/JsonApiDocumentBase
-   * @version 0.1.8
+   * @version 0.1.9
    */
 
    /**
@@ -50,6 +50,9 @@ module.exports = (function() {
       obj = obj || new exports();
   
         JsonApiVersion.constructFromObject(data, obj);
+      if (data.hasOwnProperty('jsonapi')) {
+        obj['jsonapi'] = JsonApiVersionJsonapi.constructFromObject(data['jsonapi']);
+      }
       if (data.hasOwnProperty('data')) {
         obj['data'] = JsonApiResource.constructFromObject(data['data']);
       }
@@ -73,6 +76,7 @@ module.exports = (function() {
     var _this = this;
 
     JsonApiVersion.call(_this);
+
     _this['data'] = data;
 
 
@@ -88,6 +92,10 @@ module.exports = (function() {
    */
   exports.constructFromObject = constructFromObject;
 
+  /**
+   * @member {module:model/JsonApiVersionJsonapi} jsonapi
+   */
+  exports.prototype['jsonapi'] = undefined;
   /**
    * @member {module:model/JsonApiResource} data
    */

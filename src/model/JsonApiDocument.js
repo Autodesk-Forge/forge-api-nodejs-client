@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -36,7 +36,7 @@ module.exports = (function() {
   /**
    * The JsonApiDocument model module.
    * @module model/JsonApiDocument
-   * @version 0.1.8
+   * @version 0.1.9
    */
 
    /**
@@ -51,6 +51,15 @@ module.exports = (function() {
       obj = obj || new exports();
   
         JsonApiDocumentBase.constructFromObject(data, obj);
+      if (data.hasOwnProperty('jsonapi')) {
+        obj['jsonapi'] = JsonApiVersionJsonapi.constructFromObject(data['jsonapi']);
+      }
+      if (data.hasOwnProperty('data')) {
+        obj['data'] = JsonApiResource.constructFromObject(data['data']);
+      }
+      if (data.hasOwnProperty('included')) {
+        obj['included'] = ApiClient.convertToType(data['included'], [JsonApiResource]);
+      }
       if (data.hasOwnProperty('links')) {
         obj['links'] = JsonApiLinksSelf.constructFromObject(data['links']);
       }
@@ -72,6 +81,9 @@ module.exports = (function() {
     var _this = this;
 
     JsonApiDocumentBase.call(_this, data);
+
+    _this['data'] = data;
+
     _this['links'] = links;
 
     return constructFromObject(theData, obj);
@@ -86,6 +98,18 @@ module.exports = (function() {
    */
   exports.constructFromObject = constructFromObject;
 
+  /**
+   * @member {module:model/JsonApiVersionJsonapi} jsonapi
+   */
+  exports.prototype['jsonapi'] = undefined;
+  /**
+   * @member {module:model/JsonApiResource} data
+   */
+  exports.prototype['data'] = undefined;
+  /**
+   * @member {Array.<module:model/JsonApiResource>} included
+   */
+  exports.prototype['included'] = undefined;
   /**
    * @member {module:model/JsonApiLinksSelf} links
    */

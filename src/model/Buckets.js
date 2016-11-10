@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -26,14 +26,14 @@ module.exports = (function() {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      BucketsPermissions = require('./BucketsPermissions');
+      BucketsItems = require('./BucketsItems');
 
 
 
   /**
    * The Buckets model module.
    * @module model/Buckets
-   * @version 0.1.8
+   * @version 0.1.9
    */
 
    /**
@@ -47,20 +47,11 @@ module.exports = (function() {
     if (data) {
       obj = obj || new exports();
   
-      if (data.hasOwnProperty('bucketKey')) {
-        obj['bucketKey'] = ApiClient.convertToType(data['bucketKey'], 'String');
+      if (data.hasOwnProperty('items')) {
+        obj['items'] = ApiClient.convertToType(data['items'], [BucketsItems]);
       }
-      if (data.hasOwnProperty('bucketOwner')) {
-        obj['bucketOwner'] = ApiClient.convertToType(data['bucketOwner'], 'String');
-      }
-      if (data.hasOwnProperty('createdDate')) {
-        obj['createdDate'] = ApiClient.convertToType(data['createdDate'], 'Integer');
-      }
-      if (data.hasOwnProperty('permissions')) {
-        obj['permissions'] = ApiClient.convertToType(data['permissions'], [BucketsPermissions]);
-      }
-      if (data.hasOwnProperty('policyKey')) {
-        obj['policyKey'] = ApiClient.convertToType(data['policyKey'], 'String');
+      if (data.hasOwnProperty('next')) {
+        obj['next'] = ApiClient.convertToType(data['next'], 'String');
       }
     }
     return obj;
@@ -68,25 +59,18 @@ module.exports = (function() {
 
   /**
    * Constructs a new <code>Buckets</code>.
-   * Bucket json response
    * @alias module:model/Buckets
    * @class
-   * @param bucketKey {String} The key for the created bucket
-   * @param bucketOwner {String} Owner of the bucket
-   * @param createdDate {Integer} Timestamp in epoch time
-   * @param permissions {Array.<module:model/BucketsPermissions>} Array of objects representing the applications with access granted at bucket creation
-   * @param policyKey {module:model/Buckets.PolicyKeyEnum} [Data retention policy](https://developer.autodesk.com/en/docs/data/v2/overview/retention-policy/)  Acceptable values: `transient`, `temporary` or `persistent` 
+   * @param items {Array.<module:model/BucketsItems>} Array of items representing the buckets
+   * @param next {String} Next possible request
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/Buckets} obj Optional instance to populate.
    */
-  var exports = function(bucketKey, bucketOwner, createdDate, permissions, policyKey, theData, obj) {
+  var exports = function(items, next, theData, obj) {
     var _this = this;
 
-    _this['bucketKey'] = bucketKey;
-    _this['bucketOwner'] = bucketOwner;
-    _this['createdDate'] = createdDate;
-    _this['permissions'] = permissions;
-    _this['policyKey'] = policyKey;
+    _this['items'] = items;
+    _this['next'] = next;
 
     return constructFromObject(theData, obj);
   };
@@ -101,53 +85,16 @@ module.exports = (function() {
   exports.constructFromObject = constructFromObject;
 
   /**
-   * The key for the created bucket
-   * @member {String} bucketKey
+   * Array of items representing the buckets
+   * @member {Array.<module:model/BucketsItems>} items
    */
-  exports.prototype['bucketKey'] = undefined;
+  exports.prototype['items'] = undefined;
   /**
-   * Owner of the bucket
-   * @member {String} bucketOwner
+   * Next possible request
+   * @member {String} next
    */
-  exports.prototype['bucketOwner'] = undefined;
-  /**
-   * Timestamp in epoch time
-   * @member {Integer} createdDate
-   */
-  exports.prototype['createdDate'] = undefined;
-  /**
-   * Array of objects representing the applications with access granted at bucket creation
-   * @member {Array.<module:model/BucketsPermissions>} permissions
-   */
-  exports.prototype['permissions'] = undefined;
-  /**
-   * [Data retention policy](https://developer.autodesk.com/en/docs/data/v2/overview/retention-policy/)  Acceptable values: `transient`, `temporary` or `persistent` 
-   * @member {module:model/Buckets.PolicyKeyEnum} policyKey
-   */
-  exports.prototype['policyKey'] = undefined;
+  exports.prototype['next'] = undefined;
 
-
-  /**
-   * Allowed values for the <code>policyKey</code> property.
-   * @enum {String}
-   * @readonly
-   */
-  exports.PolicyKeyEnum = {
-    /**
-     * value: "transient"
-     * @const
-     */
-    "transient": "transient",
-    /**
-     * value: "temporary"
-     * @const
-     */
-    "temporary": "temporary",
-    /**
-     * value: "persistent"
-     * @const
-     */
-    "persistent": "persistent"  };
 
 
   return exports;

@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The JobSvfOutputPayload model module.
    * @module model/JobSvfOutputPayload
-   * @version 0.1.8
+   * @version 0.1.9
    */
 
    /**
@@ -88,7 +88,7 @@ module.exports = (function() {
    */
   exports.prototype['type'] = undefined;
   /**
-   * @member {Array.<module:model/JobSvfOutputPayload.ViewsEnum>} views
+   * @member {Array.<module:model/JobPayloadItem.ViewsEnum>} views
    */
   exports.prototype['views'] = undefined;
 

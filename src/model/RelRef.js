@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -29,14 +29,15 @@ module.exports = (function() {
       JsonApiAttributes = require('./JsonApiAttributes'),
       JsonApiLinks = require('./JsonApiLinks'),
       JsonApiRelationships = require('./JsonApiRelationships'),
-      JsonApiResource = require('./JsonApiResource');
+      JsonApiResource = require('./JsonApiResource'),
+      RelRefMeta = require('./RelRefMeta');
 
 
 
   /**
    * The RelRef model module.
    * @module model/RelRef
-   * @version 0.1.8
+   * @version 0.1.9
    */
 
    /**
@@ -51,11 +52,23 @@ module.exports = (function() {
       obj = obj || new exports();
   
         JsonApiResource.constructFromObject(data, obj);
+      if (data.hasOwnProperty('id')) {
+        obj['id'] = ApiClient.convertToType(data['id'], 'String');
+      }
       if (data.hasOwnProperty('type')) {
         obj['type'] = ApiClient.convertToType(data['type'], 'String');
       }
+      if (data.hasOwnProperty('attributes')) {
+        obj['attributes'] = JsonApiAttributes.constructFromObject(data['attributes']);
+      }
       if (data.hasOwnProperty('meta')) {
-        obj['meta'] = ApiClient.convertToType(data['meta'], Object);
+        obj['meta'] = RelRefMeta.constructFromObject(data['meta']);
+      }
+      if (data.hasOwnProperty('relationships')) {
+        obj['relationships'] = JsonApiRelationships.constructFromObject(data['relationships']);
+      }
+      if (data.hasOwnProperty('links')) {
+        obj['links'] = JsonApiLinks.constructFromObject(data['links']);
       }
     }
     return obj;
@@ -68,16 +81,19 @@ module.exports = (function() {
    * @implements module:model/JsonApiResource
    * @param id {String} resource id
    * @param type {module:model/RelRef.TypeEnum} 
-   * @param meta {Object} 
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/RelRef} obj Optional instance to populate.
    */
-  var exports = function(id, type, meta, theData, obj) {
+  var exports = function(id, type, theData, obj) {
     var _this = this;
 
     JsonApiResource.call(_this, id, type);
+    _this['id'] = id;
     _this['type'] = type;
-    _this['meta'] = meta;
+
+
+
+
 
     return constructFromObject(theData, obj);
   };
@@ -92,13 +108,30 @@ module.exports = (function() {
   exports.constructFromObject = constructFromObject;
 
   /**
+   * resource id
+   * @member {String} id
+   */
+  exports.prototype['id'] = undefined;
+  /**
    * @member {module:model/RelRef.TypeEnum} type
    */
   exports.prototype['type'] = undefined;
   /**
-   * @member {Object} meta
+   * @member {module:model/JsonApiAttributes} attributes
+   */
+  exports.prototype['attributes'] = undefined;
+  /**
+   * @member {module:model/RelRefMeta} meta
    */
   exports.prototype['meta'] = undefined;
+  /**
+   * @member {module:model/JsonApiRelationships} relationships
+   */
+  exports.prototype['relationships'] = undefined;
+  /**
+   * @member {module:model/JsonApiLinks} links
+   */
+  exports.prototype['links'] = undefined;
 
   // Implement JsonApiResource interface:
   /**

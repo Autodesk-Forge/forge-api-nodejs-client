@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -25,72 +25,65 @@
 module.exports = (function() {
   'use strict';
 
-  var ApiClient = require('../ApiClient');
+  var ApiClient = require('../ApiClient'),
+      JsonApiLink = require('./JsonApiLink');
 
 
 
   /**
-   * The CreateBucket model module.
-   * @module model/CreateBucket
-   * @version 0.1.8
+   * The JsonApiErrorLinks model module.
+   * @module model/JsonApiErrorLinks
+   * @version 0.1.9
    */
 
    /**
-    * Constructs a <code>CreateBucket</code> from a plain JavaScript object, optionally creating a new instance.
+    * Constructs a <code>JsonApiErrorLinks</code> from a plain JavaScript object, optionally creating a new instance.
     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
     * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/CreateBucket} obj Optional instance to populate.
-    * @return {module:model/CreateBucket} The populated <code>CreateBucket</code> instance.
+    * @param {module:model/JsonApiErrorLinks} obj Optional instance to populate.
+    * @return {module:model/JsonApiErrorLinks} The populated <code>JsonApiErrorLinks</code> instance.
     */
   var constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
   
-      if (data.hasOwnProperty('bucketKey')) {
-        obj['bucketKey'] = ApiClient.convertToType(data['bucketKey'], 'String');
-      }
-      if (data.hasOwnProperty('policyKey')) {
-        obj['policyKey'] = ApiClient.convertToType(data['policyKey'], 'String');
+      if (data.hasOwnProperty('about')) {
+        obj['about'] = JsonApiLink.constructFromObject(data['about']);
       }
     }
     return obj;
   };
 
   /**
-   * Constructs a new <code>CreateBucket</code>.
-   * @alias module:model/CreateBucket
+   * Constructs a new <code>JsonApiErrorLinks</code>.
+   * a link that leads to further details about this particular occurrence of the problem
+   * @alias module:model/JsonApiErrorLinks
    * @class
+   * @param about {module:model/JsonApiLink} 
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
-   * @param {module:model/CreateBucket} obj Optional instance to populate.
+   * @param {module:model/JsonApiErrorLinks} obj Optional instance to populate.
    */
-  var exports = function(theData, obj) {
+  var exports = function(about, theData, obj) {
     var _this = this;
 
-
-
+    _this['about'] = about;
 
     return constructFromObject(theData, obj);
   };
 
   /**
-   * Constructs a <code>CreateBucket</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>JsonApiErrorLinks</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/CreateBucket} obj Optional instance to populate.
-   * @return {module:model/CreateBucket} The populated <code>CreateBucket</code> instance.
+   * @param {module:model/JsonApiErrorLinks} obj Optional instance to populate.
+   * @return {module:model/JsonApiErrorLinks} The populated <code>JsonApiErrorLinks</code> instance.
    */
   exports.constructFromObject = constructFromObject;
 
   /**
-   * The key of the Bucket
-   * @member {String} bucketKey
+   * @member {module:model/JsonApiLink} about
    */
-  exports.prototype['bucketKey'] = undefined;
-  /**
-   * The policy key
-   * @member {String} policyKey
-   */
-  exports.prototype['policyKey'] = undefined;
+  exports.prototype['about'] = undefined;
 
 
 

@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -26,6 +26,7 @@ module.exports = (function() {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
+      JsonApiErrorErrors = require('./JsonApiErrorErrors'),
       JsonApiVersion = require('./JsonApiVersion'),
       JsonApiVersionJsonapi = require('./JsonApiVersionJsonapi');
 
@@ -34,7 +35,7 @@ module.exports = (function() {
   /**
    * The JsonApiError model module.
    * @module model/JsonApiError
-   * @version 0.1.8
+   * @version 0.1.9
    */
 
    /**
@@ -49,8 +50,11 @@ module.exports = (function() {
       obj = obj || new exports();
   
         JsonApiVersion.constructFromObject(data, obj);
+      if (data.hasOwnProperty('jsonapi')) {
+        obj['jsonapi'] = JsonApiVersionJsonapi.constructFromObject(data['jsonapi']);
+      }
       if (data.hasOwnProperty('errors')) {
-        obj['errors'] = ApiClient.convertToType(data['errors'], [Object]);
+        obj['errors'] = ApiClient.convertToType(data['errors'], [JsonApiErrorErrors]);
       }
     }
     return obj;
@@ -61,7 +65,7 @@ module.exports = (function() {
    * @alias module:model/JsonApiError
    * @class
    * @implements module:model/JsonApiVersion
-   * @param errors {Array.<Object>} 
+   * @param errors {Array.<module:model/JsonApiErrorErrors>} 
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/JsonApiError} obj Optional instance to populate.
    */
@@ -69,6 +73,7 @@ module.exports = (function() {
     var _this = this;
 
     JsonApiVersion.call(_this);
+
     _this['errors'] = errors;
 
     return constructFromObject(theData, obj);
@@ -84,7 +89,11 @@ module.exports = (function() {
   exports.constructFromObject = constructFromObject;
 
   /**
-   * @member {Array.<Object>} errors
+   * @member {module:model/JsonApiVersionJsonapi} jsonapi
+   */
+  exports.prototype['jsonapi'] = undefined;
+  /**
+   * @member {Array.<module:model/JsonApiErrorErrors>} errors
    */
   exports.prototype['errors'] = undefined;
 

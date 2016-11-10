@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -25,51 +25,44 @@
 module.exports = (function() {
   'use strict';
 
-  var ApiClient = require('../ApiClient');
+  var ApiClient = require('../ApiClient'),
+      CreateVersionDataRelationshipsItemData = require('./CreateVersionDataRelationshipsItemData');
 
 
 
   /**
-   * The TaskError model module.
-   * @module model/TaskError
-   * @version 0.1.8
+   * The CreateVersionDataRelationshipsItem model module.
+   * @module model/CreateVersionDataRelationshipsItem
+   * @version 0.1.9
    */
 
    /**
-    * Constructs a <code>TaskError</code> from a plain JavaScript object, optionally creating a new instance.
+    * Constructs a <code>CreateVersionDataRelationshipsItem</code> from a plain JavaScript object, optionally creating a new instance.
     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
     * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/TaskError} obj Optional instance to populate.
-    * @return {module:model/TaskError} The populated <code>TaskError</code> instance.
+    * @param {module:model/CreateVersionDataRelationshipsItem} obj Optional instance to populate.
+    * @return {module:model/CreateVersionDataRelationshipsItem} The populated <code>CreateVersionDataRelationshipsItem</code> instance.
     */
   var constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
   
-      if (data.hasOwnProperty('error_id')) {
-        obj['error_id'] = ApiClient.convertToType(data['error_id'], 'String');
-      }
-      if (data.hasOwnProperty('message')) {
-        obj['message'] = ApiClient.convertToType(data['message'], 'String');
-      }
-      if (data.hasOwnProperty('code')) {
-        obj['code'] = ApiClient.convertToType(data['code'], 'Number');
+      if (data.hasOwnProperty('data')) {
+        obj['data'] = CreateVersionDataRelationshipsItemData.constructFromObject(data['data']);
       }
     }
     return obj;
   };
 
   /**
-   * Constructs a new <code>TaskError</code>.
-   * @alias module:model/TaskError
+   * Constructs a new <code>CreateVersionDataRelationshipsItem</code>.
+   * @alias module:model/CreateVersionDataRelationshipsItem
    * @class
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
-   * @param {module:model/TaskError} obj Optional instance to populate.
+   * @param {module:model/CreateVersionDataRelationshipsItem} obj Optional instance to populate.
    */
   var exports = function(theData, obj) {
     var _this = this;
-
-
 
 
 
@@ -77,29 +70,18 @@ module.exports = (function() {
   };
 
   /**
-   * Constructs a <code>TaskError</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>CreateVersionDataRelationshipsItem</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/TaskError} obj Optional instance to populate.
-   * @return {module:model/TaskError} The populated <code>TaskError</code> instance.
+   * @param {module:model/CreateVersionDataRelationshipsItem} obj Optional instance to populate.
+   * @return {module:model/CreateVersionDataRelationshipsItem} The populated <code>CreateVersionDataRelationshipsItem</code> instance.
    */
   exports.constructFromObject = constructFromObject;
 
   /**
-   * Error ID
-   * @member {String} error_id
+   * @member {module:model/CreateVersionDataRelationshipsItemData} data
    */
-  exports.prototype['error_id'] = undefined;
-  /**
-   * Error message
-   * @member {String} message
-   */
-  exports.prototype['message'] = undefined;
-  /**
-   * Error code number
-   * @member {Number} code
-   */
-  exports.prototype['code'] = undefined;
+  exports.prototype['data'] = undefined;
 
 
 

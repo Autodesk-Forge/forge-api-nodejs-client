@@ -1,6 +1,6 @@
 /**
  * Forge SDK
- * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.
+ * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.
  *
  * OpenAPI spec version: 0.1.0
  * Contact: forge.help@autodesk.com
@@ -26,6 +26,7 @@ module.exports = (function() {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
+      CreateVersionData = require('./CreateVersionData'),
       JsonApiVersion = require('./JsonApiVersion'),
       JsonApiVersionJsonapi = require('./JsonApiVersionJsonapi');
 
@@ -34,7 +35,7 @@ module.exports = (function() {
   /**
    * The CreateVersion model module.
    * @module model/CreateVersion
-   * @version 0.1.8
+   * @version 0.1.9
    */
 
    /**
@@ -49,8 +50,11 @@ module.exports = (function() {
       obj = obj || new exports();
   
         JsonApiVersion.constructFromObject(data, obj);
+      if (data.hasOwnProperty('jsonapi')) {
+        obj['jsonapi'] = JsonApiVersionJsonapi.constructFromObject(data['jsonapi']);
+      }
       if (data.hasOwnProperty('data')) {
-        obj['data'] = ApiClient.convertToType(data['data'], Object);
+        obj['data'] = CreateVersionData.constructFromObject(data['data']);
       }
     }
     return obj;
@@ -61,15 +65,15 @@ module.exports = (function() {
    * @alias module:model/CreateVersion
    * @class
    * @implements module:model/JsonApiVersion
-   * @param data {Object} 
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/CreateVersion} obj Optional instance to populate.
    */
-  var exports = function(data, theData, obj) {
+  var exports = function(theData, obj) {
     var _this = this;
 
     JsonApiVersion.call(_this);
-    _this['data'] = data;
+
+
 
     return constructFromObject(theData, obj);
   };
@@ -84,7 +88,11 @@ module.exports = (function() {
   exports.constructFromObject = constructFromObject;
 
   /**
-   * @member {Object} data
+   * @member {module:model/JsonApiVersionJsonapi} jsonapi
+   */
+  exports.prototype['jsonapi'] = undefined;
+  /**
+   * @member {module:model/CreateVersionData} data
    */
   exports.prototype['data'] = undefined;
 
