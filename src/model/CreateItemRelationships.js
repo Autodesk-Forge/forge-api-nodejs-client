@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The CreateItemRelationships model module.
    * @module model/CreateItemRelationships
-   * @version 0.2.0
+   * @version 0.2.1
    */
 
    /**

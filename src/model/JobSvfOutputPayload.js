@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The JobSvfOutputPayload model module.
    * @module model/JobSvfOutputPayload
-   * @version 0.2.0
+   * @version 0.2.1
    */
 
    /**

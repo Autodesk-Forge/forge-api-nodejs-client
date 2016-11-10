@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The InputStream model module.
    * @module model/InputStream
-   * @version 0.2.0
+   * @version 0.2.1
    */
 
    /**

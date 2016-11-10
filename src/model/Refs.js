@@ -35,7 +35,7 @@ module.exports = (function() {
   /**
    * The Refs model module.
    * @module model/Refs
-   * @version 0.2.0
+   * @version 0.2.1
    */
 
    /**

@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The Result model module.
    * @module model/Result
-   * @version 0.2.0
+   * @version 0.2.1
    */
 
    /**

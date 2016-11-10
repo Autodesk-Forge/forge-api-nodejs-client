@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The JsonApiMetaLink model module.
    * @module model/JsonApiMetaLink
-   * @version 0.2.0
+   * @version 0.2.1
    */
 
    /**

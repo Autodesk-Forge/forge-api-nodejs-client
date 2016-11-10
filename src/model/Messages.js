@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The Messages model module.
    * @module model/Messages
-   * @version 0.2.0
+   * @version 0.2.1
    */
 
    /**

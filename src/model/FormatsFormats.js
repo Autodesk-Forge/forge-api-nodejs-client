@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The FormatsFormats model module.
    * @module model/FormatsFormats
-   * @version 0.2.0
+   * @version 0.2.1
    */
 
    /**

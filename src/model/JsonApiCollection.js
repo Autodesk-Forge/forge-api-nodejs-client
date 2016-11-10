@@ -35,7 +35,7 @@ module.exports = (function() {
   /**
    * The JsonApiCollection model module.
    * @module model/JsonApiCollection
-   * @version 0.2.0
+   * @version 0.2.1
    */
 
    /**
