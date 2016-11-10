@@ -1,8 +1,7 @@
 {
   "name": "forge-apis",
   "version": "0.1.9",
-  "description": "The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. From visualizing data to 3D printing, take advantage of Autodesk’s expertise in design and engineering.",
-  "homepage": "https://developer.autodesk.com/",
+  "description": "The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.",
   "license": "Apache-2.0",
   "main": "src/index.js",
   "repository": {
