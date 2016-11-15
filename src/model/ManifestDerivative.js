@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The ManifestDerivative model module.
    * @module model/ManifestDerivative
-   * @version 0.2.2
+   * @version 0.2.3
    */
 
    /**

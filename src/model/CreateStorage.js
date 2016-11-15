@@ -35,7 +35,7 @@ module.exports = (function() {
   /**
    * The CreateStorage model module.
    * @module model/CreateStorage
-   * @version 0.2.2
+   * @version 0.2.3
    */
 
    /**

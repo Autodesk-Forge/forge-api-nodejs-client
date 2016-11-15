@@ -35,7 +35,7 @@ module.exports = (function() {
   /**
    * The FolderRelationships model module.
    * @module model/FolderRelationships
-   * @version 0.2.2
+   * @version 0.2.3
    */
 
    /**

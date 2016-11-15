@@ -96,7 +96,7 @@ module.exports = (function () {
 
     /**
      * @module auth/OAuth2
-     * @version 0.2.2
+     * @version 0.2.3
      */
 
     /**

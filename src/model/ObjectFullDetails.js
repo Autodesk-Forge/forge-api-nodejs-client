@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The ObjectFullDetails model module.
    * @module model/ObjectFullDetails
-   * @version 0.2.2
+   * @version 0.2.3
    */
 
    /**
