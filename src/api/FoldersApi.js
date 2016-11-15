@@ -59,7 +59,7 @@ module.exports = (function() {
      * @param {String} folderId the &#x60;folder id&#x60;
      * data is of type: {module:model/Folder}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getFolder = function(projectId, folderId, oauth2client, credentials) {
       var postBody = null;
@@ -103,14 +103,14 @@ module.exports = (function() {
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} folderId the &#x60;folder id&#x60;
      * @param {Object} opts Optional parameters
-     * @param {Array.<String>} opts.filterType filter by the &#x60;type&#x60; of the &#x60;ref&#x60; target
-     * @param {Array.<String>} opts.filterId filter by the &#x60;id&#x60; of the &#x60;ref&#x60; target
+     * @param {Array.<String>} opts.filterType filter by the `type` of the `ref` target
+     * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * @param {Integer} opts.pageNumber specify the page number
      * @param {Integer} opts.pageLimit specify the maximal number of elements per page
      * data is of type: {module:model/JsonApiCollection}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getFolderContents = function(projectId, folderId, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -161,7 +161,7 @@ module.exports = (function() {
      * @param {String} folderId the &#x60;folder id&#x60;
      * data is of type: {module:model/Folder}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getFolderParent = function(projectId, folderId, oauth2client, credentials) {
       var postBody = null;
@@ -205,12 +205,12 @@ module.exports = (function() {
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} folderId the &#x60;folder id&#x60;
      * @param {Object} opts Optional parameters
-     * @param {Array.<String>} opts.filterType filter by the &#x60;type&#x60; of the &#x60;ref&#x60; target
-     * @param {Array.<String>} opts.filterId filter by the &#x60;id&#x60; of the &#x60;ref&#x60; target
+     * @param {Array.<String>} opts.filterType filter by the `type` of the `ref` target
+     * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/JsonApiCollection}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getFolderRefs = function(projectId, folderId, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -258,14 +258,14 @@ module.exports = (function() {
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} folderId the &#x60;folder id&#x60;
      * @param {Object} opts Optional parameters
-     * @param {Array.<String>} opts.filterType filter by the &#x60;type&#x60; of the &#x60;ref&#x60; target
-     * @param {Array.<String>} opts.filterId filter by the &#x60;id&#x60; of the &#x60;ref&#x60; target
-     * @param {Array.<String>} opts.filterRefType filter by &#x60;refType&#x60;
+     * @param {Array.<String>} opts.filterType filter by the `type` of the `ref` target
+     * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
+     * @param {Array.<String>} opts.filterRefType filter by `refType`
      * @param {module:model/String} opts.filterDirection filter by the direction of the reference
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/Refs}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getFolderRelationshipsRefs = function(projectId, folderId, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -316,7 +316,7 @@ module.exports = (function() {
      * @param {String} folderId the &#x60;folder id&#x60;
      * @param {module:model/CreateRef} body describe the ref to be created
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.postFolderRelationshipsRef = function(projectId, folderId, body, oauth2client, credentials) {
       var postBody = body;

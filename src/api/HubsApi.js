@@ -56,7 +56,7 @@ module.exports = (function() {
      * @param {String} hubId the &#x60;hub id&#x60; for the current operation
      * data is of type: {module:model/Hub}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getHub = function(hubId, oauth2client, credentials) {
       var postBody = null;
@@ -93,11 +93,11 @@ module.exports = (function() {
      * Returns a collection of projects for a given &#x60;hub_id&#x60;. A project represents an A360 project or a BIM 360 project which is set up under an A360 hub or BIM 360 account, respectively. Within a hub or an account, multiple projects can be created to be used. 
      * @param {String} hubId the &#x60;hub id&#x60; for the current operation
      * @param {Object} opts Optional parameters
-     * @param {Array.<String>} opts.filterId filter by the &#x60;id&#x60; of the &#x60;ref&#x60; target
+     * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/Projects}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getHubProjects = function(hubId, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -136,11 +136,11 @@ module.exports = (function() {
     /**
      * Returns a collection of accessible hubs for this member. A Hub represents an A360 Team/Personal hub or a BIM 360 account. 
      * @param {Object} opts Optional parameters
-     * @param {Array.<String>} opts.filterId filter by the &#x60;id&#x60; of the &#x60;ref&#x60; target
+     * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/Hubs}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getHubs = function(opts, oauth2client, credentials) {
       opts = opts || {};

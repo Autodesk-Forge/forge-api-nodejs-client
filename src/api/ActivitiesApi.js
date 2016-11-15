@@ -54,7 +54,7 @@ module.exports = (function() {
      * @param {module:model/Activity} activity 
      * data is of type: {module:model/Activity}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.createActivity = function(activity, oauth2client, credentials) {
       var postBody = activity;
@@ -90,7 +90,7 @@ module.exports = (function() {
      * Removes a specific Activity.
      * @param {String} id 
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.deleteActivity = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -127,7 +127,7 @@ module.exports = (function() {
      * Removes the version history of the specified Activity.
      * @param {String} id 
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.deleteActivityHistory = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -165,7 +165,7 @@ module.exports = (function() {
      * @param {String} id 
      * data is of type: {module:model/Activity}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getActivity = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -203,7 +203,7 @@ module.exports = (function() {
      * @param {String} id 
      * data is of type: {Array.<module:model/Activity>}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getActivityVersions = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -240,7 +240,7 @@ module.exports = (function() {
      * Returns the details of all Activities.
      * data is of type: {Array.<module:model/Activity>}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getAllActivities = function(oauth2client, credentials) {
       var postBody = null;
@@ -272,7 +272,7 @@ module.exports = (function() {
      * @param {String} id 
      * @param {module:model/ActivityOptional} activity 
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.patchActivity = function(id, activity, oauth2client, credentials) {
       var postBody = activity;
@@ -315,7 +315,7 @@ module.exports = (function() {
      * @param {String} id 
      * @param {module:model/ActivityVersion} activityVersion 
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.setActivityVersion = function(id, activityVersion, oauth2client, credentials) {
       var postBody = activityVersion;
@@ -358,7 +358,7 @@ module.exports = (function() {
      * @param {String} id 
      * @param {module:model/Activity} activity 
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.updateActivity = function(id, activity, oauth2client, credentials) {
       var postBody = activity;

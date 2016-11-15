@@ -230,16 +230,17 @@ module.exports = (function() {
 
   /**
     * Applies authentication header to the request.
-    * @param {Object} requestParams The requestParams object created by a <code>request()</code> call.
+    * @param {Object} requestParams - The requestParams object created by a <code>request()</code> call.
+    * @param {Object} headers - The headers that passed to this method
     * @param {Object} oauth2client - OAuth2 client that has a credentials object
     * @param {Object} credentials - The credentials object
     */
-   exports.prototype.applyAuthToRequest = function(requestParams, oauth2client, credentials) {
+   exports.prototype.applyAuthToRequest = function(requestParams, headers, oauth2client, credentials) {
 
      var _this = this;
      function setAuthHeader(credentials){
        if (credentials.access_token) {
-         requestParams.headers.Authorization = 'Bearer ' + credentials.access_token;
+         headers['Authorization'] = 'Bearer ' + credentials.access_token;
        }
      }
 
@@ -285,23 +286,6 @@ module.exports = (function() {
    };
 
   /**
-   * Deserializes an HTTP response body into a value of the specified type.
-   * @param {Object} response A Request response object.
-   * @param {(String|Array.<String>|Object.<String, Object>|Function)} returnType The type to return. Pass a string for simple types
-   * or the constructor function for a complex type. Pass an array containing the type name to return an array of that type. To
-   * return an object, pass an object with one property whose name is the key type and whose value is the corresponding value type:
-   * all properties on <code>data<code> will be converted to this type.
-   * @returns {Object} A value of the specified type.
-   */
-  exports.prototype.deserialize = function deserialize(response, returnType) {
-    if (response == null || returnType == null) {
-      return null;
-    }
-    return exports.convertToType(response, returnType);
-  };
-
-
-  /**
    * Enable working in debug mode
    * To activate, simple set ForgeSdk.setDebug(true);
    */
@@ -332,7 +316,7 @@ module.exports = (function() {
    * @param {(String|Array|Object|Function)} returnType The required type to return; can be a string for simple types or the
    *    constructor for a complex type.
    * @param {Object} oauth2client oauth2client for the call
-   * @param {Object} Credentials credentials for the call
+   * @param {Object} credentials credentials for the call
    * @returns {Object} A Promise object.
    */
   exports.prototype.callApi = function callApi(path, httpMethod, pathParams,
@@ -343,13 +327,13 @@ module.exports = (function() {
     var requestParams = {};
     requestParams.uri = this.buildUrl(path, pathParams);
     requestParams.method = httpMethod;
-    requestParams.headers = {};
+    var headers = {};
     requestParams.qs = this.normalizeParams(queryParams);
     requestParams.timeout = this.timeout;
 
     var contentType = this.jsonPreferredMime(contentTypes);
     if (contentType) {
-      requestParams.headers['Content-Type'] = contentType;
+      headers['Content-Type'] = contentType;
     }
 
     if (contentType === 'application/x-www-form-urlencoded') {
@@ -364,12 +348,17 @@ module.exports = (function() {
     }
 
     if (accepts.length > 0) {
-      requestParams.headers.Accept = accepts.join(',');
+      headers['Accept'] = accepts.join(',');
     }
     _this.debug('request params were', requestParams);
 
     return new Promise(function(resolve, reject) {
-      _this.applyAuthToRequest(requestParams, oauth2client, credentials).then(function() {
+      _this.applyAuthToRequest(requestParams, headers, oauth2client, credentials).then(function() {
+
+        // headerParams optional overrides
+        requestParams.headers = Object.assign(headers, headerParams);
+
+        // Call API endpoint
         request(requestParams,
             function (error, response, body) {
               if (error) {
@@ -390,7 +379,7 @@ module.exports = (function() {
                   });
                   reject({statusCode: response.statusCode, statusMessage: response.statusMessage});
                 } else {
-                  resolve(resp);
+                  resolve({statusCode: response.statusCode, headers: response.headers, body: resp});
                 }
               }
             });
@@ -398,94 +387,6 @@ module.exports = (function() {
         throw new Error(err.toString);
       });
     });
-  };
-
-  /**
-   * Parses an ISO-8601 string representation of a date value.
-   * @param {String} str The date value as a string.
-   * @returns {Date} The parsed date object.
-   */
-  exports.parseDate = function(str) {
-    return new Date(str.replace(/T/i, ' '));
-  };
-
-  /**
-   * Converts a value to the specified type.
-   * @param {(String|Object)} data The data to convert, as a string or object.
-   * @param {(String|Array.<String>|Object.<String, Object>|Function)} type The type to return. Pass a string for simple types
-   * or the constructor function for a complex type. Pass an array containing the type name to return an array of that type. To
-   * return an object, pass an object with one property whose name is the key type and whose value is the corresponding value type:
-   * all properties on <code>data<code> will be converted to this type.
-   * @returns {Object} An instance of the specified type.
-   */
-  exports.convertToType = function(data, type) {
-    switch (type) {
-      case 'Boolean':
-        return Boolean(data);
-      case 'Integer':
-        return parseInt(data, 10);
-      case 'Number':
-        return parseFloat(data);
-      case 'String':
-        return String(data);
-      case 'Date':
-        return this.parseDate(String(data));
-      default:
-        if (type === Object) {
-          // generic object, return directly
-          return data;
-        } else if (typeof type === 'function') {
-          // for model type like: User
-          return type.constructFromObject(data);
-        } else if (Array.isArray(type)) {
-          // for array type like: ['String']
-          var itemType = type[0];
-          return data.map(function(item) {
-            return exports.convertToType(item, itemType);
-          });
-        } else if (typeof type === 'object') {
-          // for plain object type like: {'String': 'Integer'}
-          var keyType, valueType;
-          for (var k in type) {
-            if (type.hasOwnProperty(k)) {
-              keyType = k;
-              valueType = type[k];
-              break;
-            }
-          }
-          var result = {};
-          for (var j in data) {
-            if (data.hasOwnProperty(j)) {
-              var key = exports.convertToType(j, keyType);
-              result[key] = exports.convertToType(data[j], valueType);
-            }
-          }
-          return result;
-        } else {
-          // for unknown type, return the data directly
-          return data;
-        }
-    }
-  };
-
-  /**
-   * Constructs a new map or array model from REST data.
-   * @param data {Object|Array} The REST data.
-   * @param obj {Object|Array} The target object or array.
-   * @param itemType {Object} The type of the item
-   */
-  exports.constructFromObject = function(data, obj, itemType) {
-    if (Array.isArray(data)) {
-      for (var i = 0; i < data.length; i++) {
-        if (data.hasOwnProperty(i))
-          obj[i] = exports.convertToType(data[i], itemType);
-      }
-    } else {
-      for (var k in data) {
-        if (data.hasOwnProperty(k))
-          obj[k] = exports.convertToType(data[k], itemType);
-      }
-    }
   };
 
   /**

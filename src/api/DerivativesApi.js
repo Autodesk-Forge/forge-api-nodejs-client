@@ -59,7 +59,7 @@ module.exports = (function() {
      * @param {String} urn The Base64 (URL Safe) encoded design URN 
      * data is of type: {module:model/Result}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.deleteManifest = function(urn, oauth2client, credentials) {
       var postBody = null;
@@ -97,9 +97,9 @@ module.exports = (function() {
      * @param {String} urn The Base64 (URL Safe) encoded design URN 
      * @param {String} derivativeUrn The URL-encoded URN of the derivatives. The URN is retrieved from the GET :urn/manifest endpoint. 
      * @param {Object} opts Optional parameters
-     * @param {Integer} opts.range This is the standard RFC 2616 range request header. It only supports one range specifier per request: 1. Range:bytes&#x3D;0-63 (returns the first 64 bytes) 2. Range:bytes&#x3D;64-127 (returns the second set of 64 bytes) 3. Range:bytes&#x3D;1022- (returns all the bytes from offset 1022 to the end) 4. If the range header is not specified, the whole content is returned. 
+     * @param {Integer} opts.range This is the standard RFC 2616 range request header. It only supports one range specifier per request: 1. Range:bytes=0-63 (returns the first 64 bytes) 2. Range:bytes=64-127 (returns the second set of 64 bytes) 3. Range:bytes=1022- (returns all the bytes from offset 1022 to the end) 4. If the range header is not specified, the whole content is returned. 
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getDerivativeManifest = function(urn, derivativeUrn, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -143,11 +143,11 @@ module.exports = (function() {
     /**
      * Returns an up-to-date list of Forge-supported translations, that you can use to identify which types of derivatives are supported for each source file type. You can set this endpoint to only return the list of supported translations if they have been updated since a specified date.  See the [Supported Translation Formats table](https://developer.autodesk.com/en/docs/model-derivative/v2/overview/supported-translations) for more details about supported translations.  Note that we are constantly adding new file formats to the list of Forge translations. 
      * @param {Object} opts Optional parameters
-     * @param {Date} opts.ifModifiedSince The supported formats are only returned if they were modified since the specified date. An invalid date returns the latest supported format list. If the supported formats have not been modified since the specified date, the endpoint returns a &#x60;NOT MODIFIED&#x60; (304) response. 
-     * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
+     * @param {Date} opts.ifModifiedSince The supported formats are only returned if they were modified since the specified date. An invalid date returns the latest supported format list. If the supported formats have not been modified since the specified date, the endpoint returns a `NOT MODIFIED` (304) response. 
+     * @param {String} opts.acceptEncoding If specified with `gzip` or `*`, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Formats}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getFormats = function(opts, oauth2client, credentials) {
       opts = opts || {};
@@ -181,10 +181,10 @@ module.exports = (function() {
      * Returns information about derivatives that correspond to a specific source file, including derviative URNs and statuses.  The URNs of the derivatives are used to download the generated derivatives when calling the [GET {urn}/manifest/{derivativeurn}](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/urn-manifest-derivativeurn-GET) endpoint.  The statuses are used to verify whether the translation of requested output files is complete.  Note that different output files might complete their translation processes at different times, and therefore may have different &#x60;status&#x60; values.  When translating a source file a second time, the previously created manifest is not deleted; it appends the information (only new translations) to the manifest. 
      * @param {String} urn The Base64 (URL Safe) encoded design URN 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
+     * @param {String} opts.acceptEncoding If specified with `gzip` or `*`, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Manifest}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getManifest = function(urn, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -223,10 +223,10 @@ module.exports = (function() {
      * Returns a list of model view (metadata) IDs for a design model. The metadata ID enables end users to select an object tree and properties for a specific model view.  Although most design apps (e.g., Fusion and Inventor) only allow a single model view (object tree and set of properties), some apps (e.g., Revit) allow users to design models with multiple model views (e.g., HVAC, architecture, perspective).  Note that you can only retrieve metadata from an input file that has been translated into an SVF file. 
      * @param {String} urn The Base64 (URL Safe) encoded design URN 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
+     * @param {String} opts.acceptEncoding If specified with `gzip` or `*`, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Metadata}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getMetadata = function(urn, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -266,10 +266,10 @@ module.exports = (function() {
      * @param {String} urn The Base64 (URL Safe) encoded design URN 
      * @param {String} guid Unique model view ID. Call [GET {urn}/metadata](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/urn-metadata-GET) to get the ID 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
+     * @param {String} opts.acceptEncoding If specified with `gzip` or `*`, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Metadata}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getModelviewMetadata = function(urn, guid, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -315,10 +315,10 @@ module.exports = (function() {
      * @param {String} urn The Base64 (URL Safe) encoded design URN 
      * @param {String} guid Unique model view ID. Call [GET {urn}/metadata](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/urn-metadata-GET) to get the ID 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.acceptEncoding If specified with &#x60;gzip&#x60; or &#x60;*&#x60;, content will be compressed and returned in a GZIP format. 
+     * @param {String} opts.acceptEncoding If specified with `gzip` or `*`, content will be compressed and returned in a GZIP format. 
      * data is of type: {module:model/Metadata}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getModelviewProperties = function(urn, guid, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -367,7 +367,7 @@ module.exports = (function() {
      * @param {Integer} opts.height The desired height of the thumbnail. Possible values are 100, 200 and 400. 
      * data is of type: {module:model/InputStream}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getThumbnail = function(urn, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -407,10 +407,10 @@ module.exports = (function() {
      * Translate a source file from one format to another.  Derivatives are stored in a manifest that is updated each time this endpoint is used on a source file.  Note that this endpoint is asynchronous and initiates a process that runs in the background, rather than keeping an open HTTP connection until completion. Use the [GET {urn}/manifest](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/urn-manifest-GET) endpoint to poll for the job’s completion. 
      * @param {module:model/JobPayload} job 
      * @param {Object} opts Optional parameters
-     * @param {Boolean} opts.xAdsForce &#x60;true&#x60;: the endpoint replaces previously translated output file types with the newly generated derivatives  &#x60;false&#x60; (default): previously created derivatives are not replaced  (default to false)
+     * @param {Boolean} opts.xAdsForce `true`: the endpoint replaces previously translated output file types with the newly generated derivatives  `false` (default): previously created derivatives are not replaced  (default to false)
      * data is of type: {module:model/Job}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.translate = function(job, opts, oauth2client, credentials) {
       opts = opts || {};

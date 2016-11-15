@@ -62,7 +62,7 @@ module.exports = (function() {
      * @param {String} itemId the &#x60;item id&#x60;
      * data is of type: {module:model/Item}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getItem = function(projectId, itemId, oauth2client, credentials) {
       var postBody = null;
@@ -107,7 +107,7 @@ module.exports = (function() {
      * @param {String} itemId the &#x60;item id&#x60;
      * data is of type: {module:model/Folder}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getItemParentFolder = function(projectId, itemId, oauth2client, credentials) {
       var postBody = null;
@@ -151,12 +151,12 @@ module.exports = (function() {
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} itemId the &#x60;item id&#x60;
      * @param {Object} opts Optional parameters
-     * @param {Array.<String>} opts.filterType filter by the &#x60;type&#x60; of the &#x60;ref&#x60; target
-     * @param {Array.<String>} opts.filterId filter by the &#x60;id&#x60; of the &#x60;ref&#x60; target
+     * @param {Array.<String>} opts.filterType filter by the `type` of the `ref` target
+     * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/JsonApiCollection}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getItemRefs = function(projectId, itemId, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -204,14 +204,14 @@ module.exports = (function() {
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} itemId the &#x60;item id&#x60;
      * @param {Object} opts Optional parameters
-     * @param {Array.<String>} opts.filterType filter by the &#x60;type&#x60; of the &#x60;ref&#x60; target
-     * @param {Array.<String>} opts.filterId filter by the &#x60;id&#x60; of the &#x60;ref&#x60; target
-     * @param {Array.<String>} opts.filterRefType filter by &#x60;refType&#x60;
+     * @param {Array.<String>} opts.filterType filter by the `type` of the `ref` target
+     * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
+     * @param {Array.<String>} opts.filterRefType filter by `refType`
      * @param {module:model/String} opts.filterDirection filter by the direction of the reference
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * data is of type: {module:model/Refs}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getItemRelationshipsRefs = function(projectId, itemId, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -262,7 +262,7 @@ module.exports = (function() {
      * @param {String} itemId the &#x60;item id&#x60;
      * data is of type: {module:model/Version}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getItemTip = function(projectId, itemId, oauth2client, credentials) {
       var postBody = null;
@@ -306,15 +306,15 @@ module.exports = (function() {
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} itemId the &#x60;item id&#x60;
      * @param {Object} opts Optional parameters
-     * @param {Array.<String>} opts.filterType filter by the &#x60;type&#x60; of the &#x60;ref&#x60; target
-     * @param {Array.<String>} opts.filterId filter by the &#x60;id&#x60; of the &#x60;ref&#x60; target
+     * @param {Array.<String>} opts.filterType filter by the `type` of the `ref` target
+     * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
-     * @param {Array.<Integer>} opts.filterVersionNumber filter by &#x60;versionNumber&#x60;
+     * @param {Array.<Integer>} opts.filterVersionNumber filter by `versionNumber`
      * @param {Integer} opts.pageNumber specify the page number
      * @param {Integer} opts.pageLimit specify the maximal number of elements per page
      * data is of type: {module:model/Versions}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getItemVersions = function(projectId, itemId, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -366,7 +366,7 @@ module.exports = (function() {
      * @param {String} itemId the &#x60;item id&#x60;
      * @param {module:model/CreateRef} body describe the ref to be created
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.postItemRelationshipsRef = function(projectId, itemId, body, oauth2client, credentials) {
       var postBody = body;

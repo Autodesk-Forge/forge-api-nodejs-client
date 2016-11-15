@@ -53,7 +53,7 @@ module.exports = (function() {
      * @param {module:model/WorkItem} workItem 
      * data is of type: {module:model/WorkItemResp}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.createWorkItem = function(workItem, oauth2client, credentials) {
       var postBody = workItem;
@@ -89,7 +89,7 @@ module.exports = (function() {
      * Removes a specific WorkItem.
      * @param {String} id 
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.deleteWorkItem = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -128,7 +128,7 @@ module.exports = (function() {
      * @param {Integer} opts.skip 
      * data is of type: {Array.<module:model/WorkItemResp>}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getAllWorkItems = function(opts, oauth2client, credentials) {
       opts = opts || {};
@@ -162,7 +162,7 @@ module.exports = (function() {
      * @param {String} id 
      * data is of type: {module:model/WorkItemResp}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getWorkItem = function(id, oauth2client, credentials) {
       var postBody = null;

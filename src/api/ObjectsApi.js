@@ -61,7 +61,7 @@ module.exports = (function() {
      * @param {String} newObjName URL-encoded Object key to use as the destination
      * data is of type: {module:model/ObjectDetails}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.copyTo = function(bucketKey, objectName, newObjName, oauth2client, credentials) {
       var postBody = null;
@@ -112,10 +112,10 @@ module.exports = (function() {
      * @param {String} objectName URL-encoded object name
      * @param {module:model/PostBucketsSigned} postBucketsSigned Body Structure
      * @param {Object} opts Optional parameters
-     * @param {module:model/String} opts.access Access for signed resource Acceptable values: &#x60;read&#x60;, &#x60;write&#x60;, &#x60;readwrite&#x60;. Default value: &#x60;read&#x60;  (default to read)
+     * @param {module:model/String} opts.access Access for signed resource Acceptable values: `read`, `write`, `readwrite`. Default value: `read`  (default to read)
      * data is of type: {module:model/PostObjectSigned}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.createSignedResource = function(bucketKey, objectName, postBucketsSigned, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -166,7 +166,7 @@ module.exports = (function() {
      * @param {String} bucketKey URL-encoded bucket key
      * @param {String} objectName URL-encoded object name
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.deleteObject = function(bucketKey, objectName, oauth2client, credentials) {
       var postBody = null;
@@ -209,10 +209,10 @@ module.exports = (function() {
      * Delete a signed URL. A successful call to this endpoint requires bucket owner access.
      * @param {String} id Id of signed resource
      * @param {Object} opts Optional parameters
-     * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
+     * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
      * data is of type: {module:model/InputStream}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.deleteSignedResource = function(id, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -258,7 +258,7 @@ module.exports = (function() {
      * @param {String} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used. 
      * data is of type: {module:model/InputStream}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getObject = function(bucketKey, objectName, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -308,10 +308,10 @@ module.exports = (function() {
      * @param {String} objectName URL-encoded object name
      * @param {Object} opts Optional parameters
      * @param {Date} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
-     * @param {module:model/String} opts._with Extra information in details; multiple uses are supported Acceptable values: &#x60;createdDate&#x60;, &#x60;lastAccessedDate&#x60;, &#x60;lastModifiedDate&#x60; 
+     * @param {module:model/String} opts._with Extra information in details; multiple uses are supported Acceptable values: `createdDate`, `lastAccessedDate`, `lastModifiedDate` 
      * data is of type: {module:model/ObjectFullDetails}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getObjectDetails = function(bucketKey, objectName, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -357,12 +357,12 @@ module.exports = (function() {
      * List objects in a bucket. It is only available to the bucket creator.
      * @param {String} bucketKey URL-encoded bucket key
      * @param {Object} opts Optional parameters
-     * @param {Integer} opts.limit Limit to the response size, Acceptable values: 1-100 Default &#x3D; 10  (default to 10)
+     * @param {Integer} opts.limit Limit to the response size, Acceptable values: 1-100 Default = 10  (default to 10)
      * @param {String} opts.beginsWith Provides a way to filter the based on object key name
      * @param {String} opts.startAt Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response 
      * data is of type: {module:model/BucketObjects}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getObjects = function(bucketKey, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -406,7 +406,7 @@ module.exports = (function() {
      * @param {String} sessionId Unique identifier of a session of a file being uploaded
      * data is of type: {module:model/Result}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getSessionid = function(bucketKey, objectName, sessionId, oauth2client, credentials) {
       var postBody = null;
@@ -459,10 +459,10 @@ module.exports = (function() {
      * @param {String} opts.ifNoneMatch The value of this header is compared to the ETAG of the object. If they match, the body will not be included in the response. Only the object information will be included.
      * @param {Date} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
      * @param {String} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used. 
-     * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
+     * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
      * data is of type: {module:model/InputStream}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getSignedResource = function(id, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -514,7 +514,7 @@ module.exports = (function() {
      * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
      * data is of type: {module:model/ObjectDetails}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.uploadChunk = function(bucketKey, objectName, contentLength, contentRange, sessionId, body, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -590,7 +590,7 @@ module.exports = (function() {
      * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
      * data is of type: {module:model/ObjectDetails}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.uploadObject = function(bucketKey, objectName, contentLength, body, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -650,11 +650,11 @@ module.exports = (function() {
      * @param {module:model/InputStream} body 
      * @param {Object} opts Optional parameters
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
-     * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
+     * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
      * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
      * data is of type: {module:model/PostObjectSigned}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.uploadSignedResource = function(id, contentLength, body, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -710,10 +710,10 @@ module.exports = (function() {
      * @param {module:model/InputStream} body 
      * @param {Object} opts Optional parameters
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
-     * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
+     * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
      * data is of type: {module:model/PostObjectSigned}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.uploadSignedResourcesChunk = function(id, contentRange, sessionId, body, opts, oauth2client, credentials) {
       opts = opts || {};

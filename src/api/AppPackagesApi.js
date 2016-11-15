@@ -54,7 +54,7 @@ module.exports = (function() {
      * @param {module:model/AppPackage} appPackage 
      * data is of type: {module:model/AppPackage}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.createAppPackage = function(appPackage, oauth2client, credentials) {
       var postBody = appPackage;
@@ -90,7 +90,7 @@ module.exports = (function() {
      * Removes a specific AppPackage.
      * @param {String} id 
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.deleteAppPackage = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -127,7 +127,7 @@ module.exports = (function() {
      * Removes the version history of the specified AppPackage.
      * @param {String} id 
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.deleteAppPackageHistory = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -164,7 +164,7 @@ module.exports = (function() {
      * Returns the details of all AppPackages.
      * data is of type: {Array.<module:model/AppPackage>}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getAllAppPackages = function(oauth2client, credentials) {
       var postBody = null;
@@ -196,7 +196,7 @@ module.exports = (function() {
      * @param {String} id 
      * data is of type: {module:model/AppPackage}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getAppPackage = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -234,7 +234,7 @@ module.exports = (function() {
      * @param {String} id 
      * data is of type: {Array.<module:model/AppPackage>}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getAppPackageVersions = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -270,7 +270,7 @@ module.exports = (function() {
     /**
      * Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage.
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getUploadUrl = function(oauth2client, credentials) {
       var postBody = null;
@@ -301,7 +301,7 @@ module.exports = (function() {
      * Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage. Unlike the GetUploadUrl method that takes no parameters, this method allows the client to request that the pre-signed URL to be issued so that the subsequent HTTP PUT operation will require Content-Type&#x3D;binary/octet-stream.
      * @param {Boolean} require 
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getUploadUrlWithRequireContentType = function(require, oauth2client, credentials) {
       var postBody = null;
@@ -339,7 +339,7 @@ module.exports = (function() {
      * @param {String} id 
      * @param {module:model/AppPackageOptional} appPackage 
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.patchAppPackage = function(id, appPackage, oauth2client, credentials) {
       var postBody = appPackage;
@@ -382,7 +382,7 @@ module.exports = (function() {
      * @param {String} id 
      * @param {module:model/AppPackageVersion} appPackageVersion 
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.setAppPackageVersion = function(id, appPackageVersion, oauth2client, credentials) {
       var postBody = appPackageVersion;
@@ -425,7 +425,7 @@ module.exports = (function() {
      * @param {String} id 
      * @param {module:model/AppPackage} appPackage 
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.updateAppPackage = function(id, appPackage, oauth2client, credentials) {
       var postBody = appPackage;

@@ -66,7 +66,7 @@ module.exports = (function() {
     _this = new Array();
     Object.setPrototypeOf(_this, exports);
 
-    return _this;
+
 
     return constructFromObject(theData, obj);
   };

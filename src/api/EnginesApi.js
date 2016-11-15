@@ -51,7 +51,7 @@ module.exports = (function() {
      * Returns the details of all available AutoCAD core engines.
      * data is of type: {Array.<module:model/Engine>}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getAllEngines = function(oauth2client, credentials) {
       var postBody = null;
@@ -83,7 +83,7 @@ module.exports = (function() {
      * @param {String} id 
      * data is of type: {module:model/Engine}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getEngine = function(id, oauth2client, credentials) {
       var postBody = null;

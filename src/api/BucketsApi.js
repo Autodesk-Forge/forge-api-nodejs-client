@@ -54,10 +54,10 @@ module.exports = (function() {
      * Use this endpoint to create a bucket. Buckets are arbitrary spaces created and owned by applications. Bucket keys are globally unique across all regions, regardless of where they were created, and they cannot be changed. The application creating the bucket is the owner of the bucket. 
      * @param {module:model/PostBucketsPayload} postBuckets Body Structure
      * @param {Object} opts Optional parameters
-     * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
+     * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
      * data is of type: {module:model/Bucket}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.createBucket = function(postBuckets, opts, oauth2client, credentials) {
       opts = opts || {};
@@ -95,7 +95,7 @@ module.exports = (function() {
      * This endpoint will delete a bucket. 
      * @param {String} bucketKey URL-encoded bucket key
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.deleteBucket = function(bucketKey, oauth2client, credentials) {
       var postBody = null;
@@ -133,7 +133,7 @@ module.exports = (function() {
      * @param {String} bucketKey URL-encoded bucket key
      * data is of type: {module:model/Bucket}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getBucketDetails = function(bucketKey, oauth2client, credentials) {
       var postBody = null;
@@ -169,12 +169,12 @@ module.exports = (function() {
     /**
      * This endpoint will return the buckets owned by the application. This endpoint supports pagination. 
      * @param {Object} opts Optional parameters
-     * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  (default to US)
-     * @param {Integer} opts.limit Limit to the response size, Acceptable values: 1-100 Default &#x3D; 10  (default to 10)
+     * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
+     * @param {Integer} opts.limit Limit to the response size, Acceptable values: 1-100 Default = 10  (default to 10)
      * @param {String} opts.startAt Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response 
      * data is of type: {module:model/Buckets}
      * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} Credentials credentials for the call
+     * @param {Object} credentials credentials for the call
      */
     this.getBuckets = function(opts, oauth2client, credentials) {
       opts = opts || {};
