@@ -52,7 +52,7 @@ oAuth2TwoLegged.authenticate().then(function(credentials){
     // In addition, this object is applied globally on the oAuth2TwoLegged client that you should use when calling secure endpoints.
 }, function(err){
     console.error(err);
-}, autoRefresh);
+});
 ```
 
 #### 3-Legged Token
