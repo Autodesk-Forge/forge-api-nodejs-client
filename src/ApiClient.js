@@ -135,7 +135,7 @@ module.exports = (function() {
   /**
    * Checks whether the given parameter value represents file-like content.
    * @param param The parameter to check.
-   * @returns {Boolean} <code>true</code> if <code>param</code> represents a file. 
+   * @returns {Boolean} <code>true</code> if <code>param</code> represents a file.
    */
   exports.prototype.isFileParam = function(param) {
 
@@ -169,7 +169,7 @@ module.exports = (function() {
 
   /**
    * Enumeration of collection format separator strategies.
-   * @enum {String} 
+   * @enum {String}
    * @readonly
    */
   exports.CollectionFormatEnum = {
@@ -351,16 +351,16 @@ module.exports = (function() {
 
     if (accepts.length > 0) {
       headers['Accept'] = accepts.join(',');
-      for ( var i =0 ; i < accepts.length ; i++ ) {
-        if ( accepts [i] === 'application/octet-stream' )
-          requestParams.encoding =null ;
+      for (var i = 0; i < accepts.length; i++) {
+        if (accepts [i] === 'application/octet-stream')
+          requestParams.encoding = null;
       }
     }
-    if ( headerParams ['Accept-Encoding'] == 'gzip, deflate' )
-      requestParams.encoding =null ;
+    if (headerParams['Accept-Encoding'] == 'gzip, deflate')
+      requestParams.encoding = null;
     _this.debug('request params were', requestParams);
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       _this.applyAuthToRequest(requestParams, headers, oauth2client, credentials).then(function() {
 
         // headerParams optional overrides
