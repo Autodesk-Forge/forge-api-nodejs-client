@@ -352,12 +352,14 @@ module.exports = (function() {
     if (accepts.length > 0) {
       headers['Accept'] = accepts.join(',');
       for (var i = 0; i < accepts.length; i++) {
-        if (accepts [i] === 'application/octet-stream')
+        if (accepts [i] === 'application/octet-stream'){
           requestParams.encoding = null;
+        }
       }
     }
-    if (headerParams['Accept-Encoding'] == 'gzip, deflate')
+    if (headerParams['Accept-Encoding'] == 'gzip, deflate'){
       requestParams.encoding = null;
+    }
     _this.debug('request params were', requestParams);
 
     return new Promise(function (resolve, reject) {
