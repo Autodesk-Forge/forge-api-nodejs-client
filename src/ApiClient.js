@@ -251,7 +251,9 @@ module.exports = (function() {
        }
 
        // let's see if the token is already expired?
-       if (oauth2client.autoRefresh && new Date(credentials.expires_at).getTime() <= Date.now()) {
+       // be careful access tokens are validated once teh query was received by the server, not when emitted
+       // for this reason, we need to aknowledge the time to upload payload/file/etc... (300 == 5min)
+       if (oauth2client.autoRefresh && new Date(credentials.expires_at - 300).getTime() <= Date.now()) {
 
          // set the correct promiseObj, for 2 or 3 legged token
          var isCredentialsTypeTwoLegged = true;
@@ -349,7 +351,13 @@ module.exports = (function() {
 
     if (accepts.length > 0) {
       headers['Accept'] = accepts.join(',');
+      for ( var i =0 ; i < accepts.length ; i++ ) {
+        if ( accepts [i] === 'application/octet-stream' )
+          requestParams.encoding =null ;
+      }
     }
+    if ( headerParams ['Accept-Encoding'] == 'gzip, deflate' )
+      requestParams.encoding =null ;
     _this.debug('request params were', requestParams);
 
     return new Promise(function(resolve, reject) {
