@@ -304,7 +304,7 @@ Name | Type | Description  | Notes
  **contentLength** | **Integer**| Indicates the size of the request body. | 
  **contentRange** | **String**| Byte range of a segment being uploaded | 
  **sessionId** | **String**| Unique identifier of a session of a file being uploaded | 
- **body** | [**InputStream**](InputStream.md)|  | 
+ **body** | **File**|  | 
  **contentDisposition** | **String**| The suggested default filename when downloading this object to a file after it has been uploaded. | [optional] 
  **ifMatch** | **String**| If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written.  | [optional] 
 
@@ -336,7 +336,7 @@ Name | Type | Description  | Notes
  **bucketKey** | **String**| URL-encoded bucket key | 
  **objectName** | **String**| URL-encoded object name | 
  **contentLength** | **Integer**| Indicates the size of the request body. | 
- **body** | [**InputStream**](InputStream.md)|  | 
+ **body** | **File**|  | 
  **contentDisposition** | **String**| The suggested default filename when downloading this object to a file after it has been uploaded. | [optional] 
  **ifMatch** | **String**| If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written.  | [optional] 
 
@@ -367,7 +367,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| Id of signed resource | 
  **contentLength** | **Integer**| Indicates the size of the request body. | 
- **body** | [**InputStream**](InputStream.md)|  | 
+ **body** | **File**|  | 
  **contentDisposition** | **String**| The suggested default filename when downloading this object to a file after it has been uploaded. | [optional] 
  **xAdsRegion** | **String**| The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  | [optional] [default to US]
  **ifMatch** | **String**| If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written.  | [optional] 
@@ -400,7 +400,7 @@ Name | Type | Description  | Notes
  **id** | **String**| Id of signed resource | 
  **contentRange** | **String**| Byte range of a segment being uploaded | 
  **sessionId** | **String**| Unique identifier of a session of a file being uploaded | 
- **body** | [**InputStream**](InputStream.md)|  | 
+ **body** | **File**|  | 
  **contentDisposition** | **String**| The suggested default filename when downloading this object to a file after it has been uploaded. | [optional] 
  **xAdsRegion** | **String**| The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60;  | [optional] [default to US]
 

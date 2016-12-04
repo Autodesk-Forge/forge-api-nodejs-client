@@ -38,7 +38,7 @@ module.exports = (function() {
   /**
    * Folders service.
    * @module api/FoldersApi
-   * @version 0.2.3
+   * @version 0.2.4
    */
 
   /**

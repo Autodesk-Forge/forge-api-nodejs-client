@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The JsonApiErrorLinks model module.
    * @module model/JsonApiErrorLinks
-   * @version 0.2.3
+   * @version 0.2.4
    */
 
    /**

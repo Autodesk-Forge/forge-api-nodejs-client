@@ -34,7 +34,7 @@ module.exports = (function() {
   /**
    * Activities service.
    * @module api/ActivitiesApi
-   * @version 0.2.3
+   * @version 0.2.4
    */
 
   /**

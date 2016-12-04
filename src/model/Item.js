@@ -40,7 +40,7 @@ module.exports = (function() {
   /**
    * The Item model module.
    * @module model/Item
-   * @version 0.2.3
+   * @version 0.2.4
    */
 
    /**

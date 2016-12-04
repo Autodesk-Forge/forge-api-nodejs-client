@@ -39,7 +39,7 @@ module.exports = (function() {
   /**
    * Objects service.
    * @module api/ObjectsApi
-   * @version 0.2.3
+   * @version 0.2.4
    */
 
   /**
@@ -508,7 +508,7 @@ module.exports = (function() {
      * @param {Integer} contentLength Indicates the size of the request body.
      * @param {String} contentRange Byte range of a segment being uploaded
      * @param {String} sessionId Unique identifier of a session of a file being uploaded
-     * @param {module:model/InputStream} body 
+     * @param {File} body 
      * @param {Object} opts Optional parameters
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
      * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
@@ -584,7 +584,7 @@ module.exports = (function() {
      * @param {String} bucketKey URL-encoded bucket key
      * @param {String} objectName URL-encoded object name
      * @param {Integer} contentLength Indicates the size of the request body.
-     * @param {module:model/InputStream} body 
+     * @param {File} body 
      * @param {Object} opts Optional parameters
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
      * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
@@ -647,7 +647,7 @@ module.exports = (function() {
      * Overwrite a existing object using a signed URL.  Conditions to call this operation:  Object is available Expiration period is valid Signed URL should be created with &#x60;write&#x60; or &#x60;readwrite&#x60; 
      * @param {String} id Id of signed resource
      * @param {Integer} contentLength Indicates the size of the request body.
-     * @param {module:model/InputStream} body 
+     * @param {File} body 
      * @param {Object} opts Optional parameters
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
      * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
@@ -707,7 +707,7 @@ module.exports = (function() {
      * @param {String} id Id of signed resource
      * @param {String} contentRange Byte range of a segment being uploaded
      * @param {String} sessionId Unique identifier of a session of a file being uploaded
-     * @param {module:model/InputStream} body 
+     * @param {File} body 
      * @param {Object} opts Optional parameters
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
      * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
