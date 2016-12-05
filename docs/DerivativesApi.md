@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 
 <a name="getThumbnail"></a>
 # **getThumbnail**
-> InputStream getThumbnail(urn, opts, oauth2client, credentials)
+> File getThumbnail(urn, opts, oauth2client, credentials)
 
 
 
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InputStream**](InputStream.md)
+**File**
 
 ### Authorization
 

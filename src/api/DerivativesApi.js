@@ -32,7 +32,6 @@ module.exports = (function() {
        Formats = require('../model/Formats'),
        Manifest = require('../model/Manifest'),
        Metadata = require('../model/Metadata'),
-       InputStream = require('../model/InputStream'),
        Job = require('../model/Job'),
        JobPayload = require('../model/JobPayload');
 
@@ -365,7 +364,7 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {Integer} opts.width The desired width of the thumbnail. Possible values are 100, 200 and 400. 
      * @param {Integer} opts.height The desired height of the thumbnail. Possible values are 100, 200 and 400. 
-     * data is of type: {module:model/InputStream}
+     * data is of type: {File}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -393,7 +392,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/octet-stream'];
-      var returnType = InputStream;
+      var returnType = File;
 
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/thumbnail', 'GET',

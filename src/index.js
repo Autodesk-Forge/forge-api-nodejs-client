@@ -75,7 +75,6 @@ module.exports = (function() {
       HubAttributes = require('./model/HubAttributes'),
       HubRelationships = require('./model/HubRelationships'),
       Hubs = require('./model/Hubs'),
-      InputStream = require('./model/InputStream'),
       Item = require('./model/Item'),
       ItemAttributes = require('./model/ItemAttributes'),
       ItemCreated = require('./model/ItemCreated'),
@@ -459,11 +458,6 @@ module.exports = (function() {
      * @property {module:model/Hubs}
      */
     Hubs: Hubs,
-    /**
-     * The InputStream model constructor.
-     * @property {module:model/InputStream}
-     */
-    InputStream: InputStream,
     /**
      * The Item model constructor.
      * @property {module:model/Item}

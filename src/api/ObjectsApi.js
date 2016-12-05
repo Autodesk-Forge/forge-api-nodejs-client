@@ -30,7 +30,6 @@ module.exports = (function() {
        ObjectDetails = require('../model/ObjectDetails'),
        PostObjectSigned = require('../model/PostObjectSigned'),
        PostBucketsSigned = require('../model/PostBucketsSigned'),
-       InputStream = require('../model/InputStream'),
        ObjectFullDetails = require('../model/ObjectFullDetails'),
        BucketObjects = require('../model/BucketObjects'),
        Reason = require('../model/Reason'),
@@ -142,9 +141,9 @@ module.exports = (function() {
         'objectName': objectName
       };
       var queryParams = {
+        'access': opts['access']
       };
       var headerParams = {
-        'access': opts['access']
       };
       var formParams = {
       };
@@ -210,7 +209,6 @@ module.exports = (function() {
      * @param {String} id Id of signed resource
      * @param {Object} opts Optional parameters
      * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
-     * data is of type: {module:model/InputStream}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -237,7 +235,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['text/plain'];
-      var returnType = InputStream;
+      var returnType = null;
 
       return this.apiClient.callApi(
         '/oss/v2/signedresources/{id}', 'DELETE',
@@ -256,7 +254,7 @@ module.exports = (function() {
      * @param {String} opts.ifNoneMatch The value of this header is compared to the ETAG of the object. If they match, the body will not be included in the response. Only the object information will be included.
      * @param {Date} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
      * @param {String} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used. 
-     * data is of type: {module:model/InputStream}
+     * data is of type: {File}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -292,7 +290,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/octet-stream'];
-      var returnType = InputStream;
+      var returnType = File;
 
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'GET',
@@ -460,7 +458,7 @@ module.exports = (function() {
      * @param {Date} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
      * @param {String} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used. 
      * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
-     * data is of type: {module:model/InputStream}
+     * data is of type: {File}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -491,7 +489,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/octet-stream'];
-      var returnType = InputStream;
+      var returnType = File;
 
       return this.apiClient.callApi(
         '/oss/v2/signedresources/{id}', 'GET',
@@ -652,7 +650,7 @@ module.exports = (function() {
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
      * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
      * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
-     * data is of type: {module:model/PostObjectSigned}
+     * data is of type: {module:model/ObjectDetails}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -692,7 +690,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/octet-stream'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = PostObjectSigned;
+      var returnType = ObjectDetails;
 
       return this.apiClient.callApi(
         '/oss/v2/signedresources/{id}', 'PUT',
@@ -711,7 +709,7 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
      * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
-     * data is of type: {module:model/PostObjectSigned}
+     * data is of type: {module:model/ObjectDetails}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -756,7 +754,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/octet-stream'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = PostObjectSigned;
+      var returnType = ObjectDetails;
 
       return this.apiClient.callApi(
         '/oss/v2/signedresources/{id}/resumable', 'PUT',

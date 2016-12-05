@@ -108,7 +108,7 @@ null (empty response body)
 
 <a name="deleteSignedResource"></a>
 # **deleteSignedResource**
-> InputStream deleteSignedResource(id, opts, oauth2client, credentials)
+> deleteSignedResource(id, opts, oauth2client, credentials)
 
 
 
@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InputStream**](InputStream.md)
+null (empty response body)
 
 ### Authorization
 
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 <a name="getObject"></a>
 # **getObject**
-> InputStream getObject(bucketKey, objectName, opts, oauth2client, credentials)
+> File getObject(bucketKey, objectName, opts, oauth2client, credentials)
 
 
 
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InputStream**](InputStream.md)
+**File**
 
 ### Authorization
 
@@ -257,7 +257,7 @@ Name | Type | Description  | Notes
 
 <a name="getSignedResource"></a>
 # **getSignedResource**
-> InputStream getSignedResource(id, opts, oauth2client, credentials)
+> File getSignedResource(id, opts, oauth2client, credentials)
 
 
 
@@ -276,7 +276,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InputStream**](InputStream.md)
+**File**
 
 ### Authorization
 
@@ -355,7 +355,7 @@ Name | Type | Description  | Notes
 
 <a name="uploadSignedResource"></a>
 # **uploadSignedResource**
-> PostObjectSigned uploadSignedResource(id, contentLength, body, opts, oauth2client, credentials)
+> ObjectDetails uploadSignedResource(id, contentLength, body, opts, oauth2client, credentials)
 
 
 
@@ -374,7 +374,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PostObjectSigned**](PostObjectSigned.md)
+[**ObjectDetails**](ObjectDetails.md)
 
 ### Authorization
 
@@ -387,7 +387,7 @@ Name | Type | Description  | Notes
 
 <a name="uploadSignedResourcesChunk"></a>
 # **uploadSignedResourcesChunk**
-> PostObjectSigned uploadSignedResourcesChunk(id, contentRange, sessionId, body, opts, oauth2client, credentials)
+> ObjectDetails uploadSignedResourcesChunk(id, contentRange, sessionId, body, opts, oauth2client, credentials)
 
 
 
@@ -406,7 +406,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PostObjectSigned**](PostObjectSigned.md)
+[**ObjectDetails**](ObjectDetails.md)
 
 ### Authorization
 
