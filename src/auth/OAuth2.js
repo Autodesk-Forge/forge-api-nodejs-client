@@ -111,13 +111,6 @@ module.exports = (function () {
         this.credentials.expires_at = Date.now();
         this.autoRefresh = autoRefresh || false; // don't auto refresh by default
 
-        //this.authentications must be implemented in the child Class
-        var validScope = validateScope(this.authentication.scopes, scope);
-
-        //Make sure passed scope is valid
-        if (validScope){
-            this.scope = scope.join(' ');
-        }
 
         //set the base path for the auth endpoints
         this.basePath = ApiClient.basePath;
@@ -125,6 +118,14 @@ module.exports = (function () {
         // Implement a sort of interface in JS
         if (!this.hasMember('authentication')) {
             throw new Error('Your OAuth2 object is missing the "authentication" property');
+        }
+
+        //this.authentications must be implemented in the child Class
+        var validScope = validateScope(this.authentication.scopes, scope);
+
+        //Make sure passed scope is valid
+        if (validScope){
+            this.scope = scope.join(' ');
         }
     };
 

@@ -4,6 +4,10 @@
   "description": "The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.",
   "license": "Apache-2.0",
   "main": "src/index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --recursive",
+    "coverage": "istanbul cover _mocha -- --recursive"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Autodesk-Forge/forge-api-nodejs-client"
@@ -21,5 +25,11 @@
     "rest",
     "restful",
     "api"
-  ]
+  ],
+  "devDependencies": {
+    "expect.js": "~0.3.1",
+    "mocha": "~2.3.4",
+    "nock": "^8.0.0",
+    "sinon": "1.17.3"
+  }
 }

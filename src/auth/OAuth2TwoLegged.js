@@ -37,7 +37,7 @@ module.exports = (function () {
      * Inherits from OAuth2
      * @alias module:auth/OAuth2TwoLegged
      */
-    var OAuth2TwoLegged = function (clientId, clientSecret, scope) {
+    var OAuth2TwoLegged = function (clientId, clientSecret, scope, autoRefresh) {
 
         this.authentication = {
             tokenUrl: '/authentication/v1/authenticate',
@@ -59,7 +59,7 @@ module.exports = (function () {
 
         this.authName = 'oauth2_application';
         
-        OAuth2.call(this, clientId, clientSecret, scope, this.authentication.scopes);
+        OAuth2.call(this, clientId, clientSecret, scope, autoRefresh);
     };
 
     // inherit from OAuth2 class

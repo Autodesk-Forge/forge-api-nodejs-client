@@ -37,7 +37,7 @@ module.exports = (function () {
      * Inherits from OAuth2
      * @alias module:auth/OAuth2ThreeLegged
      */
-    var OAuth2ThreeLegged = function (clientId, clientSecret, redirectUri, scope) {
+    var OAuth2ThreeLegged = function (clientId, clientSecret, redirectUri, scope, autoRefresh) {
 
         this.authentication = {
             authorizationUrl: '/authentication/v1/authorize',
@@ -61,7 +61,7 @@ module.exports = (function () {
 
         this.authName = 'oauth2_access_code';
         
-        OAuth2.call(this, clientId, clientSecret, scope, this.authentication.scopes);
+        OAuth2.call(this, clientId, clientSecret, scope, autoRefresh);
 
         this.redirectUri = redirectUri;
     };
