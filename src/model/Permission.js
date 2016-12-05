@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The Permission model module.
    * @module model/Permission
-   * @version 0.2.4
+   * @version 0.2.5
    */
 
    /**

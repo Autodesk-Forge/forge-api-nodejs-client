@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The Engine model module.
    * @module model/Engine
-   * @version 0.2.4
+   * @version 0.2.5
    */
 
    /**

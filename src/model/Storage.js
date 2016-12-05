@@ -37,7 +37,7 @@ module.exports = (function() {
   /**
    * The Storage model module.
    * @module model/Storage
-   * @version 0.2.4
+   * @version 0.2.5
    */
 
    /**

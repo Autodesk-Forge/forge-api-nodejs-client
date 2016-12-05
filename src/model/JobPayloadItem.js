@@ -39,7 +39,7 @@ module.exports = (function() {
   /**
    * The JobPayloadItem model module.
    * @module model/JobPayloadItem
-   * @version 0.2.4
+   * @version 0.2.5
    */
 
    /**
