@@ -211,7 +211,7 @@ module.export = (function() {
 
         var contentTypes = ['application/json'];
         var accepts = ['application/octet-stream'];
-        var returnType = File;
+        var returnType = Object;
 
         mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'GET',
                 pathParams, queryParams, headerParams, formParams, postBody,
@@ -348,7 +348,7 @@ module.export = (function() {
 
         var contentTypes = ['application/json'];
         var accepts = ['application/octet-stream'];
-        var returnType = File;
+        var returnType = Object;
 
         mockedApiClientRequest.withArgs('/oss/v2/signedresources/{id}', 'GET',
                 pathParams, queryParams, headerParams, formParams, postBody,

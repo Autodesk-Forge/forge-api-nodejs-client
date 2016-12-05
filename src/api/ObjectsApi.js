@@ -290,7 +290,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/octet-stream'];
-      var returnType = File;
+      var returnType = Object;
 
       return this.apiClient.callApi(
         '/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'GET',
@@ -489,7 +489,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/octet-stream'];
-      var returnType = File;
+      var returnType = Object;
 
       return this.apiClient.callApi(
         '/oss/v2/signedresources/{id}', 'GET',

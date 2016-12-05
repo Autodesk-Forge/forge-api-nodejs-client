@@ -304,7 +304,7 @@ module.export = (function() {
 
         var contentTypes = ['application/json'];
         var accepts = ['application/octet-stream'];
-        var returnType = File;
+        var returnType = Object;
 
         mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/thumbnail', 'GET',
                 pathParams, queryParams, headerParams, formParams, postBody,

@@ -392,7 +392,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/octet-stream'];
-      var returnType = File;
+      var returnType = Object;
 
       return this.apiClient.callApi(
         '/modelderivative/v2/designdata/{urn}/thumbnail', 'GET',
