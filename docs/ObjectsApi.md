@@ -4,7 +4,7 @@ All URIs are relative to *https://developer.api.autodesk.com/*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**copyTo**](ObjectsApi.md#copyTo) | **PUT** /oss/v2/buckets/{bucketKey}/objects/{objectName}/copyTo/{newObjName} | 
+[**copyTo**](ObjectsApi.md#copyTo) | **PUT** /oss/v2/buckets/{bucketKey}/objects/{objectName}/copyto/{newObjName} | 
 [**createSignedResource**](ObjectsApi.md#createSignedResource) | **POST** /oss/v2/buckets/{bucketKey}/objects/{objectName}/signed | 
 [**deleteObject**](ObjectsApi.md#deleteObject) | **DELETE** /oss/v2/buckets/{bucketKey}/objects/{objectName} | 
 [**deleteSignedResource**](ObjectsApi.md#deleteSignedResource) | **DELETE** /oss/v2/signedresources/{id} | 

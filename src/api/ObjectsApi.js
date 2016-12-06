@@ -98,7 +98,7 @@ module.exports = (function() {
       var returnType = ObjectDetails;
 
       return this.apiClient.callApi(
-        '/oss/v2/buckets/{bucketKey}/objects/{objectName}/copyTo/{newObjName}', 'PUT',
+        '/oss/v2/buckets/{bucketKey}/objects/{objectName}/copyto/{newObjName}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, oauth2client, credentials
       );
