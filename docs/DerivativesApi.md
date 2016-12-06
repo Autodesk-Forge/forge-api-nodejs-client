@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 
 <a name="getThumbnail"></a>
 # **getThumbnail**
-> File getThumbnail(urn, opts, oauth2client, credentials)
+> Object getThumbnail(urn, opts, oauth2client, credentials)
 
 
 
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**File**
+**Object**
 
 ### Authorization
 

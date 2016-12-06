@@ -136,7 +136,7 @@ null (empty response body)
 
 <a name="getObject"></a>
 # **getObject**
-> File getObject(bucketKey, objectName, opts, oauth2client, credentials)
+> Object getObject(bucketKey, objectName, opts, oauth2client, credentials)
 
 
 
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**File**
+**Object**
 
 ### Authorization
 
@@ -257,7 +257,7 @@ Name | Type | Description  | Notes
 
 <a name="getSignedResource"></a>
 # **getSignedResource**
-> File getSignedResource(id, opts, oauth2client, credentials)
+> Object getSignedResource(id, opts, oauth2client, credentials)
 
 
 
@@ -276,7 +276,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**File**
+**Object**
 
 ### Authorization
 

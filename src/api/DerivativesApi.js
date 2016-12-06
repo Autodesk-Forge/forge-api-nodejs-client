@@ -364,7 +364,7 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {Integer} opts.width The desired width of the thumbnail. Possible values are 100, 200 and 400. 
      * @param {Integer} opts.height The desired height of the thumbnail. Possible values are 100, 200 and 400. 
-     * data is of type: {File}
+     * data is of type: {Object}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */

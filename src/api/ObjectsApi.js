@@ -254,7 +254,7 @@ module.exports = (function() {
      * @param {String} opts.ifNoneMatch The value of this header is compared to the ETAG of the object. If they match, the body will not be included in the response. Only the object information will be included.
      * @param {Date} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
      * @param {String} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used. 
-     * data is of type: {File}
+     * data is of type: {Object}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -458,7 +458,7 @@ module.exports = (function() {
      * @param {Date} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
      * @param {String} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used. 
      * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
-     * data is of type: {File}
+     * data is of type: {Object}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
