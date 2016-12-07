@@ -80,7 +80,7 @@ module.export = (function() {
         var accepts = ['application/vnd.api+json', 'application/json'];
         var returnType = ObjectDetails;
 
-        mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectName}/copyTo/{newObjName}', 'PUT',
+        mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectName}/copyto/{newObjName}', 'PUT',
                 pathParams, queryParams, headerParams, formParams, postBody,
                 contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
