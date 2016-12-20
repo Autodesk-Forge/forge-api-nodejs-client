@@ -11,8 +11,8 @@ Method | HTTP request | Description
 [**getObject**](ObjectsApi.md#getObject) | **GET** /oss/v2/buckets/{bucketKey}/objects/{objectName} | 
 [**getObjectDetails**](ObjectsApi.md#getObjectDetails) | **GET** /oss/v2/buckets/{bucketKey}/objects/{objectName}/details | 
 [**getObjects**](ObjectsApi.md#getObjects) | **GET** /oss/v2/buckets/{bucketKey}/objects | 
-[**getSessionid**](ObjectsApi.md#getSessionid) | **GET** /oss/v2/buckets/{bucketKey}/objects/{objectName}/status/{sessionId} | 
 [**getSignedResource**](ObjectsApi.md#getSignedResource) | **GET** /oss/v2/signedresources/{id} | 
+[**getStatusBySessionId**](ObjectsApi.md#getStatusBySessionId) | **GET** /oss/v2/buckets/{bucketKey}/objects/{objectName}/status/{sessionId} | 
 [**uploadChunk**](ObjectsApi.md#uploadChunk) | **PUT** /oss/v2/buckets/{bucketKey}/objects/{objectName}/resumable | 
 [**uploadObject**](ObjectsApi.md#uploadObject) | **PUT** /oss/v2/buckets/{bucketKey}/objects/{objectName} | 
 [**uploadSignedResource**](ObjectsApi.md#uploadSignedResource) | **PUT** /oss/v2/signedresources/{id} | 
@@ -226,35 +226,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/vnd.api+json, application/json
 
-<a name="getSessionid"></a>
-# **getSessionid**
-> Result getSessionid(bucketKey, objectName, sessionId, oauth2client, credentials)
-
-
-
-This endpoint returns status information about a resumable upload.
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **bucketKey** | **String**| URL-encoded bucket key | 
- **objectName** | **String**| URL-encoded object name | 
- **sessionId** | **String**| Unique identifier of a session of a file being uploaded | 
-
-### Return type
-
-[**Result**](Result.md)
-
-### Authorization
-
-[oauth2_application](../README.md#authentication)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/vnd.api+json, application/json
-
 <a name="getSignedResource"></a>
 # **getSignedResource**
 > Object getSignedResource(id, opts, oauth2client, credentials)
@@ -286,6 +257,35 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/octet-stream
+
+<a name="getStatusBySessionId"></a>
+# **getStatusBySessionId**
+> getStatusBySessionId(bucketKey, objectName, sessionId, oauth2client, credentials)
+
+
+
+This endpoint returns status information about a resumable upload.
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **bucketKey** | **String**| URL-encoded bucket key | 
+ **objectName** | **String**| URL-encoded object name | 
+ **sessionId** | **String**| Unique identifier of a session of a file being uploaded | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[oauth2_application](../README.md#authentication)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/vnd.api+json, application/json
 
 <a name="uploadChunk"></a>
 # **uploadChunk**

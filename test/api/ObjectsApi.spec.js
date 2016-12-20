@@ -293,39 +293,6 @@ module.export = (function() {
         });
       });
     });
-    describe('getSessionid', function() {
-      it('should call getSessionid successfully', function(done) {
-
-        var postBody = null;
-
-        var pathParams = { 
-        'bucketKey': sampleStrParam,
-        'objectName': sampleStrParam,
-        'sessionId': sampleStrParam
-        };
-        var queryParams = { 
-        };
-        var headerParams = { 
-        };
-        var formParams = { 
-        };
-
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = Result;
-
-        mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectName}/status/{sessionId}', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
-
-        instance.getSessionid(sampleStrParam, sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
     describe('getSignedResource', function() {
       it('should call getSignedResource successfully', function(done) {
         var opts = {};
@@ -355,6 +322,39 @@ module.export = (function() {
                 contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
         instance.getSignedResource(sampleStrParam, opts, oauth2client, credentials).then(function(response){
+            expect(response).to.be.ok();
+            done();
+        }, function(err){
+            done(err);
+        });
+      });
+    });
+    describe('getStatusBySessionId', function() {
+      it('should call getStatusBySessionId successfully', function(done) {
+
+        var postBody = null;
+
+        var pathParams = { 
+        'bucketKey': sampleStrParam,
+        'objectName': sampleStrParam,
+        'sessionId': sampleStrParam
+        };
+        var queryParams = { 
+        };
+        var headerParams = { 
+        };
+        var formParams = { 
+        };
+
+        var contentTypes = ['application/json'];
+        var accepts = ['application/vnd.api+json', 'application/json'];
+        var returnType = null;
+
+        mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectName}/status/{sessionId}', 'GET',
+                pathParams, queryParams, headerParams, formParams, postBody,
+                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+        instance.getStatusBySessionId(sampleStrParam, sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
             expect(response).to.be.ok();
             done();
         }, function(err){

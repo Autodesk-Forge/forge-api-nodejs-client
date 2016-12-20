@@ -39,7 +39,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/vnd.api+json, application/json
 
 <a name="getDerivativeManifest"></a>

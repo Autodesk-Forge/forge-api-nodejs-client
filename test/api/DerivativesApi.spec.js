@@ -74,7 +74,7 @@ module.export = (function() {
         var formParams = { 
         };
 
-        var contentTypes = [];
+        var contentTypes = ['application/x-www-form-urlencoded'];
         var accepts = ['application/vnd.api+json', 'application/json'];
         var returnType = Result;
 

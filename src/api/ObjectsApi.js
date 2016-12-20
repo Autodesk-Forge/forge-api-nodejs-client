@@ -398,58 +398,6 @@ module.exports = (function() {
 
 
     /**
-     * This endpoint returns status information about a resumable upload.
-     * @param {String} bucketKey URL-encoded bucket key
-     * @param {String} objectName URL-encoded object name
-     * @param {String} sessionId Unique identifier of a session of a file being uploaded
-     * data is of type: {module:model/Result}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.getSessionid = function(bucketKey, objectName, sessionId, oauth2client, credentials) {
-      var postBody = null;
-
-      // verify the required parameter 'bucketKey' is set
-      if (bucketKey == undefined || bucketKey == null) {
-        return Promise.reject("Missing the required parameter 'bucketKey' when calling getSessionid");
-      }
-
-      // verify the required parameter 'objectName' is set
-      if (objectName == undefined || objectName == null) {
-        return Promise.reject("Missing the required parameter 'objectName' when calling getSessionid");
-      }
-
-      // verify the required parameter 'sessionId' is set
-      if (sessionId == undefined || sessionId == null) {
-        return Promise.reject("Missing the required parameter 'sessionId' when calling getSessionid");
-      }
-
-
-      var pathParams = {
-        'bucketKey': bucketKey,
-        'objectName': objectName,
-        'sessionId': sessionId
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var contentTypes = ['application/json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Result;
-
-      return this.apiClient.callApi(
-        '/oss/v2/buckets/{bucketKey}/objects/{objectName}/status/{sessionId}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
-
-
-    /**
      * Download an object using a signed URL.
      * @param {String} id Id of signed resource
      * @param {Object} opts Optional parameters
@@ -493,6 +441,57 @@ module.exports = (function() {
 
       return this.apiClient.callApi(
         '/oss/v2/signedresources/{id}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, oauth2client, credentials
+      );
+    };
+
+
+    /**
+     * This endpoint returns status information about a resumable upload.
+     * @param {String} bucketKey URL-encoded bucket key
+     * @param {String} objectName URL-encoded object name
+     * @param {String} sessionId Unique identifier of a session of a file being uploaded
+     * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} credentials credentials for the call
+     */
+    this.getStatusBySessionId = function(bucketKey, objectName, sessionId, oauth2client, credentials) {
+      var postBody = null;
+
+      // verify the required parameter 'bucketKey' is set
+      if (bucketKey == undefined || bucketKey == null) {
+        return Promise.reject("Missing the required parameter 'bucketKey' when calling getStatusBySessionId");
+      }
+
+      // verify the required parameter 'objectName' is set
+      if (objectName == undefined || objectName == null) {
+        return Promise.reject("Missing the required parameter 'objectName' when calling getStatusBySessionId");
+      }
+
+      // verify the required parameter 'sessionId' is set
+      if (sessionId == undefined || sessionId == null) {
+        return Promise.reject("Missing the required parameter 'sessionId' when calling getStatusBySessionId");
+      }
+
+
+      var pathParams = {
+        'bucketKey': bucketKey,
+        'objectName': objectName,
+        'sessionId': sessionId
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json'];
+      var accepts = ['application/vnd.api+json', 'application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/oss/v2/buckets/{bucketKey}/objects/{objectName}/status/{sessionId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, oauth2client, credentials
       );

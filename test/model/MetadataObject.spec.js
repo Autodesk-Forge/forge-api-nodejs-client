@@ -26,7 +26,8 @@ module.export = (function() {
   'use strict';
 
   var expect = require('expect.js'),
-      ForgeSdk = require('../../src');
+      ForgeSdk = require('../../src'),
+      MetadataObject = require('../../src/model/MetadataObject');
 
   describe('MetadataObject', function() {
     it('should create an instance of MetadataObject', function() {

@@ -50,7 +50,7 @@ module.exports = (function() {
         obj['signedUrl'] = ApiClient.convertToType(data['signedUrl'], 'String');
       }
       if (data.hasOwnProperty('expiration')) {
-        obj['expiration'] = ApiClient.convertToType(data['expiration'], 'Date');
+        obj['expiration'] = ApiClient.convertToType(data['expiration'], 'Integer');
       }
     }
     return obj;
@@ -62,7 +62,7 @@ module.exports = (function() {
    * @alias module:model/PostObjectSigned
    * @class
    * @param signedUrl {String} URL created for downloading the object
-   * @param expiration {Date} Value for expiration in minutes
+   * @param expiration {Integer} Value for expiration in minutes
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/PostObjectSigned} obj Optional instance to populate.
    */
@@ -91,7 +91,7 @@ module.exports = (function() {
   exports.prototype['signedUrl'] = undefined;
   /**
    * Value for expiration in minutes
-   * @member {Date} expiration
+   * @member {Integer} expiration
    */
   exports.prototype['expiration'] = undefined;
 

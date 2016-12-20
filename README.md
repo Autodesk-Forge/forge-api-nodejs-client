@@ -32,7 +32,7 @@ and 3-legged tokens for calling different Data Management endpoints.
 #### 2-Legged Token
 
 This type of token is given directly to the application.
-To get a 2-legged token run the following code:
+To get a 2-legged token run the following code.  Note that you need to replace `your-client-id` and `your-client-secret` with your [app](https://developer.autodesk.com/myapps)'s client ID and client secret.
 
 ``` JavaScript
 var ForgeSDK = require('forge-apis');
@@ -59,11 +59,15 @@ oAuth2TwoLegged.authenticate().then(function(credentials){
 ##### Generate an Authentication URL
 
 To ask for permissions from a user to retrieve an access token, you
-redirect the user to a consent page. Run this code to create a consent page URL:
+redirect the user to a consent page.
+
+Replace `your-client-id`, `your-client-secret`, and `your-redirect-url` with your [app](https://developer.autodesk.com/myapps)'s client ID, client secret, and redirect URL, and run the code to create a consent page URL.
+
+Note that the redirect URL must match the pattern of the callback URL field of the app’s registration in the My Apps section. The pattern may include wildcards after the hostname, allowing different redirect URL values to be specified in different parts of your app.
 
 ``` JavaScript
 var ForgeSDK = require('forge-apis');
-var CLIENT_ID = '' , CLIENT_SECRET = '', REDIRECT_URL = '';
+var CLIENT_ID = '<your-client-id>', CLIENT_SECRET = '<your-client-secret>', REDIRECT_URL = '<your-redirect-url>';
 
 // Initialize the 3-legged OAuth2 client, set specific scopes and optionally set the `autoRefresh` parameter to true
 // if you want the token to auto refresh
@@ -198,8 +202,8 @@ Class | Method | HTTP request | Description
 *ForgeSdk.ObjectsApi* | [**getObject**](docs/ObjectsApi.md#getObject) | **GET** /oss/v2/buckets/{bucketKey}/objects/{objectName} | 
 *ForgeSdk.ObjectsApi* | [**getObjectDetails**](docs/ObjectsApi.md#getObjectDetails) | **GET** /oss/v2/buckets/{bucketKey}/objects/{objectName}/details | 
 *ForgeSdk.ObjectsApi* | [**getObjects**](docs/ObjectsApi.md#getObjects) | **GET** /oss/v2/buckets/{bucketKey}/objects | 
-*ForgeSdk.ObjectsApi* | [**getSessionid**](docs/ObjectsApi.md#getSessionid) | **GET** /oss/v2/buckets/{bucketKey}/objects/{objectName}/status/{sessionId} | 
 *ForgeSdk.ObjectsApi* | [**getSignedResource**](docs/ObjectsApi.md#getSignedResource) | **GET** /oss/v2/signedresources/{id} | 
+*ForgeSdk.ObjectsApi* | [**getStatusBySessionId**](docs/ObjectsApi.md#getStatusBySessionId) | **GET** /oss/v2/buckets/{bucketKey}/objects/{objectName}/status/{sessionId} | 
 *ForgeSdk.ObjectsApi* | [**uploadChunk**](docs/ObjectsApi.md#uploadChunk) | **PUT** /oss/v2/buckets/{bucketKey}/objects/{objectName}/resumable | 
 *ForgeSdk.ObjectsApi* | [**uploadObject**](docs/ObjectsApi.md#uploadObject) | **PUT** /oss/v2/buckets/{bucketKey}/objects/{objectName} | 
 *ForgeSdk.ObjectsApi* | [**uploadSignedResource**](docs/ObjectsApi.md#uploadSignedResource) | **PUT** /oss/v2/signedresources/{id} | 

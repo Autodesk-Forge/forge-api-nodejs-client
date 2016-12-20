@@ -25,7 +25,8 @@
 module.exports = (function() {
   'use strict';
 
-  var ApiClient = require('../ApiClient');
+  var ApiClient = require('../ApiClient'),
+      MetadataObject = require('./MetadataObject');
 
 
 
@@ -53,7 +54,7 @@ module.exports = (function() {
         obj['name'] = ApiClient.convertToType(data['name'], 'String');
       }
       if (data.hasOwnProperty('objects')) {
-        obj['objects'] = ApiClient.convertToType(data['objects'], ['String']);
+        obj['objects'] = ApiClient.convertToType(data['objects'], [MetadataObject]);
       }
     }
     return obj;
@@ -100,7 +101,7 @@ module.exports = (function() {
   exports.prototype['name'] = undefined;
   /**
    * Optional collection of “children” objects within the hierarchy
-   * @member {Array.<String>} objects
+   * @member {Array.<module:model/MetadataObject>} objects
    */
   exports.prototype['objects'] = undefined;
 
