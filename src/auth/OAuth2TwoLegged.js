@@ -26,6 +26,7 @@ module.exports = (function () {
     'use strict';
 
     var OAuth2 = require('./OAuth2');
+    var ApiClient = require('../ApiClient').instance;
 
     /**
      * @module auth/OAuth2TwoLegged
@@ -115,10 +116,12 @@ module.exports = (function () {
                     _this.setCredentials(credentials);
                     resolve(credentials);
                 }, function(errResponse){
+                    ApiClient.debug('authenticate error', errResponse);
                     reject(errResponse);
                 });
 
             } else {
+                ApiClient.debug('tokenUrl is not defined in the authentication object');
                 reject(new Error('tokenUrl is not defined in the authentication object'));
             }
         });

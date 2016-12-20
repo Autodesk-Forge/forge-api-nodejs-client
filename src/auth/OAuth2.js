@@ -84,7 +84,7 @@ module.exports = (function () {
             }
             if (!err && response.statusCode === 200) {
                 callbackSuccess(resp);
-            } else if (callbackError){
+            } else {
                 if (err) {
                     callbackError(err);
                 } else {

@@ -26,6 +26,7 @@ module.exports = (function () {
     'use strict';
 
     var OAuth2 = require('./OAuth2');
+    var ApiClient = require('../ApiClient').instance;
 
     /**
      * @module auth/OAuth2ThreeLegged
@@ -85,6 +86,7 @@ module.exports = (function () {
 
             return redirectionUrl;
         } else {
+            ApiClient.debug('authorizationUrl is not defined in the authentication object');
             return new Error('authorizationUrl is not defined in the authentication object');
         }
 
@@ -117,6 +119,7 @@ module.exports = (function () {
                         {expires_at: new Date(Date.now() + response.expires_in * 1000)});
                     resolve(credentials);
                 }, function(errResponse){
+                    ApiClient.debug('getToken error', errResponse);
                     reject(errResponse);
                 });
             } else {
@@ -155,12 +158,15 @@ module.exports = (function () {
                             reject(response);
                         }
                     }, function(errResponse){
+                        ApiClient.debug('refreshToken error', errResponse);
                         reject(errResponse);
                     });
                 } else {
+                    ApiClient.debug('refreshToken error', errResponse);
                     reject(new Error('No refresh token present'));
                 }
             } else {
+                ApiClient.debug('refreshTokenUrl is not defined in the authentication object');
                 reject(new Error('refreshTokenUrl is not defined in the authentication object'));
             }
         });
