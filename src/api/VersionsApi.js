@@ -39,7 +39,7 @@ module.exports = (function() {
   /**
    * Versions service.
    * @module api/VersionsApi
-   * @version 0.2.5
+   * @version 0.2.6
    */
 
   /**

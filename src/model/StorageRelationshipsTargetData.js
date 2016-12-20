@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * The StorageRelationshipsTargetData model module.
    * @module model/StorageRelationshipsTargetData
-   * @version 0.2.5
+   * @version 0.2.6
    */
 
    /**

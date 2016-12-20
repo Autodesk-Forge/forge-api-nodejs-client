@@ -25,12 +25,12 @@
 module.exports = (function () {
     'use strict';
 
-    var OAuth2 = require('./OAuth2'),
+    var OAuth2 = require('./OAuth2');
     var ApiClient = require('../ApiClient').instance;
 
     /**
      * @module auth/OAuth2ThreeLegged
-     * @version 0.2.5
+     * @version 0.2.6
      */
 
     /**

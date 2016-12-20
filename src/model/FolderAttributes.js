@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The FolderAttributes model module.
    * @module model/FolderAttributes
-   * @version 0.2.5
+   * @version 0.2.6
    */
 
    /**

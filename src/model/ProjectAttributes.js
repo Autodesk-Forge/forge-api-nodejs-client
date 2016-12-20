@@ -33,7 +33,7 @@ module.exports = (function() {
   /**
    * The ProjectAttributes model module.
    * @module model/ProjectAttributes
-   * @version 0.2.5
+   * @version 0.2.6
    */
 
    /**

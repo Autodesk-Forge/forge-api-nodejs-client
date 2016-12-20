@@ -205,7 +205,7 @@ module.exports = (function() {
    * </pre>
    * </p>
    * @module index
-   * @version 0.2.5
+   * @version 0.2.6
    */
   var exports = {
     /**

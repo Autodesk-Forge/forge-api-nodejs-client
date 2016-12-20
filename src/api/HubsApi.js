@@ -36,7 +36,7 @@ module.exports = (function() {
   /**
    * Hubs service.
    * @module api/HubsApi
-   * @version 0.2.5
+   * @version 0.2.6
    */
 
   /**

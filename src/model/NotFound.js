@@ -35,7 +35,7 @@ module.exports = (function() {
   /**
    * The NotFound model module.
    * @module model/NotFound
-   * @version 0.2.5
+   * @version 0.2.6
    */
 
    /**
