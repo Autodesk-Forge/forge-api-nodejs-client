@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**getVersionItem**](VersionsApi.md#getVersionItem) | **GET** /data/v1/projects/{project_id}/versions/{version_id}/item | 
 [**getVersionRefs**](VersionsApi.md#getVersionRefs) | **GET** /data/v1/projects/{project_id}/versions/{version_id}/refs | 
 [**getVersionRelationshipsRefs**](VersionsApi.md#getVersionRelationshipsRefs) | **GET** /data/v1/projects/{project_id}/versions/{version_id}/relationships/refs | 
+[**postVersion**](VersionsApi.md#postVersion) | **POST** /data/v1/projects/{project_id}/versions | 
 [**postVersionRelationshipsRef**](VersionsApi.md#postVersionRelationshipsRef) | **POST** /data/v1/projects/{project_id}/versions/{version_id}/relationships/refs | 
 
 
@@ -121,6 +122,34 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Refs**](Refs.md)
+
+### Authorization
+
+[oauth2_access_code](../README.md#authentication)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json, application/json
+
+<a name="postVersion"></a>
+# **postVersion**
+> VersionCreated postVersion(projectId, body, oauth2client, credentials)
+
+
+
+Creates a new version of an item in the &#39;data&#39; domain service. 
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **projectId** | **String**| the &#x60;project id&#x60; | 
+ **body** | [**CreateVersion**](CreateVersion.md)| describe the version to be created | 
+
+### Return type
+
+[**VersionCreated**](VersionCreated.md)
 
 ### Authorization
 

@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**getItemRelationshipsRefs**](ItemsApi.md#getItemRelationshipsRefs) | **GET** /data/v1/projects/{project_id}/items/{item_id}/relationships/refs | 
 [**getItemTip**](ItemsApi.md#getItemTip) | **GET** /data/v1/projects/{project_id}/items/{item_id}/tip | 
 [**getItemVersions**](ItemsApi.md#getItemVersions) | **GET** /data/v1/projects/{project_id}/items/{item_id}/versions | 
+[**postItem**](ItemsApi.md#postItem) | **POST** /data/v1/projects/{project_id}/items | 
 [**postItemRelationshipsRef**](ItemsApi.md#postItemRelationshipsRef) | **POST** /data/v1/projects/{project_id}/items/{item_id}/relationships/refs | 
 
 
@@ -185,6 +186,34 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Versions**](Versions.md)
+
+### Authorization
+
+[oauth2_access_code](../README.md#authentication)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json, application/json
+
+<a name="postItem"></a>
+# **postItem**
+> ItemCreated postItem(projectId, body, oauth2client, credentials)
+
+
+
+Creates a new item in the &#39;data&#39; domain service. 
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **projectId** | **String**| the &#x60;project id&#x60; | 
+ **body** | [**CreateItem**](CreateItem.md)| describe the item to be created | 
+
+### Return type
+
+[**ItemCreated**](ItemCreated.md)
 
 ### Authorization
 

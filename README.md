@@ -1,7 +1,7 @@
 # Forge Node.js SDK
 
 ## Overview
-This [Node.js](https://nodejs.org/) SDK (version 0.2.6) enables you to easily integrate the Forge REST APIs
+This [Node.js](https://nodejs.org/) SDK (version 0.2.7) enables you to easily integrate the Forge REST APIs
 into your application, including [OAuth](https://developer.autodesk.com/en/docs/oauth/v2/overview/),
 [Data Management](https://developer.autodesk.com/en/docs/data/v2/overview/),
 [Model Derivative](https://developer.autodesk.com/en/docs/model-derivative/v2/overview/),
@@ -32,7 +32,8 @@ and 3-legged tokens for calling different Data Management endpoints.
 #### 2-Legged Token
 
 This type of token is given directly to the application.
-To get a 2-legged token run the following code.  Note that you need to replace `your-client-id` and `your-client-secret` with your [app](https://developer.autodesk.com/myapps)'s client ID and client secret.
+
+To get a 2-legged token run the following code. Note that you need to replace `your-client-id` and `your-client-secret` with your [app](https://developer.autodesk.com/myapps)'s client ID and client secret.
 
 ``` JavaScript
 var ForgeSDK = require('forge-apis');

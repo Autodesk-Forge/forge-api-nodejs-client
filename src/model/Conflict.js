@@ -35,7 +35,6 @@ module.exports = (function() {
   /**
    * The Conflict model module.
    * @module model/Conflict
-   * @version 0.2.6
    */
 
    /**

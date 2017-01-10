@@ -30,13 +30,12 @@ module.exports = (function() {
        Hub = require('../model/Hub'),
        Forbidden = require('../model/Forbidden'),
        NotFound = require('../model/NotFound'),
-       Projects = require('../model/Projects'),
        Hubs = require('../model/Hubs');
 
   /**
    * Hubs service.
    * @module api/HubsApi
-   * @version 0.2.6
+   * @version 0.2.7
    */
 
   /**
@@ -83,50 +82,6 @@ module.exports = (function() {
 
       return this.apiClient.callApi(
         '/project/v1/hubs/{hub_id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
-
-
-    /**
-     * Returns a collection of projects for a given &#x60;hub_id&#x60;. A project represents an A360 project or a BIM 360 project which is set up under an A360 hub or BIM 360 account, respectively. Within a hub or an account, multiple projects can be created to be used. 
-     * @param {String} hubId the &#x60;hub id&#x60; for the current operation
-     * @param {Object} opts Optional parameters
-     * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
-     * @param {Array.<String>} opts.filterExtensionType filter by the extension type
-     * data is of type: {module:model/Projects}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.getHubProjects = function(hubId, opts, oauth2client, credentials) {
-      opts = opts || {};
-      var postBody = null;
-
-      // verify the required parameter 'hubId' is set
-      if (hubId == undefined || hubId == null) {
-        return Promise.reject("Missing the required parameter 'hubId' when calling getHubProjects");
-      }
-
-
-      var pathParams = {
-        'hub_id': hubId
-      };
-      var queryParams = {
-        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Projects;
-
-      return this.apiClient.callApi(
-        '/project/v1/hubs/{hub_id}/projects', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, oauth2client, credentials
       );

@@ -27,23 +27,20 @@ module.exports = (function() {
    'use strict';
 
    var ApiClient = require('../ApiClient'),
-       Project = require('../model/Project'),
+       Projects = require('../model/Projects'),
        Forbidden = require('../model/Forbidden'),
        NotFound = require('../model/NotFound'),
+       Project = require('../model/Project'),
        Hub = require('../model/Hub'),
-       ItemCreated = require('../model/ItemCreated'),
        BadInput = require('../model/BadInput'),
-       Conflict = require('../model/Conflict'),
-       CreateItem = require('../model/CreateItem'),
+       TopFolders = require('../model/TopFolders'),
        StorageCreated = require('../model/StorageCreated'),
-       CreateStorage = require('../model/CreateStorage'),
-       CreateVersion = require('../model/CreateVersion'),
-       VersionCreated = require('../model/VersionCreated');
+       CreateStorage = require('../model/CreateStorage');
 
   /**
    * Projects service.
    * @module api/ProjectsApi
-   * @version 0.2.6
+   * @version 0.2.7
    */
 
   /**
@@ -56,6 +53,50 @@ module.exports = (function() {
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
 
+
+
+    /**
+     * Returns a collection of projects for a given &#x60;hub_id&#x60;. A project represents an A360 project or a BIM 360 project which is set up under an A360 hub or BIM 360 account, respectively. Within a hub or an account, multiple projects can be created to be used. 
+     * @param {String} hubId the &#x60;hub id&#x60; for the current operation
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
+     * @param {Array.<String>} opts.filterExtensionType filter by the extension type
+     * data is of type: {module:model/Projects}
+     * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} credentials credentials for the call
+     */
+    this.getHubProjects = function(hubId, opts, oauth2client, credentials) {
+      opts = opts || {};
+      var postBody = null;
+
+      // verify the required parameter 'hubId' is set
+      if (hubId == undefined || hubId == null) {
+        return Promise.reject("Missing the required parameter 'hubId' when calling getHubProjects");
+      }
+
+
+      var pathParams = {
+        'hub_id': hubId
+      };
+      var queryParams = {
+        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/vnd.api+json'];
+      var accepts = ['application/vnd.api+json', 'application/json'];
+      var returnType = Projects;
+
+      return this.apiClient.callApi(
+        '/project/v1/hubs/{hub_id}/projects', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, oauth2client, credentials
+      );
+    };
 
 
     /**
@@ -149,28 +190,29 @@ module.exports = (function() {
 
 
     /**
-     * Creates a new item in the &#39;data&#39; domain service. 
+     * Returns the details of the highest level folders the user has access to for a given project
+     * @param {String} hubId the &#x60;hub id&#x60; for the current operation
      * @param {String} projectId the &#x60;project id&#x60;
-     * @param {module:model/CreateItem} body describe the item to be created
-     * data is of type: {module:model/ItemCreated}
+     * data is of type: {module:model/TopFolders}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
-    this.postItem = function(projectId, body, oauth2client, credentials) {
-      var postBody = body;
+    this.getProjectTopFolders = function(hubId, projectId, oauth2client, credentials) {
+      var postBody = null;
+
+      // verify the required parameter 'hubId' is set
+      if (hubId == undefined || hubId == null) {
+        return Promise.reject("Missing the required parameter 'hubId' when calling getProjectTopFolders");
+      }
 
       // verify the required parameter 'projectId' is set
       if (projectId == undefined || projectId == null) {
-        return Promise.reject("Missing the required parameter 'projectId' when calling postItem");
-      }
-
-      // verify the required parameter 'body' is set
-      if (body == undefined || body == null) {
-        return Promise.reject("Missing the required parameter 'body' when calling postItem");
+        return Promise.reject("Missing the required parameter 'projectId' when calling getProjectTopFolders");
       }
 
 
       var pathParams = {
+        'hub_id': hubId,
         'project_id': projectId
       };
       var queryParams = {
@@ -182,10 +224,10 @@ module.exports = (function() {
 
       var contentTypes = ['application/vnd.api+json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = ItemCreated;
+      var returnType = TopFolders;
 
       return this.apiClient.callApi(
-        '/data/v1/projects/{project_id}/items', 'POST',
+        '/project/v1/hubs/{hub_id}/projects/{project_id}/topFolders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, oauth2client, credentials
       );
@@ -230,50 +272,6 @@ module.exports = (function() {
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/storage', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
-
-
-    /**
-     * Creates a new version of an item in the &#39;data&#39; domain service. 
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {module:model/CreateVersion} body describe the version to be created
-     * data is of type: {module:model/VersionCreated}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.postVersion = function(projectId, body, oauth2client, credentials) {
-      var postBody = body;
-
-      // verify the required parameter 'projectId' is set
-      if (projectId == undefined || projectId == null) {
-        return Promise.reject("Missing the required parameter 'projectId' when calling postVersion");
-      }
-
-      // verify the required parameter 'body' is set
-      if (body == undefined || body == null) {
-        return Promise.reject("Missing the required parameter 'body' when calling postVersion");
-      }
-
-
-      var pathParams = {
-        'project_id': projectId
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = VersionCreated;
-
-      return this.apiClient.callApi(
-        '/data/v1/projects/{project_id}/versions', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, oauth2client, credentials
       );

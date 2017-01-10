@@ -34,7 +34,6 @@ module.exports = (function() {
   /**
    * The ProjectRelationships model module.
    * @module model/ProjectRelationships
-   * @version 0.2.6
    */
 
    /**

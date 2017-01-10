@@ -33,7 +33,6 @@ module.exports = (function() {
   /**
    * The RelRefMeta model module.
    * @module model/RelRefMeta
-   * @version 0.2.6
    */
 
    /**

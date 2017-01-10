@@ -32,7 +32,6 @@ module.exports = (function() {
   /**
    * The CreateVersionDataRelationshipsItemData model module.
    * @module model/CreateVersionDataRelationshipsItemData
-   * @version 0.2.6
    */
 
    /**

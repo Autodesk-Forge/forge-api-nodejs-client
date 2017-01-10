@@ -32,7 +32,6 @@ module.exports = (function() {
   /**
    * The AppPackageVersion model module.
    * @module model/AppPackageVersion
-   * @version 0.2.6
    */
 
    /**

@@ -32,7 +32,6 @@ module.exports = (function() {
   /**
    * The PostBucketsSigned model module.
    * @module model/PostBucketsSigned
-   * @version 0.2.6
    */
 
    /**

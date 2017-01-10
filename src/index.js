@@ -36,6 +36,7 @@ module.exports = (function() {
       BaseAttributesCreatedUpdated = require('./model/BaseAttributesCreatedUpdated'),
       BaseAttributesCreatedUpdatedAttributes = require('./model/BaseAttributesCreatedUpdatedAttributes'),
       BaseAttributesExtensionObject = require('./model/BaseAttributesExtensionObject'),
+      BaseAttributesExtensionObjectWithoutSchemaLink = require('./model/BaseAttributesExtensionObjectWithoutSchemaLink'),
       Bucket = require('./model/Bucket'),
       BucketObjects = require('./model/BucketObjects'),
       Buckets = require('./model/Buckets'),
@@ -147,12 +148,14 @@ module.exports = (function() {
       Refs = require('./model/Refs'),
       RelRef = require('./model/RelRef'),
       RelRefMeta = require('./model/RelRefMeta'),
+      ResourceId = require('./model/ResourceId'),
       Result = require('./model/Result'),
       Storage = require('./model/Storage'),
       StorageCreated = require('./model/StorageCreated'),
       StorageRelationships = require('./model/StorageRelationships'),
       StorageRelationshipsTarget = require('./model/StorageRelationshipsTarget'),
       StorageRelationshipsTargetData = require('./model/StorageRelationshipsTargetData'),
+      TopFolders = require('./model/TopFolders'),
       Version = require('./model/Version'),
       VersionAttributes = require('./model/VersionAttributes'),
       VersionCreated = require('./model/VersionCreated'),
@@ -205,7 +208,7 @@ module.exports = (function() {
    * </pre>
    * </p>
    * @module index
-   * @version 0.2.6
+   * @version 0.2.7
    */
   var exports = {
     /**
@@ -263,6 +266,11 @@ module.exports = (function() {
      * @property {module:model/BaseAttributesExtensionObject}
      */
     BaseAttributesExtensionObject: BaseAttributesExtensionObject,
+    /**
+     * The BaseAttributesExtensionObjectWithoutSchemaLink model constructor.
+     * @property {module:model/BaseAttributesExtensionObjectWithoutSchemaLink}
+     */
+    BaseAttributesExtensionObjectWithoutSchemaLink: BaseAttributesExtensionObjectWithoutSchemaLink,
     /**
      * The Bucket model constructor.
      * @property {module:model/Bucket}
@@ -819,6 +827,11 @@ module.exports = (function() {
      */
     RelRefMeta: RelRefMeta,
     /**
+     * The ResourceId model constructor.
+     * @property {module:model/ResourceId}
+     */
+    ResourceId: ResourceId,
+    /**
      * The Result model constructor.
      * @property {module:model/Result}
      */
@@ -848,6 +861,11 @@ module.exports = (function() {
      * @property {module:model/StorageRelationshipsTargetData}
      */
     StorageRelationshipsTargetData: StorageRelationshipsTargetData,
+    /**
+     * The TopFolders model constructor.
+     * @property {module:model/TopFolders}
+     */
+    TopFolders: TopFolders,
     /**
      * The Version model constructor.
      * @property {module:model/Version}

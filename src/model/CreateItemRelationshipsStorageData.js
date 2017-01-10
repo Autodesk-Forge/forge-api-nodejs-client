@@ -32,7 +32,6 @@ module.exports = (function() {
   /**
    * The CreateItemRelationshipsStorageData model module.
    * @module model/CreateItemRelationshipsStorageData
-   * @version 0.2.6
    */
 
    /**

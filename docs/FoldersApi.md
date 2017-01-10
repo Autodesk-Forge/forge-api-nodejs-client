@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**getFolderParent**](FoldersApi.md#getFolderParent) | **GET** /data/v1/projects/{project_id}/folders/{folder_id}/parent | 
 [**getFolderRefs**](FoldersApi.md#getFolderRefs) | **GET** /data/v1/projects/{project_id}/folders/{folder_id}/refs | 
 [**getFolderRelationshipsRefs**](FoldersApi.md#getFolderRelationshipsRefs) | **GET** /data/v1/projects/{project_id}/folders/{folder_id}/relationships/refs | 
+[**postFolder**](FoldersApi.md#postFolder) | **POST** /data/v1/projects/{project_id}/folders | 
 [**postFolderRelationshipsRef**](FoldersApi.md#postFolderRelationshipsRef) | **POST** /data/v1/projects/{project_id}/folders/{folder_id}/relationships/refs | 
 
 
@@ -155,6 +156,33 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Refs**](Refs.md)
+
+### Authorization
+
+[oauth2_access_code](../README.md#authentication)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json, application/json
+
+<a name="postFolder"></a>
+# **postFolder**
+> postFolder(body, oauth2client, credentials)
+
+
+
+Creates a new folder in the &#x60;data&#x60; domain service
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**CreateFolder**](CreateFolder.md)| describe the folder to be created | 
+
+### Return type
+
+null (empty response body)
 
 ### Authorization
 

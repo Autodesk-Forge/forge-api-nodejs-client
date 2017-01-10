@@ -33,7 +33,6 @@ module.exports = (function() {
   /**
    * The Job model module.
    * @module model/Job
-   * @version 0.2.6
    */
 
    /**

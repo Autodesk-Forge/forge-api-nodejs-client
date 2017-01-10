@@ -38,7 +38,7 @@ module.exports = (function() {
   /**
    * Derivatives service.
    * @module api/DerivativesApi
-   * @version 0.2.6
+   * @version 0.2.7
    */
 
   /**

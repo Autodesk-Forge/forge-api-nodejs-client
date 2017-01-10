@@ -33,7 +33,6 @@ module.exports = (function() {
   /**
    * The ItemAttributes model module.
    * @module model/ItemAttributes
-   * @version 0.2.6
    */
 
    /**

@@ -34,12 +34,15 @@ module.exports = (function() {
        Item = require('../model/Item'),
        JsonApiCollection = require('../model/JsonApiCollection'),
        Refs = require('../model/Refs'),
+       Conflict = require('../model/Conflict'),
+       CreateVersion = require('../model/CreateVersion'),
+       VersionCreated = require('../model/VersionCreated'),
        CreateRef = require('../model/CreateRef');
 
   /**
    * Versions service.
    * @module api/VersionsApi
-   * @version 0.2.6
+   * @version 0.2.7
    */
 
   /**
@@ -248,6 +251,50 @@ module.exports = (function() {
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/versions/{version_id}/relationships/refs', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, oauth2client, credentials
+      );
+    };
+
+
+    /**
+     * Creates a new version of an item in the &#39;data&#39; domain service. 
+     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {module:model/CreateVersion} body describe the version to be created
+     * data is of type: {module:model/VersionCreated}
+     * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} credentials credentials for the call
+     */
+    this.postVersion = function(projectId, body, oauth2client, credentials) {
+      var postBody = body;
+
+      // verify the required parameter 'projectId' is set
+      if (projectId == undefined || projectId == null) {
+        return Promise.reject("Missing the required parameter 'projectId' when calling postVersion");
+      }
+
+      // verify the required parameter 'body' is set
+      if (body == undefined || body == null) {
+        return Promise.reject("Missing the required parameter 'body' when calling postVersion");
+      }
+
+
+      var pathParams = {
+        'project_id': projectId
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/vnd.api+json'];
+      var accepts = ['application/vnd.api+json', 'application/json'];
+      var returnType = VersionCreated;
+
+      return this.apiClient.callApi(
+        '/data/v1/projects/{project_id}/versions', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, oauth2client, credentials
       );

@@ -33,12 +33,14 @@ module.exports = (function() {
        NotFound = require('../model/NotFound'),
        JsonApiCollection = require('../model/JsonApiCollection'),
        Refs = require('../model/Refs'),
+       Conflict = require('../model/Conflict'),
+       CreateFolder = require('../model/CreateFolder'),
        CreateRef = require('../model/CreateRef');
 
   /**
    * Folders service.
    * @module api/FoldersApi
-   * @version 0.2.6
+   * @version 0.2.7
    */
 
   /**
@@ -304,6 +306,42 @@ module.exports = (function() {
 
       return this.apiClient.callApi(
         '/data/v1/projects/{project_id}/folders/{folder_id}/relationships/refs', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, oauth2client, credentials
+      );
+    };
+
+
+    /**
+     * Creates a new folder in the &#x60;data&#x60; domain service
+     * @param {module:model/CreateFolder} body describe the folder to be created
+     * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} credentials credentials for the call
+     */
+    this.postFolder = function(body, oauth2client, credentials) {
+      var postBody = body;
+
+      // verify the required parameter 'body' is set
+      if (body == undefined || body == null) {
+        return Promise.reject("Missing the required parameter 'body' when calling postFolder");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/vnd.api+json'];
+      var accepts = ['application/vnd.api+json', 'application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/data/v1/projects/{project_id}/folders', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, oauth2client, credentials
       );

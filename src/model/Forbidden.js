@@ -35,7 +35,6 @@ module.exports = (function() {
   /**
    * The Forbidden model module.
    * @module model/Forbidden
-   * @version 0.2.6
    */
 
    /**

@@ -33,7 +33,6 @@ module.exports = (function() {
   /**
    * The JsonApiLinksPaging model module.
    * @module model/JsonApiLinksPaging
-   * @version 0.2.6
    */
 
    /**

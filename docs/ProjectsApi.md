@@ -4,12 +4,41 @@ All URIs are relative to *https://developer.api.autodesk.com/*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**getHubProjects**](ProjectsApi.md#getHubProjects) | **GET** /project/v1/hubs/{hub_id}/projects | 
 [**getProject**](ProjectsApi.md#getProject) | **GET** /project/v1/hubs/{hub_id}/projects/{project_id} | 
 [**getProjectHub**](ProjectsApi.md#getProjectHub) | **GET** /project/v1/hubs/{hub_id}/projects/{project_id}/hub | 
-[**postItem**](ProjectsApi.md#postItem) | **POST** /data/v1/projects/{project_id}/items | 
+[**getProjectTopFolders**](ProjectsApi.md#getProjectTopFolders) | **GET** /project/v1/hubs/{hub_id}/projects/{project_id}/topFolders | 
 [**postStorage**](ProjectsApi.md#postStorage) | **POST** /data/v1/projects/{project_id}/storage | 
-[**postVersion**](ProjectsApi.md#postVersion) | **POST** /data/v1/projects/{project_id}/versions | 
 
+
+<a name="getHubProjects"></a>
+# **getHubProjects**
+> Projects getHubProjects(hubId, opts, oauth2client, credentials)
+
+
+
+Returns a collection of projects for a given &#x60;hub_id&#x60;. A project represents an A360 project or a BIM 360 project which is set up under an A360 hub or BIM 360 account, respectively. Within a hub or an account, multiple projects can be created to be used. 
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **hubId** | **String**| the &#x60;hub id&#x60; for the current operation | 
+ **filterId** | [**[String]**](String.md)| filter by the &#x60;id&#x60; of the &#x60;ref&#x60; target | [optional] 
+ **filterExtensionType** | [**[String]**](String.md)| filter by the extension type | [optional] 
+
+### Return type
+
+[**Projects**](Projects.md)
+
+### Authorization
+
+[oauth2_access_code](../README.md#authentication)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json, application/json
 
 <a name="getProject"></a>
 # **getProject**
@@ -67,24 +96,24 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/vnd.api+json
  - **Accept**: application/vnd.api+json, application/json
 
-<a name="postItem"></a>
-# **postItem**
-> ItemCreated postItem(projectId, body, oauth2client, credentials)
+<a name="getProjectTopFolders"></a>
+# **getProjectTopFolders**
+> TopFolders getProjectTopFolders(hubId, projectId, oauth2client, credentials)
 
 
 
-Creates a new item in the &#39;data&#39; domain service. 
+Returns the details of the highest level folders the user has access to for a given project
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **hubId** | **String**| the &#x60;hub id&#x60; for the current operation | 
  **projectId** | **String**| the &#x60;project id&#x60; | 
- **body** | [**CreateItem**](CreateItem.md)| describe the item to be created | 
 
 ### Return type
 
-[**ItemCreated**](ItemCreated.md)
+[**TopFolders**](TopFolders.md)
 
 ### Authorization
 
@@ -113,34 +142,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**StorageCreated**](StorageCreated.md)
-
-### Authorization
-
-[oauth2_access_code](../README.md#authentication)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json, application/json
-
-<a name="postVersion"></a>
-# **postVersion**
-> VersionCreated postVersion(projectId, body, oauth2client, credentials)
-
-
-
-Creates a new version of an item in the &#39;data&#39; domain service. 
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **projectId** | **String**| the &#x60;project id&#x60; | 
- **body** | [**CreateVersion**](CreateVersion.md)| describe the version to be created | 
-
-### Return type
-
-[**VersionCreated**](VersionCreated.md)
 
 ### Authorization
 
