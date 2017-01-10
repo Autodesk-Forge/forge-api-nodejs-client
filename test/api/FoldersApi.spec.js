@@ -39,6 +39,7 @@ module.export = (function() {
       NotFound = require('../../src/model/NotFound'),
       JsonApiCollection = require('../../src/model/JsonApiCollection'),
       Refs = require('../../src/model/Refs'),
+      Conflict = require('../../src/model/Conflict'),
       CreateRef = require('../../src/model/CreateRef');
 
   var sampleStrParam = 'test_string';
@@ -225,6 +226,36 @@ module.export = (function() {
                 contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
         instance.getFolderRelationshipsRefs(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function(response){
+            expect(response).to.be.ok();
+            done();
+        }, function(err){
+            done(err);
+        });
+      });
+    });
+    describe('postFolder', function() {
+      it('should call postFolder successfully', function(done) {
+
+        var postBody = sampleStrParam;
+
+        var pathParams = { 
+        };
+        var queryParams = { 
+        };
+        var headerParams = { 
+        };
+        var formParams = { 
+        };
+
+        var contentTypes = ['application/vnd.api+json'];
+        var accepts = ['application/vnd.api+json', 'application/json'];
+        var returnType = null;
+
+        mockedApiClientRequest.withArgs('/data/v1/projects/{project_id}/folders', 'POST',
+                pathParams, queryParams, headerParams, formParams, postBody,
+                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+        instance.postFolder(sampleStrParam, oauth2client, credentials).then(function(response){
             expect(response).to.be.ok();
             done();
         }, function(err){

@@ -36,7 +36,6 @@ module.export = (function() {
       Hub = require('../../src/model/Hub'),
       Forbidden = require('../../src/model/Forbidden'),
       NotFound = require('../../src/model/NotFound'),
-      Projects = require('../../src/model/Projects'),
       Hubs = require('../../src/model/Hubs');
 
   var sampleStrParam = 'test_string';
@@ -81,39 +80,6 @@ module.export = (function() {
                 contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
         instance.getHub(sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('getHubProjects', function() {
-      it('should call getHubProjects successfully', function(done) {
-        var opts = {};
-        var postBody = null;
-
-        var pathParams = { 
-        'hub_id': sampleStrParam
-        };
-        var queryParams = { 
-        'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-        'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
-        };
-        var headerParams = { 
-        };
-        var formParams = { 
-        };
-
-        var contentTypes = ['application/vnd.api+json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = Projects;
-
-        mockedApiClientRequest.withArgs('/project/v1/hubs/{hub_id}/projects', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
-
-        instance.getHubProjects(sampleStrParam, opts, oauth2client, credentials).then(function(response){
             expect(response).to.be.ok();
             done();
         }, function(err){

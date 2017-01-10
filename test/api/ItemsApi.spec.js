@@ -42,6 +42,9 @@ module.export = (function() {
       Refs = require('../../src/model/Refs'),
       Version = require('../../src/model/Version'),
       Versions = require('../../src/model/Versions'),
+      ItemCreated = require('../../src/model/ItemCreated'),
+      Conflict = require('../../src/model/Conflict'),
+      CreateItem = require('../../src/model/CreateItem'),
       CreateRef = require('../../src/model/CreateRef');
 
   var sampleStrParam = 'test_string';
@@ -261,6 +264,37 @@ module.export = (function() {
                 contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
         instance.getItemVersions(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function(response){
+            expect(response).to.be.ok();
+            done();
+        }, function(err){
+            done(err);
+        });
+      });
+    });
+    describe('postItem', function() {
+      it('should call postItem successfully', function(done) {
+
+        var postBody = sampleStrParam;
+
+        var pathParams = { 
+        'project_id': sampleStrParam
+        };
+        var queryParams = { 
+        };
+        var headerParams = { 
+        };
+        var formParams = { 
+        };
+
+        var contentTypes = ['application/vnd.api+json'];
+        var accepts = ['application/vnd.api+json', 'application/json'];
+        var returnType = ItemCreated;
+
+        mockedApiClientRequest.withArgs('/data/v1/projects/{project_id}/items', 'POST',
+                pathParams, queryParams, headerParams, formParams, postBody,
+                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+        instance.postItem(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
             expect(response).to.be.ok();
             done();
         }, function(err){

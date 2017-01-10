@@ -33,18 +33,15 @@ module.export = (function() {
       credentials,
       mockedApiClientRequest,
       ApiClient = require('../../src/ApiClient'),
-      Project = require('../../src/model/Project'),
+      Projects = require('../../src/model/Projects'),
       Forbidden = require('../../src/model/Forbidden'),
       NotFound = require('../../src/model/NotFound'),
+      Project = require('../../src/model/Project'),
       Hub = require('../../src/model/Hub'),
-      ItemCreated = require('../../src/model/ItemCreated'),
       BadInput = require('../../src/model/BadInput'),
-      Conflict = require('../../src/model/Conflict'),
-      CreateItem = require('../../src/model/CreateItem'),
+      TopFolders = require('../../src/model/TopFolders'),
       StorageCreated = require('../../src/model/StorageCreated'),
-      CreateStorage = require('../../src/model/CreateStorage'),
-      CreateVersion = require('../../src/model/CreateVersion'),
-      VersionCreated = require('../../src/model/VersionCreated');
+      CreateStorage = require('../../src/model/CreateStorage');
 
   var sampleStrParam = 'test_string';
   var sampleIntParam = 10;
@@ -64,6 +61,39 @@ module.export = (function() {
 
 
   describe('ProjectsApi', function() {
+    describe('getHubProjects', function() {
+      it('should call getHubProjects successfully', function(done) {
+        var opts = {};
+        var postBody = null;
+
+        var pathParams = { 
+        'hub_id': sampleStrParam
+        };
+        var queryParams = { 
+        'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+        'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
+        };
+        var headerParams = { 
+        };
+        var formParams = { 
+        };
+
+        var contentTypes = ['application/vnd.api+json'];
+        var accepts = ['application/vnd.api+json', 'application/json'];
+        var returnType = Projects;
+
+        mockedApiClientRequest.withArgs('/project/v1/hubs/{hub_id}/projects', 'GET',
+                pathParams, queryParams, headerParams, formParams, postBody,
+                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+        instance.getHubProjects(sampleStrParam, opts, oauth2client, credentials).then(function(response){
+            expect(response).to.be.ok();
+            done();
+        }, function(err){
+            done(err);
+        });
+      });
+    });
     describe('getProject', function() {
       it('should call getProject successfully', function(done) {
 
@@ -128,12 +158,13 @@ module.export = (function() {
         });
       });
     });
-    describe('postItem', function() {
-      it('should call postItem successfully', function(done) {
+    describe('getProjectTopFolders', function() {
+      it('should call getProjectTopFolders successfully', function(done) {
 
-        var postBody = sampleStrParam;
+        var postBody = null;
 
         var pathParams = { 
+        'hub_id': sampleStrParam,
         'project_id': sampleStrParam
         };
         var queryParams = { 
@@ -145,13 +176,13 @@ module.export = (function() {
 
         var contentTypes = ['application/vnd.api+json'];
         var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = ItemCreated;
+        var returnType = TopFolders;
 
-        mockedApiClientRequest.withArgs('/data/v1/projects/{project_id}/items', 'POST',
+        mockedApiClientRequest.withArgs('/project/v1/hubs/{hub_id}/projects/{project_id}/topFolders', 'GET',
                 pathParams, queryParams, headerParams, formParams, postBody,
                 contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.postItem(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
+        instance.getProjectTopFolders(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
             expect(response).to.be.ok();
             done();
         }, function(err){
@@ -183,37 +214,6 @@ module.export = (function() {
                 contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
         instance.postStorage(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('postVersion', function() {
-      it('should call postVersion successfully', function(done) {
-
-        var postBody = sampleStrParam;
-
-        var pathParams = { 
-        'project_id': sampleStrParam
-        };
-        var queryParams = { 
-        };
-        var headerParams = { 
-        };
-        var formParams = { 
-        };
-
-        var contentTypes = ['application/vnd.api+json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = VersionCreated;
-
-        mockedApiClientRequest.withArgs('/data/v1/projects/{project_id}/versions', 'POST',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
-
-        instance.postVersion(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
             expect(response).to.be.ok();
             done();
         }, function(err){

@@ -34,7 +34,6 @@ module.exports = (function() {
        JsonApiCollection = require('../model/JsonApiCollection'),
        Refs = require('../model/Refs'),
        Conflict = require('../model/Conflict'),
-       CreateFolder = require('../model/CreateFolder'),
        CreateRef = require('../model/CreateRef');
 
   /**
