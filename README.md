@@ -185,9 +185,9 @@ Class | Method | HTTP request | Description
 *ForgeSdk.FoldersApi* | [**getFolderParent**](docs/FoldersApi.md#getFolderParent) | **GET** /data/v1/projects/{project_id}/folders/{folder_id}/parent | 
 *ForgeSdk.FoldersApi* | [**getFolderRefs**](docs/FoldersApi.md#getFolderRefs) | **GET** /data/v1/projects/{project_id}/folders/{folder_id}/refs | 
 *ForgeSdk.FoldersApi* | [**getFolderRelationshipsRefs**](docs/FoldersApi.md#getFolderRelationshipsRefs) | **GET** /data/v1/projects/{project_id}/folders/{folder_id}/relationships/refs | 
+*ForgeSdk.FoldersApi* | [**postFolder**](docs/FoldersApi.md#postFolder) | **POST** /data/v1/projects/{project_id}/folders | 
 *ForgeSdk.FoldersApi* | [**postFolderRelationshipsRef**](docs/FoldersApi.md#postFolderRelationshipsRef) | **POST** /data/v1/projects/{project_id}/folders/{folder_id}/relationships/refs | 
 *ForgeSdk.HubsApi* | [**getHub**](docs/HubsApi.md#getHub) | **GET** /project/v1/hubs/{hub_id} | 
-*ForgeSdk.HubsApi* | [**getHubProjects**](docs/HubsApi.md#getHubProjects) | **GET** /project/v1/hubs/{hub_id}/projects | 
 *ForgeSdk.HubsApi* | [**getHubs**](docs/HubsApi.md#getHubs) | **GET** /project/v1/hubs | 
 *ForgeSdk.ItemsApi* | [**getItem**](docs/ItemsApi.md#getItem) | **GET** /data/v1/projects/{project_id}/items/{item_id} | 
 *ForgeSdk.ItemsApi* | [**getItemParentFolder**](docs/ItemsApi.md#getItemParentFolder) | **GET** /data/v1/projects/{project_id}/items/{item_id}/parent | 
@@ -195,6 +195,7 @@ Class | Method | HTTP request | Description
 *ForgeSdk.ItemsApi* | [**getItemRelationshipsRefs**](docs/ItemsApi.md#getItemRelationshipsRefs) | **GET** /data/v1/projects/{project_id}/items/{item_id}/relationships/refs | 
 *ForgeSdk.ItemsApi* | [**getItemTip**](docs/ItemsApi.md#getItemTip) | **GET** /data/v1/projects/{project_id}/items/{item_id}/tip | 
 *ForgeSdk.ItemsApi* | [**getItemVersions**](docs/ItemsApi.md#getItemVersions) | **GET** /data/v1/projects/{project_id}/items/{item_id}/versions | 
+*ForgeSdk.ItemsApi* | [**postItem**](docs/ItemsApi.md#postItem) | **POST** /data/v1/projects/{project_id}/items | 
 *ForgeSdk.ItemsApi* | [**postItemRelationshipsRef**](docs/ItemsApi.md#postItemRelationshipsRef) | **POST** /data/v1/projects/{project_id}/items/{item_id}/relationships/refs | 
 *ForgeSdk.ObjectsApi* | [**copyTo**](docs/ObjectsApi.md#copyTo) | **PUT** /oss/v2/buckets/{bucketKey}/objects/{objectName}/copyto/{newObjName} | 
 *ForgeSdk.ObjectsApi* | [**createSignedResource**](docs/ObjectsApi.md#createSignedResource) | **POST** /oss/v2/buckets/{bucketKey}/objects/{objectName}/signed | 
@@ -209,15 +210,16 @@ Class | Method | HTTP request | Description
 *ForgeSdk.ObjectsApi* | [**uploadObject**](docs/ObjectsApi.md#uploadObject) | **PUT** /oss/v2/buckets/{bucketKey}/objects/{objectName} | 
 *ForgeSdk.ObjectsApi* | [**uploadSignedResource**](docs/ObjectsApi.md#uploadSignedResource) | **PUT** /oss/v2/signedresources/{id} | 
 *ForgeSdk.ObjectsApi* | [**uploadSignedResourcesChunk**](docs/ObjectsApi.md#uploadSignedResourcesChunk) | **PUT** /oss/v2/signedresources/{id}/resumable | 
+*ForgeSdk.ProjectsApi* | [**getHubProjects**](docs/ProjectsApi.md#getHubProjects) | **GET** /project/v1/hubs/{hub_id}/projects | 
 *ForgeSdk.ProjectsApi* | [**getProject**](docs/ProjectsApi.md#getProject) | **GET** /project/v1/hubs/{hub_id}/projects/{project_id} | 
 *ForgeSdk.ProjectsApi* | [**getProjectHub**](docs/ProjectsApi.md#getProjectHub) | **GET** /project/v1/hubs/{hub_id}/projects/{project_id}/hub | 
-*ForgeSdk.ProjectsApi* | [**postItem**](docs/ProjectsApi.md#postItem) | **POST** /data/v1/projects/{project_id}/items | 
+*ForgeSdk.ProjectsApi* | [**getProjectTopFolders**](docs/ProjectsApi.md#getProjectTopFolders) | **GET** /project/v1/hubs/{hub_id}/projects/{project_id}/topFolders | 
 *ForgeSdk.ProjectsApi* | [**postStorage**](docs/ProjectsApi.md#postStorage) | **POST** /data/v1/projects/{project_id}/storage | 
-*ForgeSdk.ProjectsApi* | [**postVersion**](docs/ProjectsApi.md#postVersion) | **POST** /data/v1/projects/{project_id}/versions | 
 *ForgeSdk.VersionsApi* | [**getVersion**](docs/VersionsApi.md#getVersion) | **GET** /data/v1/projects/{project_id}/versions/{version_id} | 
 *ForgeSdk.VersionsApi* | [**getVersionItem**](docs/VersionsApi.md#getVersionItem) | **GET** /data/v1/projects/{project_id}/versions/{version_id}/item | 
 *ForgeSdk.VersionsApi* | [**getVersionRefs**](docs/VersionsApi.md#getVersionRefs) | **GET** /data/v1/projects/{project_id}/versions/{version_id}/refs | 
 *ForgeSdk.VersionsApi* | [**getVersionRelationshipsRefs**](docs/VersionsApi.md#getVersionRelationshipsRefs) | **GET** /data/v1/projects/{project_id}/versions/{version_id}/relationships/refs | 
+*ForgeSdk.VersionsApi* | [**postVersion**](docs/VersionsApi.md#postVersion) | **POST** /data/v1/projects/{project_id}/versions | 
 *ForgeSdk.VersionsApi* | [**postVersionRelationshipsRef**](docs/VersionsApi.md#postVersionRelationshipsRef) | **POST** /data/v1/projects/{project_id}/versions/{version_id}/relationships/refs | 
 *ForgeSdk.WorkItemsApi* | [**createWorkItem**](docs/WorkItemsApi.md#createWorkItem) | **POST** /autocad.io/us-east/v2/WorkItems | Creates a new WorkItem.
 *ForgeSdk.WorkItemsApi* | [**deleteWorkItem**](docs/WorkItemsApi.md#deleteWorkItem) | **DELETE** /autocad.io/us-east/v2/WorkItems(%27{id}%27) | Removes a specific WorkItem.
