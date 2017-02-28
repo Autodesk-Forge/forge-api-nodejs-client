@@ -339,7 +339,7 @@ module.exports = (function() {
     }
 
     if (contentType === 'application/x-www-form-urlencoded') {
-      requestParams.form(this.normalizeParams(formParams));
+      requestParams.form = this.normalizeParams(formParams);
     } else if (contentType == 'multipart/form-data') {
       requestParams.formData = this.normalizeParams(formParams);
     } else if (bodyParam) {
