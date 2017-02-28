@@ -27,11 +27,11 @@ module.exports = (function() {
    'use strict';
 
    var ApiClient = require('../ApiClient'),
-       ObjectDetails = require('../model/ObjectDetails'),
-       PostObjectSigned = require('../model/PostObjectSigned'),
-       PostBucketsSigned = require('../model/PostBucketsSigned'),
-       ObjectFullDetails = require('../model/ObjectFullDetails'),
        BucketObjects = require('../model/BucketObjects'),
+       ObjectDetails = require('../model/ObjectDetails'),
+       ObjectFullDetails = require('../model/ObjectFullDetails'),
+       PostBucketsSigned = require('../model/PostBucketsSigned'),
+       PostObjectSigned = require('../model/PostObjectSigned'),
        Reason = require('../model/Reason'),
        Result = require('../model/Result');
 

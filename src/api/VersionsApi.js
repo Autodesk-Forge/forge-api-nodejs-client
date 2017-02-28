@@ -28,16 +28,16 @@ module.exports = (function() {
 
    var ApiClient = require('../ApiClient'),
        BadInput = require('../model/BadInput'),
-       Version = require('../model/Version'),
+       Conflict = require('../model/Conflict'),
+       CreateRef = require('../model/CreateRef'),
+       CreateVersion = require('../model/CreateVersion'),
        Forbidden = require('../model/Forbidden'),
-       NotFound = require('../model/NotFound'),
        Item = require('../model/Item'),
        JsonApiCollection = require('../model/JsonApiCollection'),
+       NotFound = require('../model/NotFound'),
        Refs = require('../model/Refs'),
-       Conflict = require('../model/Conflict'),
-       CreateVersion = require('../model/CreateVersion'),
-       VersionCreated = require('../model/VersionCreated'),
-       CreateRef = require('../model/CreateRef');
+       Version = require('../model/Version'),
+       VersionCreated = require('../model/VersionCreated');
 
   /**
    * Versions service.

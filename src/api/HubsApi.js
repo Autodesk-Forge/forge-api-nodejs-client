@@ -27,10 +27,10 @@ module.exports = (function() {
    'use strict';
 
    var ApiClient = require('../ApiClient'),
-       Hub = require('../model/Hub'),
        Forbidden = require('../model/Forbidden'),
-       NotFound = require('../model/NotFound'),
-       Hubs = require('../model/Hubs');
+       Hub = require('../model/Hub'),
+       Hubs = require('../model/Hubs'),
+       NotFound = require('../model/NotFound');
 
   /**
    * Hubs service.

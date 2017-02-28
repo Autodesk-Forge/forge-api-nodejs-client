@@ -27,15 +27,15 @@ module.exports = (function() {
    'use strict';
 
    var ApiClient = require('../ApiClient'),
-       Projects = require('../model/Projects'),
+       BadInput = require('../model/BadInput'),
+       CreateStorage = require('../model/CreateStorage'),
        Forbidden = require('../model/Forbidden'),
+       Hub = require('../model/Hub'),
        NotFound = require('../model/NotFound'),
        Project = require('../model/Project'),
-       Hub = require('../model/Hub'),
-       BadInput = require('../model/BadInput'),
-       TopFolders = require('../model/TopFolders'),
+       Projects = require('../model/Projects'),
        StorageCreated = require('../model/StorageCreated'),
-       CreateStorage = require('../model/CreateStorage');
+       TopFolders = require('../model/TopFolders');
 
   /**
    * Projects service.

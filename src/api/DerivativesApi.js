@@ -28,12 +28,12 @@ module.exports = (function() {
 
    var ApiClient = require('../ApiClient'),
        Diagnostics = require('../model/Diagnostics'),
-       Result = require('../model/Result'),
        Formats = require('../model/Formats'),
+       Job = require('../model/Job'),
+       JobPayload = require('../model/JobPayload'),
        Manifest = require('../model/Manifest'),
        Metadata = require('../model/Metadata'),
-       Job = require('../model/Job'),
-       JobPayload = require('../model/JobPayload');
+       Result = require('../model/Result');
 
   /**
    * Derivatives service.
