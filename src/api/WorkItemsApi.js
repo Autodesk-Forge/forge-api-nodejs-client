@@ -27,8 +27,8 @@ module.exports = (function() {
    'use strict';
 
    var ApiClient = require('../ApiClient'),
-       WorkItemResp = require('../model/WorkItemResp'),
-       WorkItem = require('../model/WorkItem');
+       WorkItem = require('../model/WorkItem'),
+       WorkItemResp = require('../model/WorkItemResp');
 
   /**
    * WorkItems service.

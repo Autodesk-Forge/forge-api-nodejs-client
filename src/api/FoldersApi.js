@@ -28,13 +28,13 @@ module.exports = (function() {
 
    var ApiClient = require('../ApiClient'),
        BadInput = require('../model/BadInput'),
-       Forbidden = require('../model/Forbidden'),
-       Folder = require('../model/Folder'),
-       NotFound = require('../model/NotFound'),
-       JsonApiCollection = require('../model/JsonApiCollection'),
-       Refs = require('../model/Refs'),
        Conflict = require('../model/Conflict'),
-       CreateRef = require('../model/CreateRef');
+       CreateRef = require('../model/CreateRef'),
+       Folder = require('../model/Folder'),
+       Forbidden = require('../model/Forbidden'),
+       JsonApiCollection = require('../model/JsonApiCollection'),
+       NotFound = require('../model/NotFound'),
+       Refs = require('../model/Refs');
 
   /**
    * Folders service.

@@ -250,6 +250,73 @@ module.exports = (function() {
                 });
             });
 
+
+            it('able to call api successfully with form-data', function(done){
+
+                var path = '/',
+                    httpMethod = 'DELETE',
+                    pathParams = {'urn': 'test_string'},
+                    queryParams = {},
+                    headerParams = {'Custom-Header': 'foo'},
+                    formParams = {},
+                    bodyParam = {},
+                    contentTypes = ['multipart/form-data'],
+                    accepts = ['application/vnd.api+json', 'application/json'],
+                    returnType = ForgeSdk.Result,
+                    credentials = {access_token:'abcdef'};
+
+                console.log(apiClient.basePath)
+
+                nock(apiClient.basePath)
+                    .delete(path)
+                    .reply(200, {
+                        result: 'success'
+                    });
+
+                apiClient.callApi(path, httpMethod, pathParams,
+                    queryParams, headerParams, formParams, bodyParam,
+                    contentTypes, accepts, returnType, oauth2client, credentials).then(function(response){
+                        expect(response.body).to.have.property('result');
+                        expect(response.body.result).to.equal('success');
+                        done();
+                    }, function(err){
+                        done(err);
+                    })
+            });
+
+            it('able to call api successfully with x-www-url-encoded', function(done){
+
+                var path = '/',
+                    httpMethod = 'DELETE',
+                    pathParams = {'urn': 'test_string'},
+                    queryParams = {},
+                    headerParams = {'Custom-Header': 'foo'},
+                    formParams = {},
+                    bodyParam = {},
+                    contentTypes = ['application/x-www-form-urlencoded'],
+                    accepts = ['application/vnd.api+json', 'application/json'],
+                    returnType = ForgeSdk.Result,
+                    credentials = {access_token:'abcdef'};
+
+                console.log(apiClient.basePath)
+
+                nock(apiClient.basePath)
+                    .delete(path)
+                    .reply(200, {
+                        result: 'success'
+                    });
+
+                apiClient.callApi(path, httpMethod, pathParams,
+                    queryParams, headerParams, formParams, bodyParam,
+                    contentTypes, accepts, returnType, oauth2client, credentials).then(function(response){
+                        expect(response.body).to.have.property('result');
+                        expect(response.body.result).to.equal('success');
+                        done();
+                    }, function(err){
+                        done(err);
+                    })
+            });
+
         });
 
     });
