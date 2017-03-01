@@ -35,7 +35,8 @@ module.export = (function() {
       ApiClient = require('../../src/ApiClient'),
       AppPackage = require('../../src/model/AppPackage'),
       AppPackageOptional = require('../../src/model/AppPackageOptional'),
-      AppPackageVersion = require('../../src/model/AppPackageVersion');
+      AppPackageVersion = require('../../src/model/AppPackageVersion'),
+      DesignAutomationAppPackages = require('../../src/model/DesignAutomationAppPackages');
 
   var sampleStrParam = 'test_string';
   var sampleIntParam = 10;
@@ -163,7 +164,7 @@ module.export = (function() {
 
         var contentTypes = ['application/json'];
         var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = [AppPackage];
+        var returnType = DesignAutomationAppPackages;
 
         mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackages', 'GET',
                 pathParams, queryParams, headerParams, formParams, postBody,
@@ -225,7 +226,7 @@ module.export = (function() {
 
         var contentTypes = ['application/json'];
         var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = [AppPackage];
+        var returnType = DesignAutomationAppPackages;
 
         mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackages(%27{id}%27)/Operations.GetVersions', 'GET',
                 pathParams, queryParams, headerParams, formParams, postBody,
@@ -288,7 +289,7 @@ module.export = (function() {
         var accepts = ['application/vnd.api+json', 'application/json'];
         var returnType = null;
 
-        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackage/Operations.GetUploadUrl(RequireContentType={require})', 'GET',
+        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackages/Operations.GetUploadUrl(RequireContentType={require})', 'GET',
                 pathParams, queryParams, headerParams, formParams, postBody,
                 contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 

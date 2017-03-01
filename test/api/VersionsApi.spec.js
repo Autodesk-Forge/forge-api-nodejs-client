@@ -34,16 +34,16 @@ module.export = (function() {
       mockedApiClientRequest,
       ApiClient = require('../../src/ApiClient'),
       BadInput = require('../../src/model/BadInput'),
-      Version = require('../../src/model/Version'),
+      Conflict = require('../../src/model/Conflict'),
+      CreateRef = require('../../src/model/CreateRef'),
+      CreateVersion = require('../../src/model/CreateVersion'),
       Forbidden = require('../../src/model/Forbidden'),
-      NotFound = require('../../src/model/NotFound'),
       Item = require('../../src/model/Item'),
       JsonApiCollection = require('../../src/model/JsonApiCollection'),
+      NotFound = require('../../src/model/NotFound'),
       Refs = require('../../src/model/Refs'),
-      Conflict = require('../../src/model/Conflict'),
-      CreateVersion = require('../../src/model/CreateVersion'),
-      VersionCreated = require('../../src/model/VersionCreated'),
-      CreateRef = require('../../src/model/CreateRef');
+      Version = require('../../src/model/Version'),
+      VersionCreated = require('../../src/model/VersionCreated');
 
   var sampleStrParam = 'test_string';
   var sampleIntParam = 10;

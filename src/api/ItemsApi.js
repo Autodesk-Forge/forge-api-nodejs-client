@@ -27,19 +27,19 @@ module.exports = (function() {
    'use strict';
 
    var ApiClient = require('../ApiClient'),
-       Item = require('../model/Item'),
        BadInput = require('../model/BadInput'),
-       Forbidden = require('../model/Forbidden'),
-       NotFound = require('../model/NotFound'),
-       Folder = require('../model/Folder'),
-       JsonApiCollection = require('../model/JsonApiCollection'),
-       Refs = require('../model/Refs'),
-       Version = require('../model/Version'),
-       Versions = require('../model/Versions'),
-       ItemCreated = require('../model/ItemCreated'),
        Conflict = require('../model/Conflict'),
        CreateItem = require('../model/CreateItem'),
-       CreateRef = require('../model/CreateRef');
+       CreateRef = require('../model/CreateRef'),
+       Folder = require('../model/Folder'),
+       Forbidden = require('../model/Forbidden'),
+       Item = require('../model/Item'),
+       ItemCreated = require('../model/ItemCreated'),
+       JsonApiCollection = require('../model/JsonApiCollection'),
+       NotFound = require('../model/NotFound'),
+       Refs = require('../model/Refs'),
+       Version = require('../model/Version'),
+       Versions = require('../model/Versions');
 
   /**
    * Items service.

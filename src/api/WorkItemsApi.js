@@ -27,8 +27,9 @@ module.exports = (function() {
    'use strict';
 
    var ApiClient = require('../ApiClient'),
-       WorkItemResp = require('../model/WorkItemResp'),
-       WorkItem = require('../model/WorkItem');
+       DesignAutomationWorkItems = require('../model/DesignAutomationWorkItems'),
+       WorkItem = require('../model/WorkItem'),
+       WorkItemResp = require('../model/WorkItemResp');
 
   /**
    * WorkItems service.
@@ -126,7 +127,7 @@ module.exports = (function() {
      * Returns the details of all WorkItems.
      * @param {Object} opts Optional parameters
      * @param {Integer} opts.skip 
-     * data is of type: {Array.<module:model/WorkItemResp>}
+     * data is of type: {module:model/DesignAutomationWorkItems}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -147,7 +148,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = [WorkItemResp];
+      var returnType = DesignAutomationWorkItems;
 
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/WorkItems', 'GET',

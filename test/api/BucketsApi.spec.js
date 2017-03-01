@@ -33,10 +33,10 @@ module.export = (function() {
       credentials,
       mockedApiClientRequest,
       ApiClient = require('../../src/ApiClient'),
-      PostBucketsPayload = require('../../src/model/PostBucketsPayload'),
       Bucket = require('../../src/model/Bucket'),
-      Reason = require('../../src/model/Reason'),
-      Buckets = require('../../src/model/Buckets');
+      Buckets = require('../../src/model/Buckets'),
+      PostBucketsPayload = require('../../src/model/PostBucketsPayload'),
+      Reason = require('../../src/model/Reason');
 
   var sampleStrParam = 'test_string';
   var sampleIntParam = 10;

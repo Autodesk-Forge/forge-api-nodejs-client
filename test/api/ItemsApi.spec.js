@@ -33,19 +33,19 @@ module.export = (function() {
       credentials,
       mockedApiClientRequest,
       ApiClient = require('../../src/ApiClient'),
-      Item = require('../../src/model/Item'),
       BadInput = require('../../src/model/BadInput'),
-      Forbidden = require('../../src/model/Forbidden'),
-      NotFound = require('../../src/model/NotFound'),
-      Folder = require('../../src/model/Folder'),
-      JsonApiCollection = require('../../src/model/JsonApiCollection'),
-      Refs = require('../../src/model/Refs'),
-      Version = require('../../src/model/Version'),
-      Versions = require('../../src/model/Versions'),
-      ItemCreated = require('../../src/model/ItemCreated'),
       Conflict = require('../../src/model/Conflict'),
       CreateItem = require('../../src/model/CreateItem'),
-      CreateRef = require('../../src/model/CreateRef');
+      CreateRef = require('../../src/model/CreateRef'),
+      Folder = require('../../src/model/Folder'),
+      Forbidden = require('../../src/model/Forbidden'),
+      Item = require('../../src/model/Item'),
+      ItemCreated = require('../../src/model/ItemCreated'),
+      JsonApiCollection = require('../../src/model/JsonApiCollection'),
+      NotFound = require('../../src/model/NotFound'),
+      Refs = require('../../src/model/Refs'),
+      Version = require('../../src/model/Version'),
+      Versions = require('../../src/model/Versions');
 
   var sampleStrParam = 'test_string';
   var sampleIntParam = 10;

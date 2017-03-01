@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**getAppPackage**](AppPackagesApi.md#getAppPackage) | **GET** /autocad.io/us-east/v2/AppPackages(%27{id}%27) | Returns the details of a specific AppPackage.
 [**getAppPackageVersions**](AppPackagesApi.md#getAppPackageVersions) | **GET** /autocad.io/us-east/v2/AppPackages(%27{id}%27)/Operations.GetVersions | Returns all old versions of a specified AppPackage.
 [**getUploadUrl**](AppPackagesApi.md#getUploadUrl) | **GET** /autocad.io/us-east/v2/AppPackages/Operations.GetUploadUrl | Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage.
-[**getUploadUrlWithRequireContentType**](AppPackagesApi.md#getUploadUrlWithRequireContentType) | **GET** /autocad.io/us-east/v2/AppPackage/Operations.GetUploadUrl(RequireContentType&#x3D;{require}) | Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage. Unlike the GetUploadUrl method that takes no parameters, this method allows the client to request that the pre-signed URL to be issued so that the subsequent HTTP PUT operation will require Content-Type&#x3D;binary/octet-stream.
+[**getUploadUrlWithRequireContentType**](AppPackagesApi.md#getUploadUrlWithRequireContentType) | **GET** /autocad.io/us-east/v2/AppPackages/Operations.GetUploadUrl(RequireContentType&#x3D;{require}) | Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage. Unlike the GetUploadUrl method that takes no parameters, this method allows the client to request that the pre-signed URL to be issued so that the subsequent HTTP PUT operation will require Content-Type&#x3D;binary/octet-stream.
 [**patchAppPackage**](AppPackagesApi.md#patchAppPackage) | **PATCH** /autocad.io/us-east/v2/AppPackages(%27{id}%27) | Updates an AppPackage by specifying only the changed attributes.
 [**setAppPackageVersion**](AppPackagesApi.md#setAppPackageVersion) | **POST** /autocad.io/us-east/v2/AppPackages(%27{id}%27)/Operations.SetVersion | Sets the AppPackage to the specified version.
 [**updateAppPackage**](AppPackagesApi.md#updateAppPackage) | **PUT** /autocad.io/us-east/v2/AppPackages(%27{id}%27) | Updates an AppPackage by redefining the entire Activity object.
@@ -94,7 +94,7 @@ null (empty response body)
 
 <a name="getAllAppPackages"></a>
 # **getAllAppPackages**
-> [AppPackage] getAllAppPackages(oauth2client, credentials)
+> DesignAutomationAppPackages getAllAppPackages(oauth2client, credentials)
 
 Returns the details of all AppPackages.
 
@@ -103,7 +103,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**[AppPackage]**](AppPackage.md)
+[**DesignAutomationAppPackages**](DesignAutomationAppPackages.md)
 
 ### Authorization
 
@@ -141,7 +141,7 @@ Name | Type | Description  | Notes
 
 <a name="getAppPackageVersions"></a>
 # **getAppPackageVersions**
-> [AppPackage] getAppPackageVersions(id, oauth2client, credentials)
+> DesignAutomationAppPackages getAppPackageVersions(id, oauth2client, credentials)
 
 Returns all old versions of a specified AppPackage.
 
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[AppPackage]**](AppPackage.md)
+[**DesignAutomationAppPackages**](DesignAutomationAppPackages.md)
 
 ### Authorization
 

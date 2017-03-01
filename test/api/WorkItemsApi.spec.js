@@ -33,8 +33,9 @@ module.export = (function() {
       credentials,
       mockedApiClientRequest,
       ApiClient = require('../../src/ApiClient'),
-      WorkItemResp = require('../../src/model/WorkItemResp'),
-      WorkItem = require('../../src/model/WorkItem');
+      DesignAutomationWorkItems = require('../../src/model/DesignAutomationWorkItems'),
+      WorkItem = require('../../src/model/WorkItem'),
+      WorkItemResp = require('../../src/model/WorkItemResp');
 
   var sampleStrParam = 'test_string';
   var sampleIntParam = 10;
@@ -132,7 +133,7 @@ module.export = (function() {
 
         var contentTypes = ['application/json'];
         var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = [WorkItemResp];
+        var returnType = DesignAutomationWorkItems;
 
         mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/WorkItems', 'GET',
                 pathParams, queryParams, headerParams, formParams, postBody,

@@ -33,15 +33,15 @@ module.export = (function() {
       credentials,
       mockedApiClientRequest,
       ApiClient = require('../../src/ApiClient'),
-      Projects = require('../../src/model/Projects'),
+      BadInput = require('../../src/model/BadInput'),
+      CreateStorage = require('../../src/model/CreateStorage'),
       Forbidden = require('../../src/model/Forbidden'),
+      Hub = require('../../src/model/Hub'),
       NotFound = require('../../src/model/NotFound'),
       Project = require('../../src/model/Project'),
-      Hub = require('../../src/model/Hub'),
-      BadInput = require('../../src/model/BadInput'),
-      TopFolders = require('../../src/model/TopFolders'),
+      Projects = require('../../src/model/Projects'),
       StorageCreated = require('../../src/model/StorageCreated'),
-      CreateStorage = require('../../src/model/CreateStorage');
+      TopFolders = require('../../src/model/TopFolders');
 
   var sampleStrParam = 'test_string';
   var sampleIntParam = 10;

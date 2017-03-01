@@ -27,10 +27,10 @@ module.exports = (function() {
    'use strict';
 
    var ApiClient = require('../ApiClient'),
-       PostBucketsPayload = require('../model/PostBucketsPayload'),
        Bucket = require('../model/Bucket'),
-       Reason = require('../model/Reason'),
-       Buckets = require('../model/Buckets');
+       Buckets = require('../model/Buckets'),
+       PostBucketsPayload = require('../model/PostBucketsPayload'),
+       Reason = require('../model/Reason');
 
   /**
    * Buckets service.

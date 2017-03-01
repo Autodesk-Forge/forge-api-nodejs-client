@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 <a name="getAllEngines"></a>
 # **getAllEngines**
-> [Engine] getAllEngines(oauth2client, credentials)
+> DesignAutomationEngines getAllEngines(oauth2client, credentials)
 
 Returns the details of all available AutoCAD core engines.
 
@@ -19,7 +19,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**[Engine]**](Engine.md)
+[**DesignAutomationEngines**](DesignAutomationEngines.md)
 
 ### Authorization
 

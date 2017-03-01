@@ -27,6 +27,7 @@ module.exports = (function() {
    'use strict';
 
    var ApiClient = require('../ApiClient'),
+       DesignAutomationEngines = require('../model/DesignAutomationEngines'),
        Engine = require('../model/Engine');
 
   /**
@@ -49,7 +50,7 @@ module.exports = (function() {
 
     /**
      * Returns the details of all available AutoCAD core engines.
-     * data is of type: {Array.<module:model/Engine>}
+     * data is of type: {module:model/DesignAutomationEngines}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -68,7 +69,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = [Engine];
+      var returnType = DesignAutomationEngines;
 
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Engines', 'GET',

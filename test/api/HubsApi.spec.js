@@ -33,10 +33,10 @@ module.export = (function() {
       credentials,
       mockedApiClientRequest,
       ApiClient = require('../../src/ApiClient'),
-      Hub = require('../../src/model/Hub'),
       Forbidden = require('../../src/model/Forbidden'),
-      NotFound = require('../../src/model/NotFound'),
-      Hubs = require('../../src/model/Hubs');
+      Hub = require('../../src/model/Hub'),
+      Hubs = require('../../src/model/Hubs'),
+      NotFound = require('../../src/model/NotFound');
 
   var sampleStrParam = 'test_string';
   var sampleIntParam = 10;

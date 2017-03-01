@@ -64,6 +64,10 @@ module.exports = (function() {
       CreateVersionDataRelationships = require('./model/CreateVersionDataRelationships'),
       CreateVersionDataRelationshipsItem = require('./model/CreateVersionDataRelationshipsItem'),
       CreateVersionDataRelationshipsItemData = require('./model/CreateVersionDataRelationshipsItemData'),
+      DesignAutomationActivities = require('./model/DesignAutomationActivities'),
+      DesignAutomationAppPackages = require('./model/DesignAutomationAppPackages'),
+      DesignAutomationEngines = require('./model/DesignAutomationEngines'),
+      DesignAutomationWorkItems = require('./model/DesignAutomationWorkItems'),
       Diagnostics = require('./model/Diagnostics'),
       Engine = require('./model/Engine'),
       Folder = require('./model/Folder'),
@@ -406,6 +410,26 @@ module.exports = (function() {
      * @property {module:model/CreateVersionDataRelationshipsItemData}
      */
     CreateVersionDataRelationshipsItemData: CreateVersionDataRelationshipsItemData,
+    /**
+     * The DesignAutomationActivities model constructor.
+     * @property {module:model/DesignAutomationActivities}
+     */
+    DesignAutomationActivities: DesignAutomationActivities,
+    /**
+     * The DesignAutomationAppPackages model constructor.
+     * @property {module:model/DesignAutomationAppPackages}
+     */
+    DesignAutomationAppPackages: DesignAutomationAppPackages,
+    /**
+     * The DesignAutomationEngines model constructor.
+     * @property {module:model/DesignAutomationEngines}
+     */
+    DesignAutomationEngines: DesignAutomationEngines,
+    /**
+     * The DesignAutomationWorkItems model constructor.
+     * @property {module:model/DesignAutomationWorkItems}
+     */
+    DesignAutomationWorkItems: DesignAutomationWorkItems,
     /**
      * The Diagnostics model constructor.
      * @property {module:model/Diagnostics}

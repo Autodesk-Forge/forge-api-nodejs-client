@@ -33,6 +33,7 @@ module.export = (function() {
       credentials,
       mockedApiClientRequest,
       ApiClient = require('../../src/ApiClient'),
+      DesignAutomationEngines = require('../../src/model/DesignAutomationEngines'),
       Engine = require('../../src/model/Engine');
 
   var sampleStrParam = 'test_string';
@@ -69,7 +70,7 @@ module.export = (function() {
 
         var contentTypes = ['application/json'];
         var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = [Engine];
+        var returnType = DesignAutomationEngines;
 
         mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Engines', 'GET',
                 pathParams, queryParams, headerParams, formParams, postBody,

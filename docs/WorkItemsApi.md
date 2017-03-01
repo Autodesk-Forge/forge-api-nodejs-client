@@ -62,7 +62,7 @@ null (empty response body)
 
 <a name="getAllWorkItems"></a>
 # **getAllWorkItems**
-> [WorkItemResp] getAllWorkItems(opts, oauth2client, credentials)
+> DesignAutomationWorkItems getAllWorkItems(opts, oauth2client, credentials)
 
 Returns the details of all WorkItems.
 
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[WorkItemResp]**](WorkItemResp.md)
+[**DesignAutomationWorkItems**](DesignAutomationWorkItems.md)
 
 ### Authorization
 

@@ -29,7 +29,8 @@ module.exports = (function() {
    var ApiClient = require('../ApiClient'),
        AppPackage = require('../model/AppPackage'),
        AppPackageOptional = require('../model/AppPackageOptional'),
-       AppPackageVersion = require('../model/AppPackageVersion');
+       AppPackageVersion = require('../model/AppPackageVersion'),
+       DesignAutomationAppPackages = require('../model/DesignAutomationAppPackages');
 
   /**
    * AppPackages service.
@@ -162,7 +163,7 @@ module.exports = (function() {
 
     /**
      * Returns the details of all AppPackages.
-     * data is of type: {Array.<module:model/AppPackage>}
+     * data is of type: {module:model/DesignAutomationAppPackages}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -181,7 +182,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = [AppPackage];
+      var returnType = DesignAutomationAppPackages;
 
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/AppPackages', 'GET',
@@ -232,7 +233,7 @@ module.exports = (function() {
     /**
      * Returns all old versions of a specified AppPackage.
      * @param {String} id 
-     * data is of type: {Array.<module:model/AppPackage>}
+     * data is of type: {module:model/DesignAutomationAppPackages}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -257,7 +258,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = [AppPackage];
+      var returnType = DesignAutomationAppPackages;
 
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/AppPackages(%27{id}%27)/Operations.GetVersions', 'GET',
@@ -327,7 +328,7 @@ module.exports = (function() {
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/autocad.io/us-east/v2/AppPackage/Operations.GetUploadUrl(RequireContentType={require})', 'GET',
+        '/autocad.io/us-east/v2/AppPackages/Operations.GetUploadUrl(RequireContentType={require})', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, oauth2client, credentials
       );

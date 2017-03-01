@@ -34,12 +34,12 @@ module.export = (function() {
       mockedApiClientRequest,
       ApiClient = require('../../src/ApiClient'),
       Diagnostics = require('../../src/model/Diagnostics'),
-      Result = require('../../src/model/Result'),
       Formats = require('../../src/model/Formats'),
+      Job = require('../../src/model/Job'),
+      JobPayload = require('../../src/model/JobPayload'),
       Manifest = require('../../src/model/Manifest'),
       Metadata = require('../../src/model/Metadata'),
-      Job = require('../../src/model/Job'),
-      JobPayload = require('../../src/model/JobPayload');
+      Result = require('../../src/model/Result');
 
   var sampleStrParam = 'test_string';
   var sampleIntParam = 10;

@@ -35,7 +35,8 @@ module.export = (function() {
       ApiClient = require('../../src/ApiClient'),
       Activity = require('../../src/model/Activity'),
       ActivityOptional = require('../../src/model/ActivityOptional'),
-      ActivityVersion = require('../../src/model/ActivityVersion');
+      ActivityVersion = require('../../src/model/ActivityVersion'),
+      DesignAutomationActivities = require('../../src/model/DesignAutomationActivities');
 
   var sampleStrParam = 'test_string';
   var sampleIntParam = 10;
@@ -195,7 +196,7 @@ module.export = (function() {
 
         var contentTypes = ['application/json'];
         var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = [Activity];
+        var returnType = DesignAutomationActivities;
 
         mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.GetVersions', 'GET',
                 pathParams, queryParams, headerParams, formParams, postBody,
@@ -225,7 +226,7 @@ module.export = (function() {
 
         var contentTypes = ['application/json'];
         var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = [Activity];
+        var returnType = DesignAutomationActivities;
 
         mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities', 'GET',
                 pathParams, queryParams, headerParams, formParams, postBody,
@@ -294,37 +295,6 @@ module.export = (function() {
                 contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
         instance.setActivityVersion(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('updateActivity', function() {
-      it('should call updateActivity successfully', function(done) {
-
-        var postBody = sampleStrParam;
-
-        var pathParams = { 
-        'id': sampleStrParam
-        };
-        var queryParams = { 
-        };
-        var headerParams = { 
-        };
-        var formParams = { 
-        };
-
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = null;
-
-        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities(%27{id}%27)', 'PUT',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
-
-        instance.updateActivity(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
             expect(response).to.be.ok();
             done();
         }, function(err){

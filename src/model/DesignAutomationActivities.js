@@ -25,55 +25,62 @@
 module.exports = (function() {
   'use strict';
 
-  var ApiClient = require('../ApiClient');
+  var ApiClient = require('../ApiClient'),
+      Activity = require('./Activity');
 
 
 
   /**
-   * The InputStream model module.
-   * @module model/InputStream
-   * @version 0.2.4
+   * The DesignAutomationActivities model module.
+   * @module model/DesignAutomationActivities
    */
 
    /**
-    * Constructs a <code>InputStream</code> from a plain JavaScript object, optionally creating a new instance.
+    * Constructs a <code>DesignAutomationActivities</code> from a plain JavaScript object, optionally creating a new instance.
     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
     * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/InputStream} obj Optional instance to populate.
-    * @return {module:model/InputStream} The populated <code>InputStream</code> instance.
+    * @param {module:model/DesignAutomationActivities} obj Optional instance to populate.
+    * @return {module:model/DesignAutomationActivities} The populated <code>DesignAutomationActivities</code> instance.
     */
   var constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
   
+      if (data.hasOwnProperty('value')) {
+        obj['value'] = ApiClient.convertToType(data['value'], [Activity]);
+      }
     }
     return obj;
   };
 
   /**
-   * Constructs a new <code>InputStream</code>.
-   * application/octet_stream body support
-   * @alias module:model/InputStream
+   * Constructs a new <code>DesignAutomationActivities</code>.
+   * @alias module:model/DesignAutomationActivities
    * @class
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
-   * @param {module:model/InputStream} obj Optional instance to populate.
+   * @param {module:model/DesignAutomationActivities} obj Optional instance to populate.
    */
   var exports = function(theData, obj) {
     var _this = this;
+
 
 
     return constructFromObject(theData, obj);
   };
 
   /**
-   * Constructs a <code>InputStream</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>DesignAutomationActivities</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/InputStream} obj Optional instance to populate.
-   * @return {module:model/InputStream} The populated <code>InputStream</code> instance.
+   * @param {module:model/DesignAutomationActivities} obj Optional instance to populate.
+   * @return {module:model/DesignAutomationActivities} The populated <code>DesignAutomationActivities</code> instance.
    */
   exports.constructFromObject = constructFromObject;
 
+  /**
+   * @member {Array.<module:model/Activity>} value
+   */
+  exports.prototype['value'] = undefined;
 
 
 

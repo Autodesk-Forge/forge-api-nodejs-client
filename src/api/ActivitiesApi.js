@@ -29,7 +29,8 @@ module.exports = (function() {
    var ApiClient = require('../ApiClient'),
        Activity = require('../model/Activity'),
        ActivityOptional = require('../model/ActivityOptional'),
-       ActivityVersion = require('../model/ActivityVersion');
+       ActivityVersion = require('../model/ActivityVersion'),
+       DesignAutomationActivities = require('../model/DesignAutomationActivities');
 
   /**
    * Activities service.
@@ -201,7 +202,7 @@ module.exports = (function() {
     /**
      * Returns all old versions of a specified Activity.
      * @param {String} id 
-     * data is of type: {Array.<module:model/Activity>}
+     * data is of type: {module:model/DesignAutomationActivities}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -226,7 +227,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = [Activity];
+      var returnType = DesignAutomationActivities;
 
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.GetVersions', 'GET',
@@ -238,7 +239,7 @@ module.exports = (function() {
 
     /**
      * Returns the details of all Activities.
-     * data is of type: {Array.<module:model/Activity>}
+     * data is of type: {module:model/DesignAutomationActivities}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -257,7 +258,7 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = [Activity];
+      var returnType = DesignAutomationActivities;
 
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Activities', 'GET',
@@ -347,49 +348,6 @@ module.exports = (function() {
 
       return this.apiClient.callApi(
         '/autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.SetVersion', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
-
-
-    /**
-     * Updates an Activity by redefining the entire Activity object.
-     * @param {String} id 
-     * @param {module:model/Activity} activity 
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.updateActivity = function(id, activity, oauth2client, credentials) {
-      var postBody = activity;
-
-      // verify the required parameter 'id' is set
-      if (id == undefined || id == null) {
-        return Promise.reject("Missing the required parameter 'id' when calling updateActivity");
-      }
-
-      // verify the required parameter 'activity' is set
-      if (activity == undefined || activity == null) {
-        return Promise.reject("Missing the required parameter 'activity' when calling updateActivity");
-      }
-
-
-      var pathParams = {
-        'id': id
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var contentTypes = ['application/json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/autocad.io/us-east/v2/Activities(%27{id}%27)', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, oauth2client, credentials
       );

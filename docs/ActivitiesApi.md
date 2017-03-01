@@ -12,7 +12,6 @@ Method | HTTP request | Description
 [**getAllActivities**](ActivitiesApi.md#getAllActivities) | **GET** /autocad.io/us-east/v2/Activities | Returns the details of all Activities.
 [**patchActivity**](ActivitiesApi.md#patchActivity) | **PATCH** /autocad.io/us-east/v2/Activities(%27{id}%27) | Updates an Activity by specifying only the changed attributes.
 [**setActivityVersion**](ActivitiesApi.md#setActivityVersion) | **POST** /autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.SetVersion | Sets the Activity to the specified version.
-[**updateActivity**](ActivitiesApi.md#updateActivity) | **PUT** /autocad.io/us-east/v2/Activities(%27{id}%27) | Updates an Activity by redefining the entire Activity object.
 
 
 <a name="createActivity"></a>
@@ -117,7 +116,7 @@ Name | Type | Description  | Notes
 
 <a name="getActivityVersions"></a>
 # **getActivityVersions**
-> [Activity] getActivityVersions(id, oauth2client, credentials)
+> DesignAutomationActivities getActivityVersions(id, oauth2client, credentials)
 
 Returns all old versions of a specified Activity.
 
@@ -129,7 +128,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[Activity]**](Activity.md)
+[**DesignAutomationActivities**](DesignAutomationActivities.md)
 
 ### Authorization
 
@@ -142,7 +141,7 @@ Name | Type | Description  | Notes
 
 <a name="getAllActivities"></a>
 # **getAllActivities**
-> [Activity] getAllActivities(oauth2client, credentials)
+> DesignAutomationActivities getAllActivities(oauth2client, credentials)
 
 Returns the details of all Activities.
 
@@ -151,7 +150,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**[Activity]**](Activity.md)
+[**DesignAutomationActivities**](DesignAutomationActivities.md)
 
 ### Authorization
 
@@ -200,32 +199,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  | 
  **activityVersion** | [**ActivityVersion**](ActivityVersion.md)|  | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[oauth2_application](../README.md#authentication)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/vnd.api+json, application/json
-
-<a name="updateActivity"></a>
-# **updateActivity**
-> updateActivity(id, activity, oauth2client, credentials)
-
-Updates an Activity by redefining the entire Activity object.
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **activity** | [**Activity**](Activity.md)|  | 
 
 ### Return type
 

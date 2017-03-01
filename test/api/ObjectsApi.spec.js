@@ -33,11 +33,11 @@ module.export = (function() {
       credentials,
       mockedApiClientRequest,
       ApiClient = require('../../src/ApiClient'),
-      ObjectDetails = require('../../src/model/ObjectDetails'),
-      PostObjectSigned = require('../../src/model/PostObjectSigned'),
-      PostBucketsSigned = require('../../src/model/PostBucketsSigned'),
-      ObjectFullDetails = require('../../src/model/ObjectFullDetails'),
       BucketObjects = require('../../src/model/BucketObjects'),
+      ObjectDetails = require('../../src/model/ObjectDetails'),
+      ObjectFullDetails = require('../../src/model/ObjectFullDetails'),
+      PostBucketsSigned = require('../../src/model/PostBucketsSigned'),
+      PostObjectSigned = require('../../src/model/PostObjectSigned'),
       Reason = require('../../src/model/Reason'),
       Result = require('../../src/model/Result');
 
