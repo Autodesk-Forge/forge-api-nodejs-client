@@ -29,7 +29,6 @@ module.exports = (function() {
    var ApiClient = require('../ApiClient'),
        BadInput = require('../model/BadInput'),
        Conflict = require('../model/Conflict'),
-       CreateFolder = require('../model/CreateFolder'),
        CreateRef = require('../model/CreateRef'),
        Folder = require('../model/Folder'),
        Forbidden = require('../model/Forbidden'),
