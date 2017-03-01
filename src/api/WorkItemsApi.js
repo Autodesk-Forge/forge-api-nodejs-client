@@ -28,6 +28,7 @@ module.exports = (function() {
 
    var ApiClient = require('../ApiClient'),
        DesignAutomationWorkItems = require('../model/DesignAutomationWorkItems'),
+       WorkItem = require('../model/WorkItem'),
        WorkItemResp = require('../model/WorkItemResp');
 
   /**
