@@ -29,7 +29,7 @@ module.exports = (function() {
 
   /**
    * @module ApiClient
-   * @version 0.2.7
+   * @version 0.3.0
    */
 
   /**
@@ -253,7 +253,7 @@ module.exports = (function() {
        // let's see if the token is already expired?
        // be careful access tokens are validated once teh query was received by the server, not when emitted
        // for this reason, we need to aknowledge the time to upload payload/file/etc... (300 == 5min)
-       if (oauth2client.autoRefresh && new Date(credentials.expires_at - 300).getTime() <= Date.now()) {
+       if (oauth2client && oauth2client.autoRefresh && new Date(credentials.expires_at - 300).getTime() <= Date.now()) {
 
          // set the correct promiseObj, for 2 or 3 legged token
          var isCredentialsTypeTwoLegged = true;

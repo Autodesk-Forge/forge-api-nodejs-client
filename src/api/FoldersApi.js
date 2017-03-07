@@ -39,7 +39,7 @@ module.exports = (function() {
   /**
    * Folders service.
    * @module api/FoldersApi
-   * @version 0.2.7
+   * @version 0.3.0
    */
 
   /**
