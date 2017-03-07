@@ -27,18 +27,17 @@ module.exports = (function() {
    'use strict';
 
    var ApiClient = require('../ApiClient'),
-       DesignAutomationEngines = require('../model/DesignAutomationEngines'),
-       Engine = require('../model/Engine');
+       UserProfile = require('../model/UserProfile');
 
   /**
-   * Engines service.
-   * @module api/EnginesApi
+   * UserProfile service.
+   * @module api/UserProfileApi
    * @version 0.3.0
    */
 
   /**
-   * Constructs a new EnginesApi. 
-   * @alias module:api/EnginesApi
+   * Constructs a new UserProfileApi. 
+   * @alias module:api/UserProfileApi
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
    * default to {@link module:ApiClient#instance} if unspecified.
@@ -49,12 +48,13 @@ module.exports = (function() {
 
 
     /**
-     * Returns the details of all available AutoCAD core engines.
-     * data is of type: {module:model/DesignAutomationEngines}
+     * Returns the profile information of an authorizing end user.
+     * data is of type: {module:model/UserProfile}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
-    this.getAllEngines = function(oauth2client, credentials) {
+    this.getUserProfile = function(oauth2client, credentials) {
+      console.log("inside userProfileApi.js");
       var postBody = null;
 
 
@@ -69,48 +69,10 @@ module.exports = (function() {
 
       var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = DesignAutomationEngines;
-
+      var returnType = UserProfile;
+console.log("inside userProfileApi.js");
       return this.apiClient.callApi(
-        '/autocad.io/us-east/v2/Engines', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
-
-
-    /**
-     * Returns the details of a specific AutoCAD core engine.
-     * @param {String} id 
-     * data is of type: {module:model/Engine}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.getEngine = function(id, oauth2client, credentials) {
-      var postBody = null;
-
-      // verify the required parameter 'id' is set
-      if (id == undefined || id == null) {
-        return Promise.reject("Missing the required parameter 'id' when calling getEngine");
-      }
-
-
-      var pathParams = {
-        'id': id
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var contentTypes = ['application/json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Engine;
-
-      return this.apiClient.callApi(
-        '/autocad.io/us-east/v2/Engines(%27{id}%27)', 'GET',
+        '/userprofile/v1/users/@me', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, oauth2client, credentials
       );

@@ -1,7 +1,7 @@
 # Forge Node.js SDK
 
 ## Overview
-This [Node.js](https://nodejs.org/) SDK (version 0.2.7) enables you to easily integrate the Forge REST APIs
+This [Node.js](https://nodejs.org/) SDK (version 0.3.0) enables you to easily integrate the Forge REST APIs
 into your application, including [OAuth](https://developer.autodesk.com/en/docs/oauth/v2/overview/),
 [Data Management](https://developer.autodesk.com/en/docs/data/v2/overview/),
 [Model Derivative](https://developer.autodesk.com/en/docs/model-derivative/v2/overview/),
@@ -214,6 +214,7 @@ Class | Method | HTTP request | Description
 *ForgeSdk.ProjectsApi* | [**getProjectHub**](docs/ProjectsApi.md#getProjectHub) | **GET** /project/v1/hubs/{hub_id}/projects/{project_id}/hub | 
 *ForgeSdk.ProjectsApi* | [**getProjectTopFolders**](docs/ProjectsApi.md#getProjectTopFolders) | **GET** /project/v1/hubs/{hub_id}/projects/{project_id}/topFolders | 
 *ForgeSdk.ProjectsApi* | [**postStorage**](docs/ProjectsApi.md#postStorage) | **POST** /data/v1/projects/{project_id}/storage | 
+*ForgeSdk.UserProfileApi* | [**getUserProfile**](docs/UserProfileApi.md#getUserProfile) | **GET** /userprofile/v1/users/@me | Returns the profile information of an authorizing end user.
 *ForgeSdk.VersionsApi* | [**getVersion**](docs/VersionsApi.md#getVersion) | **GET** /data/v1/projects/{project_id}/versions/{version_id} | 
 *ForgeSdk.VersionsApi* | [**getVersionItem**](docs/VersionsApi.md#getVersionItem) | **GET** /data/v1/projects/{project_id}/versions/{version_id}/item | 
 *ForgeSdk.VersionsApi* | [**getVersionRefs**](docs/VersionsApi.md#getVersionRefs) | **GET** /data/v1/projects/{project_id}/versions/{version_id}/refs | 

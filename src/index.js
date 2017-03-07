@@ -160,6 +160,8 @@ module.exports = (function() {
       StorageRelationshipsTarget = require('./model/StorageRelationshipsTarget'),
       StorageRelationshipsTargetData = require('./model/StorageRelationshipsTargetData'),
       TopFolders = require('./model/TopFolders'),
+      UserProfile = require('./model/UserProfile'),
+      UserProfileProfileImages = require('./model/UserProfileProfileImages'),
       Version = require('./model/Version'),
       VersionAttributes = require('./model/VersionAttributes'),
       VersionCreated = require('./model/VersionCreated'),
@@ -177,6 +179,7 @@ module.exports = (function() {
       ItemsApi = require('./api/ItemsApi'),
       ObjectsApi = require('./api/ObjectsApi'),
       ProjectsApi = require('./api/ProjectsApi'),
+      UserProfileApi = require('./api/UserProfileApi'),
       VersionsApi = require('./api/VersionsApi'),
       WorkItemsApi = require('./api/WorkItemsApi'),
       authClientTwoLegged = require('./auth/OAuth2TwoLegged'),
@@ -212,7 +215,7 @@ module.exports = (function() {
    * </pre>
    * </p>
    * @module index
-   * @version 0.2.7
+   * @version 0.3.0
    */
   var exports = {
     /**
@@ -891,6 +894,16 @@ module.exports = (function() {
      */
     TopFolders: TopFolders,
     /**
+     * The UserProfile model constructor.
+     * @property {module:model/UserProfile}
+     */
+    UserProfile: UserProfile,
+    /**
+     * The UserProfileProfileImages model constructor.
+     * @property {module:model/UserProfileProfileImages}
+     */
+    UserProfileProfileImages: UserProfileProfileImages,
+    /**
      * The Version model constructor.
      * @property {module:model/Version}
      */
@@ -975,6 +988,11 @@ module.exports = (function() {
      * @property {module:api/ProjectsApi}
      */
     ProjectsApi: ProjectsApi,
+    /**
+     * The UserProfileApi service constructor.
+     * @property {module:api/UserProfileApi}
+     */
+    UserProfileApi: UserProfileApi,
     /**
      * The VersionsApi service constructor.
      * @property {module:api/VersionsApi}
