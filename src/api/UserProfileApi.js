@@ -54,7 +54,6 @@ module.exports = (function() {
      * @param {Object} credentials credentials for the call
      */
     this.getUserProfile = function(oauth2client, credentials) {
-      console.log("inside userProfileApi.js");
       var postBody = null;
 
 
@@ -70,7 +69,7 @@ module.exports = (function() {
       var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
       var returnType = UserProfile;
-console.log("inside userProfileApi.js");
+
       return this.apiClient.callApi(
         '/userprofile/v1/users/@me', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
