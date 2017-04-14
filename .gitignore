@@ -19,3 +19,4 @@ coverage
 
 # IDE
 .idea
+.vscode

@@ -140,7 +140,6 @@ module.exports = (function() {
             });
         });
 
-
         describe('OAuth2 three-legged client', function() {
             it('should have redirectUri property', function () {
                 expect(oauth2client3legged).to.have.property('redirectUri');
@@ -150,6 +149,7 @@ module.exports = (function() {
                 expect(oauth2client3legged.generateAuthUrl).to.be.a(Function);
                 expect(oauth2client3legged.generateAuthUrl()).to.contain('authentication/v1/authorize');
                 expect(oauth2client3legged.generateAuthUrl()).to.contain('response_type=code');
+                expect(oauth2client3legged.generateAuthUrl('state-test')).to.contain('state=state-test');
             });
 
             it('getToken should work', function (done) {

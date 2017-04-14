@@ -76,21 +76,20 @@ module.exports = (function () {
     /**
      * Get Authorize URL
      */
-    OAuth2ThreeLegged.prototype.generateAuthUrl = function () {
+    OAuth2ThreeLegged.prototype.generateAuthUrl = function (state) {
         if (this.authentication && this.authentication.authorizationUrl) {
             var redirectionUrl = this.basePath + this.authentication.authorizationUrl +
                 '?response_type=code' +
                 '&client_id=' + this.clientId +
                 '&redirect_uri=' + this.redirectUri +
-                '&scope=' + this.scope;
+                '&scope=' + this.scope +
+                '&state=' + state;
 
             return redirectionUrl;
         } else {
             ApiClient.debug('authorizationUrl is not defined in the authentication object');
             return new Error('authorizationUrl is not defined in the authentication object');
         }
-
-
     };
 
     /**
