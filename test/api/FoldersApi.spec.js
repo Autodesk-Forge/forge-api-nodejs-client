@@ -295,6 +295,52 @@ module.export = (function() {
         });
       });
     });
+
+    describe('search', function() {
+      it('should call search successfully', function(done) {
+        var filters = {
+          type: sampleStrParam,
+          id: sampleStrParam,
+          createTime: sampleStrParam,
+          mimeType: sampleStrParam
+        };
+        var pageNumber = sampleIntParam;
+        var pageLimit = sampleIntParam;
+        var postBody = null;
+
+        var pathParams = {
+          'project_id': sampleStrParam,
+          'folder_id': sampleStrParam
+        };
+        var queryParams = {
+          'filter[type]': filters['type'],
+          'filter[id]': filters['id'],
+          'filter[createTime]': filters['createTime'],
+          'filter[mimeType]': filters['mimeType'],
+          'page[number]': pageNumber,
+          'page[limit]': pageLimit
+        };
+        var headerParams = {
+        };
+        var formParams = {
+        };
+
+        var contentTypes = ['application/vnd.api+json'];
+        var accepts = ['application/vnd.api+json', 'application/json'];
+        var returnType = JsonApiCollection;
+
+        mockedApiClientRequest.withArgs('/data/v1/projects/{project_id}/folders/{folder_id}/search', 'GET',
+                pathParams, queryParams, headerParams, formParams, postBody,
+                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+        instance.search(sampleStrParam, sampleStrParam, filters, pageNumber, pageLimit, oauth2client, credentials).then(function(response){
+            expect(response).to.be.ok();
+            done();
+        }, function(err){
+            done(err);
+        });
+      });
+    });
   });
 
 }());

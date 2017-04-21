@@ -395,6 +395,62 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
+
+    /**
+     * Searches a folder and sub-folders recursively based on the filters
+     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} folderId the &#x60;folder id&#x60;
+     * @param {Array.<String>} filters
+     * @param {Number} pageNumber which page to return
+     * @param {Number} pageLimit maximum number of elements per page
+     * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} credentials credentials for the call
+     */
+    this.search = function(projectId, folderId, filters, pageNumber, pageLimit, oauth2client, credentials) {
+      filters = filters || {};
+      var postBody = null;
+
+      // verify the required parameter 'projectId' is set
+      if (projectId == undefined || projectId == null) {
+        return Promise.reject("Missing the required parameter 'projectId' when calling getFolderContents");
+      }
+
+      // verify the required parameter 'folderId' is set
+      if (folderId == undefined || folderId == null) {
+        return Promise.reject("Missing the required parameter 'folderId' when calling getFolderContents");
+      }
+
+      var pathParams = {
+        'project_id': projectId,
+        'folder_id': folderId
+      };
+
+      var queryParams = {
+        'page[number]': pageNumber,
+        'page[limit]': pageLimit
+      };
+
+      for(var key in filters) {
+        if(filters.hasOwnProperty(key))  {
+          queryParams['filter[' + key + ']'] = filters[key];
+        }
+      }
+
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/vnd.api+json'];
+      var accepts = ['application/vnd.api+json', 'application/json'];
+      var returnType = JsonApiCollection;
+
+      return this.apiClient.callApi(
+        '/data/v1/projects/{project_id}/folders/{folder_id}/search', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, oauth2client, credentials
+      );
+    };
   };
 
   return exports;
