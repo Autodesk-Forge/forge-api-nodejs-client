@@ -1,4 +1,4 @@
-# Forge Node.js SDK
+# Forge Node.js SDK [![Build Status](https://travis-ci.org/Autodesk-Forge/forge-api-nodejs-client.svg?branch=master)](https://travis-ci.org/Autodesk-Forge/forge-api-nodejs-client)
 
 ## Overview
 This [Node.js](https://nodejs.org/) SDK (version 0.3.0) enables you to easily integrate the Forge REST APIs
