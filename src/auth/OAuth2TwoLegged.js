@@ -54,7 +54,8 @@ module.exports = (function () {
                 'code:all':'The application will be able to author and execute code on behalf of the end user (e.g., scripts processed by the Design Automation API).',
                 'account:read':'For Product APIs, the application will be able to read the account data the end user has entitlements to.',
                 'account:write':'For Product APIs, the application will be able to update the account data the end user has entitlements to.',
-                'user-profile:read':'The application will be able to read the end user’s profile data.'
+                'user-profile:read':'The application will be able to read the end user’s profile data.',
+                'viewables:read': 'The application will have read access to viewable resources such as thumbnails. This scope is a subset of data:read.'
             }
         };
 
