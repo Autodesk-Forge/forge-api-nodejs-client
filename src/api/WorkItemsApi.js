@@ -34,7 +34,7 @@ module.exports = (function() {
   /**
    * WorkItems service.
    * @module api/WorkItemsApi
-   * @version 0.3.0
+   * @version 0.3.1
    */
 
   /**

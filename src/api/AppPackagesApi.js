@@ -35,7 +35,7 @@ module.exports = (function() {
   /**
    * AppPackages service.
    * @module api/AppPackagesApi
-   * @version 0.3.0
+   * @version 0.3.1
    */
 
   /**

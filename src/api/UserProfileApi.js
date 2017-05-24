@@ -32,7 +32,7 @@ module.exports = (function() {
   /**
    * UserProfile service.
    * @module api/UserProfileApi
-   * @version 0.3.0
+   * @version 0.3.1
    */
 
   /**
