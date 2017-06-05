@@ -121,7 +121,7 @@ var BucketsApi = new ForgeSDK.BucketsApi(); //Buckets Client
 // Get the buckets owned by an application.
 // Use the oAuth2TwoLegged client object and the credentials object that were
 // obtained from the previous step
-// notice that you need do add a buckets:read scope for the getBuckets to work
+// notice that you need do add a bucket:read scope for the getBuckets to work
 BucketsApi.getBuckets({}, oAuth2TwoLegged, credentials).then(function(buckets){
     console.log(buckets);
 }, function(err){
