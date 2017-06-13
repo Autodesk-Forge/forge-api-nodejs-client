@@ -344,7 +344,7 @@ module.exports = (function() {
       requestParams.formData = this.normalizeParams(formParams);
     } else if (bodyParam) {
       requestParams.body = bodyParam;
-      if (contentType == 'application/json' || contentType == 'application/vnd.api+json'){
+      if (this.isJsonMime(contentType)){
         requestParams.json = true;
       }
     }
