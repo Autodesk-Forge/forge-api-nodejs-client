@@ -1,6 +1,6 @@
 {
   "name": "forge-apis",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.",
   "license": "Apache-2.0",
   "main": "src/index.js",
@@ -27,7 +27,7 @@
     "api"
   ],
   "devDependencies": {
-    "expect.js": "~0.3.1",
+    "expect.js": "~0.4.0",
     "istanbul": "^0.4.5",
     "mocha": "~2.3.4",
     "nock": "^8.0.0",
