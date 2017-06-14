@@ -87,6 +87,10 @@ module.exports = (function() {
             it('should return true for a json mime', function() {
                 expect(apiClient.isJsonMime('application/json')).to.be(true);
             });
+            
+            it('should return true for a vnd.api+json mime', function() {
+                expect(apiClient.isJsonMime('application/vnd.api+json')).to.be(true);
+            });
 
             it('should return false for a non-json mime', function() {
                 expect(apiClient.isJsonMime('application/xml')).to.be(false);
@@ -96,6 +100,16 @@ module.exports = (function() {
         describe('jsonPreferredMime method', function() {
             it('should return the json mime if it is present in an array', function() {
                 var mimeTypes = ['application/xml', 'application/json', 'application/x-www-form-urlencoded'];
+                expect(apiClient.jsonPreferredMime(mimeTypes)).to.be('application/json');
+            });
+
+            it('should return the vnd.api+json mime if it is present in an array', function() {
+                var mimeTypes = ['application/xml', 'application/vnd.api+json', 'application/x-www-form-urlencoded'];
+                expect(apiClient.jsonPreferredMime(mimeTypes)).to.be('application/vnd.api+json');
+            });
+
+            it('should return the first json mime if it is present in an array', function() {
+                var mimeTypes = ['application/xml', 'application/json', 'application/vnd.api+json', 'application/x-www-form-urlencoded'];
                 expect(apiClient.jsonPreferredMime(mimeTypes)).to.be('application/json');
             });
 
@@ -250,6 +264,39 @@ module.exports = (function() {
                 });
             });
 
+            it('able to call api successfully with vnd.api+json content-type', function(done){
+
+                var path = '/oss/v2/buckets',
+                    httpMethod = 'POST',
+                    pathParams = {},
+                    queryParams = {},
+                    headerParams = {'Custom-Header': 'foo'},
+                    formParams = {},
+                    bodyParam = {'bucketKey': 'test-bucket', 'policyKey': 'temporary'},
+                    contentTypes = ['application/vnd.api+json'],
+                    accepts = ['application/json'],
+                    returnType = ForgeSdk.Bucket,
+                    credentials = {access_token:'abcdef'};
+
+
+                nock(apiClient.basePath)
+                    .post(path, { bucketKey: bodyParam.bucketKey, policyKey: bodyParam.policyKey})
+                    .reply(200, function(uri, respBody){
+                        expect(this.req.headers).to.have.property('authorization');
+                        expect(this.req.headers).to.have.property('custom-header');
+                        return respBody;
+                    });
+
+                apiClient.callApi(path, httpMethod, pathParams,
+                    queryParams, headerParams, formParams, bodyParam,
+                    contentTypes, accepts, returnType, oauth2client, credentials).then(function(response){
+                        expect(response.body).to.have.property('bucketKey');
+                        expect(response.body.bucketKey).to.equal('test-bucket');
+                        done();
+                }, function(err){
+                    done(err);
+                });
+            });
 
             it('able to call api successfully with form-data', function(done){
 

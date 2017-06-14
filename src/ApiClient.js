@@ -115,7 +115,7 @@ module.exports = (function() {
    * @returns {Boolean} <code>true</code> if <code>contentType</code> represents JSON, otherwise <code>false</code>.
    */
   exports.prototype.isJsonMime = function(contentType) {
-    return Boolean(contentType != null && contentType.match(/^application\/json(;.*)?$/i));
+    return Boolean(contentType != null && contentType.match(/^application\/(vnd.api\+)?json(;.*)?$/i));
   };
 
   /**
@@ -344,7 +344,7 @@ module.exports = (function() {
       requestParams.formData = this.normalizeParams(formParams);
     } else if (bodyParam) {
       requestParams.body = bodyParam;
-      if (contentType == 'application/json'){
+      if (this.isJsonMime(contentType)){
         requestParams.json = true;
       }
     }
