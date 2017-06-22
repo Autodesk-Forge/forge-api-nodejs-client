@@ -3,8 +3,8 @@ var fs = require('fs');
 var ForgeSDK = require('./../src/index');
 
 // TODO - insert your CLIENT_ID and CLIENT_SECRET
-var CLIENT_ID = '',
-	CLIENT_SECRET = '';
+var CLIENT_ID = 'wmizntnpzCJxPGF9lxsIiTZGbGO2cJqw',
+	CLIENT_SECRET = 'g5IPJwvhOHcrdbFy';
 
 // TODO - Choose a bucket key - a unique name to assign to a bucket. It must be globally unique across all applications and
 // regions, otherwise the call will fail. Possible values: -_.a-z0-9 (between 3-128 characters in

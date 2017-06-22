@@ -27,7 +27,7 @@
     "api"
   ],
   "devDependencies": {
-    "expect.js": "~0.4.0",
+    "expect.js": "~0.3.1",
     "istanbul": "^0.4.5",
     "mocha": "~2.3.4",
     "nock": "^8.0.0",
