@@ -317,7 +317,7 @@ module.exports = (function() {
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
-    this.postFolder = function(body, oauth2client, credentials) {
+    this.postFolder = function(projectId, body, oauth2client, credentials) {
       var postBody = body;
 
       // verify the required parameter 'body' is set
@@ -327,6 +327,7 @@ module.exports = (function() {
 
 
       var pathParams = {
+         'project_id': projectId
       };
       var queryParams = {
       };
