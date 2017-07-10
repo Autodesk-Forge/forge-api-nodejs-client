@@ -42,11 +42,11 @@ module.exports = (function() {
   /**
    * Versions service.
    * @module api/VersionsApi
-   * @version 0.4.0
+   * @version 0.4.1
    */
 
   /**
-   * Constructs a new VersionsApi. 
+   * Constructs a new VersionsApi.
    * @alias module:api/VersionsApi
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
@@ -58,7 +58,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns the version with the given &#x60;version_id&#x60;. 
+     * Returns the version with the given &#x60;version_id&#x60;.
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} versionId the &#x60;version id&#x60;
      * data is of type: {module:model/Version}
@@ -103,7 +103,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns the item the given version is associated with. 
+     * Returns the item the given version is associated with.
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} versionId the &#x60;version id&#x60;
      * data is of type: {module:model/Item}
@@ -148,7 +148,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns the resources (&#x60;items&#x60;, &#x60;folders&#x60;, and &#x60;versions&#x60;) which have a custom relationship with the given &#x60;version_id&#x60;. Custom relationships can be established between a version of an item and other resources within the &#39;data&#39; domain service (folders, items, and versions). 
+     * Returns the resources (&#x60;items&#x60;, &#x60;folders&#x60;, and &#x60;versions&#x60;) which have a custom relationship with the given &#x60;version_id&#x60;. Custom relationships can be established between a version of an item and other resources within the &#39;data&#39; domain service (folders, items, and versions).
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} versionId the &#x60;version id&#x60;
      * @param {Object} opts Optional parameters
@@ -201,7 +201,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns the custom relationships that are associated to the given &#x60;version_id&#x60;. Custom relationships can be established between a version of an item and other resources within the &#39;data&#39; domain service (folders, items, and versions). 
+     * Returns the custom relationships that are associated to the given &#x60;version_id&#x60;. Custom relationships can be established between a version of an item and other resources within the &#39;data&#39; domain service (folders, items, and versions).
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} versionId the &#x60;version id&#x60;
      * @param {Object} opts Optional parameters
@@ -258,7 +258,7 @@ module.exports = (function() {
 
 
     /**
-     * Creates a new version of an item in the &#39;data&#39; domain service. 
+     * Creates a new version of an item in the &#39;data&#39; domain service.
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {module:model/CreateVersion} body describe the version to be created
      * data is of type: {module:model/VersionCreated}
@@ -302,7 +302,7 @@ module.exports = (function() {
 
 
     /**
-     * Creates a custom relationship between a version and another resource within the &#39;data&#39; domain service (folder, item, or version). 
+     * Creates a custom relationship between a version and another resource within the &#39;data&#39; domain service (folder, item, or version).
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} versionId the &#x60;version id&#x60;
      * @param {module:model/CreateRef} body describe the ref to be created

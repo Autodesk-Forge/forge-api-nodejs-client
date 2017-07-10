@@ -35,11 +35,11 @@ module.exports = (function() {
   /**
    * Hubs service.
    * @module api/HubsApi
-   * @version 0.4.0
+   * @version 0.4.1
    */
 
   /**
-   * Constructs a new HubsApi. 
+   * Constructs a new HubsApi.
    * @alias module:api/HubsApi
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
@@ -51,7 +51,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns data on a specific &#x60;hub_id&#x60;. 
+     * Returns data on a specific &#x60;hub_id&#x60;.
      * @param {String} hubId the &#x60;hub id&#x60; for the current operation
      * data is of type: {module:model/Hub}
      * @param {Object} oauth2client oauth2client for the call
@@ -89,7 +89,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns a collection of accessible hubs for this member. A Hub represents an A360 Team/Personal hub or a BIM 360 account. 
+     * Returns a collection of accessible hubs for this member. A Hub represents an A360 Team/Personal hub or a BIM 360 account.
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type

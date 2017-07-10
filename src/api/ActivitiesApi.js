@@ -35,11 +35,11 @@ module.exports = (function() {
   /**
    * Activities service.
    * @module api/ActivitiesApi
-   * @version 0.4.0
+   * @version 0.4.1
    */
 
   /**
-   * Constructs a new ActivitiesApi. 
+   * Constructs a new ActivitiesApi.
    * @alias module:api/ActivitiesApi
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
@@ -52,7 +52,7 @@ module.exports = (function() {
 
     /**
      * Creates a new Activity.
-     * @param {module:model/Activity} activity 
+     * @param {module:model/Activity} activity
      * data is of type: {module:model/Activity}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -89,7 +89,7 @@ module.exports = (function() {
 
     /**
      * Removes a specific Activity.
-     * @param {String} id 
+     * @param {String} id
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -126,7 +126,7 @@ module.exports = (function() {
 
     /**
      * Removes the version history of the specified Activity.
-     * @param {String} id 
+     * @param {String} id
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -163,7 +163,7 @@ module.exports = (function() {
 
     /**
      * Returns the details of a specific Activity.
-     * @param {String} id 
+     * @param {String} id
      * data is of type: {module:model/Activity}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -201,7 +201,7 @@ module.exports = (function() {
 
     /**
      * Returns all old versions of a specified Activity.
-     * @param {String} id 
+     * @param {String} id
      * data is of type: {module:model/DesignAutomationActivities}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -270,8 +270,8 @@ module.exports = (function() {
 
     /**
      * Updates an Activity by specifying only the changed attributes.
-     * @param {String} id 
-     * @param {module:model/ActivityOptional} activity 
+     * @param {String} id
+     * @param {module:model/ActivityOptional} activity
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -313,8 +313,8 @@ module.exports = (function() {
 
     /**
      * Sets the Activity to the specified version.
-     * @param {String} id 
-     * @param {module:model/ActivityVersion} activityVersion 
+     * @param {String} id
+     * @param {module:model/ActivityVersion} activityVersion
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */

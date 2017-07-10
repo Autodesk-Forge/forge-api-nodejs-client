@@ -30,7 +30,7 @@ module.exports = (function () {
 
     /**
      * @module auth/OAuth2TwoLegged
-     * @version 0.4.0
+     * @version 0.4.1
      */
 
     /**
@@ -60,7 +60,7 @@ module.exports = (function () {
         };
 
         this.authName = 'oauth2_application';
-        
+
         OAuth2.call(this, clientId, clientSecret, scope, autoRefresh);
     };
 

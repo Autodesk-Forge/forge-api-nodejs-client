@@ -35,11 +35,11 @@ module.exports = (function() {
   /**
    * Buckets service.
    * @module api/BucketsApi
-   * @version 0.4.0
+   * @version 0.4.1
    */
 
   /**
-   * Constructs a new BucketsApi. 
+   * Constructs a new BucketsApi.
    * @alias module:api/BucketsApi
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
@@ -51,7 +51,7 @@ module.exports = (function() {
 
 
     /**
-     * Use this endpoint to create a bucket. Buckets are arbitrary spaces created and owned by applications. Bucket keys are globally unique across all regions, regardless of where they were created, and they cannot be changed. The application creating the bucket is the owner of the bucket. 
+     * Use this endpoint to create a bucket. Buckets are arbitrary spaces created and owned by applications. Bucket keys are globally unique across all regions, regardless of where they were created, and they cannot be changed. The application creating the bucket is the owner of the bucket.
      * @param {module:model/PostBucketsPayload} postBuckets Body Structure
      * @param {Object} opts Optional parameters
      * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
@@ -92,7 +92,7 @@ module.exports = (function() {
 
 
     /**
-     * This endpoint will delete a bucket. 
+     * This endpoint will delete a bucket.
      * @param {String} bucketKey URL-encoded bucket key
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -167,11 +167,11 @@ module.exports = (function() {
 
 
     /**
-     * This endpoint will return the buckets owned by the application. This endpoint supports pagination. 
+     * This endpoint will return the buckets owned by the application. This endpoint supports pagination.
      * @param {Object} opts Optional parameters
      * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
      * @param {Integer} opts.limit Limit to the response size, Acceptable values: 1-100 Default = 10  (default to 10)
-     * @param {String} opts.startAt Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response 
+     * @param {String} opts.startAt Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response
      * data is of type: {module:model/Buckets}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call

@@ -33,11 +33,11 @@ module.exports = (function() {
   /**
    * Engines service.
    * @module api/EnginesApi
-   * @version 0.4.0
+   * @version 0.4.1
    */
 
   /**
-   * Constructs a new EnginesApi. 
+   * Constructs a new EnginesApi.
    * @alias module:api/EnginesApi
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
@@ -81,7 +81,7 @@ module.exports = (function() {
 
     /**
      * Returns the details of a specific AutoCAD core engine.
-     * @param {String} id 
+     * @param {String} id
      * data is of type: {module:model/Engine}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call

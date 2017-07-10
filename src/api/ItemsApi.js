@@ -44,11 +44,11 @@ module.exports = (function() {
   /**
    * Items service.
    * @module api/ItemsApi
-   * @version 0.4.0
+   * @version 0.4.1
    */
 
   /**
-   * Constructs a new ItemsApi. 
+   * Constructs a new ItemsApi.
    * @alias module:api/ItemsApi
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
@@ -60,7 +60,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns a resource item by ID for any item within a given project. Resource items represent word documents, fusion design files, drawings, spreadsheets, etc. 
+     * Returns a resource item by ID for any item within a given project. Resource items represent word documents, fusion design files, drawings, spreadsheets, etc.
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} itemId the &#x60;item id&#x60;
      * data is of type: {module:model/Item}
@@ -105,7 +105,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns the \&quot;parent\&quot; folder for the given item. 
+     * Returns the \&quot;parent\&quot; folder for the given item.
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} itemId the &#x60;item id&#x60;
      * data is of type: {module:model/Folder}
@@ -150,7 +150,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns the resources (&#x60;items&#x60;, &#x60;folders&#x60;, and &#x60;versions&#x60;) which have a custom relationship with the given &#x60;item_id&#x60;. Custom relationships can be established between an item and other resources within the &#39;data&#39; domain service (folders, items, and versions). 
+     * Returns the resources (&#x60;items&#x60;, &#x60;folders&#x60;, and &#x60;versions&#x60;) which have a custom relationship with the given &#x60;item_id&#x60;. Custom relationships can be established between an item and other resources within the &#39;data&#39; domain service (folders, items, and versions).
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} itemId the &#x60;item id&#x60;
      * @param {Object} opts Optional parameters
@@ -203,7 +203,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns the custom relationships that are associated to the given &#x60;item_id&#x60;. Custom relationships can be established between an item and other resources within the &#39;data&#39; domain service (folders, items, and versions). 
+     * Returns the custom relationships that are associated to the given &#x60;item_id&#x60;. Custom relationships can be established between an item and other resources within the &#39;data&#39; domain service (folders, items, and versions).
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} itemId the &#x60;item id&#x60;
      * @param {Object} opts Optional parameters
@@ -260,7 +260,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns the \&quot;tip\&quot; version for the given item. Multiple versions of a resource item can be uploaded in a project. The tip version is the most recent one. 
+     * Returns the \&quot;tip\&quot; version for the given item. Multiple versions of a resource item can be uploaded in a project. The tip version is the most recent one.
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} itemId the &#x60;item id&#x60;
      * data is of type: {module:model/Version}
@@ -305,7 +305,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns versions for the given item. Multiple versions of a resource item can be uploaded in a project. 
+     * Returns versions for the given item. Multiple versions of a resource item can be uploaded in a project.
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} itemId the &#x60;item id&#x60;
      * @param {Object} opts Optional parameters
@@ -364,7 +364,7 @@ module.exports = (function() {
 
 
     /**
-     * Creates a new item in the &#39;data&#39; domain service. 
+     * Creates a new item in the &#39;data&#39; domain service.
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {module:model/CreateItem} body describe the item to be created
      * data is of type: {module:model/ItemCreated}
@@ -408,7 +408,7 @@ module.exports = (function() {
 
 
     /**
-     * Creates a custom relationship between an item and another resource within the &#39;data&#39; domain service (folder, item, or version). 
+     * Creates a custom relationship between an item and another resource within the &#39;data&#39; domain service (folder, item, or version).
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} itemId the &#x60;item id&#x60;
      * @param {module:model/CreateRef} body describe the ref to be created

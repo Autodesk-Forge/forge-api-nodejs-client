@@ -35,11 +35,11 @@ module.exports = (function() {
   /**
    * AppPackages service.
    * @module api/AppPackagesApi
-   * @version 0.4.0
+   * @version 0.4.1
    */
 
   /**
-   * Constructs a new AppPackagesApi. 
+   * Constructs a new AppPackagesApi.
    * @alias module:api/AppPackagesApi
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
@@ -52,7 +52,7 @@ module.exports = (function() {
 
     /**
      * Creates an AppPackage module.
-     * @param {module:model/AppPackage} appPackage 
+     * @param {module:model/AppPackage} appPackage
      * data is of type: {module:model/AppPackage}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -89,7 +89,7 @@ module.exports = (function() {
 
     /**
      * Removes a specific AppPackage.
-     * @param {String} id 
+     * @param {String} id
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -126,7 +126,7 @@ module.exports = (function() {
 
     /**
      * Removes the version history of the specified AppPackage.
-     * @param {String} id 
+     * @param {String} id
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -194,7 +194,7 @@ module.exports = (function() {
 
     /**
      * Returns the details of a specific AppPackage.
-     * @param {String} id 
+     * @param {String} id
      * data is of type: {module:model/AppPackage}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -232,7 +232,7 @@ module.exports = (function() {
 
     /**
      * Returns all old versions of a specified AppPackage.
-     * @param {String} id 
+     * @param {String} id
      * data is of type: {module:model/DesignAutomationAppPackages}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -300,7 +300,7 @@ module.exports = (function() {
 
     /**
      * Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage. Unlike the GetUploadUrl method that takes no parameters, this method allows the client to request that the pre-signed URL to be issued so that the subsequent HTTP PUT operation will require Content-Type&#x3D;binary/octet-stream.
-     * @param {Boolean} require 
+     * @param {Boolean} require
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -337,8 +337,8 @@ module.exports = (function() {
 
     /**
      * Updates an AppPackage by specifying only the changed attributes.
-     * @param {String} id 
-     * @param {module:model/AppPackageOptional} appPackage 
+     * @param {String} id
+     * @param {module:model/AppPackageOptional} appPackage
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -380,8 +380,8 @@ module.exports = (function() {
 
     /**
      * Sets the AppPackage to the specified version.
-     * @param {String} id 
-     * @param {module:model/AppPackageVersion} appPackageVersion 
+     * @param {String} id
+     * @param {module:model/AppPackageVersion} appPackageVersion
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -423,8 +423,8 @@ module.exports = (function() {
 
     /**
      * Updates an AppPackage by redefining the entire Activity object.
-     * @param {String} id 
-     * @param {module:model/AppPackage} appPackage 
+     * @param {String} id
+     * @param {module:model/AppPackage} appPackage
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */

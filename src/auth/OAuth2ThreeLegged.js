@@ -30,7 +30,7 @@ module.exports = (function () {
 
     /**
      * @module auth/OAuth2ThreeLegged
-     * @version 0.4.0
+     * @version 0.4.1
      */
 
     /**
@@ -62,7 +62,7 @@ module.exports = (function () {
         };
 
         this.authName = 'oauth2_access_code';
-        
+
         OAuth2.call(this, clientId, clientSecret, scope, autoRefresh);
 
         this.redirectUri = redirectUri;

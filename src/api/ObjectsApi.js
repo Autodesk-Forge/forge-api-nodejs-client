@@ -38,11 +38,11 @@ module.exports = (function() {
   /**
    * Objects service.
    * @module api/ObjectsApi
-   * @version 0.4.0
+   * @version 0.4.1
    */
 
   /**
-   * Constructs a new ObjectsApi. 
+   * Constructs a new ObjectsApi.
    * @alias module:api/ObjectsApi
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
@@ -252,8 +252,8 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {String} opts.range A range of bytes to download from the specified object.
      * @param {String} opts.ifNoneMatch The value of this header is compared to the ETAG of the object. If they match, the body will not be included in the response. Only the object information will be included.
-     * @param {Date} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
-     * @param {String} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used. 
+     * @param {Date} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body.
+     * @param {String} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used.
      * data is of type: {Object}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -305,8 +305,8 @@ module.exports = (function() {
      * @param {String} bucketKey URL-encoded bucket key
      * @param {String} objectName URL-encoded object name
      * @param {Object} opts Optional parameters
-     * @param {Date} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
-     * @param {module:model/String} opts._with Extra information in details; multiple uses are supported Acceptable values: `createdDate`, `lastAccessedDate`, `lastModifiedDate` 
+     * @param {Date} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body.
+     * @param {module:model/String} opts._with Extra information in details; multiple uses are supported Acceptable values: `createdDate`, `lastAccessedDate`, `lastModifiedDate`
      * data is of type: {module:model/ObjectFullDetails}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -357,7 +357,7 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {Integer} opts.limit Limit to the response size, Acceptable values: 1-100 Default = 10  (default to 10)
      * @param {String} opts.beginsWith Provides a way to filter the based on object key name
-     * @param {String} opts.startAt Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response 
+     * @param {String} opts.startAt Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response
      * data is of type: {module:model/BucketObjects}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -403,8 +403,8 @@ module.exports = (function() {
      * @param {Object} opts Optional parameters
      * @param {String} opts.range A range of bytes to download from the specified object.
      * @param {String} opts.ifNoneMatch The value of this header is compared to the ETAG of the object. If they match, the body will not be included in the response. Only the object information will be included.
-     * @param {Date} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
-     * @param {String} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used. 
+     * @param {Date} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body.
+     * @param {String} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used.
      * @param {module:model/String} opts.region The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
      * data is of type: {Object}
      * @param {Object} oauth2client oauth2client for the call
@@ -505,10 +505,10 @@ module.exports = (function() {
      * @param {Integer} contentLength Indicates the size of the request body.
      * @param {String} contentRange Byte range of a segment being uploaded
      * @param {String} sessionId Unique identifier of a session of a file being uploaded
-     * @param {File} body 
+     * @param {File} body
      * @param {Object} opts Optional parameters
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
-     * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
+     * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written.
      * data is of type: {module:model/ObjectDetails}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -577,14 +577,14 @@ module.exports = (function() {
 
 
     /**
-     * Upload an object. If the specified object name already exists in the bucket, the uploaded content will overwrite the existing content for the bucket name/object name combination. 
+     * Upload an object. If the specified object name already exists in the bucket, the uploaded content will overwrite the existing content for the bucket name/object name combination.
      * @param {String} bucketKey URL-encoded bucket key
      * @param {String} objectName URL-encoded object name
      * @param {Integer} contentLength Indicates the size of the request body.
-     * @param {File} body 
+     * @param {File} body
      * @param {Object} opts Optional parameters
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
-     * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
+     * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written.
      * data is of type: {module:model/ObjectDetails}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -641,14 +641,14 @@ module.exports = (function() {
 
 
     /**
-     * Overwrite a existing object using a signed URL.  Conditions to call this operation:  Object is available Expiration period is valid Signed URL should be created with &#x60;write&#x60; or &#x60;readwrite&#x60; 
+     * Overwrite a existing object using a signed URL.  Conditions to call this operation:  Object is available Expiration period is valid Signed URL should be created with &#x60;write&#x60; or &#x60;readwrite&#x60;
      * @param {String} id Id of signed resource
      * @param {Integer} contentLength Indicates the size of the request body.
-     * @param {File} body 
+     * @param {File} body
      * @param {Object} opts Optional parameters
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
      * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
-     * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
+     * @param {String} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written.
      * data is of type: {module:model/ObjectDetails}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -704,7 +704,7 @@ module.exports = (function() {
      * @param {String} id Id of signed resource
      * @param {String} contentRange Byte range of a segment being uploaded
      * @param {String} sessionId Unique identifier of a session of a file being uploaded
-     * @param {File} body 
+     * @param {File} body
      * @param {Object} opts Optional parameters
      * @param {String} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
      * @param {module:model/String} opts.xAdsRegion The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)

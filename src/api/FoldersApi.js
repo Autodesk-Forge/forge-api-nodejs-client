@@ -39,11 +39,11 @@ module.exports = (function() {
   /**
    * Folders service.
    * @module api/FoldersApi
-   * @version 0.4.0
+   * @version 0.4.1
    */
 
   /**
-   * Constructs a new FoldersApi. 
+   * Constructs a new FoldersApi.
    * @alias module:api/FoldersApi
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
@@ -55,7 +55,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project are associated with their own unique ID, including the root folder. 
+     * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project are associated with their own unique ID, including the root folder.
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} folderId the &#x60;folder id&#x60;
      * data is of type: {module:model/Folder}
@@ -100,7 +100,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns a collection of items and folders within a folder. Items represent word documents, fusion design files, drawings, spreadsheets, etc. 
+     * Returns a collection of items and folders within a folder. Items represent word documents, fusion design files, drawings, spreadsheets, etc.
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} folderId the &#x60;folder id&#x60;
      * @param {Object} opts Optional parameters
@@ -157,7 +157,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns the parent folder (if it exists). In a project, subfolders and resource items are stored under a folder except the root folder which does not have a parent of its own. 
+     * Returns the parent folder (if it exists). In a project, subfolders and resource items are stored under a folder except the root folder which does not have a parent of its own.
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} folderId the &#x60;folder id&#x60;
      * data is of type: {module:model/Folder}
@@ -202,7 +202,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns the resources (&#x60;items&#x60;, &#x60;folders&#x60;, and &#x60;versions&#x60;) which have a custom relationship with the given &#x60;folder_id&#x60;. Custom relationships can be established between a folder and other resources within the &#39;data&#39; domain service (folders, items, and versions). 
+     * Returns the resources (&#x60;items&#x60;, &#x60;folders&#x60;, and &#x60;versions&#x60;) which have a custom relationship with the given &#x60;folder_id&#x60;. Custom relationships can be established between a folder and other resources within the &#39;data&#39; domain service (folders, items, and versions).
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} folderId the &#x60;folder id&#x60;
      * @param {Object} opts Optional parameters
@@ -255,7 +255,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns the custom relationships that are associated to the given &#x60;folder_id&#x60;. Custom relationships can be established between a folder and other resources within the &#39;data&#39; domain service (folders, items, and versions). 
+     * Returns the custom relationships that are associated to the given &#x60;folder_id&#x60;. Custom relationships can be established between a folder and other resources within the &#39;data&#39; domain service (folders, items, and versions).
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} folderId the &#x60;folder id&#x60;
      * @param {Object} opts Optional parameters
@@ -349,7 +349,7 @@ module.exports = (function() {
 
 
     /**
-     * Creates a custom relationship between a folder and another resource within the &#39;data&#39; domain service (folder, item, or version). 
+     * Creates a custom relationship between a folder and another resource within the &#39;data&#39; domain service (folder, item, or version).
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {String} folderId the &#x60;folder id&#x60;
      * @param {module:model/CreateRef} body describe the ref to be created

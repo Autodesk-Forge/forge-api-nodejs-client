@@ -40,11 +40,11 @@ module.exports = (function() {
   /**
    * Projects service.
    * @module api/ProjectsApi
-   * @version 0.4.0
+   * @version 0.4.1
    */
 
   /**
-   * Constructs a new ProjectsApi. 
+   * Constructs a new ProjectsApi.
    * @alias module:api/ProjectsApi
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
@@ -56,7 +56,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns a collection of projects for a given &#x60;hub_id&#x60;. A project represents an A360 project or a BIM 360 project which is set up under an A360 hub or BIM 360 account, respectively. Within a hub or an account, multiple projects can be created to be used. 
+     * Returns a collection of projects for a given &#x60;hub_id&#x60;. A project represents an A360 project or a BIM 360 project which is set up under an A360 hub or BIM 360 account, respectively. Within a hub or an account, multiple projects can be created to be used.
      * @param {String} hubId the &#x60;hub id&#x60; for the current operation
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
@@ -100,7 +100,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns a project for a given &#x60;project_id&#x60;. 
+     * Returns a project for a given &#x60;project_id&#x60;.
      * @param {String} hubId the &#x60;hub id&#x60; for the current operation
      * @param {String} projectId the &#x60;project id&#x60;
      * data is of type: {module:model/Project}
@@ -145,7 +145,7 @@ module.exports = (function() {
 
 
     /**
-     * Returns the hub for a given &#x60;project_id&#x60;. 
+     * Returns the hub for a given &#x60;project_id&#x60;.
      * @param {String} hubId the &#x60;hub id&#x60; for the current operation
      * @param {String} projectId the &#x60;project id&#x60;
      * data is of type: {module:model/Hub}
@@ -235,7 +235,7 @@ module.exports = (function() {
 
 
     /**
-     * Creates a storage location in the OSS where data can be uploaded to. 
+     * Creates a storage location in the OSS where data can be uploaded to.
      * @param {String} projectId the &#x60;project id&#x60;
      * @param {module:model/CreateStorage} body describe the file the storage is created for
      * data is of type: {module:model/StorageCreated}

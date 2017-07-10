@@ -34,11 +34,11 @@ module.exports = (function() {
   /**
    * WorkItems service.
    * @module api/WorkItemsApi
-   * @version 0.4.0
+   * @version 0.4.1
    */
 
   /**
-   * Constructs a new WorkItemsApi. 
+   * Constructs a new WorkItemsApi.
    * @alias module:api/WorkItemsApi
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
@@ -51,7 +51,7 @@ module.exports = (function() {
 
     /**
      * Creates a new WorkItem.
-     * @param {module:model/WorkItem} workItem 
+     * @param {module:model/WorkItem} workItem
      * data is of type: {module:model/WorkItemResp}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -88,7 +88,7 @@ module.exports = (function() {
 
     /**
      * Removes a specific WorkItem.
-     * @param {String} id 
+     * @param {String} id
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
@@ -126,7 +126,7 @@ module.exports = (function() {
     /**
      * Returns the details of all WorkItems.
      * @param {Object} opts Optional parameters
-     * @param {Integer} opts.skip 
+     * @param {Integer} opts.skip
      * data is of type: {module:model/DesignAutomationWorkItems}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -160,7 +160,7 @@ module.exports = (function() {
 
     /**
      * Returns the details of a specific WorkItem.
-     * @param {String} id 
+     * @param {String} id
      * data is of type: {module:model/WorkItemResp}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call

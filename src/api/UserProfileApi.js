@@ -32,11 +32,11 @@ module.exports = (function() {
   /**
    * UserProfile service.
    * @module api/UserProfileApi
-   * @version 0.4.0
+   * @version 0.4.1
    */
 
   /**
-   * Constructs a new UserProfileApi. 
+   * Constructs a new UserProfileApi.
    * @alias module:api/UserProfileApi
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
