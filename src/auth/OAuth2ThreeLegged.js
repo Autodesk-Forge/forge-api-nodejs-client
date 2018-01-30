@@ -134,9 +134,10 @@ module.exports = (function () {
     /**
      * Refresh a 3-legged token
      * @param credentials
+     * @param scope - optional scope for new token. It must be subset of the scopes used for original token.
      * @return Promise
      */
-    OAuth2ThreeLegged.prototype.refreshToken = function (credentials){
+    OAuth2ThreeLegged.prototype.refreshToken = function (credentials, scope) {
         var _this = this;
         return new Promise(function(resolve, reject) {
             if (_this.authentication && _this.authentication.refreshTokenUrl) {
@@ -150,6 +151,9 @@ module.exports = (function () {
                         refresh_token: credentials.refresh_token
                     };
 
+                    if (scope) {
+                        body.scope = scope.join(' ');
+                    }
                     _this.doPostRequest(url, body, function(response){
                         if (response.access_token) {
                             var credentials = Object.assign({}, response,
