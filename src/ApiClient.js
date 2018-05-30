@@ -138,8 +138,11 @@ module.exports = (function() {
    * @returns {Boolean} <code>true</code> if <code>param</code> represents a file.
    */
   exports.prototype.isFileParam = function(param) {
-
-    return param instanceof require('fs').ReadStream || (typeof Buffer === 'function' && param instanceof Buffer);
+    var type = typeof param;
+    if ((type==='number') || (type==='boolean') || (type==='string')||(type==='undefined')) {
+      return false;
+    }
+    return (param instanceof require('fs').ReadStreaam) || (typeof Buffer === 'function' && param instanceof Buffer);
   };
 
   /**
