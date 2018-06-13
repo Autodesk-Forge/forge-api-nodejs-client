@@ -387,7 +387,7 @@ module.exports = (function() {
                     statusCode: response.statusCode,
                     statusMessage: response.statusMessage
                   });
-                  reject({statusCode: response.statusCode, statusMessage: response.statusMessage});
+                  reject({statusCode: response.statusCode, statusMessage: response.statusMessage, statusBody: body});
                 } else {
                   resolve({statusCode: response.statusCode, headers: response.headers, body: resp});
                 }
