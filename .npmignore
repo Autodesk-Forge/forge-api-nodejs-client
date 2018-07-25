@@ -4,22 +4,19 @@ logs
 npm-debug.log*
 package-lock.json
 
+# Dependency directory
+node_modules/
+
 # Runtime data
 pids
 *.pid
 *.seed
 
-# Dependency directory
-node_modules
-
-# Optional npm cache directory
-.npm
-
 # Coverage
 coverage
 
 # IDE
-.idea
-.vscode
+.vscode/
+.idea/
 
 .DS_Store

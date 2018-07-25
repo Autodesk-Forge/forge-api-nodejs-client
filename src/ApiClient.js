@@ -113,7 +113,7 @@ module.exports = (function () {
    * @returns {Boolean} <code>true</code> if <code>contentType</code> represents JSON, otherwise <code>false</code>.
    */
   exports.prototype.isJsonMime = function (contentType) {
-    return Boolean(contentType !== null && contentType.match(/^application\/(vnd.api\+)?json(;.*)?$/i));
+    return Boolean(contentType !== undefined && contentType !== null && contentType.match(/^application\/(vnd.api\+)?json(;.*)?$/i));
   };
 
   /**
@@ -206,7 +206,7 @@ module.exports = (function () {
    * <code>param</code> as is if <code>collectionFormat</code> is <code>multi</code>.
    */
   exports.prototype.buildCollectionParam = function buildCollectionParam(param, collectionFormat) {
-    if (param === null) {
+    if (param === undefined || param === null) {
       return null;
     }
     switch (collectionFormat) {
@@ -252,7 +252,6 @@ module.exports = (function () {
       // let's see if the token is already expired?
       // be careful access tokens are validated once teh query was received by the server, not when emitted
       // for this reason, we need to aknowledge the time to upload payload/file/etc... (300 == 5min)
-      var test = Date.now()
       if (oauth2client && oauth2client.autoRefresh && new Date(credentials.expires_at).getTime() - 300000 <= Date.now()) {
 
         // set the correct promiseObj, for 2 or 3 legged token
@@ -340,7 +339,7 @@ module.exports = (function () {
 
     if (contentType === 'application/x-www-form-urlencoded') {
       requestParams.form = this.normalizeParams(formParams);
-    } else if (contentType == 'multipart/form-data') {
+    } else if (contentType === 'multipart/form-data') {
       requestParams.formData = this.normalizeParams(formParams);
     } else if (bodyParam) {
       requestParams.body = bodyParam;
@@ -357,7 +356,7 @@ module.exports = (function () {
         }
       }
     }
-    if (headerParams['Accept-Encoding'] == 'gzip, deflate') {
+    if (headerParams['Accept-Encoding'] === 'gzip, deflate') {
       requestParams.encoding = null;
     }
     _this.debug('request params were', requestParams);
