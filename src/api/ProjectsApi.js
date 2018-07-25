@@ -40,7 +40,7 @@ module.exports = (function() {
   /**
    * Projects service.
    * @module api/ProjectsApi
-   * @version 0.4.1
+   * @version 0.4.2
    */
 
   /**
