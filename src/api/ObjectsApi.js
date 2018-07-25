@@ -38,7 +38,7 @@ module.exports = (function() {
   /**
    * Objects service.
    * @module api/ObjectsApi
-   * @version 0.4.1
+   * @version 0.4.2
    */
 
   /**

@@ -22,7 +22,6 @@
  * limitations under the License.
  */
 
-
 module.exports = (function() {
    'use strict';
 
@@ -35,7 +34,7 @@ module.exports = (function() {
   /**
    * Activities service.
    * @module api/ActivitiesApi
-   * @version 0.4.1
+   * @version 0.4.2
    */
 
   /**
@@ -47,8 +46,6 @@ module.exports = (function() {
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
-
-
 
     /**
      * Creates a new Activity.
@@ -64,7 +61,6 @@ module.exports = (function() {
       if (activity == undefined || activity == null) {
         return Promise.reject("Missing the required parameter 'activity' when calling createActivity");
       }
-
 
       var pathParams = {
       };
@@ -86,7 +82,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Removes a specific Activity.
      * @param {String} id
@@ -100,7 +95,6 @@ module.exports = (function() {
       if (id == undefined || id == null) {
         return Promise.reject("Missing the required parameter 'id' when calling deleteActivity");
       }
-
 
       var pathParams = {
         'id': id
@@ -123,7 +117,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Removes the version history of the specified Activity.
      * @param {String} id
@@ -137,7 +130,6 @@ module.exports = (function() {
       if (id == undefined || id == null) {
         return Promise.reject("Missing the required parameter 'id' when calling deleteActivityHistory");
       }
-
 
       var pathParams = {
         'id': id
@@ -160,7 +152,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns the details of a specific Activity.
      * @param {String} id
@@ -175,7 +166,6 @@ module.exports = (function() {
       if (id == undefined || id == null) {
         return Promise.reject("Missing the required parameter 'id' when calling getActivity");
       }
-
 
       var pathParams = {
         'id': id
@@ -198,7 +188,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns all old versions of a specified Activity.
      * @param {String} id
@@ -213,7 +202,6 @@ module.exports = (function() {
       if (id == undefined || id == null) {
         return Promise.reject("Missing the required parameter 'id' when calling getActivityVersions");
       }
-
 
       var pathParams = {
         'id': id
@@ -236,7 +224,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns the details of all Activities.
      * data is of type: {module:model/DesignAutomationActivities}
@@ -245,7 +232,6 @@ module.exports = (function() {
      */
     this.getAllActivities = function(oauth2client, credentials) {
       var postBody = null;
-
 
       var pathParams = {
       };
@@ -267,7 +253,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Updates an Activity by specifying only the changed attributes.
      * @param {String} id
@@ -287,7 +272,6 @@ module.exports = (function() {
       if (activity == undefined || activity == null) {
         return Promise.reject("Missing the required parameter 'activity' when calling patchActivity");
       }
-
 
       var pathParams = {
         'id': id
@@ -310,7 +294,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Sets the Activity to the specified version.
      * @param {String} id
@@ -330,7 +313,6 @@ module.exports = (function() {
       if (activityVersion == undefined || activityVersion == null) {
         return Promise.reject("Missing the required parameter 'activityVersion' when calling setActivityVersion");
       }
-
 
       var pathParams = {
         'id': id

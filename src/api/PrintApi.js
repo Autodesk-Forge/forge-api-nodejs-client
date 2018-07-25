@@ -22,7 +22,6 @@
  * limitations under the License.
  */
 
-
 module.exports = (function() {
    'use strict';
 
@@ -36,11 +35,11 @@ module.exports = (function() {
   /**
    * Print service.
    * @module api/PrintApi
-   * @version 0.1.8
+   * @version 0.4.2
    */
 
   /**
-   * Constructs a new PrintApi. 
+   * Constructs a new PrintApi.
    * @alias module:api/PrintApi
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
@@ -49,11 +48,9 @@ module.exports = (function() {
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
 
-
-
     /**
      * Analyze a mesh for basic problems.Note that this API cannot report all mesh problems; Some problems cannot be evaluated until other problems have been repaired.
-     * @param {module:model/AnalyzeMeshParams} analyzeMeshParams 
+     * @param {module:model/AnalyzeMeshParams} analyzeMeshParams
      * data is of type: {module:model/Task}
      * @param {Object} credentials Credentials for the call
      */
@@ -64,7 +61,6 @@ module.exports = (function() {
       if (analyzeMeshParams == undefined || analyzeMeshParams == null) {
         throw "Missing the required parameter 'analyzeMeshParams' when calling analyzeMesh";
       }
-
 
       var pathParams = {
       };
@@ -86,10 +82,9 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Exports a repaired mesh.
-     * @param {module:model/MeshObj} meshObj 
+     * @param {module:model/MeshObj} meshObj
      * data is of type: {module:model/Task}
      * @param {Object} credentials Credentials for the call
      */
@@ -100,7 +95,6 @@ module.exports = (function() {
       if (meshObj == undefined || meshObj == null) {
         throw "Missing the required parameter 'meshObj' when calling exportMesh";
       }
-
 
       var pathParams = {
       };
@@ -122,10 +116,9 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Most Print Preparation APIs are asynchronous. They do not halt execution of your program and instead initiate a task that runs in the background.Your program must call the Get Task API to monitor execution and get the response to the asynchronous API.
-     * @param {String} id 
+     * @param {String} id
      * data is of type: {module:model/Task}
      * @param {Object} credentials Credentials for the call
      */
@@ -136,7 +129,6 @@ module.exports = (function() {
       if (id == undefined || id == null) {
         throw "Missing the required parameter 'id' when calling getTaskById";
       }
-
 
       var pathParams = {
         'id': id
@@ -159,10 +151,9 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Create a mesh from a 3D geometry file
-     * @param {module:model/ImportMeshParams} importMeshParams 
+     * @param {module:model/ImportMeshParams} importMeshParams
      * data is of type: {module:model/Task}
      * @param {Object} credentials Credentials for the call
      */
@@ -173,7 +164,6 @@ module.exports = (function() {
       if (importMeshParams == undefined || importMeshParams == null) {
         throw "Missing the required parameter 'importMeshParams' when calling importMesh";
       }
-
 
       var pathParams = {
       };
@@ -195,10 +185,9 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Detects mesh defects and repairs them.
-     * @param {module:model/RepairMeshParams} repairMeshParams 
+     * @param {module:model/RepairMeshParams} repairMeshParams
      * data is of type: {module:model/Task}
      * @param {Object} credentials Credentials for the call
      */
@@ -209,7 +198,6 @@ module.exports = (function() {
       if (repairMeshParams == undefined || repairMeshParams == null) {
         throw "Missing the required parameter 'repairMeshParams' when calling repairMesh";
       }
-
 
       var pathParams = {
       };
