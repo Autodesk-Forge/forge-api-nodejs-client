@@ -8,7 +8,7 @@
 [![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](http://autodesk-forge.github.io/)
 
 ## Overview
-This [Node.js](https://nodejs.org/) SDK (version 0.4.1) enables you to easily integrate the Forge REST APIs
+This [Node.js](https://nodejs.org/) SDK enables you to easily integrate the Forge REST APIs
 into your application, including [OAuth](https://developer.autodesk.com/en/docs/oauth/v2/overview/),
 [Data Management](https://developer.autodesk.com/en/docs/data/v2/overview/),
 [Model Derivative](https://developer.autodesk.com/en/docs/model-derivative/v2/overview/),
