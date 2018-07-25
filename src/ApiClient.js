@@ -22,7 +22,7 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var request = require('request');
@@ -39,7 +39,7 @@ module.exports = (function() {
    * @alias module:ApiClient
    * @class
    */
-  var exports = function() {
+  var exports = function () {
     /**
      * The base URL against which to resolve every API call's (relative) path.
      * @type {String}
@@ -59,8 +59,6 @@ module.exports = (function() {
      * @default 60000
      */
     this.timeout = 60000;
-
-    this.basePath = 'https://developer.api.autodesk.com';
   };
 
   /**
@@ -68,8 +66,8 @@ module.exports = (function() {
    * @param param The actual parameter.
    * @returns {String} The string representation of <code>param</code>.
    */
-  exports.prototype.paramToString = function(param) {
-    if (param == undefined || param == null) {
+  exports.prototype.paramToString = function (param) {
+    if (param === undefined || param === null) {
       return '';
     }
     if (param instanceof Date) {
@@ -85,13 +83,13 @@ module.exports = (function() {
    * @param {Object} pathParams The parameter values to append.
    * @returns {String} The encoded path with parameter values substituted.
    */
-  exports.prototype.buildUrl = function(path, pathParams) {
+  exports.prototype.buildUrl = function (path, pathParams) {
     if (!path.match(/^\//)) {
       path = '/' + path;
     }
     var url = this.basePath + path;
     var _this = this;
-    url = url.replace(/\{([\w-]+)}/g, function(fullMatch, key) {
+    url = url.replace(/\{([\w-]+)}/g, function (fullMatch, key) {
       var value;
       if (pathParams.hasOwnProperty(key)) {
         value = _this.paramToString(pathParams[key]);
@@ -114,8 +112,8 @@ module.exports = (function() {
    * @param {String} contentType The MIME content type to check.
    * @returns {Boolean} <code>true</code> if <code>contentType</code> represents JSON, otherwise <code>false</code>.
    */
-  exports.prototype.isJsonMime = function(contentType) {
-    return Boolean(contentType != null && contentType.match(/^application\/(vnd.api\+)?json(;.*)?$/i));
+  exports.prototype.isJsonMime = function (contentType) {
+    return Boolean(contentType !== null && contentType.match(/^application\/(vnd.api\+)?json(;.*)?$/i));
   };
 
   /**
@@ -123,7 +121,7 @@ module.exports = (function() {
    * @param {Array.<String>} contentTypes
    * @returns {String} The chosen content type, preferring JSON.
    */
-  exports.prototype.jsonPreferredMime = function(contentTypes) {
+  exports.prototype.jsonPreferredMime = function (contentTypes) {
     for (var i = 0; i < contentTypes.length; i++) {
       if (this.isJsonMime(contentTypes[i])) {
         return contentTypes[i];
@@ -137,7 +135,7 @@ module.exports = (function() {
    * @param param The parameter to check.
    * @returns {Boolean} <code>true</code> if <code>param</code> represents a file.
    */
-  exports.prototype.isFileParam = function(param) {
+  exports.prototype.isFileParam = function (param) {
 
     return param instanceof require('fs').ReadStream || (typeof Buffer === 'function' && param instanceof Buffer);
   };
@@ -152,10 +150,10 @@ module.exports = (function() {
    * @param {Object.<String, Object>} params The parameters as object properties.
    * @returns {Object.<String, Object>} normalized parameters.
    */
-  exports.prototype.normalizeParams = function(params) {
+  exports.prototype.normalizeParams = function (params) {
     var newParams = {};
     for (var key in params) {
-      if (params.hasOwnProperty(key) && params[key] != undefined && params[key] != null) {
+      if (params.hasOwnProperty(key) && params[key] !== undefined && params[key] !== null) {
         var value = params[key];
         if (this.isFileParam(value) || Array.isArray(value)) {
           newParams[key] = value;
@@ -208,7 +206,7 @@ module.exports = (function() {
    * <code>param</code> as is if <code>collectionFormat</code> is <code>multi</code>.
    */
   exports.prototype.buildCollectionParam = function buildCollectionParam(param, collectionFormat) {
-    if (param == null) {
+    if (param === null) {
       return null;
     }
     switch (collectionFormat) {
@@ -229,78 +227,80 @@ module.exports = (function() {
   };
 
   /**
-    * Applies authentication header to the request.
-    * @param {Object} requestParams - The requestParams object created by a <code>request()</code> call.
-    * @param {Object} headers - The headers that passed to this method
-    * @param {Object} oauth2client - OAuth2 client that has a credentials object
-    * @param {Object} credentials - The credentials object
-    */
-   exports.prototype.applyAuthToRequest = function(requestParams, headers, oauth2client, credentials) {
+   * Applies authentication header to the request.
+   * @param {Object} requestParams - The requestParams object created by a <code>request()</code> call.
+   * @param {Object} headers - The headers that passed to this method
+   * @param {Object} oauth2client - OAuth2 client that has a credentials object
+   * @param {Object} credentials - The credentials object
+   */
+  exports.prototype.applyAuthToRequest = function (requestParams, headers, oauth2client, credentials) {
 
-     var _this = this;
-     function setAuthHeader(credentials){
-       if (credentials.access_token) {
-         headers['Authorization'] = 'Bearer ' + credentials.access_token;
-       }
-     }
+    var _this = this;
 
-     return new Promise(function(resolve, reject) {
-       //if the request doesn't require authentication, just resolve the promise
-       if (!credentials || (credentials && !credentials.access_token)) {
-         resolve();
-       }
+    function setAuthHeader(credentials) {
+      if (credentials.access_token) {
+        headers['Authorization'] = 'Bearer ' + credentials.access_token; // jshint ignore:line
+      }
+    }
 
-       // let's see if the token is already expired?
-       // be careful access tokens are validated once teh query was received by the server, not when emitted
-       // for this reason, we need to aknowledge the time to upload payload/file/etc... (300 == 5min)
-       if (oauth2client && oauth2client.autoRefresh && new Date(credentials.expires_at - 300).getTime() <= Date.now()) {
+    return new Promise(function (resolve, reject) {
+      //if the request doesn't require authentication, just resolve the promise
+      if (!credentials || (credentials && !credentials.access_token)) {
+        resolve();
+      }
 
-         // set the correct promiseObj, for 2 or 3 legged token
-         var isCredentialsTypeTwoLegged = true;
+      // let's see if the token is already expired?
+      // be careful access tokens are validated once teh query was received by the server, not when emitted
+      // for this reason, we need to aknowledge the time to upload payload/file/etc... (300 == 5min)
+      var test = Date.now()
+      if (oauth2client && oauth2client.autoRefresh && new Date(credentials.expires_at).getTime() - 300000 <= Date.now()) {
 
-         if (credentials.refresh_token){
-           isCredentialsTypeTwoLegged = false;
-         }
+        // set the correct promiseObj, for 2 or 3 legged token
+        var isCredentialsTypeTwoLegged = true;
 
-         var getCredentialsPromise = isCredentialsTypeTwoLegged
-             ? oauth2client.authenticate() // 2-legged: create a new credentials object
-             : oauth2client.refreshToken(credentials); // 3-legged: use refresh
+        if (credentials.refresh_token) {
+          isCredentialsTypeTwoLegged = false;
+        }
 
+        var getCredentialsPromise = isCredentialsTypeTwoLegged ?
+          oauth2client.authenticate() // 2-legged: create a new credentials object
+          :
+          oauth2client.refreshToken(credentials); // 3-legged: use refresh
 
-         getCredentialsPromise.then(function(newCredentials){
-           _this.debug('credentials were refreshed, new credentials:', newCredentials);
+        getCredentialsPromise.then(function (newCredentials) {
+          _this.debug('credentials were refreshed, new credentials:', newCredentials);
 
-           // For a 2-legged token just update the credentials object
-           if (isCredentialsTypeTwoLegged){
-             oauth2client.setCredentials(newCredentials);
-           }
-           setAuthHeader(newCredentials);
-           resolve();
-         }, function(err){
-           reject(err);
-         });
-       } else {
-         setAuthHeader(credentials);
-         _this.debug('set current credentials to header', credentials);
-         resolve();
-       }
-     });
-   };
+          // For a 2-legged token just update the credentials object
+          if (isCredentialsTypeTwoLegged) {
+            oauth2client.setCredentials(newCredentials);
+          }
+          setAuthHeader(newCredentials);
+          resolve();
+        }, function (err) {
+          reject(err);
+        });
+      } else {
+        setAuthHeader(credentials);
+        _this.debug('set current credentials to header', credentials);
+        resolve();
+      }
+    });
+  };
 
   /**
    * Enable working in debug mode
    * To activate, simple set ForgeSdk.setDebug(true);
    */
-  exports.prototype.debug = function debug(){
-    if (this.isDebugMode){
+  exports.prototype.debug = function debug() {
+    if (this.isDebugMode) {
       var args = Array.prototype.slice.call(arguments);
-      args.map(function(arg){
-        if (typeof arg === 'string'){
+      args.map(function (arg) {
+        if (typeof arg === 'string') {
           console.log(arg + ': ');
         } else {
           console.log(arg);
         }
-      })
+      });
     }
   };
 
@@ -322,8 +322,8 @@ module.exports = (function() {
    * @returns {Object} A Promise object.
    */
   exports.prototype.callApi = function callApi(path, httpMethod, pathParams,
-      queryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
-      returnType, oauth2client, credentials) {
+    queryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
+    returnType, oauth2client, credentials) {
 
     var _this = this;
     var requestParams = {};
@@ -344,56 +344,65 @@ module.exports = (function() {
       requestParams.formData = this.normalizeParams(formParams);
     } else if (bodyParam) {
       requestParams.body = bodyParam;
-      if (this.isJsonMime(contentType)){
+      if (this.isJsonMime(contentType)) {
         requestParams.json = true;
       }
     }
 
     if (accepts.length > 0) {
-      headers['Accept'] = accepts.join(',');
+      headers['Accept'] = accepts.join(','); // jshint ignore:line
       for (var i = 0; i < accepts.length; i++) {
-        if (accepts [i] === 'application/octet-stream'){
+        if (accepts[i] === 'application/octet-stream') {
           requestParams.encoding = null;
         }
       }
     }
-    if (headerParams['Accept-Encoding'] == 'gzip, deflate'){
+    if (headerParams['Accept-Encoding'] == 'gzip, deflate') {
       requestParams.encoding = null;
     }
     _this.debug('request params were', requestParams);
 
     return new Promise(function (resolve, reject) {
-      _this.applyAuthToRequest(requestParams, headers, oauth2client, credentials).then(function() {
+      _this.applyAuthToRequest(requestParams, headers, oauth2client, credentials).then(function () {
 
         // headerParams optional overrides
         requestParams.headers = Object.assign(headers, headerParams);
+        requestParams.agentOptions = {
+          secureProtocol: 'TLSv1_2_method' // 'TLSv1.2'
+        };
 
         // Call API endpoint
         request(requestParams,
-            function (error, response, body) {
-              if (error) {
-                reject(error);
-              } else {
-                var resp;
-                try {
-                  resp = JSON.parse(body)
-                }
-                catch(e) {
-                  resp = body
-                }
-
-                if (response.statusCode >= 400) {
-                  _this.debug('error response', {
-                    statusCode: response.statusCode,
-                    statusMessage: response.statusMessage
-                  });
-                  reject({statusCode: response.statusCode, statusMessage: response.statusMessage});
-                } else {
-                  resolve({statusCode: response.statusCode, headers: response.headers, body: resp});
-                }
+          function (error, response, body) {
+            if (error) {
+              reject(error);
+            } else {
+              var resp;
+              try {
+                resp = JSON.parse(body);
+              } catch (e) {
+                resp = body;
               }
-            });
-      }, function(err){
+
+              if (response.statusCode >= 400) {
+                _this.debug('error response', {
+                  statusCode: response.statusCode,
+                  statusMessage: response.statusMessage
+                });
+                reject({
+                  statusCode: response.statusCode,
+                  statusMessage: response.statusMessage
+                });
+              } else {
+                resolve({
+                  statusCode: response.statusCode,
+                  headers: response.headers,
+                  body: resp
+                });
+              }
+            }
+          });
+      }, function (err) {
         throw new Error(err.toString);
       });
     });
@@ -404,8 +413,8 @@ module.exports = (function() {
    * @param {String} str The date value as a string.
    * @returns {Date} The parsed date object.
    */
-  exports.parseDate = function(str) {
-      return new Date(str.replace(/T/i, ' '));
+  exports.parseDate = function (str) {
+    return new Date(str.replace(/T/i, ' '));
   };
 
   /**
@@ -417,57 +426,55 @@ module.exports = (function() {
    * all properties on <code>data<code> will be converted to this type.
    * @returns {Object} An instance of the specified type.
    */
-  exports.convertToType = function(data, type) {
-        switch (type) {
-            case 'Boolean':
-                return Boolean(data);
-            case 'Integer':
-                return parseInt(data, 10);
-            case 'Number':
-                return parseFloat(data);
-            case 'String':
-                return String(data);
-            case 'Date':
-                return this.parseDate(String(data));
-            default:
-                if (type === Object) {
-                    // generic object, return directly
-                    return data;
-                } else if (typeof type === 'function') {
-                    // for model type like: User
-                    return type.constructFromObject(data);
-                } else if (Array.isArray(type)) {
-                    // for array type like: ['String']
-                    var itemType = type[0];
-                    return data.map(function(item) {
-                        return exports.convertToType(item, itemType);
-                    });
-                } else if (typeof type === 'object') {
-                    // for plain object type like: {'String': 'Integer'}
-                    var keyType, valueType;
-                    for (var k in type) {
-                        if (type.hasOwnProperty(k)) {
-                            keyType = k;
-                            valueType = type[k];
-                            break;
-                        }
-                    }
-                    var result = {};
-                    for (var j in data) {
-                        if (data.hasOwnProperty(j)) {
-                            var key = exports.convertToType(j, keyType);
-                            result[key] = exports.convertToType(data[j], valueType);
-                        }
-                    }
-                    return result;
-                } else {
-                    // for unknown type, return the data directly
-                    return data;
-                }
+  exports.convertToType = function (data, type) {
+    switch (type) {
+      case 'Boolean':
+        return Boolean(data);
+      case 'Integer':
+        return parseInt(data, 10);
+      case 'Number':
+        return parseFloat(data);
+      case 'String':
+        return String(data);
+      case 'Date':
+        return this.parseDate(String(data));
+      default:
+        if (type === Object) {
+          // generic object, return directly
+          return data;
+        } else if (typeof type === 'function') {
+          // for model type like: User
+          return type.constructFromObject(data);
+        } else if (Array.isArray(type)) {
+          // for array type like: ['String']
+          var itemType = type[0];
+          return data.map(function (item) {
+            return exports.convertToType(item, itemType);
+          });
+        } else if (typeof type === 'object') {
+          // for plain object type like: {'String': 'Integer'}
+          var keyType, valueType;
+          for (var k in type) {
+            if (type.hasOwnProperty(k)) {
+              keyType = k;
+              valueType = type[k];
+              break;
+            }
+          }
+          var result = {};
+          for (var j in data) {
+            if (data.hasOwnProperty(j)) {
+              var key = exports.convertToType(j, keyType);
+              result[key] = exports.convertToType(data[j], valueType);
+            }
+          }
+          return result;
+        } else {
+          // for unknown type, return the data directly
+          return data;
         }
+    }
   };
-
-
 
   /**
    * The default API client implementation.
