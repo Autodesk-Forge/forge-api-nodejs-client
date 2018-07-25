@@ -44,7 +44,7 @@ module.exports = (function() {
   /**
    * Items service.
    * @module api/ItemsApi
-   * @version 0.4.2
+   * @version 0.4.3
    */
 
   /**

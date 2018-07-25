@@ -30,7 +30,7 @@ module.exports = (function () {
 
     /**
      * @module auth/OAuth2ThreeLegged
-     * @version 0.4.2
+     * @version 0.4.3
      */
 
     /**
