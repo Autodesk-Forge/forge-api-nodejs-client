@@ -241,7 +241,7 @@ Class | Method | HTTP request | Description
 
 ### Thumbnail
 
-![thumbnail](/nodeJs.png)
+![thumbnail](/thumbnail.png)
 
 ## Support
 
