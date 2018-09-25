@@ -22,7 +22,6 @@
  * limitations under the License.
  */
 
-
 module.exports = (function() {
    'use strict';
 
@@ -34,7 +33,6 @@ module.exports = (function() {
   /**
    * WorkItems service.
    * @module api/WorkItemsApi
-   * @version 0.4.3
    */
 
   /**
@@ -46,8 +44,6 @@ module.exports = (function() {
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
-
-
 
     /**
      * Creates a new WorkItem.
@@ -63,7 +59,6 @@ module.exports = (function() {
       if (workItem == undefined || workItem == null) {
         return Promise.reject("Missing the required parameter 'workItem' when calling createWorkItem");
       }
-
 
       var pathParams = {
       };
@@ -85,7 +80,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Removes a specific WorkItem.
      * @param {String} id
@@ -99,7 +93,6 @@ module.exports = (function() {
       if (id == undefined || id == null) {
         return Promise.reject("Missing the required parameter 'id' when calling deleteWorkItem");
       }
-
 
       var pathParams = {
         'id': id
@@ -122,7 +115,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns the details of all WorkItems.
      * @param {Object} opts Optional parameters
@@ -134,7 +126,6 @@ module.exports = (function() {
     this.getAllWorkItems = function(opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
-
 
       var pathParams = {
       };
@@ -157,7 +148,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns the details of a specific WorkItem.
      * @param {String} id
@@ -172,7 +162,6 @@ module.exports = (function() {
       if (id == undefined || id == null) {
         return Promise.reject("Missing the required parameter 'id' when calling getWorkItem");
       }
-
 
       var pathParams = {
         'id': id

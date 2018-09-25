@@ -22,7 +22,6 @@
  * limitations under the License.
  */
 
-
 module.exports = (function() {
    'use strict';
 
@@ -38,7 +37,6 @@ module.exports = (function() {
   /**
    * Objects service.
    * @module api/ObjectsApi
-   * @version 0.4.3
    */
 
   /**
@@ -50,8 +48,6 @@ module.exports = (function() {
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
-
-
 
     /**
      * Copies an object to another object name in the same bucket.
@@ -80,7 +76,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'newObjName' when calling copyTo");
       }
 
-
       var pathParams = {
         'bucketKey': bucketKey,
         'objectName': objectName,
@@ -103,7 +98,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * This endpoint creates a signed URL that can be used to download an object within the specified expiration time. Be aware that if the object the signed URL points to is deleted or expires before the signed URL expires, then the signed URL will no longer be valid. A successful call to this endpoint requires bucket owner access.
@@ -135,7 +129,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'postBucketsSigned' when calling createSignedResource");
       }
 
-
       var pathParams = {
         'bucketKey': bucketKey,
         'objectName': objectName
@@ -159,7 +152,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Deletes an object from the bucket.
      * @param {String} bucketKey URL-encoded bucket key
@@ -179,7 +171,6 @@ module.exports = (function() {
       if (objectName == undefined || objectName == null) {
         return Promise.reject("Missing the required parameter 'objectName' when calling deleteObject");
       }
-
 
       var pathParams = {
         'bucketKey': bucketKey,
@@ -203,7 +194,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Delete a signed URL. A successful call to this endpoint requires bucket owner access.
      * @param {String} id Id of signed resource
@@ -220,7 +210,6 @@ module.exports = (function() {
       if (id == undefined || id == null) {
         return Promise.reject("Missing the required parameter 'id' when calling deleteSignedResource");
       }
-
 
       var pathParams = {
         'id': id
@@ -243,7 +232,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Download an object.
@@ -272,7 +260,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'objectName' when calling getObject");
       }
 
-
       var pathParams = {
         'bucketKey': bucketKey,
         'objectName': objectName
@@ -299,7 +286,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns object details in JSON format.
      * @param {String} bucketKey URL-encoded bucket key
@@ -325,7 +311,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'objectName' when calling getObjectDetails");
       }
 
-
       var pathParams = {
         'bucketKey': bucketKey,
         'objectName': objectName
@@ -350,7 +335,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * List objects in a bucket. It is only available to the bucket creator.
      * @param {String} bucketKey URL-encoded bucket key
@@ -370,7 +354,6 @@ module.exports = (function() {
       if (bucketKey == undefined || bucketKey == null) {
         return Promise.reject("Missing the required parameter 'bucketKey' when calling getObjects");
       }
-
 
       var pathParams = {
         'bucketKey': bucketKey
@@ -396,7 +379,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Download an object using a signed URL.
      * @param {String} id Id of signed resource
@@ -418,7 +400,6 @@ module.exports = (function() {
       if (id == undefined || id == null) {
         return Promise.reject("Missing the required parameter 'id' when calling getSignedResource");
       }
-
 
       var pathParams = {
         'id': id
@@ -446,7 +427,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * This endpoint returns status information about a resumable upload.
      * @param {String} bucketKey URL-encoded bucket key
@@ -473,7 +453,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'sessionId' when calling getStatusBySessionId");
       }
 
-
       var pathParams = {
         'bucketKey': bucketKey,
         'objectName': objectName,
@@ -496,7 +475,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * This endpoint allows resumable uploads for large files in chunks.
@@ -547,7 +525,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'body' when calling uploadChunk");
       }
 
-
       var pathParams = {
         'bucketKey': bucketKey,
         'objectName': objectName
@@ -574,7 +551,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Upload an object. If the specified object name already exists in the bucket, the uploaded content will overwrite the existing content for the bucket name/object name combination.
@@ -613,7 +589,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'body' when calling uploadObject");
       }
 
-
       var pathParams = {
         'bucketKey': bucketKey,
         'objectName': objectName
@@ -638,7 +613,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Overwrite a existing object using a signed URL.  Conditions to call this operation:  Object is available Expiration period is valid Signed URL should be created with &#x60;write&#x60; or &#x60;readwrite&#x60;
@@ -672,7 +646,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'body' when calling uploadSignedResource");
       }
 
-
       var pathParams = {
         'id': id
       };
@@ -697,7 +670,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Resumable upload for signed URLs.
@@ -735,7 +707,6 @@ module.exports = (function() {
       if (body == undefined || body == null) {
         return Promise.reject("Missing the required parameter 'body' when calling uploadSignedResourcesChunk");
       }
-
 
       var pathParams = {
         'id': id

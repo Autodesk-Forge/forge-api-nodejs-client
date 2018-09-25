@@ -35,8 +35,7 @@ module.exports = (function() {
   /**
    * Print service.
    * @module api/PrintApi
-   * @version 0.4.3
-   */
+\   */
 
   /**
    * Constructs a new PrintApi.

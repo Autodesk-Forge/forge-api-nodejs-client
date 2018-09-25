@@ -22,7 +22,6 @@
  * limitations under the License.
  */
 
-
 module.exports = (function() {
    'use strict';
 
@@ -35,7 +34,6 @@ module.exports = (function() {
   /**
    * Buckets service.
    * @module api/BucketsApi
-   * @version 0.4.3
    */
 
   /**
@@ -47,8 +45,6 @@ module.exports = (function() {
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
-
-
 
     /**
      * Use this endpoint to create a bucket. Buckets are arbitrary spaces created and owned by applications. Bucket keys are globally unique across all regions, regardless of where they were created, and they cannot be changed. The application creating the bucket is the owner of the bucket.
@@ -67,7 +63,6 @@ module.exports = (function() {
       if (postBuckets == undefined || postBuckets == null) {
         return Promise.reject("Missing the required parameter 'postBuckets' when calling createBucket");
       }
-
 
       var pathParams = {
       };
@@ -90,7 +85,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * This endpoint will delete a bucket.
      * @param {String} bucketKey URL-encoded bucket key
@@ -104,7 +98,6 @@ module.exports = (function() {
       if (bucketKey == undefined || bucketKey == null) {
         return Promise.reject("Missing the required parameter 'bucketKey' when calling deleteBucket");
       }
-
 
       var pathParams = {
         'bucketKey': bucketKey
@@ -127,7 +120,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * This endpoint will return the buckets owned by the application. This endpoint supports pagination.
      * @param {String} bucketKey URL-encoded bucket key
@@ -142,7 +134,6 @@ module.exports = (function() {
       if (bucketKey == undefined || bucketKey == null) {
         return Promise.reject("Missing the required parameter 'bucketKey' when calling getBucketDetails");
       }
-
 
       var pathParams = {
         'bucketKey': bucketKey
@@ -165,7 +156,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * This endpoint will return the buckets owned by the application. This endpoint supports pagination.
      * @param {Object} opts Optional parameters
@@ -179,7 +169,6 @@ module.exports = (function() {
     this.getBuckets = function(opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
-
 
       var pathParams = {
       };

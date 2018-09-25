@@ -22,7 +22,6 @@
  * limitations under the License.
  */
 
-
 module.exports = (function() {
    'use strict';
 
@@ -39,7 +38,6 @@ module.exports = (function() {
   /**
    * Folders service.
    * @module api/FoldersApi
-   * @version 0.4.3
    */
 
   /**
@@ -51,8 +49,6 @@ module.exports = (function() {
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
-
-
 
     /**
      * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project are associated with their own unique ID, including the root folder.
@@ -75,7 +71,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'folderId' when calling getFolder");
       }
 
-
       var pathParams = {
         'project_id': projectId,
         'folder_id': folderId
@@ -97,7 +92,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Returns a collection of items and folders within a folder. Items represent word documents, fusion design files, drawings, spreadsheets, etc.
@@ -127,7 +121,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'folderId' when calling getFolderContents");
       }
 
-
       var pathParams = {
         'project_id': projectId,
         'folder_id': folderId
@@ -155,7 +148,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns the parent folder (if it exists). In a project, subfolders and resource items are stored under a folder except the root folder which does not have a parent of its own.
      * @param {String} projectId the &#x60;project id&#x60;
@@ -176,7 +168,6 @@ module.exports = (function() {
       if (folderId == undefined || folderId == null) {
         return Promise.reject("Missing the required parameter 'folderId' when calling getFolderParent");
       }
-
 
       var pathParams = {
         'project_id': projectId,
@@ -199,7 +190,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Returns the resources (&#x60;items&#x60;, &#x60;folders&#x60;, and &#x60;versions&#x60;) which have a custom relationship with the given &#x60;folder_id&#x60;. Custom relationships can be established between a folder and other resources within the &#39;data&#39; domain service (folders, items, and versions).
@@ -227,7 +217,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'folderId' when calling getFolderRefs");
       }
 
-
       var pathParams = {
         'project_id': projectId,
         'folder_id': folderId
@@ -252,7 +241,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Returns the custom relationships that are associated to the given &#x60;folder_id&#x60;. Custom relationships can be established between a folder and other resources within the &#39;data&#39; domain service (folders, items, and versions).
@@ -282,7 +270,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'folderId' when calling getFolderRelationshipsRefs");
       }
 
-
       var pathParams = {
         'project_id': projectId,
         'folder_id': folderId
@@ -310,7 +297,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Creates a new folder in the &#x60;data&#x60; domain service
      * @param {module:model/CreateFolder} body describe the folder to be created
@@ -324,7 +310,6 @@ module.exports = (function() {
       if (body == undefined || body == null) {
         return Promise.reject("Missing the required parameter 'body' when calling postFolder");
       }
-
 
       var pathParams = {
          'project_id': projectId
@@ -346,7 +331,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Creates a custom relationship between a folder and another resource within the &#39;data&#39; domain service (folder, item, or version).
@@ -373,7 +357,6 @@ module.exports = (function() {
       if (body == undefined || body == null) {
         return Promise.reject("Missing the required parameter 'body' when calling postFolderRelationshipsRef");
       }
-
 
       var pathParams = {
         'project_id': projectId,

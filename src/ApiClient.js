@@ -29,7 +29,6 @@ module.exports = (function () {
 
   /**
    * @module ApiClient
-   * @version 0.4.3
    */
 
   /**

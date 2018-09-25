@@ -22,7 +22,6 @@
  * limitations under the License.
  */
 
-
 module.exports = (function() {
    'use strict';
 
@@ -44,7 +43,6 @@ module.exports = (function() {
   /**
    * Items service.
    * @module api/ItemsApi
-   * @version 0.4.3
    */
 
   /**
@@ -56,8 +54,6 @@ module.exports = (function() {
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
-
-
 
     /**
      * Returns a resource item by ID for any item within a given project. Resource items represent word documents, fusion design files, drawings, spreadsheets, etc.
@@ -79,7 +75,6 @@ module.exports = (function() {
       if (itemId == undefined || itemId == null) {
         return Promise.reject("Missing the required parameter 'itemId' when calling getItem");
       }
-
 
       var pathParams = {
         'project_id': projectId,
@@ -103,7 +98,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns the \&quot;parent\&quot; folder for the given item.
      * @param {String} projectId the &#x60;project id&#x60;
@@ -124,7 +118,6 @@ module.exports = (function() {
       if (itemId == undefined || itemId == null) {
         return Promise.reject("Missing the required parameter 'itemId' when calling getItemParentFolder");
       }
-
 
       var pathParams = {
         'project_id': projectId,
@@ -147,7 +140,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Returns the resources (&#x60;items&#x60;, &#x60;folders&#x60;, and &#x60;versions&#x60;) which have a custom relationship with the given &#x60;item_id&#x60;. Custom relationships can be established between an item and other resources within the &#39;data&#39; domain service (folders, items, and versions).
@@ -175,7 +167,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'itemId' when calling getItemRefs");
       }
 
-
       var pathParams = {
         'project_id': projectId,
         'item_id': itemId
@@ -200,7 +191,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Returns the custom relationships that are associated to the given &#x60;item_id&#x60;. Custom relationships can be established between an item and other resources within the &#39;data&#39; domain service (folders, items, and versions).
@@ -230,7 +220,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'itemId' when calling getItemRelationshipsRefs");
       }
 
-
       var pathParams = {
         'project_id': projectId,
         'item_id': itemId
@@ -258,7 +247,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns the \&quot;tip\&quot; version for the given item. Multiple versions of a resource item can be uploaded in a project. The tip version is the most recent one.
      * @param {String} projectId the &#x60;project id&#x60;
@@ -279,7 +267,6 @@ module.exports = (function() {
       if (itemId == undefined || itemId == null) {
         return Promise.reject("Missing the required parameter 'itemId' when calling getItemTip");
       }
-
 
       var pathParams = {
         'project_id': projectId,
@@ -302,7 +289,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Returns versions for the given item. Multiple versions of a resource item can be uploaded in a project.
@@ -333,7 +319,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'itemId' when calling getItemVersions");
       }
 
-
       var pathParams = {
         'project_id': projectId,
         'item_id': itemId
@@ -362,7 +347,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Creates a new item in the &#39;data&#39; domain service.
      * @param {String} projectId the &#x60;project id&#x60;
@@ -384,7 +368,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'body' when calling postItem");
       }
 
-
       var pathParams = {
         'project_id': projectId
       };
@@ -405,7 +388,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Creates a custom relationship between an item and another resource within the &#39;data&#39; domain service (folder, item, or version).
@@ -432,7 +414,6 @@ module.exports = (function() {
       if (body == undefined || body == null) {
         return Promise.reject("Missing the required parameter 'body' when calling postItemRelationshipsRef");
       }
-
 
       var pathParams = {
         'project_id': projectId,

@@ -22,7 +22,6 @@
  * limitations under the License.
  */
 
-
 module.exports = (function() {
    'use strict';
 
@@ -35,7 +34,6 @@ module.exports = (function() {
   /**
    * Hubs service.
    * @module api/HubsApi
-   * @version 0.4.3
    */
 
   /**
@@ -47,8 +45,6 @@ module.exports = (function() {
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
-
-
 
     /**
      * Returns data on a specific &#x60;hub_id&#x60;.
@@ -64,7 +60,6 @@ module.exports = (function() {
       if (hubId == undefined || hubId == null) {
         return Promise.reject("Missing the required parameter 'hubId' when calling getHub");
       }
-
 
       var pathParams = {
         'hub_id': hubId
@@ -87,7 +82,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns a collection of accessible hubs for this member. A Hub represents an A360 Team/Personal hub or a BIM 360 account.
      * @param {Object} opts Optional parameters
@@ -100,7 +94,6 @@ module.exports = (function() {
     this.getHubs = function(opts, oauth2client, credentials) {
       opts = opts || {};
       var postBody = null;
-
 
       var pathParams = {
       };

@@ -22,7 +22,6 @@
  * limitations under the License.
  */
 
-
 module.exports = (function() {
    'use strict';
 
@@ -42,7 +41,6 @@ module.exports = (function() {
   /**
    * Versions service.
    * @module api/VersionsApi
-   * @version 0.4.3
    */
 
   /**
@@ -54,8 +52,6 @@ module.exports = (function() {
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
-
-
 
     /**
      * Returns the version with the given &#x60;version_id&#x60;.
@@ -77,7 +73,6 @@ module.exports = (function() {
       if (versionId == undefined || versionId == null) {
         return Promise.reject("Missing the required parameter 'versionId' when calling getVersion");
       }
-
 
       var pathParams = {
         'project_id': projectId,
@@ -101,7 +96,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns the item the given version is associated with.
      * @param {String} projectId the &#x60;project id&#x60;
@@ -122,7 +116,6 @@ module.exports = (function() {
       if (versionId == undefined || versionId == null) {
         return Promise.reject("Missing the required parameter 'versionId' when calling getVersionItem");
       }
-
 
       var pathParams = {
         'project_id': projectId,
@@ -145,7 +138,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Returns the resources (&#x60;items&#x60;, &#x60;folders&#x60;, and &#x60;versions&#x60;) which have a custom relationship with the given &#x60;version_id&#x60;. Custom relationships can be established between a version of an item and other resources within the &#39;data&#39; domain service (folders, items, and versions).
@@ -173,7 +165,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'versionId' when calling getVersionRefs");
       }
 
-
       var pathParams = {
         'project_id': projectId,
         'version_id': versionId
@@ -198,7 +189,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Returns the custom relationships that are associated to the given &#x60;version_id&#x60;. Custom relationships can be established between a version of an item and other resources within the &#39;data&#39; domain service (folders, items, and versions).
@@ -228,7 +218,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'versionId' when calling getVersionRelationshipsRefs");
       }
 
-
       var pathParams = {
         'project_id': projectId,
         'version_id': versionId
@@ -256,7 +245,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Creates a new version of an item in the &#39;data&#39; domain service.
      * @param {String} projectId the &#x60;project id&#x60;
@@ -278,7 +266,6 @@ module.exports = (function() {
         return Promise.reject("Missing the required parameter 'body' when calling postVersion");
       }
 
-
       var pathParams = {
         'project_id': projectId
       };
@@ -299,7 +286,6 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
-
 
     /**
      * Creates a custom relationship between a version and another resource within the &#39;data&#39; domain service (folder, item, or version).
@@ -326,7 +312,6 @@ module.exports = (function() {
       if (body == undefined || body == null) {
         return Promise.reject("Missing the required parameter 'body' when calling postVersionRelationshipsRef");
       }
-
 
       var pathParams = {
         'project_id': projectId,

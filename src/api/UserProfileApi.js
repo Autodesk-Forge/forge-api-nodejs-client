@@ -22,7 +22,6 @@
  * limitations under the License.
  */
 
-
 module.exports = (function() {
    'use strict';
 
@@ -32,7 +31,6 @@ module.exports = (function() {
   /**
    * UserProfile service.
    * @module api/UserProfileApi
-   * @version 0.4.3
    */
 
   /**
@@ -45,8 +43,6 @@ module.exports = (function() {
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
 
-
-
     /**
      * Returns the profile information of an authorizing end user.
      * data is of type: {module:model/UserProfile}
@@ -55,7 +51,6 @@ module.exports = (function() {
      */
     this.getUserProfile = function(oauth2client, credentials) {
       var postBody = null;
-
 
       var pathParams = {
       };

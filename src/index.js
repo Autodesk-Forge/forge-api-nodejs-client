@@ -185,7 +185,6 @@ module.exports = (function() {
       authClientTwoLegged = require('./auth/OAuth2TwoLegged'),
       authClientThreeLegged = require('./auth/OAuth2ThreeLegged');
 
-
   /**
    * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering..<br>
    * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
@@ -215,7 +214,6 @@ module.exports = (function() {
    * </pre>
    * </p>
    * @module index
-   * @version 0.4.3
    */
   var exports = {
     /**

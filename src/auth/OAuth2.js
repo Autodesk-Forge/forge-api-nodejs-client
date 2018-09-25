@@ -96,7 +96,6 @@ module.exports = (function () {
 
     /**
      * @module auth/OAuth2
-     * @version 0.4.3
      */
 
     /**
@@ -110,7 +109,6 @@ module.exports = (function () {
         this.credentials = {};
         this.credentials.expires_at = Date.now();
         this.autoRefresh = autoRefresh || false; // don't auto refresh by default
-
 
         //set the base path for the auth endpoints
         this.basePath = ApiClient.basePath;

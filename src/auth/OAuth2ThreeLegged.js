@@ -30,7 +30,6 @@ module.exports = (function () {
 
     /**
      * @module auth/OAuth2ThreeLegged
-     * @version 0.4.3
      */
 
     /**
@@ -129,7 +128,6 @@ module.exports = (function () {
         });
 
     };
-
 
     /**
      * Refresh a 3-legged token

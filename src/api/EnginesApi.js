@@ -22,7 +22,6 @@
  * limitations under the License.
  */
 
-
 module.exports = (function() {
    'use strict';
 
@@ -33,7 +32,6 @@ module.exports = (function() {
   /**
    * Engines service.
    * @module api/EnginesApi
-   * @version 0.4.3
    */
 
   /**
@@ -46,8 +44,6 @@ module.exports = (function() {
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
 
-
-
     /**
      * Returns the details of all available AutoCAD core engines.
      * data is of type: {module:model/DesignAutomationEngines}
@@ -56,7 +52,6 @@ module.exports = (function() {
      */
     this.getAllEngines = function(oauth2client, credentials) {
       var postBody = null;
-
 
       var pathParams = {
       };
@@ -78,7 +73,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns the details of a specific AutoCAD core engine.
      * @param {String} id
@@ -93,7 +87,6 @@ module.exports = (function() {
       if (id == undefined || id == null) {
         return Promise.reject("Missing the required parameter 'id' when calling getEngine");
       }
-
 
       var pathParams = {
         'id': id

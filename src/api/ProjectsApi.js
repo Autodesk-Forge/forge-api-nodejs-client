@@ -22,7 +22,6 @@
  * limitations under the License.
  */
 
-
 module.exports = (function() {
    'use strict';
 
@@ -40,7 +39,6 @@ module.exports = (function() {
   /**
    * Projects service.
    * @module api/ProjectsApi
-   * @version 0.4.3
    */
 
   /**
@@ -52,8 +50,6 @@ module.exports = (function() {
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
-
-
 
     /**
      * Returns a collection of projects for a given &#x60;hub_id&#x60;. A project represents an A360 project or a BIM 360 project which is set up under an A360 hub or BIM 360 account, respectively. Within a hub or an account, multiple projects can be created to be used.
@@ -73,7 +69,6 @@ module.exports = (function() {
       if (hubId == undefined || hubId == null) {
         return Promise.reject("Missing the required parameter 'hubId' when calling getHubProjects");
       }
-
 
       var pathParams = {
         'hub_id': hubId
@@ -98,7 +93,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns a project for a given &#x60;project_id&#x60;.
      * @param {String} hubId the &#x60;hub id&#x60; for the current operation
@@ -119,7 +113,6 @@ module.exports = (function() {
       if (projectId == undefined || projectId == null) {
         return Promise.reject("Missing the required parameter 'projectId' when calling getProject");
       }
-
 
       var pathParams = {
         'hub_id': hubId,
@@ -143,7 +136,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns the hub for a given &#x60;project_id&#x60;.
      * @param {String} hubId the &#x60;hub id&#x60; for the current operation
@@ -164,7 +156,6 @@ module.exports = (function() {
       if (projectId == undefined || projectId == null) {
         return Promise.reject("Missing the required parameter 'projectId' when calling getProjectHub");
       }
-
 
       var pathParams = {
         'hub_id': hubId,
@@ -188,7 +179,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns the details of the highest level folders the user has access to for a given project
      * @param {String} hubId the &#x60;hub id&#x60; for the current operation
@@ -209,7 +199,6 @@ module.exports = (function() {
       if (projectId == undefined || projectId == null) {
         return Promise.reject("Missing the required parameter 'projectId' when calling getProjectTopFolders");
       }
-
 
       var pathParams = {
         'hub_id': hubId,
@@ -233,7 +222,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Creates a storage location in the OSS where data can be uploaded to.
      * @param {String} projectId the &#x60;project id&#x60;
@@ -254,7 +242,6 @@ module.exports = (function() {
       if (body == undefined || body == null) {
         return Promise.reject("Missing the required parameter 'body' when calling postStorage");
       }
-
 
       var pathParams = {
         'project_id': projectId

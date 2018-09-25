@@ -22,7 +22,6 @@
  * limitations under the License.
  */
 
-
 module.exports = (function() {
    'use strict';
 
@@ -35,7 +34,6 @@ module.exports = (function() {
   /**
    * AppPackages service.
    * @module api/AppPackagesApi
-   * @version 0.4.3
    */
 
   /**
@@ -47,8 +45,6 @@ module.exports = (function() {
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
-
-
 
     /**
      * Creates an AppPackage module.
@@ -64,7 +60,6 @@ module.exports = (function() {
       if (appPackage == undefined || appPackage == null) {
         return Promise.reject("Missing the required parameter 'appPackage' when calling createAppPackage");
       }
-
 
       var pathParams = {
       };
@@ -86,7 +81,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Removes a specific AppPackage.
      * @param {String} id
@@ -100,7 +94,6 @@ module.exports = (function() {
       if (id == undefined || id == null) {
         return Promise.reject("Missing the required parameter 'id' when calling deleteAppPackage");
       }
-
 
       var pathParams = {
         'id': id
@@ -123,7 +116,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Removes the version history of the specified AppPackage.
      * @param {String} id
@@ -137,7 +129,6 @@ module.exports = (function() {
       if (id == undefined || id == null) {
         return Promise.reject("Missing the required parameter 'id' when calling deleteAppPackageHistory");
       }
-
 
       var pathParams = {
         'id': id
@@ -160,7 +151,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns the details of all AppPackages.
      * data is of type: {module:model/DesignAutomationAppPackages}
@@ -169,7 +159,6 @@ module.exports = (function() {
      */
     this.getAllAppPackages = function(oauth2client, credentials) {
       var postBody = null;
-
 
       var pathParams = {
       };
@@ -191,7 +180,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns the details of a specific AppPackage.
      * @param {String} id
@@ -206,7 +194,6 @@ module.exports = (function() {
       if (id == undefined || id == null) {
         return Promise.reject("Missing the required parameter 'id' when calling getAppPackage");
       }
-
 
       var pathParams = {
         'id': id
@@ -229,7 +216,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Returns all old versions of a specified AppPackage.
      * @param {String} id
@@ -244,7 +230,6 @@ module.exports = (function() {
       if (id == undefined || id == null) {
         return Promise.reject("Missing the required parameter 'id' when calling getAppPackageVersions");
       }
-
 
       var pathParams = {
         'id': id
@@ -267,7 +252,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage.
      * @param {Object} oauth2client oauth2client for the call
@@ -275,7 +259,6 @@ module.exports = (function() {
      */
     this.getUploadUrl = function(oauth2client, credentials) {
       var postBody = null;
-
 
       var pathParams = {
       };
@@ -297,7 +280,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage. Unlike the GetUploadUrl method that takes no parameters, this method allows the client to request that the pre-signed URL to be issued so that the subsequent HTTP PUT operation will require Content-Type&#x3D;binary/octet-stream.
      * @param {Boolean} require
@@ -311,7 +293,6 @@ module.exports = (function() {
       if (require == undefined || require == null) {
         return Promise.reject("Missing the required parameter 'require' when calling getUploadUrlWithRequireContentType");
       }
-
 
       var pathParams = {
         'require': require
@@ -334,7 +315,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Updates an AppPackage by specifying only the changed attributes.
      * @param {String} id
@@ -354,7 +334,6 @@ module.exports = (function() {
       if (appPackage == undefined || appPackage == null) {
         return Promise.reject("Missing the required parameter 'appPackage' when calling patchAppPackage");
       }
-
 
       var pathParams = {
         'id': id
@@ -377,7 +356,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Sets the AppPackage to the specified version.
      * @param {String} id
@@ -397,7 +375,6 @@ module.exports = (function() {
       if (appPackageVersion == undefined || appPackageVersion == null) {
         return Promise.reject("Missing the required parameter 'appPackageVersion' when calling setAppPackageVersion");
       }
-
 
       var pathParams = {
         'id': id
@@ -420,7 +397,6 @@ module.exports = (function() {
       );
     };
 
-
     /**
      * Updates an AppPackage by redefining the entire Activity object.
      * @param {String} id
@@ -440,7 +416,6 @@ module.exports = (function() {
       if (appPackage == undefined || appPackage == null) {
         return Promise.reject("Missing the required parameter 'appPackage' when calling updateAppPackage");
       }
-
 
       var pathParams = {
         'id': id
