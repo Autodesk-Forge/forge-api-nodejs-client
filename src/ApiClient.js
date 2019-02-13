@@ -389,7 +389,8 @@ module.exports = (function () {
                 });
                 reject({
                   statusCode: response.statusCode,
-                  statusMessage: response.statusMessage
+                  statusMessage: response.statusMessage,
+                  statusBody: resp
                 });
               } else {
                 resolve({
