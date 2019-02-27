@@ -1,0 +1,25 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+package-lock.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Dependency directory
+node_modules
+
+# Optional npm cache directory
+.npm
+
+# Coverage
+coverage
+
+# IDE
+.idea
+.vscode
+
+.DS_Store
