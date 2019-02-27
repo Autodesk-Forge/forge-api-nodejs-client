@@ -64,14 +64,14 @@ module.export = (function() {
 
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'urn': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/x-www-form-urlencoded'];
@@ -95,16 +95,16 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'urn': sampleStrParam,
         'derivativeUrn': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         'Range': opts['range']
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -128,15 +128,15 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         'If-Modified-Since': opts['ifModifiedSince'],
         'Accept-Encoding': opts['acceptEncoding']
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -160,15 +160,15 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'urn': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         'Accept-Encoding': opts['acceptEncoding']
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -192,15 +192,15 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'urn': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         'Accept-Encoding': opts['acceptEncoding']
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -224,16 +224,16 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'urn': sampleStrParam,
         'guid': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         'Accept-Encoding': opts['acceptEncoding']
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -257,16 +257,17 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'urn': sampleStrParam,
         'guid': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
+          'forceget': opts['forceget'] || false
         };
-        var headerParams = { 
+        var headerParams = {
         'Accept-Encoding': opts['acceptEncoding']
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -290,16 +291,16 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'urn': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         'width': opts['width'],
         'height': opts['height']
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -323,14 +324,14 @@ module.export = (function() {
         var opts = {};
         var postBody = sampleStrParam;
 
-        var pathParams = { 
+        var pathParams = {
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         'x-ads-force': opts['xAdsForce']
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
