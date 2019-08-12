@@ -44,7 +44,7 @@ module.exports = (function() {
   var constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
-  
+
       if (data.hasOwnProperty('exportFileStructure')) {
         obj['exportFileStructure'] = ApiClient.convertToType(data['exportFileStructure'], 'String');
       }
@@ -52,7 +52,7 @@ module.exports = (function() {
         obj['modelGuid'] = ApiClient.convertToType(data['modelGuid'], 'String');
       }
       if (data.hasOwnProperty('objectIds')) {
-        obj['objectIds'] = ApiClient.convertToType(data['objectIds'], ['String']);
+        obj['objectIds'] = ApiClient.convertToType(data['objectIds'], ['Integer']);
       }
     }
     return obj;
@@ -86,7 +86,7 @@ module.exports = (function() {
   exports.constructFromObject = constructFromObject;
 
   /**
-   * `single` (default): creates one OBJ file for all the input files (assembly file)  `multiple`: creates a separate OBJ file for each object 
+   * `single` (default): creates one OBJ file for all the input files (assembly file)  `multiple`: creates a separate OBJ file for each object
    * @member {module:model/JobObjOutputPayloadAdvanced.ExportFileStructureEnum} exportFileStructure
    * @default 'single'
    */
@@ -97,7 +97,7 @@ module.exports = (function() {
    */
   exports.prototype['modelGuid'] = undefined;
   /**
-   * Required for geometry extractions. List object ids to be translated. -1 will extract the entire model. 
+   * Required for geometry extractions. List object ids to be translated. -1 will extract the entire model.
    * @member {Array.<String>} objectIds
    */
   exports.prototype['objectIds'] = undefined;
@@ -123,5 +123,3 @@ module.exports = (function() {
 
   return exports;
 }());
-
-
