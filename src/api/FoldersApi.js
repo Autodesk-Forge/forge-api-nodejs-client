@@ -379,6 +379,89 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
+
+    /**
+     * Creates a new folder in the &#x60;data&#x60; domain service
+     * @param {module:model/CreateFolder} body describe the folder to be created
+     * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} credentials credentials for the call
+     */
+    this.postFolder = function(projectId, body, oauth2client, credentials) {
+      var postBody = body;
+
+      // verify the required parameter 'body' is set
+      if (body == undefined || body == null) {
+        return Promise.reject("Missing the required parameter 'body' when calling postFolder");
+      }
+
+      var pathParams = {
+         'project_id': projectId
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/vnd.api+json'];
+      var accepts = ['application/vnd.api+json', 'application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/data/v1/projects/{project_id}/folders', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, oauth2client, credentials
+      );
+    };
+
+    /**
+     * Modifies folder names and deletes folders. You can only delete BIM 360 Docs folders.
+     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} folderId the &#x60;folder id&#x60;
+     * @param {module:model/CreateRef} body describe the folder attributes to update
+     * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} credentials credentials for the call
+     */
+    this.patchFolder = function(projectId, folderId, body, oauth2client, credentials) {
+      var postBody = body;
+
+      // verify the required parameter 'projectId' is set
+      if (projectId == undefined || projectId == null) {
+        return Promise.reject("Missing the required parameter 'projectId' when calling patchFolder");
+      }
+
+      // verify the required parameter 'folderId' is set
+      if (folderId == undefined || folderId == null) {
+        return Promise.reject("Missing the required parameter 'folderId' when calling patchFolder");
+      }
+
+      // verify the required parameter 'body' is set
+      if (body == undefined || body == null) {
+        return Promise.reject("Missing the required parameter 'body' when calling patchFolder");
+      }
+
+      var pathParams = {
+        'project_id': projectId,
+        'folder_id': folderId
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/vnd.api+json'];
+      var accepts = ['application/vnd.api+json', 'application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/data/v1/projects/{project_id}/folders/{folder_id}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, oauth2client, credentials
+      );
+    };
   };
 
   return exports;
