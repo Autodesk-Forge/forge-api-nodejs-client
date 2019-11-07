@@ -47,7 +47,7 @@ module.export = (function() {
   var apiClient = new ApiClient();
 
   before(function(){
-    oauth2client = new ForgeSdk.AuthClientTwoLegged('CLIENT_ID', 'CLIENT_SECRET', ['data:read', 'data:write']);
+    oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
     credentials = {access_token: 'abce'};
     instance = new ForgeSdk.ObjectsApi(apiClient);
     mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');
@@ -64,16 +64,16 @@ module.export = (function() {
 
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'bucketKey': sampleStrParam,
         'objectName': sampleStrParam,
         'newObjName': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -97,16 +97,16 @@ module.export = (function() {
         var opts = {};
         var postBody = sampleStrParam;
 
-        var pathParams = { 
+        var pathParams = {
         'bucketKey': sampleStrParam,
         'objectName': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         'access': opts['access']
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -130,15 +130,15 @@ module.export = (function() {
 
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'bucketKey': sampleStrParam,
         'objectName': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -162,15 +162,15 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'id': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         'region': opts['region']
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -194,19 +194,19 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'bucketKey': sampleStrParam,
         'objectName': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         'Range': opts['range'],
         'If-None-Match': opts['ifNoneMatch'],
         'If-Modified-Since': opts['ifModifiedSince'],
         'Accept-Encoding': opts['acceptEncoding']
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -230,17 +230,17 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'bucketKey': sampleStrParam,
         'objectName': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         'with': opts['_with']
         };
-        var headerParams = { 
+        var headerParams = {
         'If-Modified-Since': opts['ifModifiedSince']
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -264,17 +264,17 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'bucketKey': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         'limit': opts['limit'],
         'beginsWith': opts['beginsWith'],
         'startAt': opts['startAt']
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -298,19 +298,19 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'id': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         'region': opts['region']
         };
-        var headerParams = { 
+        var headerParams = {
         'Range': opts['range'],
         'If-None-Match': opts['ifNoneMatch'],
         'If-Modified-Since': opts['ifModifiedSince'],
         'Accept-Encoding': opts['acceptEncoding']
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -334,16 +334,16 @@ module.export = (function() {
 
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'bucketKey': sampleStrParam,
         'objectName': sampleStrParam,
         'sessionId': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -367,20 +367,20 @@ module.export = (function() {
         var opts = {};
         var postBody = sampleStrParam;
 
-        var pathParams = { 
+        var pathParams = {
         'bucketKey': sampleStrParam,
         'objectName': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         'Content-Length': sampleIntParam,
         'Content-Range': sampleStrParam,
         'Content-Disposition': opts['contentDisposition'],
         'If-Match': opts['ifMatch'],
         'Session-Id': sampleStrParam
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/octet-stream'];
@@ -404,18 +404,18 @@ module.export = (function() {
         var opts = {};
         var postBody = sampleStrParam;
 
-        var pathParams = { 
+        var pathParams = {
         'bucketKey': sampleStrParam,
         'objectName': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         'Content-Length': sampleIntParam,
         'Content-Disposition': opts['contentDisposition'],
         'If-Match': opts['ifMatch']
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/octet-stream'];
@@ -439,18 +439,18 @@ module.export = (function() {
         var opts = {};
         var postBody = sampleStrParam;
 
-        var pathParams = { 
+        var pathParams = {
         'id': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         'Content-Length': sampleIntParam,
         'Content-Disposition': opts['contentDisposition'],
         'x-ads-region': opts['xAdsRegion'],
         'If-Match': opts['ifMatch']
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/octet-stream'];
@@ -474,18 +474,18 @@ module.export = (function() {
         var opts = {};
         var postBody = sampleStrParam;
 
-        var pathParams = { 
+        var pathParams = {
         'id': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         'Content-Range': sampleStrParam,
         'Content-Disposition': opts['contentDisposition'],
         'x-ads-region': opts['xAdsRegion'],
         'Session-Id': sampleStrParam
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/octet-stream'];

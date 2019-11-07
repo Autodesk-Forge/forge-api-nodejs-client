@@ -1,21 +1,21 @@
 # Forge Node.js SDK [![Build Status](https://travis-ci.org/Autodesk-Forge/forge-api-nodejs-client.svg?branch=master)](https://travis-ci.org/Autodesk-Forge/forge-api-nodejs-client)
 
-
 *Forge API*:
-[![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](http://autodesk-forge.github.io/)
-[![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](http://autodesk-forge.github.io/)
-[![OSS](https://img.shields.io/badge/OSS-v2-green.svg)](http://autodesk-forge.github.io/)
-[![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](http://autodesk-forge.github.io/)
+[![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](https://forge.autodesk.com/developer/documentation)
+[![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](https://forge.autodesk.com/developer/documentation)
+[![OSS](https://img.shields.io/badge/OSS-v2-green.svg)](https://forge.autodesk.com/developer/documentation)
+[![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](https://forge.autodesk.com/developer/documentation)
+
+*NOTE*: The [Design Automation v2 API](https://forge.autodesk.com/en/docs/design-automation/v2/developers_guide/overview/) is deprecated in this module. Instead move to the [Design Automation v3 API](https://forge.autodesk.com/en/docs/design-automation/v3/developers_guide/overview/) using this [NPM package](https://www.npmjs.com/package/forge-design-automation)
 
 ## Overview
 This [Node.js](https://nodejs.org/) SDK enables you to easily integrate the Forge REST APIs
 into your application, including [OAuth](https://developer.autodesk.com/en/docs/oauth/v2/overview/),
 [Data Management](https://developer.autodesk.com/en/docs/data/v2/overview/),
 [Model Derivative](https://developer.autodesk.com/en/docs/model-derivative/v2/overview/),
-and [Design Automation](https://developer.autodesk.com/en/docs/design-automation/v2/overview/).
 
 ### Requirements
-* Node.js version 4 and above.
+* Node.js version 6 and above.
 * A registered app on the [Forge Developer portal](https://developer.autodesk.com/myapps).
 * A Node.js web server (such as Express) for 3-legged authentication.
 
@@ -44,13 +44,13 @@ To get a 2-legged token run the following code. Note that you need to replace `y
 
 ``` JavaScript
 var ForgeSDK = require('forge-apis');
-var CLIENT_ID = '<your-client-id>' , CLIENT_SECRET = '<your-client-secret>';
+var FORGE_CLIENT_ID = '<your-client-id>' , FORGE_CLIENT_SECRET = '<your-client-secret>';
 
 // Initialize the 2-legged OAuth2 client, set specific scopes and optionally set the `autoRefresh` parameter to true
 // if you want the token to auto refresh
 var autoRefresh = true; // or false
 
-var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(CLIENT_ID, CLIENT_SECRET, [
+var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, [
     'data:read',
     'data:write'
 ], autoRefresh);
@@ -75,12 +75,12 @@ Note that the redirect URL must match the pattern of the callback URL field of t
 
 ``` JavaScript
 var ForgeSDK = require('forge-apis');
-var CLIENT_ID = '<your-client-id>', CLIENT_SECRET = '<your-client-secret>', REDIRECT_URL = '<your-redirect-url>';
+var FORGE_CLIENT_ID = '<your-client-id>', FORGE_CLIENT_SECRET = '<your-client-secret>', REDIRECT_URL = '<your-redirect-url>';
 
 // Initialize the 3-legged OAuth2 client, set specific scopes and optionally set the `autoRefresh` parameter to true
 // if you want the token to auto refresh
 var autoRefresh = true;
-var oAuth2ThreeLegged = new ForgeSDK.AuthClientThreeLegged(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, [
+var oAuth2ThreeLegged = new ForgeSDK.AuthClientThreeLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, REDIRECT_URL, [
     'data:read',
     'data:write'
 ], autoRefresh);
@@ -157,25 +157,6 @@ All URIs are relative to *https://developer.api.autodesk.com/* (for example crea
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ForgeSdk.ActivitiesApi* | [**createActivity**](docs/ActivitiesApi.md#createActivity) | **POST** /autocad.io/us-east/v2/Activities | Creates a new Activity.
-*ForgeSdk.ActivitiesApi* | [**deleteActivity**](docs/ActivitiesApi.md#deleteActivity) | **DELETE** /autocad.io/us-east/v2/Activities(%27{id}%27) | Removes a specific Activity.
-*ForgeSdk.ActivitiesApi* | [**deleteActivityHistory**](docs/ActivitiesApi.md#deleteActivityHistory) | **POST** /autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.DeleteHistory | Removes the version history of the specified Activity.
-*ForgeSdk.ActivitiesApi* | [**getActivity**](docs/ActivitiesApi.md#getActivity) | **GET** /autocad.io/us-east/v2/Activities(%27{id}%27) | Returns the details of a specific Activity.
-*ForgeSdk.ActivitiesApi* | [**getActivityVersions**](docs/ActivitiesApi.md#getActivityVersions) | **GET** /autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.GetVersions | Returns all old versions of a specified Activity.
-*ForgeSdk.ActivitiesApi* | [**getAllActivities**](docs/ActivitiesApi.md#getAllActivities) | **GET** /autocad.io/us-east/v2/Activities | Returns the details of all Activities.
-*ForgeSdk.ActivitiesApi* | [**patchActivity**](docs/ActivitiesApi.md#patchActivity) | **PATCH** /autocad.io/us-east/v2/Activities(%27{id}%27) | Updates an Activity by specifying only the changed attributes.
-*ForgeSdk.ActivitiesApi* | [**setActivityVersion**](docs/ActivitiesApi.md#setActivityVersion) | **POST** /autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.SetVersion | Sets the Activity to the specified version.
-*ForgeSdk.AppPackagesApi* | [**createAppPackage**](docs/AppPackagesApi.md#createAppPackage) | **POST** /autocad.io/us-east/v2/AppPackages | Creates an AppPackage module.
-*ForgeSdk.AppPackagesApi* | [**deleteAppPackage**](docs/AppPackagesApi.md#deleteAppPackage) | **DELETE** /autocad.io/us-east/v2/AppPackages(%27{id}%27) | Removes a specific AppPackage.
-*ForgeSdk.AppPackagesApi* | [**deleteAppPackageHistory**](docs/AppPackagesApi.md#deleteAppPackageHistory) | **POST** /autocad.io/us-east/v2/AppPackages(%27{id}%27)/Operations.DeleteHistory | Removes the version history of the specified AppPackage.
-*ForgeSdk.AppPackagesApi* | [**getAllAppPackages**](docs/AppPackagesApi.md#getAllAppPackages) | **GET** /autocad.io/us-east/v2/AppPackages | Returns the details of all AppPackages.
-*ForgeSdk.AppPackagesApi* | [**getAppPackage**](docs/AppPackagesApi.md#getAppPackage) | **GET** /autocad.io/us-east/v2/AppPackages(%27{id}%27) | Returns the details of a specific AppPackage.
-*ForgeSdk.AppPackagesApi* | [**getAppPackageVersions**](docs/AppPackagesApi.md#getAppPackageVersions) | **GET** /autocad.io/us-east/v2/AppPackages(%27{id}%27)/Operations.GetVersions | Returns all old versions of a specified AppPackage.
-*ForgeSdk.AppPackagesApi* | [**getUploadUrl**](docs/AppPackagesApi.md#getUploadUrl) | **GET** /autocad.io/us-east/v2/AppPackages/Operations.GetUploadUrl | Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage.
-*ForgeSdk.AppPackagesApi* | [**getUploadUrlWithRequireContentType**](docs/AppPackagesApi.md#getUploadUrlWithRequireContentType) | **GET** /autocad.io/us-east/v2/AppPackages/Operations.GetUploadUrl(RequireContentType&#x3D;{require}) | Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage. Unlike the GetUploadUrl method that takes no parameters, this method allows the client to request that the pre-signed URL to be issued so that the subsequent HTTP PUT operation will require Content-Type&#x3D;binary/octet-stream.
-*ForgeSdk.AppPackagesApi* | [**patchAppPackage**](docs/AppPackagesApi.md#patchAppPackage) | **PATCH** /autocad.io/us-east/v2/AppPackages(%27{id}%27) | Updates an AppPackage by specifying only the changed attributes.
-*ForgeSdk.AppPackagesApi* | [**setAppPackageVersion**](docs/AppPackagesApi.md#setAppPackageVersion) | **POST** /autocad.io/us-east/v2/AppPackages(%27{id}%27)/Operations.SetVersion | Sets the AppPackage to the specified version.
-*ForgeSdk.AppPackagesApi* | [**updateAppPackage**](docs/AppPackagesApi.md#updateAppPackage) | **PUT** /autocad.io/us-east/v2/AppPackages(%27{id}%27) | Updates an AppPackage by redefining the entire Activity object.
 *ForgeSdk.BucketsApi* | [**createBucket**](docs/BucketsApi.md#createBucket) | **POST** /oss/v2/buckets |
 *ForgeSdk.BucketsApi* | [**deleteBucket**](docs/BucketsApi.md#deleteBucket) | **DELETE** /oss/v2/buckets/{bucketKey} |
 *ForgeSdk.BucketsApi* | [**getBucketDetails**](docs/BucketsApi.md#getBucketDetails) | **GET** /oss/v2/buckets/{bucketKey}/details |
@@ -189,8 +170,6 @@ Class | Method | HTTP request | Description
 *ForgeSdk.DerivativesApi* | [**getModelviewProperties**](docs/DerivativesApi.md#getModelviewProperties) | **GET** /modelderivative/v2/designdata/{urn}/metadata/{guid}/properties |
 *ForgeSdk.DerivativesApi* | [**getThumbnail**](docs/DerivativesApi.md#getThumbnail) | **GET** /modelderivative/v2/designdata/{urn}/thumbnail |
 *ForgeSdk.DerivativesApi* | [**translate**](docs/DerivativesApi.md#translate) | **POST** /modelderivative/v2/designdata/job |
-*ForgeSdk.EnginesApi* | [**getAllEngines**](docs/EnginesApi.md#getAllEngines) | **GET** /autocad.io/us-east/v2/Engines | Returns the details of all available AutoCAD core engines.
-*ForgeSdk.EnginesApi* | [**getEngine**](docs/EnginesApi.md#getEngine) | **GET** /autocad.io/us-east/v2/Engines(%27{id}%27) | Returns the details of a specific AutoCAD core engine.
 *ForgeSdk.FoldersApi* | [**getFolder**](docs/FoldersApi.md#getFolder) | **GET** /data/v1/projects/{project_id}/folders/{folder_id} |
 *ForgeSdk.FoldersApi* | [**getFolderContents**](docs/FoldersApi.md#getFolderContents) | **GET** /data/v1/projects/{project_id}/folders/{folder_id}/contents |
 *ForgeSdk.FoldersApi* | [**getFolderParent**](docs/FoldersApi.md#getFolderParent) | **GET** /data/v1/projects/{project_id}/folders/{folder_id}/parent |
@@ -233,10 +212,6 @@ Class | Method | HTTP request | Description
 *ForgeSdk.VersionsApi* | [**getVersionRelationshipsRefs**](docs/VersionsApi.md#getVersionRelationshipsRefs) | **GET** /data/v1/projects/{project_id}/versions/{version_id}/relationships/refs |
 *ForgeSdk.VersionsApi* | [**postVersion**](docs/VersionsApi.md#postVersion) | **POST** /data/v1/projects/{project_id}/versions |
 *ForgeSdk.VersionsApi* | [**postVersionRelationshipsRef**](docs/VersionsApi.md#postVersionRelationshipsRef) | **POST** /data/v1/projects/{project_id}/versions/{version_id}/relationships/refs |
-*ForgeSdk.WorkItemsApi* | [**createWorkItem**](docs/WorkItemsApi.md#createWorkItem) | **POST** /autocad.io/us-east/v2/WorkItems | Creates a new WorkItem.
-*ForgeSdk.WorkItemsApi* | [**deleteWorkItem**](docs/WorkItemsApi.md#deleteWorkItem) | **DELETE** /autocad.io/us-east/v2/WorkItems(%27{id}%27) | Removes a specific WorkItem.
-*ForgeSdk.WorkItemsApi* | [**getAllWorkItems**](docs/WorkItemsApi.md#getAllWorkItems) | **GET** /autocad.io/us-east/v2/WorkItems | Returns the details of all WorkItems.
-*ForgeSdk.WorkItemsApi* | [**getWorkItem**](docs/WorkItemsApi.md#getWorkItem) | **GET** /autocad.io/us-east/v2/WorkItems(%27{id}%27) | Returns the details of a specific WorkItem.
 
 
 ### Thumbnail

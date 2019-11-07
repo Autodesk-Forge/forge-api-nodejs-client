@@ -36,20 +36,20 @@ module.exports = (function() {
 
     var oauth2, oauth2client2legged, oauth2client3legged;
 
-
     before(function(){
-        oauth2client2legged = new OAuth2TwoLegged('CLIENT_ID', 'CLIENT_SECRET', ['data:read', 'data:write']);
-        oauth2client3legged = new OAuth2ThreeLegged('CLIENT_ID', 'CLIENT_SECRET', 'http://example.com/callback',
-            ['data:read', 'data:write']);
+        var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
+        var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
+        var FORGE_CALLBACK = process.env.FORGE_CALLBACK || '<your forge callback url>';
+
+        oauth2client2legged = new OAuth2TwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
+        oauth2client3legged = new OAuth2ThreeLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, FORGE_CALLBACK, ['data:read', 'data:write']);
     });
-
-
 
     describe('OAuth2', function() {
         describe('OAuth2 interface', function(){
             it('should be an interface only (can\'t create instance)', function() {
                 try {
-                    oauth2 = new OAuth2('CLIENT_ID', 'CLIENT_SECRET', ['data:read', 'data:write']);
+                    oauth2 = new OAuth2(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
                 } catch(e) {
                     expect(e).to.eql(new Error('Your OAuth2 object is missing the "authentication" property'));
                 }
@@ -100,7 +100,7 @@ module.exports = (function() {
                     });
 
                 oauth2client2legged.doPostRequest(urlBasePath + '/foo', {}, function(response){
-                    expect(response).to.be.ok;
+                    expect(response).to.be.ok();
                     done();
                 }, function(err){
                     done(err);

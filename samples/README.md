@@ -28,7 +28,7 @@ $ npm install
 
 Before running the app you need to configure the following parameters from the *samples/dmSample.js* file:
 
-* Replace `CLIENT_ID` and `CLIENT_SECRET` with the client ID and client secret generated when creating the app.
+* Replace `FORGE_CLIENT_ID` and `FORGE_CLIENT_SECRET` with the client ID and client secret generated when creating the app.
 
 * Replace `BUCKET_KEY` with a unique name for the bucket.
 

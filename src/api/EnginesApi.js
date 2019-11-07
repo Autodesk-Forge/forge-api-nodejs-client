@@ -32,6 +32,7 @@ module.exports = (function() {
   /**
    * Engines service.
    * @module api/EnginesApi
+   * @deprecated
    */
 
   /**
@@ -40,6 +41,7 @@ module.exports = (function() {
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
    * default to {@link module:ApiClient#instance} if unspecified.
+   * @deprecated
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
@@ -49,6 +51,7 @@ module.exports = (function() {
      * data is of type: {module:model/DesignAutomationEngines}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.getAllEngines = function(oauth2client, credentials) {
       var postBody = null;
@@ -79,6 +82,7 @@ module.exports = (function() {
      * data is of type: {module:model/Engine}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.getEngine = function(id, oauth2client, credentials) {
       var postBody = null;

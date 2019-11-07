@@ -3,13 +3,13 @@ var fs = require('fs');
 var ForgeSDK = require('./../src/index');
 
 // TODO - insert your CLIENT_ID and CLIENT_SECRET
-var CLIENT_ID = 'wmizntnpzCJxPGF9lxsIiTZGbGO2cJqw',
-	CLIENT_SECRET = 'g5IPJwvhOHcrdbFy';
+var FORGE_CLIENT_ID = 'your forge client id',
+	FORGE_CLIENT_SECRET = 'your forge client secret';
 
 // TODO - Choose a bucket key - a unique name to assign to a bucket. It must be globally unique across all applications and
 // regions, otherwise the call will fail. Possible values: -_.a-z0-9 (between 3-128 characters in
 // length). Note that you cannot change a bucket key.
-var BUCKET_KEY = 'forge_sample_' + CLIENT_ID.toLowerCase();
+var BUCKET_KEY = 'forge_sample_' + FORGE_CLIENT_ID.toLowerCase();
 
 // TODO - Choose a filename - a key for the uploaded object
 var FILE_NAME = 'my-file.extension';
@@ -21,7 +21,7 @@ var bucketsApi = new ForgeSDK.BucketsApi(), // Buckets Client
 	objectsApi = new ForgeSDK.ObjectsApi(); // Objects Client
 
 // Initialize the 2-legged oauth2 client
-var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(CLIENT_ID, CLIENT_SECRET,
+var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,
 	['data:write', 'data:read', 'bucket:read','bucket:update','bucket:create'], true);
 
 /**
