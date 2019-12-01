@@ -150,10 +150,10 @@ module.exports = (function() {
         'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
         'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
         'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
-        // 'page[number]': opts['pageNumber'],
-        // 'page[limit]': opts['pageLimit']
-        'page[number]': this.apiClient.buildCollectionParam(opts['pageNumber'], 'csv'),
-        'page[limit]': this.apiClient.buildCollectionParam(opts['pageLimit'], 'csv'),
+        'page[number]': opts['pageNumber'],
+        'page[limit]': opts['pageLimit'],
+        // 'page[number]': this.apiClient.buildCollectionParam(opts['pageNumber'], 'csv'),
+        // 'page[limit]': this.apiClient.buildCollectionParam(opts['pageLimit'], 'csv'),
         'includeHidden': opts.includeHidden
       };
       var keys = Object.keys(opts).filter(function(elt) { return (new RegExp(/^filter\[/).test(elt)); });
@@ -357,7 +357,7 @@ module.exports = (function() {
       var returnType = JsonApiCollection;
 
       return this.apiClient.callApi(
-        '/data/v1/projects/{project_id}/folders/{folder_id}/links', 'GET',
+        '/data/v1/projects/{project_id}/folders/{folder_id}/relationships/links', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, oauth2client, credentials
       );
@@ -458,10 +458,10 @@ module.exports = (function() {
         'folder_id': folderId
       };
       var queryParams = {
-        // 'page[number]': opts['pageNumber'],
-        // 'page[limit]': opts['pageLimit']
-        'page[number]': this.apiClient.buildCollectionParam(opts['pageNumber'], 'csv'),
-        'page[limit]': this.apiClient.buildCollectionParam(opts['pageLimit'], 'csv'),
+        'page[number]': opts['pageNumber'],
+        'page[limit]': opts['pageLimit']
+        // 'page[number]': this.apiClient.buildCollectionParam(opts['pageNumber'], 'csv'),
+        // 'page[limit]': this.apiClient.buildCollectionParam(opts['pageLimit'], 'csv'),
       };
       var keys = Object.keys(opts).filter(function(elt) { return (new RegExp(/^filter\[/).test(elt)); });
       var that = this;

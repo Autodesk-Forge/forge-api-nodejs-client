@@ -184,6 +184,7 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterType filter by the `type` of the `ref` target
      * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
+     * @param {Array.<*>} opts['filter[*]<-modifier>'] generic filter / <-modifier> is optional
      * data is of type: {module:model/JsonApiCollection}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -245,6 +246,7 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * @param {Array.<String>} opts.filterMimeType Filter by mime type.
+     * @param {Array.<*>} opts['filter[*]<-modifier>'] generic filter / <-modifier> is optional
      * data is of type: {module:model/Refs}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -308,6 +310,7 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterRefType filter by `refType`
      * @param {module:model/String} opts.filterDirection filter by the direction of the reference
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
+     * @param {Array.<*>} opts['filter[*]<-modifier>'] generic filter / <-modifier> is optional
      * data is of type: {module:model/Refs}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -430,6 +433,7 @@ module.exports = (function() {
      * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
      * @param {Array.<Integer>} opts.filterVersionNumber filter by `versionNumber`
+     * @param {Array.<*>} opts['filter[*]<-modifier>'] generic filter / <-modifier> is optional
      * @param {Integer} opts.pageNumber specify the page number
      * @param {Integer} opts.pageLimit specify the maximal number of elements per page
      * data is of type: {module:model/Versions}
@@ -459,10 +463,10 @@ module.exports = (function() {
         'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
         'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
         'filter[versionNumber]': this.apiClient.buildCollectionParam(opts['filterVersionNumber'], 'csv'),
-        // 'page[number]': opts['pageNumber'],
-        // 'page[limit]': opts['pageLimit']
-        'page[number]': this.apiClient.buildCollectionParam(opts['pageNumber'], 'csv'),
-        'page[limit]': this.apiClient.buildCollectionParam(opts['pageLimit'], 'csv'),
+        'page[number]': opts['pageNumber'],
+        'page[limit]': opts['pageLimit']
+        // 'page[number]': this.apiClient.buildCollectionParam(opts['pageNumber'], 'csv'),
+        // 'page[limit]': this.apiClient.buildCollectionParam(opts['pageLimit'], 'csv'),
       };
       var keys = Object.keys(opts).filter(function(elt) { return (new RegExp(/^filter\[/).test(elt)); });
       var that = this;
