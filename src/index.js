@@ -174,6 +174,7 @@ module.exports = (function() {
       ActivitiesApi = require('./api/ActivitiesApi'),
       AppPackagesApi = require('./api/AppPackagesApi'),
       BucketsApi = require('./api/BucketsApi'),
+      CommandsApi = require('./api/CommandsApi'),
       DerivativesApi = require('./api/DerivativesApi'),
       EnginesApi = require('./api/EnginesApi'),
       FoldersApi = require('./api/FoldersApi'),
@@ -953,6 +954,11 @@ module.exports = (function() {
      * @property {module:api/BucketsApi}
      */
     BucketsApi: BucketsApi,
+    /**
+     * The CommandsApi service constructor.
+     * @property {module:api/CommandsApi}
+     */
+    CommandsApi: CommandsApi,
     /**
      * The DerivativesApi service constructor.
      * @property {module:api/DerivativesApi}
