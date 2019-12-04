@@ -25,9 +25,7 @@
 module.exports = (function() {
    'use strict';
 
-   var ApiClient = require('forge-apis/src/ApiClient'),
-       Forbidden = require('forge-apis/src/model/Forbidden'),
-       NotFound = require('forge-apis/src/model/NotFound');
+   var ApiClient = require('../ApiClient');
 
   /**
    * Commands service.
