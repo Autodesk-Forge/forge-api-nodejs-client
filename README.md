@@ -8,6 +8,8 @@
 
 *NOTE*: The [Design Automation v2 API](https://forge.autodesk.com/en/docs/design-automation/v2/developers_guide/overview/) is deprecated in this module. Instead move to the [Design Automation v3 API](https://forge.autodesk.com/en/docs/design-automation/v3/developers_guide/overview/) using this [NPM package](https://www.npmjs.com/package/forge-design-automation)
 
+*This Version includes Data Management filters and pagination, and the Data Management 'Commands' API.*
+
 ## Overview
 This [Node.js](https://nodejs.org/) SDK enables you to easily integrate the Forge REST APIs
 into your application, including [OAuth](https://developer.autodesk.com/en/docs/oauth/v2/overview/),
