@@ -54,9 +54,9 @@ module.exports = (function() {
     this.apiClient = apiClient || ApiClient.instance;
 
     /**
-     * Returns the version with the given &#x60;version_id&#x60;.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} versionId the &#x60;version id&#x60;
+     * Returns the version with the given version_id.
+     * @param {String} projectId the project id
+     * @param {String} versionId the version id
      * data is of type: {module:model/Version}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -66,9 +66,9 @@ module.exports = (function() {
     };
 
     /**
-     * Returns the version with the given &#x60;version_id&#x60;.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} versionId the &#x60;version id&#x60;
+     * Returns the version with the given version_id.
+     * @param {String} projectId the project id
+     * @param {String} versionId the version id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * data is of type: {module:model/Version}
@@ -114,8 +114,8 @@ module.exports = (function() {
 
     /**
      * Returns a collection of file formats this version could be converted to and downloaded as.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} versionId the &#x60;version id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} versionId the version id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * data is of type: {module:model/Version}
@@ -161,8 +161,8 @@ module.exports = (function() {
 
     /**
      * Returns a collection of file formats this version could be converted to and downloaded as.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} versionId the &#x60;version id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} versionId the version id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Array.<*>} opts['filter[*]<-modifier>'] generic filter / <-modifier> is optional
@@ -216,8 +216,8 @@ module.exports = (function() {
 
     /**
      * Returns the item the given version is associated with.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} versionId the &#x60;version id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} versionId the version id
      * data is of type: {module:model/Item}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -228,8 +228,8 @@ module.exports = (function() {
 
     /**
      * Returns the item the given version is associated with.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} versionId the &#x60;version id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} versionId the version id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * data is of type: {module:model/Item}
@@ -274,9 +274,9 @@ module.exports = (function() {
     };
 
     /**
-     * Returns the resources (&#x60;items&#x60;, &#x60;folders&#x60;, and &#x60;versions&#x60;) which have a custom relationship with the given &#x60;version_id&#x60;. Custom relationships can be established between a version of an item and other resources within the &#39;data&#39; domain service (folders, items, and versions).
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} versionId the &#x60;version id&#x60;
+     * Returns the resources (items, folders, and versions) which have a custom relationship with the given version_id. Custom relationships can be established between a version of an item and other resources within the &#39;data&#39; domain service (folders, items, and versions).
+     * @param {String} projectId the project id
+     * @param {String} versionId the version id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Array.<String>} opts.filterType filter by the `type` of the `ref` target
@@ -336,8 +336,8 @@ module.exports = (function() {
 
     /**
      * Returns a collection of links for the given item_id-version_id object.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} versionId the &#x60;version id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} versionId the version id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Array.<*>} opts['filter[*]<-modifier>'] generic filter / <-modifier> is optional
@@ -390,9 +390,9 @@ module.exports = (function() {
     };
 
     /**
-     * Returns the custom relationships that are associated to the given &#x60;version_id&#x60;. Custom relationships can be established between a version of an item and other resources within the &#39;data&#39; domain service (folders, items, and versions).
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} versionId the &#x60;version id&#x60;
+     * Returns the custom relationships that are associated to the given version_id. Custom relationships can be established between a version of an item and other resources within the &#39;data&#39; domain service (folders, items, and versions).
+     * @param {String} projectId the project id
+     * @param {String} versionId the version id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Array.<String>} opts.filterType filter by the `type` of the `ref` target
@@ -456,7 +456,7 @@ module.exports = (function() {
 
     /**
      * Creates a new version of an item in the &#39;data&#39; domain service.
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} projectId the project id
      * @param {module:model/CreateVersion} body describe the version to be created
      * data is of type: {module:model/VersionCreated}
      * @param {Object} oauth2client oauth2client for the call
@@ -468,7 +468,7 @@ module.exports = (function() {
 
     /**
      * Creates a new version of an item in the &#39;data&#39; domain service.
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} projectId the project id
      * @param {module:model/CreateVersion} body describe the version to be created
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
@@ -514,8 +514,8 @@ module.exports = (function() {
 
     /**
      * Creates a custom relationship between a version and another resource within the &#39;data&#39; domain service (folder, item, or version).
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} versionId the &#x60;version id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} versionId the version id
      * @param {module:model/CreateRef} body describe the ref to be created
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -526,8 +526,8 @@ module.exports = (function() {
 
     /**
      * Creates a custom relationship between a version and another resource within the &#39;data&#39; domain service (folder, item, or version).
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} versionId the &#x60;version id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} versionId the version id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {module:model/CreateRef} body describe the ref to be created
@@ -578,8 +578,8 @@ module.exports = (function() {
 
     /**
      * Updates the properties of the given version_id object.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} versionId the &#x60;version id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} versionId the version id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {module:model/CreateRef} body describe the ref to be created

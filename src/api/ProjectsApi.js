@@ -52,8 +52,8 @@ module.exports = (function() {
     this.apiClient = apiClient || ApiClient.instance;
 
     /**
-     * Returns a collection of projects for a given &#x60;hub_id&#x60;. A project represents an A360 project or a BIM 360 project which is set up under an A360 hub or BIM 360 account, respectively. Within a hub or an account, multiple projects can be created to be used.
-     * @param {String} hubId the &#x60;hub id&#x60; for the current operation
+     * Returns a collection of projects for a given hub_id. A project represents an A360 project or a BIM 360 project which is set up under an A360 hub or BIM 360 account, respectively. Within a hub or an account, multiple projects can be created to be used.
+     * @param {String} hubId the hub id for the current operation
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
@@ -110,9 +110,9 @@ module.exports = (function() {
     };
 
     /**
-     * Returns a project for a given &#x60;project_id&#x60;.
-     * @param {String} hubId the &#x60;hub id&#x60; for the current operation
-     * @param {String} projectId the &#x60;project id&#x60;
+     * Returns a project for a given project_id.
+     * @param {String} hubId the hub id for the current operation
+     * @param {String} projectId the project id
      * data is of type: {module:model/Project}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -122,9 +122,9 @@ module.exports = (function() {
     };
 
     /**
-     * Returns a project for a given &#x60;project_id&#x60;.
-     * @param {String} hubId the &#x60;hub id&#x60; for the current operation
-     * @param {String} projectId the &#x60;project id&#x60;
+     * Returns a project for a given project_id.
+     * @param {String} hubId the hub id for the current operation
+     * @param {String} projectId the project id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * data is of type: {module:model/Project}
@@ -169,9 +169,9 @@ module.exports = (function() {
     };
 
     /**
-     * Returns the hub for a given &#x60;project_id&#x60;.
-     * @param {String} hubId the &#x60;hub id&#x60; for the current operation
-     * @param {String} projectId the &#x60;project id&#x60;
+     * Returns the hub for a given project_id.
+     * @param {String} hubId the hub id for the current operation
+     * @param {String} projectId the project id
      * data is of type: {module:model/Hub}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -181,9 +181,9 @@ module.exports = (function() {
     };
 
     /**
-     * Returns the hub for a given &#x60;project_id&#x60;.
-     * @param {String} hubId the &#x60;hub id&#x60; for the current operation
-     * @param {String} projectId the &#x60;project id&#x60;
+     * Returns the hub for a given project_id.
+     * @param {String} hubId the hub id for the current operation
+     * @param {String} projectId the project id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * data is of type: {module:model/Hub}
@@ -229,8 +229,8 @@ module.exports = (function() {
 
     /**
      * Returns the details of the highest level folders the user has access to for a given project
-     * @param {String} hubId the &#x60;hub id&#x60; for the current operation
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} hubId the hub id for the current operation
+     * @param {String} projectId the project id
      * data is of type: {module:model/TopFolders}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -241,8 +241,8 @@ module.exports = (function() {
 
     /**
      * Returns the details of the highest level folders the user has access to for a given project
-     * @param {String} hubId the &#x60;hub id&#x60; for the current operation
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} hubId the hub id for the current operation
+     * @param {String} projectId the project id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * data is of type: {module:model/TopFolders}
@@ -288,7 +288,7 @@ module.exports = (function() {
 
     /**
      * Returns the details for a specific download.
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} projectId the project id
      * @param {String} downloadId The unique identifier of a download job.
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
@@ -335,7 +335,7 @@ module.exports = (function() {
 
     /**
      * Returns the job_id object.
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} projectId the project id
      * @param {String} jobId The unique identifier of a job.
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
@@ -382,7 +382,7 @@ module.exports = (function() {
 
     /**
      * Request the creation of a new download for a specific and supported file type.
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} projectId the project id
      * @param {module:model/CreateStorage} body describe the file the storage is created for
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
@@ -428,7 +428,7 @@ module.exports = (function() {
 
     /**
      * Creates a storage location in the OSS where data can be uploaded to.
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} projectId the project id
      * @param {module:model/CreateStorage} body describe the file the storage is created for
      * data is of type: {module:model/StorageCreated}
      * @param {Object} oauth2client oauth2client for the call
@@ -440,7 +440,7 @@ module.exports = (function() {
 
     /**
      * Creates a storage location in the OSS where data can be uploaded to.
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} projectId the project id
      * @param {module:model/CreateStorage} body describe the file the storage is created for
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified

@@ -47,8 +47,8 @@ module.exports = (function() {
     this.apiClient = apiClient || ApiClient.instance;
 
     /**
-     * Returns data on a specific &#x60;hub_id&#x60;.
-     * @param {String} hubId the &#x60;hub id&#x60; for the current operation
+     * Returns data on a specific hub_id.
+     * @param {String} hubId the hub id for the current operation
      * data is of type: {module:model/Hub}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -58,8 +58,8 @@ module.exports = (function() {
     };
 
     /**
-     * Returns data on a specific &#x60;hub_id&#x60;.
-     * @param {String} hubId the &#x60;hub id&#x60; for the current operation
+     * Returns data on a specific hub_id.
+     * @param {String} hubId the hub id for the current operation
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * data is of type: {module:model/Hub}

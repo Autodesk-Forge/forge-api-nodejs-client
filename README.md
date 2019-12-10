@@ -6,34 +6,40 @@
 [![OSS](https://img.shields.io/badge/OSS-v2-green.svg)](https://forge.autodesk.com/developer/documentation)
 [![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](https://forge.autodesk.com/developer/documentation)
 
-*NOTE*: The [Design Automation v2 API](https://forge.autodesk.com/en/docs/design-automation/v2/developers_guide/overview/) is deprecated in this module. Instead move to the [Design Automation v3 API](https://forge.autodesk.com/en/docs/design-automation/v3/developers_guide/overview/) using this [NPM package](https://www.npmjs.com/package/forge-design-automation)
+*NOTE*: The [Design Automation v2 API](https://forge.autodesk.com/en/docs/design-automation/v2/developers_guide/overview/) is deprecated in this module. Instead move to the [Design Automation v3 API](https://forge.autodesk.com/en/docs/design-automation/v3/developers_guide/overview/) using this [NPM package](https://www.npmjs.com/package/autodesk.forge.designautomation)
 
 *This Version includes Data Management filters and pagination, and the Data Management 'Commands' API.*
 
 ## Overview
+
 This [Node.js](https://nodejs.org/) SDK enables you to easily integrate the Forge REST APIs
 into your application, including [OAuth](https://developer.autodesk.com/en/docs/oauth/v2/overview/),
 [Data Management](https://developer.autodesk.com/en/docs/data/v2/overview/),
 [Model Derivative](https://developer.autodesk.com/en/docs/model-derivative/v2/overview/),
 
 ### Requirements
+
 * Node.js version 6 and above.
 * A registered app on the [Forge Developer portal](https://developer.autodesk.com/myapps).
 * A Node.js web server (such as Express) for 3-legged authentication.
 
 
 ### Installation
+
 ```sh
     npm install forge-apis --save
 ```
 
 ## Tutorial
+
 Follow this tutorial to see a step-by-step authentication guide, and examples of how to use the Forge APIs.
 
 ### Create an App
+
 Create an app on the Forge Developer portal. Note the client ID and client secret.
 
 ### Authentication
+
 This SDK comes with an [OAuth 2.0](https://developer.autodesk.com/en/docs/oauth/v2/overview/) client that allows you to
 retrieve 2-legged and 3-legged tokens. It also enables you to refresh 3-legged tokens. The tutorial uses 2-legged
 and 3-legged tokens for calling different Data Management endpoints.
@@ -66,6 +72,7 @@ oAuth2TwoLegged.authenticate().then(function(credentials){
 ```
 
 #### 3-Legged Token
+
 ##### Generate an Authentication URL
 
 To ask for permissions from a user to retrieve an access token, you
@@ -112,7 +119,6 @@ oAuth2ThreeLegged.getToken(authorizationCode).then(function (credentials) {
 
 Note that access tokens expire after a short period of time. The `expires_in` field in the `credentials` object gives
 the validity of an access token in seconds. To refresh your access token, call the `oAuth2ThreeLegged.refreshToken(credentials);` method.
-
 
 #### Example API Calls
 

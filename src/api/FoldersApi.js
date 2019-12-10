@@ -52,8 +52,8 @@ module.exports = (function() {
 
     /**
      * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project are associated with their own unique ID, including the root folder.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} folderId the &#x60;folder id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} folderId the folder id
      * data is of type: {module:model/Folder}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -64,8 +64,8 @@ module.exports = (function() {
 
     /**
      * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project are associated with their own unique ID, including the root folder.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} folderId the &#x60;folder id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} folderId the folder id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {String} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body.
@@ -113,8 +113,8 @@ module.exports = (function() {
 
     /**
      * Returns a collection of items and folders within a folder. Items represent word documents, fusion design files, drawings, spreadsheets, etc.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} folderId the &#x60;folder id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} folderId the folder id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Array.<String>} opts.filterType filter by the `type` of the `ref` target
@@ -182,8 +182,8 @@ module.exports = (function() {
 
     /**
      * Returns the parent folder (if it exists). In a project, subfolders and resource items are stored under a folder except the root folder which does not have a parent of its own.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} folderId the &#x60;folder id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} folderId the folder id
      * data is of type: {module:model/Folder}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -194,8 +194,8 @@ module.exports = (function() {
 
     /**
      * Returns the parent folder (if it exists). In a project, subfolders and resource items are stored under a folder except the root folder which does not have a parent of its own.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} folderId the &#x60;folder id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} folderId the folder id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * data is of type: {module:model/Folder}
@@ -240,9 +240,9 @@ module.exports = (function() {
     };
 
     /**
-     * Returns the resources (&#x60;items&#x60;, &#x60;folders&#x60;, and &#x60;versions&#x60;) which have a custom relationship with the given &#x60;folder_id&#x60;. Custom relationships can be established between a folder and other resources within the &#39;data&#39; domain service (folders, items, and versions).
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} folderId the &#x60;folder id&#x60;
+     * Returns the resources (items, folders, and versions) which have a custom relationship with the given folder_id. Custom relationships can be established between a folder and other resources within the &#39;data&#39; domain service (folders, items, and versions).
+     * @param {String} projectId the project id
+     * @param {String} folderId the folder id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Array.<String>} opts.filterType filter by the `type` of the `ref` target
@@ -301,9 +301,9 @@ module.exports = (function() {
     };
 
     /**
-     * Returns the resources (&#x60;items&#x60;, &#x60;folders&#x60;, and &#x60;versions&#x60;) which have a custom relationship with the given &#x60;folder_id&#x60;. Custom relationships can be established between a folder and other resources within the &#39;data&#39; domain service (folders, items, and versions).
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} folderId the &#x60;folder id&#x60;
+     * Returns a collection of links for the given folder_id. Custom relationships can be established between a folder and other external resources residing outside the data domain service. A link’s href defines the target URI to access a resource.
+     * @param {String} projectId the project id
+     * @param {String} folderId the folder id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Array.<String>} opts.filterType filter by the `type` of the `ref` target
@@ -364,9 +364,9 @@ module.exports = (function() {
     };
 
     /**
-     * Returns the custom relationships that are associated to the given &#x60;folder_id&#x60;. Custom relationships can be established between a folder and other resources within the &#39;data&#39; domain service (folders, items, and versions).
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} folderId the &#x60;folder id&#x60;
+     * Returns the custom relationships that are associated to the given folder_id. Custom relationships can be established between a folder and other resources within the &#39;data&#39; domain service (folders, items, and versions).
+     * @param {String} projectId the project id
+     * @param {String} folderId the folder id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Array.<String>} opts.filterType filter by the `type` of the `ref` target
@@ -430,8 +430,8 @@ module.exports = (function() {
 
     /**
      * Filters the data of a folder and recursively in the subfolders of any project accessible to you.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} folderId the &#x60;folder id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} folderId the folder id
      * @param {Object} opts Optional parameters
      * @param {Array.<*>} opts['filter[*]<-modifier>'] generic filter / <-modifier> is optional
      * @param {Integer} opts.pageNumber specify the page number
@@ -488,8 +488,8 @@ module.exports = (function() {
     };
 
     /**
-     * Creates a new folder in the &#x60;data&#x60; domain service
-     * @param {String} projectId the &#x60;project id&#x60;
+     * Creates a new folder in the data domain service
+     * @param {String} projectId the project id
      * @param {module:model/CreateFolder} body describe the folder to be created
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -499,8 +499,8 @@ module.exports = (function() {
     };
 
     /**
-     * Creates a new folder in the &#x60;data&#x60; domain service
-     * @param {String} projectId the &#x60;project id&#x60;
+     * Creates a new folder in the data domain service
+     * @param {String} projectId the project id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {module:model/CreateFolder} body describe the folder to be created
@@ -540,8 +540,8 @@ module.exports = (function() {
 
     /**
      * Creates a custom relationship between a folder and another resource within the &#39;data&#39; domain service (folder, item, or version).
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} folderId the &#x60;folder id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} folderId the folder id
      * @param {module:model/CreateRef} body describe the ref to be created
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -552,8 +552,8 @@ module.exports = (function() {
 
     /**
      * Creates a custom relationship between a folder and another resource within the &#39;data&#39; domain service (folder, item, or version).
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} folderId the &#x60;folder id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} folderId the folder id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {module:model/CreateRef} body describe the ref to be created
@@ -604,8 +604,8 @@ module.exports = (function() {
 
     /**
      * Modifies folder names. You can also use this endpoint to delete and restore BIM 360 Docs folders by using the hidden attribute.
-     * @param {String} projectId the &#x60;project id&#x60;
-     * @param {String} folderId the &#x60;folder id&#x60;
+     * @param {String} projectId the project id
+     * @param {String} folderId the folder id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Object} body describe the ref to be created

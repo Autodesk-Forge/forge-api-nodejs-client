@@ -615,7 +615,7 @@ module.exports = (function() {
     };
 
     /**
-     * Overwrite a existing object using a signed URL.  Conditions to call this operation:  Object is available Expiration period is valid Signed URL should be created with &#x60;write&#x60; or &#x60;readwrite&#x60;
+     * Overwrite a existing object using a signed URL.  Conditions to call this operation:  Object is available Expiration period is valid Signed URL should be created with write or readwrite
      * @param {String} id Id of signed resource
      * @param {Integer} contentLength Indicates the size of the request body.
      * @param {File} body

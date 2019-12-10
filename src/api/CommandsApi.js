@@ -44,7 +44,7 @@ module.exports = (function() {
 
     /**
      * Checks if a user has permission to perform specified actions on specified resources.
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} projectId the project id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Object} body API payload
@@ -62,7 +62,7 @@ module.exports = (function() {
 
     /**
      * Retrieves the custom relationships between specified versions of items and other resources in the data domain service (folders, items, and versions). You can retrieve the relationships of up to 50 versions.
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} projectId the project id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Object} body API payload
@@ -80,7 +80,7 @@ module.exports = (function() {
 
     /**
      * Retrieves metadata for up to 50 specified items. For example, an item name, or the date it was created. It returns the tip (latest) version of the items.
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} projectId the project id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Object} body API payload
@@ -98,7 +98,7 @@ module.exports = (function() {
 
     /**
      * Creates folders in BIM 360 Docs.
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} projectId the project id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Object} body API payload
@@ -116,7 +116,7 @@ module.exports = (function() {
 
     /**
      * Publishes the latest version of a Collaboration for Revit (C4R) model to BIM 360 Docs.
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} projectId the project id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Object} body API payload
@@ -134,7 +134,7 @@ module.exports = (function() {
 
     /**
      * Verifies whether a Collaboration for Revit (C4R) model needs to be published to BIM 360 Docs.
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} projectId the project id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Object} body API payload
@@ -152,7 +152,7 @@ module.exports = (function() {
 
     /**
      * private method
-     * @param {String} projectId the &#x60;project id&#x60;
+     * @param {String} projectId the project id
      * @param {Object} opts Optional parameters
      * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Object} body API payload
