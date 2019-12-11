@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "main": "src/index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --recursive",
+    "test": "./node_modules/mocha/bin/mocha -u tdd --timeout 999999 --colors ./test",
     "coverage": "istanbul cover _mocha -- --recursive"
   },
   "repository": {

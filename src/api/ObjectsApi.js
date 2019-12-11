@@ -267,7 +267,7 @@ module.exports = (function() {
       var queryParams = {
       };
       var headerParams = {
-        'Range': opts['range'],
+        'Range': opts['range'] || opts['Range'],
         'If-None-Match': opts['ifNoneMatch'],
         'If-Modified-Since': opts['ifModifiedSince'],
         'Accept-Encoding': opts['acceptEncoding']
@@ -408,7 +408,7 @@ module.exports = (function() {
         'region': opts['region']
       };
       var headerParams = {
-        'Range': opts['range'],
+        'Range': opts['range'] || opts['Range'],
         'If-None-Match': opts['ifNoneMatch'],
         'If-Modified-Since': opts['ifModifiedSince'],
         'Accept-Encoding': opts['acceptEncoding']
