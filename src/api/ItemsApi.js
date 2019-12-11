@@ -516,7 +516,7 @@ module.exports = (function() {
      * @param {Object} credentials credentials for the call
      */
     this.postItem2 = function(projectId, body, opts, oauth2client, credentials) {
-      opt = opts || {};
+      opts = opts || {};
       var postBody = body;
 
       // verify the required parameter 'projectId' is set
