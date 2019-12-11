@@ -22,7 +22,7 @@
  * limitations under the License.
  */
 
-console.warn( "WARNING: The 'Forge Design Automation v2' API is deprecated in favor of the 'Forge Design Automation v3' API npm package (aka ), please upgrade.");
+console.warn( "WARNING: The 'Forge Design Automation v2' API is deprecated in favor of the 'Forge Design Automation v3' API npm package (aka: npm install autodesk.forge.designautomation), please upgrade.");
 
 module.exports = (function() {
   'use strict';
