@@ -133,7 +133,6 @@ module.exports = (function () {
 
         describe('isFileParam method', function () {
             it('should return true for a Buffer file type', function () {
-                //var buffer = new Buffer(100);
                 var buffer = Buffer.alloc(100);
                 expect(apiClient.isFileParam(buffer)).to.be(true);
             });
