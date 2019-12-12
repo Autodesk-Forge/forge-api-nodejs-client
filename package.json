@@ -16,6 +16,10 @@
     "url": "https://github.com/Autodesk-Forge/forge-api-nodejs-client/issues"
   },
   "author": "Autodesk Inc.",
+  "contributors": [
+    "Cyrille Fauvel <cyrille@autodesk.com>",
+    "Augusto Goncalves <augusto.goncalves@autodesk.com>"
+],
   "dependencies": {
     "request": "^2.87.0"
   },

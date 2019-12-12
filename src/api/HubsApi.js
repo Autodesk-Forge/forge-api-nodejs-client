@@ -133,8 +133,8 @@ module.exports = (function() {
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
+      var contentTypes = [];
+      var accepts = [];
       var returnType = Hubs;
 
       return this.apiClient.callApi(
