@@ -46,34 +46,34 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('sizeX20')) {
-        obj['sizeX20'] = ApiClient.convertToType(data['sizeX20'], 'String');
+        obj.sizeX20 = ApiClient.convertToType(data.sizeX20, 'String');
       }
       if (data.hasOwnProperty('sizeX40')) {
-        obj['sizeX40'] = ApiClient.convertToType(data['sizeX40'], 'String');
+        obj.sizeX40 = ApiClient.convertToType(data.sizeX40, 'String');
       }
       if (data.hasOwnProperty('sizeX50')) {
-        obj['sizeX50'] = ApiClient.convertToType(data['sizeX50'], 'String');
+        obj.sizeX50 = ApiClient.convertToType(data.sizeX50, 'String');
       }
       if (data.hasOwnProperty('sizeX58')) {
-        obj['sizeX58'] = ApiClient.convertToType(data['sizeX58'], 'String');
+        obj.sizeX58 = ApiClient.convertToType(data.sizeX58, 'String');
       }
       if (data.hasOwnProperty('sizeX80')) {
-        obj['sizeX80'] = ApiClient.convertToType(data['sizeX80'], 'String');
+        obj.sizeX80 = ApiClient.convertToType(data.sizeX80, 'String');
       }
       if (data.hasOwnProperty('sizeX120')) {
-        obj['sizeX120'] = ApiClient.convertToType(data['sizeX120'], 'String');
+        obj.sizeX120 = ApiClient.convertToType(data.sizeX120, 'String');
       }
       if (data.hasOwnProperty('sizeX160')) {
-        obj['sizeX160'] = ApiClient.convertToType(data['sizeX160'], 'String');
+        obj.sizeX160 = ApiClient.convertToType(data.sizeX160, 'String');
       }
       if (data.hasOwnProperty('sizeX176')) {
-        obj['sizeX176'] = ApiClient.convertToType(data['sizeX176'], 'String');
+        obj.sizeX176 = ApiClient.convertToType(data.sizeX176, 'String');
       }
       if (data.hasOwnProperty('sizeX240')) {
-        obj['sizeX240'] = ApiClient.convertToType(data['sizeX240'], 'String');
+        obj.sizeX240 = ApiClient.convertToType(data.sizeX240, 'String');
       }
       if (data.hasOwnProperty('sizeX360')) {
-        obj['sizeX360'] = ApiClient.convertToType(data['sizeX360'], 'String');
+        obj.sizeX360 = ApiClient.convertToType(data.sizeX360, 'String');
       }
     }
     return obj;
@@ -116,43 +116,43 @@ module.exports = (function() {
   /**
    * @member {String} sizeX20
    */
-  exports.prototype['sizeX20'] = undefined;
+  exports.prototype.sizeX20 = undefined;
   /**
    * @member {String} sizeX40
    */
-  exports.prototype['sizeX40'] = undefined;
+  exports.prototype.sizeX40 = undefined;
   /**
    * @member {String} sizeX50
    */
-  exports.prototype['sizeX50'] = undefined;
+  exports.prototype.sizeX50 = undefined;
   /**
    * @member {String} sizeX58
    */
-  exports.prototype['sizeX58'] = undefined;
+  exports.prototype.sizeX58 = undefined;
   /**
    * @member {String} sizeX80
    */
-  exports.prototype['sizeX80'] = undefined;
+  exports.prototype.sizeX80 = undefined;
   /**
    * @member {String} sizeX120
    */
-  exports.prototype['sizeX120'] = undefined;
+  exports.prototype.sizeX120 = undefined;
   /**
    * @member {String} sizeX160
    */
-  exports.prototype['sizeX160'] = undefined;
+  exports.prototype.sizeX160 = undefined;
   /**
    * @member {String} sizeX176
    */
-  exports.prototype['sizeX176'] = undefined;
+  exports.prototype.sizeX176 = undefined;
   /**
    * @member {String} sizeX240
    */
-  exports.prototype['sizeX240'] = undefined;
+  exports.prototype.sizeX240 = undefined;
   /**
    * @member {String} sizeX360
    */
-  exports.prototype['sizeX360'] = undefined;
+  exports.prototype.sizeX360 = undefined;
 
 
 

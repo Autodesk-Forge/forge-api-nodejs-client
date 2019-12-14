@@ -47,25 +47,25 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('name')) {
-        obj['name'] = ApiClient.convertToType(data['name'], 'String');
+        obj.name = ApiClient.convertToType(data.name, 'String');
       }
       if (data.hasOwnProperty('displayName')) {
-        obj['displayName'] = ApiClient.convertToType(data['displayName'], 'String');
+        obj.displayName = ApiClient.convertToType(data.displayName, 'String');
       }
       if (data.hasOwnProperty('versionNumber')) {
-        obj['versionNumber'] = ApiClient.convertToType(data['versionNumber'], 'Integer');
+        obj.versionNumber = ApiClient.convertToType(data.versionNumber, 'Integer');
       }
       if (data.hasOwnProperty('mimeType')) {
-        obj['mimeType'] = ApiClient.convertToType(data['mimeType'], 'String');
+        obj.mimeType = ApiClient.convertToType(data.mimeType, 'String');
       }
       if (data.hasOwnProperty('fileType')) {
-        obj['fileType'] = ApiClient.convertToType(data['fileType'], 'String');
+        obj.fileType = ApiClient.convertToType(data.fileType, 'String');
       }
       if (data.hasOwnProperty('storageSize')) {
-        obj['storageSize'] = ApiClient.convertToType(data['storageSize'], 'Integer');
+        obj.storageSize = ApiClient.convertToType(data.storageSize, 'Integer');
       }
       if (data.hasOwnProperty('extension')) {
-        obj['extension'] = BaseAttributesExtensionObject.constructFromObject(data['extension']);
+        obj.extension = BaseAttributesExtensionObject.constructFromObject(data.extension);
       }
     }
     return obj;
@@ -85,13 +85,13 @@ module.exports = (function() {
   var exports = function(name, displayName, versionNumber, extension, theData, obj) {
     var _this = this;
 
-    _this['name'] = name;
-    _this['displayName'] = displayName;
-    _this['versionNumber'] = versionNumber;
+    _this.name = name;
+    _this.displayName = displayName;
+    _this.versionNumber = versionNumber;
 
 
 
-    _this['extension'] = extension;
+    _this.extension = extension;
 
     return constructFromObject(theData, obj);
   };
@@ -109,36 +109,36 @@ module.exports = (function() {
    * filename used when synced to local disk
    * @member {String} name
    */
-  exports.prototype['name'] = undefined;
+  exports.prototype.name = undefined;
   /**
    * displayable name of the version
    * @member {String} displayName
    */
-  exports.prototype['displayName'] = undefined;
+  exports.prototype.displayName = undefined;
   /**
    * version number of this version
    * @member {Integer} versionNumber
    */
-  exports.prototype['versionNumber'] = undefined;
+  exports.prototype.versionNumber = undefined;
   /**
    * mimetype of the version`s content
    * @member {String} mimeType
    */
-  exports.prototype['mimeType'] = undefined;
+  exports.prototype.mimeType = undefined;
   /**
    * file type, only present if this version represents a file
    * @member {String} fileType
    */
-  exports.prototype['fileType'] = undefined;
+  exports.prototype.fileType = undefined;
   /**
    * file size in bytes, only present if this version represents a file
    * @member {Integer} storageSize
    */
-  exports.prototype['storageSize'] = undefined;
+  exports.prototype.storageSize = undefined;
   /**
    * @member {module:model/BaseAttributesExtensionObject} extension
    */
-  exports.prototype['extension'] = undefined;
+  exports.prototype.extension = undefined;
 
 
 

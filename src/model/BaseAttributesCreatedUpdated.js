@@ -47,7 +47,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('attributes')) {
-        obj['attributes'] = BaseAttributesCreatedUpdatedAttributes.constructFromObject(data['attributes']);
+        obj.attributes = BaseAttributesCreatedUpdatedAttributes.constructFromObject(data.attributes);
       }
     }
     return obj;
@@ -80,7 +80,7 @@ module.exports = (function() {
   /**
    * @member {module:model/BaseAttributesCreatedUpdatedAttributes} attributes
    */
-  exports.prototype['attributes'] = undefined;
+  exports.prototype.attributes = undefined;
 
 
 

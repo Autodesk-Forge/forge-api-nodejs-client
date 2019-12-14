@@ -47,16 +47,16 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('first')) {
-        obj['first'] = JsonApiLink.constructFromObject(data['first']);
+        obj.first = JsonApiLink.constructFromObject(data.first);
       }
       if (data.hasOwnProperty('prev')) {
-        obj['prev'] = JsonApiLink.constructFromObject(data['prev']);
+        obj.prev = JsonApiLink.constructFromObject(data.prev);
       }
       if (data.hasOwnProperty('next')) {
-        obj['next'] = JsonApiLink.constructFromObject(data['next']);
+        obj.next = JsonApiLink.constructFromObject(data.next);
       }
       if (data.hasOwnProperty('last')) {
-        obj['last'] = JsonApiLink.constructFromObject(data['last']);
+        obj.last = JsonApiLink.constructFromObject(data.last);
       }
     }
     return obj;
@@ -93,19 +93,19 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiLink} first
    */
-  exports.prototype['first'] = undefined;
+  exports.prototype.first = undefined;
   /**
    * @member {module:model/JsonApiLink} prev
    */
-  exports.prototype['prev'] = undefined;
+  exports.prototype.prev = undefined;
   /**
    * @member {module:model/JsonApiLink} next
    */
-  exports.prototype['next'] = undefined;
+  exports.prototype.next = undefined;
   /**
    * @member {module:model/JsonApiLink} last
    */
-  exports.prototype['last'] = undefined;
+  exports.prototype.last = undefined;
 
 
 

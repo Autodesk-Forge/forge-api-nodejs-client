@@ -46,13 +46,13 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('bucketKey')) {
-        obj['bucketKey'] = ApiClient.convertToType(data['bucketKey'], 'String');
+        obj.bucketKey = ApiClient.convertToType(data.bucketKey, 'String');
       }
       if (data.hasOwnProperty('createdDate')) {
-        obj['createdDate'] = ApiClient.convertToType(data['createdDate'], 'Integer');
+        obj.createdDate = ApiClient.convertToType(data.createdDate, 'Integer');
       }
       if (data.hasOwnProperty('policyKey')) {
-        obj['policyKey'] = ApiClient.convertToType(data['policyKey'], 'String');
+        obj.policyKey = ApiClient.convertToType(data.policyKey, 'String');
       }
     }
     return obj;
@@ -71,9 +71,9 @@ module.exports = (function() {
   var exports = function(bucketKey, createdDate, policyKey, theData, obj) {
     var _this = this;
 
-    _this['bucketKey'] = bucketKey;
-    _this['createdDate'] = createdDate;
-    _this['policyKey'] = policyKey;
+    _this.bucketKey = bucketKey;
+    _this.createdDate = createdDate;
+    _this.policyKey = policyKey;
 
     return constructFromObject(theData, obj);
   };
@@ -91,17 +91,17 @@ module.exports = (function() {
    * Bucket key
    * @member {String} bucketKey
    */
-  exports.prototype['bucketKey'] = undefined;
+  exports.prototype.bucketKey = undefined;
   /**
    * Timestamp in epoch time
    * @member {Integer} createdDate
    */
-  exports.prototype['createdDate'] = undefined;
+  exports.prototype.createdDate = undefined;
   /**
    * Policy values: `transient`, `temporary` or `persistent` 
    * @member {module:model/BucketsItems.PolicyKeyEnum} policyKey
    */
-  exports.prototype['policyKey'] = undefined;
+  exports.prototype.policyKey = undefined;
 
 
   /**

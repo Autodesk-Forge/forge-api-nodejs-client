@@ -46,7 +46,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('href')) {
-        obj['href'] = ApiClient.convertToType(data['href'], 'String');
+        obj.href = ApiClient.convertToType(data.href, 'String');
       }
     }
     return obj;
@@ -63,7 +63,7 @@ module.exports = (function() {
   var exports = function(href, theData, obj) {
     var _this = this;
 
-    _this['href'] = href;
+    _this.href = href;
 
     return constructFromObject(theData, obj);
   };
@@ -80,7 +80,7 @@ module.exports = (function() {
   /**
    * @member {String} href
    */
-  exports.prototype['href'] = undefined;
+  exports.prototype.href = undefined;
 
 
 

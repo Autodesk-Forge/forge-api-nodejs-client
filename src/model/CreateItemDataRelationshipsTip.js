@@ -47,7 +47,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('data')) {
-        obj['data'] = CreateItemDataRelationshipsTipData.constructFromObject(data['data']);
+        obj.data = CreateItemDataRelationshipsTipData.constructFromObject(data.data);
       }
     }
     return obj;
@@ -80,7 +80,7 @@ module.exports = (function() {
   /**
    * @member {module:model/CreateItemDataRelationshipsTipData} data
    */
-  exports.prototype['data'] = undefined;
+  exports.prototype.data = undefined;
 
 
 

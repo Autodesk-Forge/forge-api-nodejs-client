@@ -46,13 +46,13 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('exportFileStructure')) {
-        obj['exportFileStructure'] = ApiClient.convertToType(data['exportFileStructure'], 'String');
+        obj.exportFileStructure = ApiClient.convertToType(data.exportFileStructure, 'String');
       }
       if (data.hasOwnProperty('modelGuid')) {
-        obj['modelGuid'] = ApiClient.convertToType(data['modelGuid'], 'String');
+        obj.modelGuid = ApiClient.convertToType(data.modelGuid, 'String');
       }
       if (data.hasOwnProperty('objectIds')) {
-        obj['objectIds'] = ApiClient.convertToType(data['objectIds'], ['String']);
+        obj.objectIds = ApiClient.convertToType(data.objectIds, ['String']);
       }
     }
     return obj;
@@ -90,17 +90,17 @@ module.exports = (function() {
    * @member {module:model/JobObjOutputPayloadAdvanced.ExportFileStructureEnum} exportFileStructure
    * @default 'single'
    */
-  exports.prototype['exportFileStructure'] = 'single';
+  exports.prototype.exportFileStructure = 'single';
   /**
    * Required for geometry extractions. The model view ID (guid).
    * @member {String} modelGuid
    */
-  exports.prototype['modelGuid'] = undefined;
+  exports.prototype.modelGuid = undefined;
   /**
    * Required for geometry extractions. List object ids to be translated. -1 will extract the entire model. 
    * @member {Array.<String>} objectIds
    */
-  exports.prototype['objectIds'] = undefined;
+  exports.prototype.objectIds = undefined;
 
 
   /**

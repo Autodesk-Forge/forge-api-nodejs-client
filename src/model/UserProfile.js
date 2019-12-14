@@ -47,28 +47,28 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('userId')) {
-        obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
+        obj.userId = ApiClient.convertToType(data.userId, 'String');
       }
       if (data.hasOwnProperty('userName')) {
-        obj['userName'] = ApiClient.convertToType(data['userName'], 'String');
+        obj.userName = ApiClient.convertToType(data.userName, 'String');
       }
       if (data.hasOwnProperty('emailId')) {
-        obj['emailId'] = ApiClient.convertToType(data['emailId'], 'String');
+        obj.emailId = ApiClient.convertToType(data.emailId, 'String');
       }
       if (data.hasOwnProperty('firstName')) {
-        obj['firstName'] = ApiClient.convertToType(data['firstName'], 'String');
+        obj.firstName = ApiClient.convertToType(data.firstName, 'String');
       }
       if (data.hasOwnProperty('lastName')) {
-        obj['lastName'] = ApiClient.convertToType(data['lastName'], 'String');
+        obj.lastName = ApiClient.convertToType(data.lastName, 'String');
       }
       if (data.hasOwnProperty('emailVerified')) {
-        obj['emailVerified'] = ApiClient.convertToType(data['emailVerified'], 'Boolean');
+        obj.emailVerified = ApiClient.convertToType(data.emailVerified, 'Boolean');
       }
       if (data.hasOwnProperty('2FaEnabled')) {
         obj['2FaEnabled'] = ApiClient.convertToType(data['2FaEnabled'], 'Boolean');
       }
       if (data.hasOwnProperty('profileImages')) {
-        obj['profileImages'] = UserProfileProfileImages.constructFromObject(data['profileImages']);
+        obj.profileImages = UserProfileProfileImages.constructFromObject(data.profileImages);
       }
     }
     return obj;
@@ -110,32 +110,32 @@ module.exports = (function() {
    * The backend user ID of the profile
    * @member {String} userId
    */
-  exports.prototype['userId'] = undefined;
+  exports.prototype.userId = undefined;
   /**
    * The username chosen by the user
    * @member {String} userName
    */
-  exports.prototype['userName'] = undefined;
+  exports.prototype.userName = undefined;
   /**
    * The user’s email address
    * @member {String} emailId
    */
-  exports.prototype['emailId'] = undefined;
+  exports.prototype.emailId = undefined;
   /**
    * The user’s first name
    * @member {String} firstName
    */
-  exports.prototype['firstName'] = undefined;
+  exports.prototype.firstName = undefined;
   /**
    * The user’s last name
    * @member {String} lastName
    */
-  exports.prototype['lastName'] = undefined;
+  exports.prototype.lastName = undefined;
   /**
    * The user’s email address has been verified or not
    * @member {Boolean} emailVerified
    */
-  exports.prototype['emailVerified'] = undefined;
+  exports.prototype.emailVerified = undefined;
   /**
    * The user has enabled two-factor authentication or not
    * @member {Boolean} 2FaEnabled
@@ -144,7 +144,7 @@ module.exports = (function() {
   /**
    * @member {module:model/UserProfileProfileImages} profileImages
    */
-  exports.prototype['profileImages'] = undefined;
+  exports.prototype.profileImages = undefined;
 
 
 

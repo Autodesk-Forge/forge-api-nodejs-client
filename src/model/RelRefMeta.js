@@ -47,25 +47,25 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('refType')) {
-        obj['refType'] = ApiClient.convertToType(data['refType'], 'String');
+        obj.refType = ApiClient.convertToType(data.refType, 'String');
       }
       if (data.hasOwnProperty('direction')) {
-        obj['direction'] = ApiClient.convertToType(data['direction'], 'String');
+        obj.direction = ApiClient.convertToType(data.direction, 'String');
       }
       if (data.hasOwnProperty('fromId')) {
-        obj['fromId'] = ApiClient.convertToType(data['fromId'], 'String');
+        obj.fromId = ApiClient.convertToType(data.fromId, 'String');
       }
       if (data.hasOwnProperty('fromType')) {
-        obj['fromType'] = ApiClient.convertToType(data['fromType'], 'String');
+        obj.fromType = ApiClient.convertToType(data.fromType, 'String');
       }
       if (data.hasOwnProperty('toId')) {
-        obj['toId'] = ApiClient.convertToType(data['toId'], 'String');
+        obj.toId = ApiClient.convertToType(data.toId, 'String');
       }
       if (data.hasOwnProperty('toType')) {
-        obj['toType'] = ApiClient.convertToType(data['toType'], 'String');
+        obj.toType = ApiClient.convertToType(data.toType, 'String');
       }
       if (data.hasOwnProperty('extension')) {
-        obj['extension'] = BaseAttributesExtensionObject.constructFromObject(data['extension']);
+        obj.extension = BaseAttributesExtensionObject.constructFromObject(data.extension);
       }
     }
     return obj;
@@ -88,13 +88,13 @@ module.exports = (function() {
   var exports = function(refType, direction, fromId, fromType, toId, toType, extension, theData, obj) {
     var _this = this;
 
-    _this['refType'] = refType;
-    _this['direction'] = direction;
-    _this['fromId'] = fromId;
-    _this['fromType'] = fromType;
-    _this['toId'] = toId;
-    _this['toType'] = toType;
-    _this['extension'] = extension;
+    _this.refType = refType;
+    _this.direction = direction;
+    _this.fromId = fromId;
+    _this.fromType = fromType;
+    _this.toId = toId;
+    _this.toType = toType;
+    _this.extension = extension;
 
     return constructFromObject(theData, obj);
   };
@@ -111,32 +111,32 @@ module.exports = (function() {
   /**
    * @member {module:model/RelRefMeta.RefTypeEnum} refType
    */
-  exports.prototype['refType'] = undefined;
+  exports.prototype.refType = undefined;
   /**
    * describes the direction of the reference relative to the resource the refs are queried for
    * @member {module:model/RelRefMeta.DirectionEnum} direction
    */
-  exports.prototype['direction'] = undefined;
+  exports.prototype.direction = undefined;
   /**
    * @member {String} fromId
    */
-  exports.prototype['fromId'] = undefined;
+  exports.prototype.fromId = undefined;
   /**
    * @member {module:model/RelRefMeta.FromTypeEnum} fromType
    */
-  exports.prototype['fromType'] = undefined;
+  exports.prototype.fromType = undefined;
   /**
    * @member {String} toId
    */
-  exports.prototype['toId'] = undefined;
+  exports.prototype.toId = undefined;
   /**
    * @member {module:model/RelRefMeta.ToTypeEnum} toType
    */
-  exports.prototype['toType'] = undefined;
+  exports.prototype.toType = undefined;
   /**
    * @member {module:model/BaseAttributesExtensionObject} extension
    */
-  exports.prototype['extension'] = undefined;
+  exports.prototype.extension = undefined;
 
 
   /**

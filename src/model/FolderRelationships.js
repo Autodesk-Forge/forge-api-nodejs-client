@@ -49,13 +49,13 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('parent')) {
-        obj['parent'] = JsonApiRelationshipsLinksInternalResource.constructFromObject(data['parent']);
+        obj.parent = JsonApiRelationshipsLinksInternalResource.constructFromObject(data.parent);
       }
       if (data.hasOwnProperty('contents')) {
-        obj['contents'] = JsonApiRelationshipsLinksInternal.constructFromObject(data['contents']);
+        obj.contents = JsonApiRelationshipsLinksInternal.constructFromObject(data.contents);
       }
       if (data.hasOwnProperty('refs')) {
-        obj['refs'] = JsonApiRelationshipsLinksRefs.constructFromObject(data['refs']);
+        obj.refs = JsonApiRelationshipsLinksRefs.constructFromObject(data.refs);
       }
     }
     return obj;
@@ -74,8 +74,8 @@ module.exports = (function() {
     var _this = this;
 
 
-    _this['contents'] = contents;
-    _this['refs'] = refs;
+    _this.contents = contents;
+    _this.refs = refs;
 
     return constructFromObject(theData, obj);
   };
@@ -92,15 +92,15 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiRelationshipsLinksInternalResource} parent
    */
-  exports.prototype['parent'] = undefined;
+  exports.prototype.parent = undefined;
   /**
    * @member {module:model/JsonApiRelationshipsLinksInternal} contents
    */
-  exports.prototype['contents'] = undefined;
+  exports.prototype.contents = undefined;
   /**
    * @member {module:model/JsonApiRelationshipsLinksRefs} refs
    */
-  exports.prototype['refs'] = undefined;
+  exports.prototype.refs = undefined;
 
 
 

@@ -46,7 +46,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('reason')) {
-        obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+        obj.reason = ApiClient.convertToType(data.reason, 'String');
       }
     }
     return obj;
@@ -64,7 +64,7 @@ module.exports = (function() {
   var exports = function(reason, theData, obj) {
     var _this = this;
 
-    _this['reason'] = reason;
+    _this.reason = reason;
 
     return constructFromObject(theData, obj);
   };
@@ -82,7 +82,7 @@ module.exports = (function() {
    * reason for failure
    * @member {String} reason
    */
-  exports.prototype['reason'] = undefined;
+  exports.prototype.reason = undefined;
 
 
 

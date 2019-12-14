@@ -46,13 +46,13 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        obj.type = ApiClient.convertToType(data.type, 'String');
       }
       if (data.hasOwnProperty('code')) {
-        obj['code'] = ApiClient.convertToType(data['code'], 'String');
+        obj.code = ApiClient.convertToType(data.code, 'String');
       }
       if (data.hasOwnProperty('message')) {
-        obj['message'] = ApiClient.convertToType(data['message'], ['String']);
+        obj.message = ApiClient.convertToType(data.message, ['String']);
       }
     }
     return obj;
@@ -72,9 +72,9 @@ module.exports = (function() {
   var exports = function(type, code, message, theData, obj) {
     var _this = this;
 
-    _this['type'] = type;
-    _this['code'] = code;
-    _this['message'] = message;
+    _this.type = type;
+    _this.code = code;
+    _this.message = message;
 
     return constructFromObject(theData, obj);
   };
@@ -91,15 +91,15 @@ module.exports = (function() {
   /**
    * @member {String} type
    */
-  exports.prototype['type'] = undefined;
+  exports.prototype.type = undefined;
   /**
    * @member {String} code
    */
-  exports.prototype['code'] = undefined;
+  exports.prototype.code = undefined;
   /**
    * @member {Array.<String>} message
    */
-  exports.prototype['message'] = undefined;
+  exports.prototype.message = undefined;
 
 
 

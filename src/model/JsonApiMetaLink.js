@@ -47,7 +47,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('link')) {
-        obj['link'] = JsonApiLink.constructFromObject(data['link']);
+        obj.link = JsonApiLink.constructFromObject(data.link);
       }
     }
     return obj;
@@ -64,7 +64,7 @@ module.exports = (function() {
   var exports = function(link, theData, obj) {
     var _this = this;
 
-    _this['link'] = link;
+    _this.link = link;
 
     return constructFromObject(theData, obj);
   };
@@ -81,7 +81,7 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiLink} link
    */
-  exports.prototype['link'] = undefined;
+  exports.prototype.link = undefined;
 
 
 

@@ -127,7 +127,7 @@ module.exports = (function () {
 
 			var pathParams = {};
 			var queryParams = {
-				'$skip': opts['skip']
+				'$skip': opts.skip
 			};
 			var headerParams = {};
 			var formParams = {};

@@ -47,25 +47,25 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('urn')) {
-        obj['urn'] = ApiClient.convertToType(data['urn'], 'String');
+        obj.urn = ApiClient.convertToType(data.urn, 'String');
       }
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        obj.type = ApiClient.convertToType(data.type, 'String');
       }
       if (data.hasOwnProperty('progress')) {
-        obj['progress'] = ApiClient.convertToType(data['progress'], 'String');
+        obj.progress = ApiClient.convertToType(data.progress, 'String');
       }
       if (data.hasOwnProperty('status')) {
-        obj['status'] = ApiClient.convertToType(data['status'], 'String');
+        obj.status = ApiClient.convertToType(data.status, 'String');
       }
       if (data.hasOwnProperty('hasThumbnail')) {
-        obj['hasThumbnail'] = ApiClient.convertToType(data['hasThumbnail'], 'Boolean');
+        obj.hasThumbnail = ApiClient.convertToType(data.hasThumbnail, 'Boolean');
       }
       if (data.hasOwnProperty('region')) {
-        obj['region'] = ApiClient.convertToType(data['region'], 'String');
+        obj.region = ApiClient.convertToType(data.region, 'String');
       }
       if (data.hasOwnProperty('derivatives')) {
-        obj['derivatives'] = ApiClient.convertToType(data['derivatives'], [ManifestDerivative]);
+        obj.derivatives = ApiClient.convertToType(data.derivatives, [ManifestDerivative]);
       }
     }
     return obj;
@@ -87,13 +87,13 @@ module.exports = (function() {
   var exports = function(urn, type, progress, status, hasThumbnail, derivatives, theData, obj) {
     var _this = this;
 
-    _this['urn'] = urn;
-    _this['type'] = type;
-    _this['progress'] = progress;
-    _this['status'] = status;
-    _this['hasThumbnail'] = hasThumbnail;
+    _this.urn = urn;
+    _this.type = type;
+    _this.progress = progress;
+    _this.status = status;
+    _this.hasThumbnail = hasThumbnail;
 
-    _this['derivatives'] = derivatives;
+    _this.derivatives = derivatives;
 
     return constructFromObject(theData, obj);
   };
@@ -111,37 +111,37 @@ module.exports = (function() {
    * The Base64 (URL safe) encoded source file URN
    * @member {String} urn
    */
-  exports.prototype['urn'] = undefined;
+  exports.prototype.urn = undefined;
   /**
    * Type of this JSON object
    * @member {String} type
    */
-  exports.prototype['type'] = undefined;
+  exports.prototype.type = undefined;
   /**
    * Overall progress for all translation jobs in the manifest. Possible values are: `complete` or `##%` 
    * @member {String} progress
    */
-  exports.prototype['progress'] = undefined;
+  exports.prototype.progress = undefined;
   /**
    * Overall status for translation jobs in the “manifest”. Possible values are: `pending`, `success`, `inprogress`, `failed` and `timeout` 
    * @member {String} status
    */
-  exports.prototype['status'] = undefined;
+  exports.prototype.status = undefined;
   /**
    * Indicates if a thumbnail has been generated for the source file URN
    * @member {Boolean} hasThumbnail
    */
-  exports.prototype['hasThumbnail'] = undefined;
+  exports.prototype.hasThumbnail = undefined;
   /**
    * Region 
    * @member {String} region
    */
-  exports.prototype['region'] = undefined;
+  exports.prototype.region = undefined;
   /**
    * Requested output files for the source file URN
    * @member {Array.<module:model/ManifestDerivative>} derivatives
    */
-  exports.prototype['derivatives'] = undefined;
+  exports.prototype.derivatives = undefined;
 
 
 

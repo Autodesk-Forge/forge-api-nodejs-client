@@ -46,16 +46,16 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('createTime')) {
-        obj['createTime'] = ApiClient.convertToType(data['createTime'], 'Date');
+        obj.createTime = ApiClient.convertToType(data.createTime, 'Date');
       }
       if (data.hasOwnProperty('createUserId')) {
-        obj['createUserId'] = ApiClient.convertToType(data['createUserId'], 'String');
+        obj.createUserId = ApiClient.convertToType(data.createUserId, 'String');
       }
       if (data.hasOwnProperty('lastModifiedTime')) {
-        obj['lastModifiedTime'] = ApiClient.convertToType(data['lastModifiedTime'], 'Date');
+        obj.lastModifiedTime = ApiClient.convertToType(data.lastModifiedTime, 'Date');
       }
       if (data.hasOwnProperty('lastModifiedUserId')) {
-        obj['lastModifiedUserId'] = ApiClient.convertToType(data['lastModifiedUserId'], 'String');
+        obj.lastModifiedUserId = ApiClient.convertToType(data.lastModifiedUserId, 'String');
       }
     }
     return obj;
@@ -75,10 +75,10 @@ module.exports = (function() {
   var exports = function(createTime, createUserId, lastModifiedTime, lastModifiedUserId, theData, obj) {
     var _this = this;
 
-    _this['createTime'] = createTime;
-    _this['createUserId'] = createUserId;
-    _this['lastModifiedTime'] = lastModifiedTime;
-    _this['lastModifiedUserId'] = lastModifiedUserId;
+    _this.createTime = createTime;
+    _this.createUserId = createUserId;
+    _this.lastModifiedTime = lastModifiedTime;
+    _this.lastModifiedUserId = lastModifiedUserId;
 
     return constructFromObject(theData, obj);
   };
@@ -95,19 +95,19 @@ module.exports = (function() {
   /**
    * @member {Date} createTime
    */
-  exports.prototype['createTime'] = undefined;
+  exports.prototype.createTime = undefined;
   /**
    * @member {String} createUserId
    */
-  exports.prototype['createUserId'] = undefined;
+  exports.prototype.createUserId = undefined;
   /**
    * @member {Date} lastModifiedTime
    */
-  exports.prototype['lastModifiedTime'] = undefined;
+  exports.prototype.lastModifiedTime = undefined;
   /**
    * @member {String} lastModifiedUserId
    */
-  exports.prototype['lastModifiedUserId'] = undefined;
+  exports.prototype.lastModifiedUserId = undefined;
 
 
 

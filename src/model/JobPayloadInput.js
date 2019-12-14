@@ -46,13 +46,13 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('urn')) {
-        obj['urn'] = ApiClient.convertToType(data['urn'], 'String');
+        obj.urn = ApiClient.convertToType(data.urn, 'String');
       }
       if (data.hasOwnProperty('compressedUrn')) {
-        obj['compressedUrn'] = ApiClient.convertToType(data['compressedUrn'], 'Boolean');
+        obj.compressedUrn = ApiClient.convertToType(data.compressedUrn, 'Boolean');
       }
       if (data.hasOwnProperty('rootFilename')) {
-        obj['rootFilename'] = ApiClient.convertToType(data['rootFilename'], 'String');
+        obj.rootFilename = ApiClient.convertToType(data.rootFilename, 'String');
       }
     }
     return obj;
@@ -70,7 +70,7 @@ module.exports = (function() {
   var exports = function(urn, theData, obj) {
     var _this = this;
 
-    _this['urn'] = urn;
+    _this.urn = urn;
 
 
 
@@ -90,18 +90,18 @@ module.exports = (function() {
    * The design URN; returned when uploading the file to Forge The URN needs to be [Base64 (URL Safe) encoded](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/job-POST/#id3). 
    * @member {String} urn
    */
-  exports.prototype['urn'] = undefined;
+  exports.prototype.urn = undefined;
   /**
    * Set this to `true` if the source file is compressed. If set to `true`, you need to define the `rootFilename`.
    * @member {Boolean} compressedUrn
    * @default false
    */
-  exports.prototype['compressedUrn'] = false;
+  exports.prototype.compressedUrn = false;
   /**
    * The root filename of the compressed file. Mandatory if the `compressedUrn` is set to `true`.
    * @member {String} rootFilename
    */
-  exports.prototype['rootFilename'] = undefined;
+  exports.prototype.rootFilename = undefined;
 
 
 

@@ -48,10 +48,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('meta')) {
-        obj['meta'] = JsonApiMetaLink.constructFromObject(data['meta']);
+        obj.meta = JsonApiMetaLink.constructFromObject(data.meta);
       }
       if (data.hasOwnProperty('data')) {
-        obj['data'] = JsonApiTypeId.constructFromObject(data['data']);
+        obj.data = JsonApiTypeId.constructFromObject(data.data);
       }
     }
     return obj;
@@ -69,8 +69,8 @@ module.exports = (function() {
   var exports = function(meta, data, theData, obj) {
     var _this = this;
 
-    _this['meta'] = meta;
-    _this['data'] = data;
+    _this.meta = meta;
+    _this.data = data;
 
     return constructFromObject(theData, obj);
   };
@@ -87,11 +87,11 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiMetaLink} meta
    */
-  exports.prototype['meta'] = undefined;
+  exports.prototype.meta = undefined;
   /**
    * @member {module:model/JsonApiTypeId} data
    */
-  exports.prototype['data'] = undefined;
+  exports.prototype.data = undefined;
 
 
 

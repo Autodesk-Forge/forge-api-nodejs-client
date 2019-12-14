@@ -48,10 +48,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('input')) {
-        obj['input'] = JobPayloadInput.constructFromObject(data['input']);
+        obj.input = JobPayloadInput.constructFromObject(data.input);
       }
       if (data.hasOwnProperty('output')) {
-        obj['output'] = JobPayloadOutput.constructFromObject(data['output']);
+        obj.output = JobPayloadOutput.constructFromObject(data.output);
       }
     }
     return obj;
@@ -85,11 +85,11 @@ module.exports = (function() {
   /**
    * @member {module:model/JobPayloadInput} input
    */
-  exports.prototype['input'] = undefined;
+  exports.prototype.input = undefined;
   /**
    * @member {module:model/JobPayloadOutput} output
    */
-  exports.prototype['output'] = undefined;
+  exports.prototype.output = undefined;
 
 
 

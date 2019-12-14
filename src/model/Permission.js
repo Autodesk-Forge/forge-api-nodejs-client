@@ -46,10 +46,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('authId')) {
-        obj['authId'] = ApiClient.convertToType(data['authId'], 'String');
+        obj.authId = ApiClient.convertToType(data.authId, 'String');
       }
       if (data.hasOwnProperty('access')) {
-        obj['access'] = ApiClient.convertToType(data['access'], 'String');
+        obj.access = ApiClient.convertToType(data.access, 'String');
       }
     }
     return obj;
@@ -84,12 +84,12 @@ module.exports = (function() {
    * The authentication ID
    * @member {String} authId
    */
-  exports.prototype['authId'] = undefined;
+  exports.prototype.authId = undefined;
   /**
    * The authentication access type
    * @member {String} access
    */
-  exports.prototype['access'] = undefined;
+  exports.prototype.access = undefined;
 
 
 

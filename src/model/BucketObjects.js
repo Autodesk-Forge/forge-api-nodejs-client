@@ -47,10 +47,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('items')) {
-        obj['items'] = ApiClient.convertToType(data['items'], [ObjectDetails]);
+        obj.items = ApiClient.convertToType(data.items, [ObjectDetails]);
       }
       if (data.hasOwnProperty('next')) {
-        obj['next'] = ApiClient.convertToType(data['next'], 'String');
+        obj.next = ApiClient.convertToType(data.next, 'String');
       }
     }
     return obj;
@@ -84,12 +84,12 @@ module.exports = (function() {
   /**
    * @member {Array.<module:model/ObjectDetails>} items
    */
-  exports.prototype['items'] = undefined;
+  exports.prototype.items = undefined;
   /**
    * Next possible request
    * @member {String} next
    */
-  exports.prototype['next'] = undefined;
+  exports.prototype.next = undefined;
 
 
 

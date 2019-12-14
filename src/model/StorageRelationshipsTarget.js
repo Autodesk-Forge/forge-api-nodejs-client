@@ -48,10 +48,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('links')) {
-        obj['links'] = JsonApiLinksRelated.constructFromObject(data['links']);
+        obj.links = JsonApiLinksRelated.constructFromObject(data.links);
       }
       if (data.hasOwnProperty('data')) {
-        obj['data'] = StorageRelationshipsTargetData.constructFromObject(data['data']);
+        obj.data = StorageRelationshipsTargetData.constructFromObject(data.data);
       }
     }
     return obj;
@@ -68,7 +68,7 @@ module.exports = (function() {
   var exports = function(links, theData, obj) {
     var _this = this;
 
-    _this['links'] = links;
+    _this.links = links;
 
 
     return constructFromObject(theData, obj);
@@ -86,11 +86,11 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiLinksRelated} links
    */
-  exports.prototype['links'] = undefined;
+  exports.prototype.links = undefined;
   /**
    * @member {module:model/StorageRelationshipsTargetData} data
    */
-  exports.prototype['data'] = undefined;
+  exports.prototype.data = undefined;
 
 
 

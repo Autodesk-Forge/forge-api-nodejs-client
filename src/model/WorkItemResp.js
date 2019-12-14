@@ -48,49 +48,49 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('Id')) {
-        obj['Id'] = ApiClient.convertToType(data['Id'], 'String');
+        obj.Id = ApiClient.convertToType(data.Id, 'String');
       }
       if (data.hasOwnProperty('Arguments')) {
-        obj['Arguments'] = ApiClient.convertToType(data['Arguments'], Object);
+        obj.Arguments = ApiClient.convertToType(data.Arguments, Object);
       }
       if (data.hasOwnProperty('Status')) {
-        obj['Status'] = ApiClient.convertToType(data['Status'], 'String');
+        obj.Status = ApiClient.convertToType(data.Status, 'String');
       }
       if (data.hasOwnProperty('StatusDetail')) {
-        obj['StatusDetail'] = ApiClient.convertToType(data['StatusDetail'], Object);
+        obj.StatusDetail = ApiClient.convertToType(data.StatusDetail, Object);
       }
       if (data.hasOwnProperty('AvailabilityZone')) {
-        obj['AvailabilityZone'] = ApiClient.convertToType(data['AvailabilityZone'], 'String');
+        obj.AvailabilityZone = ApiClient.convertToType(data.AvailabilityZone, 'String');
       }
       if (data.hasOwnProperty('ActivityId')) {
-        obj['ActivityId'] = ApiClient.convertToType(data['ActivityId'], 'String');
+        obj.ActivityId = ApiClient.convertToType(data.ActivityId, 'String');
       }
       if (data.hasOwnProperty('Version')) {
-        obj['Version'] = ApiClient.convertToType(data['Version'], 'Integer');
+        obj.Version = ApiClient.convertToType(data.Version, 'Integer');
       }
       if (data.hasOwnProperty('Timestamp')) {
-        obj['Timestamp'] = ApiClient.convertToType(data['Timestamp'], 'String');
+        obj.Timestamp = ApiClient.convertToType(data.Timestamp, 'String');
       }
       if (data.hasOwnProperty('TimeQueued')) {
-        obj['TimeQueued'] = ApiClient.convertToType(data['TimeQueued'], 'String');
+        obj.TimeQueued = ApiClient.convertToType(data.TimeQueued, 'String');
       }
       if (data.hasOwnProperty('TimeInputTransferStarted')) {
-        obj['TimeInputTransferStarted'] = ApiClient.convertToType(data['TimeInputTransferStarted'], 'String');
+        obj.TimeInputTransferStarted = ApiClient.convertToType(data.TimeInputTransferStarted, 'String');
       }
       if (data.hasOwnProperty('TimeScriptStarted')) {
-        obj['TimeScriptStarted'] = ApiClient.convertToType(data['TimeScriptStarted'], 'String');
+        obj.TimeScriptStarted = ApiClient.convertToType(data.TimeScriptStarted, 'String');
       }
       if (data.hasOwnProperty('TimeScriptEnded')) {
-        obj['TimeScriptEnded'] = ApiClient.convertToType(data['TimeScriptEnded'], 'String');
+        obj.TimeScriptEnded = ApiClient.convertToType(data.TimeScriptEnded, 'String');
       }
       if (data.hasOwnProperty('TimeOutputTransferEnded')) {
-        obj['TimeOutputTransferEnded'] = ApiClient.convertToType(data['TimeOutputTransferEnded'], 'String');
+        obj.TimeOutputTransferEnded = ApiClient.convertToType(data.TimeOutputTransferEnded, 'String');
       }
       if (data.hasOwnProperty('BytesTranferredIn')) {
-        obj['BytesTranferredIn'] = ApiClient.convertToType(data['BytesTranferredIn'], 'Integer');
+        obj.BytesTranferredIn = ApiClient.convertToType(data.BytesTranferredIn, 'Integer');
       }
       if (data.hasOwnProperty('BytesTranferredOut')) {
-        obj['BytesTranferredOut'] = ApiClient.convertToType(data['BytesTranferredOut'], 'Integer');
+        obj.BytesTranferredOut = ApiClient.convertToType(data.BytesTranferredOut, 'Integer');
       }
     }
     return obj;
@@ -138,63 +138,63 @@ module.exports = (function() {
   /**
    * @member {String} Id
    */
-  exports.prototype['Id'] = undefined;
+  exports.prototype.Id = undefined;
   /**
    * @member {Object} Arguments
    */
-  exports.prototype['Arguments'] = undefined;
+  exports.prototype.Arguments = undefined;
   /**
    * @member {String} Status
    */
-  exports.prototype['Status'] = undefined;
+  exports.prototype.Status = undefined;
   /**
    * @member {Object} StatusDetail
    */
-  exports.prototype['StatusDetail'] = undefined;
+  exports.prototype.StatusDetail = undefined;
   /**
    * @member {String} AvailabilityZone
    */
-  exports.prototype['AvailabilityZone'] = undefined;
+  exports.prototype.AvailabilityZone = undefined;
   /**
    * @member {String} ActivityId
    */
-  exports.prototype['ActivityId'] = undefined;
+  exports.prototype.ActivityId = undefined;
   /**
    * @member {Integer} Version
    */
-  exports.prototype['Version'] = undefined;
+  exports.prototype.Version = undefined;
   /**
    * @member {String} Timestamp
    */
-  exports.prototype['Timestamp'] = undefined;
+  exports.prototype.Timestamp = undefined;
   /**
    * @member {String} TimeQueued
    */
-  exports.prototype['TimeQueued'] = undefined;
+  exports.prototype.TimeQueued = undefined;
   /**
    * @member {String} TimeInputTransferStarted
    */
-  exports.prototype['TimeInputTransferStarted'] = undefined;
+  exports.prototype.TimeInputTransferStarted = undefined;
   /**
    * @member {String} TimeScriptStarted
    */
-  exports.prototype['TimeScriptStarted'] = undefined;
+  exports.prototype.TimeScriptStarted = undefined;
   /**
    * @member {String} TimeScriptEnded
    */
-  exports.prototype['TimeScriptEnded'] = undefined;
+  exports.prototype.TimeScriptEnded = undefined;
   /**
    * @member {String} TimeOutputTransferEnded
    */
-  exports.prototype['TimeOutputTransferEnded'] = undefined;
+  exports.prototype.TimeOutputTransferEnded = undefined;
   /**
    * @member {Integer} BytesTranferredIn
    */
-  exports.prototype['BytesTranferredIn'] = undefined;
+  exports.prototype.BytesTranferredIn = undefined;
   /**
    * @member {Integer} BytesTranferredOut
    */
-  exports.prototype['BytesTranferredOut'] = undefined;
+  exports.prototype.BytesTranferredOut = undefined;
 
 
 

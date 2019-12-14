@@ -46,10 +46,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('id')) {
-        obj['id'] = ApiClient.convertToType(data['id'], 'String');
+        obj.id = ApiClient.convertToType(data.id, 'String');
       }
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        obj.type = ApiClient.convertToType(data.type, 'String');
       }
     }
     return obj;
@@ -67,8 +67,8 @@ module.exports = (function() {
   var exports = function(id, type, theData, obj) {
     var _this = this;
 
-    _this['id'] = id;
-    _this['type'] = type;
+    _this.id = id;
+    _this.type = type;
 
     return constructFromObject(theData, obj);
   };
@@ -86,14 +86,12 @@ module.exports = (function() {
    * resource id
    * @member {String} id
    */
-  exports.prototype['id'] = undefined;
+  exports.prototype.id = undefined;
   /**
    * resource type
    * @member {String} type
    */
-  exports.prototype['type'] = undefined;
-
-
+  exports.prototype.type = undefined;
 
   return exports;
 }());

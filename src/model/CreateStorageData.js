@@ -48,13 +48,13 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        obj.type = ApiClient.convertToType(data.type, 'String');
       }
       if (data.hasOwnProperty('attributes')) {
-        obj['attributes'] = CreateStorageDataAttributes.constructFromObject(data['attributes']);
+        obj.attributes = CreateStorageDataAttributes.constructFromObject(data.attributes);
       }
       if (data.hasOwnProperty('relationships')) {
-        obj['relationships'] = CreateStorageDataRelationships.constructFromObject(data['relationships']);
+        obj.relationships = CreateStorageDataRelationships.constructFromObject(data.relationships);
       }
     }
     return obj;
@@ -71,7 +71,7 @@ module.exports = (function() {
   var exports = function(type, theData, obj) {
     var _this = this;
 
-    _this['type'] = type;
+    _this.type = type;
 
 
 
@@ -90,15 +90,15 @@ module.exports = (function() {
   /**
    * @member {module:model/CreateStorageData.TypeEnum} type
    */
-  exports.prototype['type'] = undefined;
+  exports.prototype.type = undefined;
   /**
    * @member {module:model/CreateStorageDataAttributes} attributes
    */
-  exports.prototype['attributes'] = undefined;
+  exports.prototype.attributes = undefined;
   /**
    * @member {module:model/CreateStorageDataRelationships} relationships
    */
-  exports.prototype['relationships'] = undefined;
+  exports.prototype.relationships = undefined;
 
 
   /**

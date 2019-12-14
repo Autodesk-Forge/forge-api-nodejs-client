@@ -47,10 +47,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        obj.type = ApiClient.convertToType(data.type, 'String');
       }
       if (data.hasOwnProperty('advanced')) {
-        obj['advanced'] = JobStepOutputPayloadAdvanced.constructFromObject(data['advanced']);
+        obj.advanced = JobStepOutputPayloadAdvanced.constructFromObject(data.advanced);
       }
     }
     return obj;
@@ -67,7 +67,7 @@ module.exports = (function() {
   var exports = function(type, theData, obj) {
     var _this = this;
 
-    _this['type'] = type;
+    _this.type = type;
 
 
     return constructFromObject(theData, obj);
@@ -86,11 +86,11 @@ module.exports = (function() {
    * The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
    * @member {module:model/JobStepOutputPayload.TypeEnum} type
    */
-  exports.prototype['type'] = undefined;
+  exports.prototype.type = undefined;
   /**
    * @member {module:model/JobStepOutputPayloadAdvanced} advanced
    */
-  exports.prototype['advanced'] = undefined;
+  exports.prototype.advanced = undefined;
 
 
   /**

@@ -48,16 +48,16 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        obj.type = ApiClient.convertToType(data.type, 'String');
       }
       if (data.hasOwnProperty('id')) {
-        obj['id'] = ApiClient.convertToType(data['id'], 'String');
+        obj.id = ApiClient.convertToType(data.id, 'String');
       }
       if (data.hasOwnProperty('attributes')) {
-        obj['attributes'] = CreateStorageDataAttributes.constructFromObject(data['attributes']);
+        obj.attributes = CreateStorageDataAttributes.constructFromObject(data.attributes);
       }
       if (data.hasOwnProperty('relationships')) {
-        obj['relationships'] = CreateItemRelationships.constructFromObject(data['relationships']);
+        obj.relationships = CreateItemRelationships.constructFromObject(data.relationships);
       }
     }
     return obj;
@@ -75,8 +75,8 @@ module.exports = (function() {
   var exports = function(type, id, theData, obj) {
     var _this = this;
 
-    _this['type'] = type;
-    _this['id'] = id;
+    _this.type = type;
+    _this.id = id;
 
 
 
@@ -95,19 +95,19 @@ module.exports = (function() {
   /**
    * @member {module:model/CreateItemIncluded.TypeEnum} type
    */
-  exports.prototype['type'] = undefined;
+  exports.prototype.type = undefined;
   /**
    * @member {module:model/CreateItemIncluded.IdEnum} id
    */
-  exports.prototype['id'] = undefined;
+  exports.prototype.id = undefined;
   /**
    * @member {module:model/CreateStorageDataAttributes} attributes
    */
-  exports.prototype['attributes'] = undefined;
+  exports.prototype.attributes = undefined;
   /**
    * @member {module:model/CreateItemRelationships} relationships
    */
-  exports.prototype['relationships'] = undefined;
+  exports.prototype.relationships = undefined;
 
 
   /**

@@ -47,7 +47,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('target')) {
-        obj['target'] = CreateStorageDataRelationshipsTarget.constructFromObject(data['target']);
+        obj.target = CreateStorageDataRelationshipsTarget.constructFromObject(data.target);
       }
     }
     return obj;
@@ -80,7 +80,7 @@ module.exports = (function() {
   /**
    * @member {module:model/CreateStorageDataRelationshipsTarget} target
    */
-  exports.prototype['target'] = undefined;
+  exports.prototype.target = undefined;
 
 
 

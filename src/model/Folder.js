@@ -57,31 +57,31 @@ module.exports = (function() {
         JsonApiResource.constructFromObject(data, obj);
         BaseAttributesCreatedUpdated.constructFromObject(data, obj);
       if (data.hasOwnProperty('jsonapi')) {
-        obj['jsonapi'] = JsonApiVersionJsonapi.constructFromObject(data['jsonapi']);
+        obj.jsonapi = JsonApiVersionJsonapi.constructFromObject(data.jsonapi);
       }
       if (data.hasOwnProperty('data')) {
-        obj['data'] = JsonApiResource.constructFromObject(data['data']);
+        obj.data = JsonApiResource.constructFromObject(data.data);
       }
       if (data.hasOwnProperty('included')) {
-        obj['included'] = ApiClient.convertToType(data['included'], [JsonApiResource]);
+        obj.included = ApiClient.convertToType(data.included, [JsonApiResource]);
       }
       if (data.hasOwnProperty('links')) {
-        obj['links'] = JsonApiLinks.constructFromObject(data['links']);
+        obj.links = JsonApiLinks.constructFromObject(data.links);
       }
       if (data.hasOwnProperty('id')) {
-        obj['id'] = ApiClient.convertToType(data['id'], 'String');
+        obj.id = ApiClient.convertToType(data.id, 'String');
       }
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        obj.type = ApiClient.convertToType(data.type, 'String');
       }
       if (data.hasOwnProperty('attributes')) {
-        obj['attributes'] = FolderAttributes.constructFromObject(data['attributes']);
+        obj.attributes = FolderAttributes.constructFromObject(data.attributes);
       }
       if (data.hasOwnProperty('meta')) {
-        obj['meta'] = JsonApiMeta.constructFromObject(data['meta']);
+        obj.meta = JsonApiMeta.constructFromObject(data.meta);
       }
       if (data.hasOwnProperty('relationships')) {
-        obj['relationships'] = FolderRelationships.constructFromObject(data['relationships']);
+        obj.relationships = FolderRelationships.constructFromObject(data.relationships);
       }
     }
     return obj;
@@ -108,11 +108,11 @@ module.exports = (function() {
     JsonApiResource.call(_this, id, type);
     BaseAttributesCreatedUpdated.call(_this);
 
-    _this['data'] = data;
+    _this.data = data;
 
-    _this['links'] = links;
-    _this['id'] = id;
-    _this['type'] = type;
+    _this.links = links;
+    _this.id = id;
+    _this.type = type;
 
 
 
@@ -132,101 +132,40 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiVersionJsonapi} jsonapi
    */
-  exports.prototype['jsonapi'] = undefined;
+  exports.prototype.jsonapi = undefined;
   /**
    * @member {module:model/JsonApiResource} data
    */
-  exports.prototype['data'] = undefined;
+  exports.prototype.data = undefined;
   /**
    * @member {Array.<module:model/JsonApiResource>} included
    */
-  exports.prototype['included'] = undefined;
+  exports.prototype.included = undefined;
   /**
    * @member {module:model/JsonApiLinks} links
    */
-  exports.prototype['links'] = undefined;
+  exports.prototype.links = undefined;
   /**
    * resource id
    * @member {String} id
    */
-  exports.prototype['id'] = undefined;
+  exports.prototype.id = undefined;
   /**
    * @member {module:model/Folder.TypeEnum} type
    */
-  exports.prototype['type'] = undefined;
+  exports.prototype.type = undefined;
   /**
    * @member {module:model/FolderAttributes} attributes
    */
-  exports.prototype['attributes'] = undefined;
+  exports.prototype.attributes = undefined;
   /**
    * @member {module:model/JsonApiMeta} meta
    */
-  exports.prototype['meta'] = undefined;
+  exports.prototype.meta = undefined;
   /**
    * @member {module:model/FolderRelationships} relationships
    */
-  exports.prototype['relationships'] = undefined;
-
-  // Implement JsonApiDocument interface:
-  /**
-   * @member {module:model/JsonApiVersionJsonapi} jsonapi
-   */
-exports.prototype['jsonapi'] = undefined;
-
-  /**
-   * @member {module:model/JsonApiResource} data
-   */
-exports.prototype['data'] = undefined;
-
-  /**
-   * @member {Array.<module:model/JsonApiResource>} included
-   */
-exports.prototype['included'] = undefined;
-
-  /**
-   * @member {module:model/JsonApiLinksSelf} links
-   */
-exports.prototype['links'] = undefined;
-
-  // Implement JsonApiResource interface:
-  /**
-   * resource id
-   * @member {String} id
-   */
-exports.prototype['id'] = undefined;
-
-  /**
-   * resource type
-   * @member {String} type
-   */
-exports.prototype['type'] = undefined;
-
-  /**
-   * @member {module:model/JsonApiAttributes} attributes
-   */
-exports.prototype['attributes'] = undefined;
-
-  /**
-   * @member {module:model/JsonApiMeta} meta
-   */
-exports.prototype['meta'] = undefined;
-
-  /**
-   * @member {module:model/JsonApiRelationships} relationships
-   */
-exports.prototype['relationships'] = undefined;
-
-  /**
-   * @member {module:model/JsonApiLinks} links
-   */
-exports.prototype['links'] = undefined;
-
-  // Implement BaseAttributesCreatedUpdated interface:
-  /**
-   * @member {module:model/BaseAttributesCreatedUpdatedAttributes} attributes
-   */
-exports.prototype['attributes'] = undefined;
-
+  exports.prototype.relationships = undefined;
 
   /**
    * Allowed values for the <code>type</code> property.

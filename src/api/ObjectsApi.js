@@ -131,7 +131,7 @@ module.exports = (function () {
 				'objectName': objectName
 			};
 			var queryParams = {
-				'access': opts['access']
+				'access': opts.access
 			};
 			var headerParams = {};
 			var formParams = {};
@@ -207,7 +207,7 @@ module.exports = (function () {
 				'id': id
 			};
 			var queryParams = {
-				'region': opts['region']
+				'region': opts.region
 			};
 			var headerParams = {};
 			var formParams = {};
@@ -257,10 +257,10 @@ module.exports = (function () {
 			};
 			var queryParams = {};
 			var headerParams = {
-				'Range': opts['range'] || opts['Range'],
-				'If-None-Match': opts['ifNoneMatch'],
-				'If-Modified-Since': opts['ifModifiedSince'],
-				'Accept-Encoding': opts['acceptEncoding']
+				'Range': opts.range || opts.Range,
+				'If-None-Match': opts.ifNoneMatch,
+				'If-Modified-Since': opts.ifModifiedSince,
+				'Accept-Encoding': opts.acceptEncoding
 			};
 			var formParams = {};
 
@@ -305,10 +305,10 @@ module.exports = (function () {
 				'objectName': objectName
 			};
 			var queryParams = {
-				'with': opts['_with']
+				'with': opts._with
 			};
 			var headerParams = {
-				'If-Modified-Since': opts['ifModifiedSince']
+				'If-Modified-Since': opts.ifModifiedSince
 			};
 			var formParams = {};
 
@@ -347,9 +347,9 @@ module.exports = (function () {
 				'bucketKey': bucketKey
 			};
 			var queryParams = {
-				'limit': opts['limit'],
-				'beginsWith': opts['beginsWith'],
-				'startAt': opts['startAt']
+				'limit': opts.limit,
+				'beginsWith': opts.beginsWith,
+				'startAt': opts.startAt
 			};
 			var headerParams = {};
 			var formParams = {};
@@ -392,13 +392,13 @@ module.exports = (function () {
 				'id': id
 			};
 			var queryParams = {
-				'region': opts['region']
+				'region': opts.region
 			};
 			var headerParams = {
-				'Range': opts['range'] || opts['Range'],
-				'If-None-Match': opts['ifNoneMatch'],
-				'If-Modified-Since': opts['ifModifiedSince'],
-				'Accept-Encoding': opts['acceptEncoding']
+				'Range': opts.range || opts.Range,
+				'If-None-Match': opts.ifNoneMatch,
+				'If-Modified-Since': opts.ifModifiedSince,
+				'Accept-Encoding': opts.acceptEncoding
 			};
 			var formParams = {};
 
@@ -517,8 +517,8 @@ module.exports = (function () {
 			var headerParams = {
 				'Content-Length': contentLength,
 				'Content-Range': contentRange,
-				'Content-Disposition': opts['contentDisposition'],
-				'If-Match': opts['ifMatch'],
+				'Content-Disposition': opts.contentDisposition,
+				'If-Match': opts.ifMatch,
 				'Session-Id': sessionId
 			};
 			var formParams = {};
@@ -579,8 +579,8 @@ module.exports = (function () {
 			var queryParams = {};
 			var headerParams = {
 				'Content-Length': contentLength,
-				'Content-Disposition': opts['contentDisposition'],
-				'If-Match': opts['ifMatch']
+				'Content-Disposition': opts.contentDisposition,
+				'If-Match': opts.ifMatch
 			};
 			var formParams = {};
 
@@ -634,9 +634,9 @@ module.exports = (function () {
 			var queryParams = {};
 			var headerParams = {
 				'Content-Length': contentLength,
-				'Content-Disposition': opts['contentDisposition'],
-				'x-ads-region': opts['xAdsRegion'],
-				'If-Match': opts['ifMatch']
+				'Content-Disposition': opts.contentDisposition,
+				'x-ads-region': opts.xAdsRegion,
+				'If-Match': opts.ifMatch
 			};
 			var formParams = {};
 
@@ -695,8 +695,8 @@ module.exports = (function () {
 			var queryParams = {};
 			var headerParams = {
 				'Content-Range': contentRange,
-				'Content-Disposition': opts['contentDisposition'],
-				'x-ads-region': opts['xAdsRegion'],
+				'Content-Disposition': opts.contentDisposition,
+				'x-ads-region': opts.xAdsRegion,
 				'Session-Id': sessionId
 			};
 			var formParams = {};

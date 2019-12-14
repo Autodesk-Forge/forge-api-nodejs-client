@@ -47,7 +47,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('projects')) {
-        obj['projects'] = JsonApiRelationshipsLinksInternal.constructFromObject(data['projects']);
+        obj.projects = JsonApiRelationshipsLinksInternal.constructFromObject(data.projects);
       }
     }
     return obj;
@@ -64,7 +64,7 @@ module.exports = (function() {
   var exports = function(projects, theData, obj) {
     var _this = this;
 
-    _this['projects'] = projects;
+    _this.projects = projects;
 
     return constructFromObject(theData, obj);
   };
@@ -81,7 +81,7 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiRelationshipsLinksInternal} projects
    */
-  exports.prototype['projects'] = undefined;
+  exports.prototype.projects = undefined;
 
 
 

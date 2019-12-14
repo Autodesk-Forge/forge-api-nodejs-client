@@ -205,9 +205,9 @@ module.exports = (function () {
 				'item_id': itemId
 			};
 			var queryParams = {
-				'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
-				'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-				'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
+				'filter[type]': this.apiClient.buildCollectionParam(opts.filterType, 'csv'),
+				'filter[id]': this.apiClient.buildCollectionParam(opts.filterId, 'csv'),
+				'filter[extension.type]': this.apiClient.buildCollectionParam(opts.filterExtensionType, 'csv')
 			};
 			var keys = Object.keys(opts).filter(function (elt) {
 				return (new RegExp(/^filter\[/).test(elt));
@@ -268,10 +268,10 @@ module.exports = (function () {
 				'item_id': itemId
 			};
 			var queryParams = {
-				'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
-				'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-				'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
-				'filter[mimeType]': this.apiClient.buildCollectionParam(opts['filterMimeType'], 'csv')
+				'filter[type]': this.apiClient.buildCollectionParam(opts.filterType, 'csv'),
+				'filter[id]': this.apiClient.buildCollectionParam(opts.filterId, 'csv'),
+				'filter[extension.type]': this.apiClient.buildCollectionParam(opts.filterExtensionType, 'csv'),
+				'filter[mimeType]': this.apiClient.buildCollectionParam(opts.filterMimeType, 'csv')
 			};
 			var keys = Object.keys(opts).filter(function (elt) {
 				return (new RegExp(/^filter\[/).test(elt));
@@ -333,11 +333,11 @@ module.exports = (function () {
 				'item_id': itemId
 			};
 			var queryParams = {
-				'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
-				'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-				'filter[refType]': this.apiClient.buildCollectionParam(opts['filterRefType'], 'csv'),
-				'filter[direction]': opts['filterDirection'],
-				'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
+				'filter[type]': this.apiClient.buildCollectionParam(opts.filterType, 'csv'),
+				'filter[id]': this.apiClient.buildCollectionParam(opts.filterId, 'csv'),
+				'filter[refType]': this.apiClient.buildCollectionParam(opts.filterRefType, 'csv'),
+				'filter[direction]': opts.filterDirection,
+				'filter[extension.type]': this.apiClient.buildCollectionParam(opts.filterExtensionType, 'csv')
 			};
 			var keys = Object.keys(opts).filter(function (elt) {
 				return (new RegExp(/^filter\[/).test(elt));
@@ -457,14 +457,12 @@ module.exports = (function () {
 				'item_id': itemId
 			};
 			var queryParams = {
-				'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
-				'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-				'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
-				'filter[versionNumber]': this.apiClient.buildCollectionParam(opts['filterVersionNumber'], 'csv'),
-				'page[number]': opts['pageNumber'],
-				'page[limit]': opts['pageLimit']
-				// 'page[number]': this.apiClient.buildCollectionParam(opts['pageNumber'], 'csv'),
-				// 'page[limit]': this.apiClient.buildCollectionParam(opts['pageLimit'], 'csv'),
+				'filter[type]': this.apiClient.buildCollectionParam(opts.filterType, 'csv'),
+				'filter[id]': this.apiClient.buildCollectionParam(opts.filterId, 'csv'),
+				'filter[extension.type]': this.apiClient.buildCollectionParam(opts.filterExtensionType, 'csv'),
+				'filter[versionNumber]': this.apiClient.buildCollectionParam(opts.filterVersionNumber, 'csv'),
+				'page[number]': opts.pageNumber,
+				'page[limit]': opts.pageLimit
 			};
 			var keys = Object.keys(opts).filter(function (elt) {
 				return (new RegExp(/^filter\[/).test(elt));

@@ -47,7 +47,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('formats')) {
-        obj['formats'] = FormatsFormats.constructFromObject(data['formats']);
+        obj.formats = FormatsFormats.constructFromObject(data.formats);
       }
     }
     return obj;
@@ -80,7 +80,7 @@ module.exports = (function() {
   /**
    * @member {module:model/FormatsFormats} formats
    */
-  exports.prototype['formats'] = undefined;
+  exports.prototype.formats = undefined;
 
 
 

@@ -47,7 +47,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('jsonapi')) {
-        obj['jsonapi'] = JsonApiVersionJsonapi.constructFromObject(data['jsonapi']);
+        obj.jsonapi = JsonApiVersionJsonapi.constructFromObject(data.jsonapi);
       }
     }
     return obj;
@@ -80,7 +80,7 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiVersionJsonapi} jsonapi
    */
-  exports.prototype['jsonapi'] = undefined;
+  exports.prototype.jsonapi = undefined;
 
 
 

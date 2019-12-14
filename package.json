@@ -6,7 +6,7 @@
 	"main": "src/index.js",
 	"scripts": {
 		"test": "./node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 ./test",
-		"test2": "./node_modules/mocha/bin/mocha --colors --timeout 10000 ./test/api/DerivativesApi.spec",
+		"test2": "./node_modules/mocha/bin/mocha --colors --timeout 10000 ./test/api/HubsApi.spec",
 		"coverage": "nyc npm run test"
 	},
 	"repository": {

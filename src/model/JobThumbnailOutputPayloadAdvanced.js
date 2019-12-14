@@ -46,10 +46,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('width')) {
-        obj['width'] = ApiClient.convertToType(data['width'], 'Integer');
+        obj.width = ApiClient.convertToType(data.width, 'Integer');
       }
       if (data.hasOwnProperty('height')) {
-        obj['height'] = ApiClient.convertToType(data['height'], 'Integer');
+        obj.height = ApiClient.convertToType(data.height, 'Integer');
       }
     }
     return obj;
@@ -85,12 +85,12 @@ module.exports = (function() {
    * Set the width. Possible values are `100`, `200` and `400`.
    * @member {Integer} width
    */
-  exports.prototype['width'] = undefined;
+  exports.prototype.width = undefined;
   /**
    * Set the height. Possible values are `100`, `200` and `400`.
    * @member {Integer} height
    */
-  exports.prototype['height'] = undefined;
+  exports.prototype.height = undefined;
 
 
 

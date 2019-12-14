@@ -50,10 +50,10 @@ module.exports = (function() {
   
         JsonApiCollection.constructFromObject(data, obj);
       if (data.hasOwnProperty('jsonapi')) {
-        obj['jsonapi'] = JsonApiVersionJsonapi.constructFromObject(data['jsonapi']);
+        obj.jsonapi = JsonApiVersionJsonapi.constructFromObject(data.jsonapi);
       }
       if (data.hasOwnProperty('data')) {
-        obj['data'] = ApiClient.convertToType(data['data'], [RelRef]);
+        obj.data = ApiClient.convertToType(data.data, [RelRef]);
       }
     }
     return obj;
@@ -73,7 +73,7 @@ module.exports = (function() {
 
     JsonApiCollection.call(_this, data);
 
-    _this['data'] = data;
+    _this.data = data;
 
     return constructFromObject(theData, obj);
   };
@@ -90,24 +90,11 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiVersionJsonapi} jsonapi
    */
-  exports.prototype['jsonapi'] = undefined;
+  exports.prototype.jsonapi = undefined;
   /**
    * @member {Array.<module:model/RelRef>} data
    */
-  exports.prototype['data'] = undefined;
-
-  // Implement JsonApiCollection interface:
-  /**
-   * @member {module:model/JsonApiVersionJsonapi} jsonapi
-   */
-exports.prototype['jsonapi'] = undefined;
-
-  /**
-   * @member {Array.<module:model/JsonApiResource>} data
-   */
-exports.prototype['data'] = undefined;
-
-
+  exports.prototype.data = undefined;
 
   return exports;
 }());

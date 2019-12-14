@@ -59,13 +59,13 @@ module.exports = (function() {
         JobIgesOutputPayload.constructFromObject(data, obj);
         JobObjOutputPayload.constructFromObject(data, obj);
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        obj.type = ApiClient.convertToType(data.type, 'String');
       }
       if (data.hasOwnProperty('views')) {
-        obj['views'] = ApiClient.convertToType(data['views'], ['String']);
+        obj.views = ApiClient.convertToType(data.views, ['String']);
       }
       if (data.hasOwnProperty('advanced')) {
-        obj['advanced'] = JobObjOutputPayloadAdvanced.constructFromObject(data['advanced']);
+        obj.advanced = JobObjOutputPayloadAdvanced.constructFromObject(data.advanced);
       }
     }
     return obj;
@@ -95,7 +95,7 @@ module.exports = (function() {
     JobStepOutputPayload.call(_this, type);
     JobIgesOutputPayload.call(_this, type);
     JobObjOutputPayload.call(_this, type);
-    _this['type'] = type;
+    _this.type = type;
 
 
 
@@ -115,88 +115,15 @@ module.exports = (function() {
    * The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
    * @member {module:model/JobPayloadItem.TypeEnum} type
    */
-  exports.prototype['type'] = undefined;
+  exports.prototype.type = undefined;
   /**
    * @member {Array.<module:model/JobPayloadItem.ViewsEnum>} views
    */
-  exports.prototype['views'] = undefined;
+  exports.prototype.views = undefined;
   /**
    * @member {module:model/JobObjOutputPayloadAdvanced} advanced
    */
-  exports.prototype['advanced'] = undefined;
-
-  // Implement JobSvfOutputPayload interface:
-  /**
-   * The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
-   * @member {module:model/JobSvfOutputPayload.TypeEnum} type
-   */
-exports.prototype['type'] = undefined;
-
-  /**
-   * @member {Array.<module:model/JobPayloadItem.ViewsEnum>} views
-   */
-exports.prototype['views'] = undefined;
-
-  // Implement JobThumbnailOutputPayload interface:
-  /**
-   * The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
-   * @member {module:model/JobThumbnailOutputPayload.TypeEnum} type
-   */
-exports.prototype['type'] = undefined;
-
-  /**
-   * @member {module:model/JobThumbnailOutputPayloadAdvanced} advanced
-   */
-exports.prototype['advanced'] = undefined;
-
-  // Implement JobStlOutputPayload interface:
-  /**
-   * The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
-   * @member {module:model/JobStlOutputPayload.TypeEnum} type
-   */
-exports.prototype['type'] = undefined;
-
-  /**
-   * @member {module:model/JobStlOutputPayloadAdvanced} advanced
-   */
-exports.prototype['advanced'] = undefined;
-
-  // Implement JobStepOutputPayload interface:
-  /**
-   * The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
-   * @member {module:model/JobStepOutputPayload.TypeEnum} type
-   */
-exports.prototype['type'] = undefined;
-
-  /**
-   * @member {module:model/JobStepOutputPayloadAdvanced} advanced
-   */
-exports.prototype['advanced'] = undefined;
-
-  // Implement JobIgesOutputPayload interface:
-  /**
-   * The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
-   * @member {module:model/JobIgesOutputPayload.TypeEnum} type
-   */
-exports.prototype['type'] = undefined;
-
-  /**
-   * @member {module:model/JobIgesOutputPayloadAdvanced} advanced
-   */
-exports.prototype['advanced'] = undefined;
-
-  // Implement JobObjOutputPayload interface:
-  /**
-   * The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
-   * @member {module:model/JobPayloadItem.TypeEnum} type
-   */
-exports.prototype['type'] = undefined;
-
-  /**
-   * @member {module:model/JobObjOutputPayloadAdvanced} advanced
-   */
-exports.prototype['advanced'] = undefined;
-
+  exports.prototype.advanced = undefined;
 
   /**
    * Allowed values for the <code>type</code> property.

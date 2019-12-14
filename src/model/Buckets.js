@@ -47,10 +47,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('items')) {
-        obj['items'] = ApiClient.convertToType(data['items'], [BucketsItems]);
+        obj.items = ApiClient.convertToType(data.items, [BucketsItems]);
       }
       if (data.hasOwnProperty('next')) {
-        obj['next'] = ApiClient.convertToType(data['next'], 'String');
+        obj.next = ApiClient.convertToType(data.next, 'String');
       }
     }
     return obj;
@@ -68,8 +68,8 @@ module.exports = (function() {
   var exports = function(items, next, theData, obj) {
     var _this = this;
 
-    _this['items'] = items;
-    _this['next'] = next;
+    _this.items = items;
+    _this.next = next;
 
     return constructFromObject(theData, obj);
   };
@@ -87,12 +87,12 @@ module.exports = (function() {
    * Array of items representing the buckets
    * @member {Array.<module:model/BucketsItems>} items
    */
-  exports.prototype['items'] = undefined;
+  exports.prototype.items = undefined;
   /**
    * Next possible request
    * @member {String} next
    */
-  exports.prototype['next'] = undefined;
+  exports.prototype.next = undefined;
 
 
 

@@ -49,16 +49,16 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        obj.type = ApiClient.convertToType(data.type, 'String');
       }
       if (data.hasOwnProperty('metadata')) {
-        obj['metadata'] = ApiClient.convertToType(data['metadata'], [MetadataMetadata]);
+        obj.metadata = ApiClient.convertToType(data.metadata, [MetadataMetadata]);
       }
       if (data.hasOwnProperty('objects')) {
-        obj['objects'] = ApiClient.convertToType(data['objects'], [MetadataObject]);
+        obj.objects = ApiClient.convertToType(data.objects, [MetadataObject]);
       }
       if (data.hasOwnProperty('collection')) {
-        obj['collection'] = ApiClient.convertToType(data['collection'], [MetadataCollection]);
+        obj.collection = ApiClient.convertToType(data.collection, [MetadataCollection]);
       }
     }
     return obj;
@@ -76,7 +76,7 @@ module.exports = (function() {
   var exports = function(type, theData, obj) {
     var _this = this;
 
-    _this['type'] = type;
+    _this.type = type;
 
 
 
@@ -97,21 +97,21 @@ module.exports = (function() {
    * @member {String} type
    * @default 'metadata'
    */
-  exports.prototype['type'] = 'metadata';
+  exports.prototype.type = 'metadata';
   /**
    * @member {Array.<module:model/MetadataMetadata>} metadata
    */
-  exports.prototype['metadata'] = undefined;
+  exports.prototype.metadata = undefined;
   /**
    * Collection of “objects”
    * @member {Array.<module:model/MetadataObject>} objects
    */
-  exports.prototype['objects'] = undefined;
+  exports.prototype.objects = undefined;
   /**
    * Array of objects with their “properties” as a non-hierarchical list.
    * @member {Array.<module:model/MetadataCollection>} collection
    */
-  exports.prototype['collection'] = undefined;
+  exports.prototype.collection = undefined;
 
 
 

@@ -50,10 +50,10 @@ module.exports = (function() {
   
         JsonApiVersion.constructFromObject(data, obj);
       if (data.hasOwnProperty('jsonapi')) {
-        obj['jsonapi'] = JsonApiVersionJsonapi.constructFromObject(data['jsonapi']);
+        obj.jsonapi = JsonApiVersionJsonapi.constructFromObject(data.jsonapi);
       }
       if (data.hasOwnProperty('data')) {
-        obj['data'] = CreateStorageData.constructFromObject(data['data']);
+        obj.data = CreateStorageData.constructFromObject(data.data);
       }
     }
     return obj;
@@ -89,19 +89,11 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiVersionJsonapi} jsonapi
    */
-  exports.prototype['jsonapi'] = undefined;
+  exports.prototype.jsonapi = undefined;
   /**
    * @member {module:model/CreateStorageData} data
    */
-  exports.prototype['data'] = undefined;
-
-  // Implement JsonApiVersion interface:
-  /**
-   * @member {module:model/JsonApiVersionJsonapi} jsonapi
-   */
-exports.prototype['jsonapi'] = undefined;
-
-
+  exports.prototype.data = undefined;
 
   return exports;
 }());

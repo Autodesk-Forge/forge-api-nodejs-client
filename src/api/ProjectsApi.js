@@ -78,12 +78,10 @@ module.exports = (function () {
 				'hub_id': hubId
 			};
 			var queryParams = {
-				'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-				'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
-				'page[number]': opts['pageNumber'],
-				'page[limit]': opts['pageLimit']
-				// 'page[number]': this.apiClient.buildCollectionParam(opts['pageNumber'], 'csv'),
-				// 'page[limit]': this.apiClient.buildCollectionParam(opts['pageLimit'], 'csv')
+				'filter[id]': this.apiClient.buildCollectionParam(opts.filterId, 'csv'),
+				'filter[extension.type]': this.apiClient.buildCollectionParam(opts.filterExtensionType, 'csv'),
+				'page[number]': opts.pageNumber,
+				'page[limit]': opts.pageLimit
 			};
 			var keys = Object.keys(opts).filter(function (elt) {
 				return (new RegExp(/^filter\[/).test(elt));

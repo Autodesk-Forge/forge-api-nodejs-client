@@ -46,13 +46,13 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        obj.type = ApiClient.convertToType(data.type, 'String');
       }
       if (data.hasOwnProperty('version')) {
-        obj['version'] = ApiClient.convertToType(data['version'], 'String');
+        obj.version = ApiClient.convertToType(data.version, 'String');
       }
       if (data.hasOwnProperty('data')) {
-        obj['data'] = ApiClient.convertToType(data['data'], Object);
+        obj.data = ApiClient.convertToType(data.data, Object);
       }
     }
     return obj;
@@ -70,8 +70,8 @@ module.exports = (function() {
   var exports = function(type, version, theData, obj) {
     var _this = this;
 
-    _this['type'] = type;
-    _this['version'] = version;
+    _this.type = type;
+    _this.version = version;
 
 
     return constructFromObject(theData, obj);
@@ -89,15 +89,15 @@ module.exports = (function() {
   /**
    * @member {String} type
    */
-  exports.prototype['type'] = undefined;
+  exports.prototype.type = undefined;
   /**
    * @member {String} version
    */
-  exports.prototype['version'] = undefined;
+  exports.prototype.version = undefined;
   /**
    * @member {Object} data
    */
-  exports.prototype['data'] = undefined;
+  exports.prototype.data = undefined;
 
 
 

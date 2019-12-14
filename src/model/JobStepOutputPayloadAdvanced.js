@@ -46,10 +46,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('applicationProtocol')) {
-        obj['applicationProtocol'] = ApiClient.convertToType(data['applicationProtocol'], 'String');
+        obj.applicationProtocol = ApiClient.convertToType(data.applicationProtocol, 'String');
       }
       if (data.hasOwnProperty('tolerance')) {
-        obj['tolerance'] = ApiClient.convertToType(data['tolerance'], 'Number');
+        obj.tolerance = ApiClient.convertToType(data.tolerance, 'Number');
       }
     }
     return obj;
@@ -86,13 +86,13 @@ module.exports = (function() {
    * @member {module:model/JobStepOutputPayloadAdvanced.ApplicationProtocolEnum} applicationProtocol
    * @default '214'
    */
-  exports.prototype['applicationProtocol'] = '214';
+  exports.prototype.applicationProtocol = '214';
   /**
    * Possible values are between `0` and `1`. By default it is set at 0.001.
    * @member {Number} tolerance
    * @default 0.001
    */
-  exports.prototype['tolerance'] = 0.001;
+  exports.prototype.tolerance = 0.001;
 
 
   /**

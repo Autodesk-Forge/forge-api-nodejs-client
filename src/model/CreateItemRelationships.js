@@ -47,7 +47,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('storage')) {
-        obj['storage'] = CreateItemRelationshipsStorage.constructFromObject(data['storage']);
+        obj.storage = CreateItemRelationshipsStorage.constructFromObject(data.storage);
       }
     }
     return obj;
@@ -80,7 +80,7 @@ module.exports = (function() {
   /**
    * @member {module:model/CreateItemRelationshipsStorage} storage
    */
-  exports.prototype['storage'] = undefined;
+  exports.prototype.storage = undefined;
 
 
 

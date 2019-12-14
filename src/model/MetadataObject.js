@@ -47,13 +47,13 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('objectid')) {
-        obj['objectid'] = ApiClient.convertToType(data['objectid'], 'Integer');
+        obj.objectid = ApiClient.convertToType(data.objectid, 'Integer');
       }
       if (data.hasOwnProperty('name')) {
-        obj['name'] = ApiClient.convertToType(data['name'], 'String');
+        obj.name = ApiClient.convertToType(data.name, 'String');
       }
       if (data.hasOwnProperty('objects')) {
-        obj['objects'] = ApiClient.convertToType(data['objects'], [MetadataObject]);
+        obj.objects = ApiClient.convertToType(data.objects, [MetadataObject]);
       }
     }
     return obj;
@@ -72,8 +72,8 @@ module.exports = (function() {
   var exports = function(objectid, name, theData, obj) {
     var _this = this;
 
-    _this['objectid'] = objectid;
-    _this['name'] = name;
+    _this.objectid = objectid;
+    _this.name = name;
 
 
     return constructFromObject(theData, obj);
@@ -92,17 +92,17 @@ module.exports = (function() {
    * Unique ID for the object
    * @member {Integer} objectid
    */
-  exports.prototype['objectid'] = undefined;
+  exports.prototype.objectid = undefined;
   /**
    * Name of the object
    * @member {String} name
    */
-  exports.prototype['name'] = undefined;
+  exports.prototype.name = undefined;
   /**
    * Optional collection of “children” objects within the hierarchy
    * @member {Array.<module:model/MetadataObject>} objects
    */
-  exports.prototype['objects'] = undefined;
+  exports.prototype.objects = undefined;
 
 
 

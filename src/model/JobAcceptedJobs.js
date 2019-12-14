@@ -46,7 +46,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('output')) {
-        obj['output'] = ApiClient.convertToType(data['output'], Object);
+        obj.output = ApiClient.convertToType(data.output, Object);
       }
     }
     return obj;
@@ -64,7 +64,7 @@ module.exports = (function() {
   var exports = function(output, theData, obj) {
     var _this = this;
 
-    _this['output'] = output;
+    _this.output = output;
 
     return constructFromObject(theData, obj);
   };
@@ -82,7 +82,7 @@ module.exports = (function() {
    * identical to the request body. For more information please see the request body structure above.
    * @member {Object} output
    */
-  exports.prototype['output'] = undefined;
+  exports.prototype.output = undefined;
 
 
 

@@ -47,19 +47,19 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('bucketKey')) {
-        obj['bucketKey'] = ApiClient.convertToType(data['bucketKey'], 'String');
+        obj.bucketKey = ApiClient.convertToType(data.bucketKey, 'String');
       }
       if (data.hasOwnProperty('bucketOwner')) {
-        obj['bucketOwner'] = ApiClient.convertToType(data['bucketOwner'], 'String');
+        obj.bucketOwner = ApiClient.convertToType(data.bucketOwner, 'String');
       }
       if (data.hasOwnProperty('createdDate')) {
-        obj['createdDate'] = ApiClient.convertToType(data['createdDate'], 'String');
+        obj.createdDate = ApiClient.convertToType(data.createdDate, 'String');
       }
       if (data.hasOwnProperty('permissions')) {
-        obj['permissions'] = ApiClient.convertToType(data['permissions'], [Permission]);
+        obj.permissions = ApiClient.convertToType(data.permissions, [Permission]);
       }
       if (data.hasOwnProperty('policyKey')) {
-        obj['policyKey'] = ApiClient.convertToType(data['policyKey'], 'String');
+        obj.policyKey = ApiClient.convertToType(data.policyKey, 'String');
       }
     }
     return obj;
@@ -97,26 +97,26 @@ module.exports = (function() {
    * The key of the Bucket
    * @member {String} bucketKey
    */
-  exports.prototype['bucketKey'] = undefined;
+  exports.prototype.bucketKey = undefined;
   /**
    * The owner of the Bucket
    * @member {String} bucketOwner
    */
-  exports.prototype['bucketOwner'] = undefined;
+  exports.prototype.bucketOwner = undefined;
   /**
    * Counts the number of views for the asset
    * @member {String} createdDate
    */
-  exports.prototype['createdDate'] = undefined;
+  exports.prototype.createdDate = undefined;
   /**
    * @member {Array.<module:model/Permission>} permissions
    */
-  exports.prototype['permissions'] = undefined;
+  exports.prototype.permissions = undefined;
   /**
    * The policy key
    * @member {String} policyKey
    */
-  exports.prototype['policyKey'] = undefined;
+  exports.prototype.policyKey = undefined;
 
 
 

@@ -46,22 +46,22 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('svf')) {
-        obj['svf'] = ApiClient.convertToType(data['svf'], ['String']);
+        obj.svf = ApiClient.convertToType(data.svf, ['String']);
       }
       if (data.hasOwnProperty('thumbnail')) {
-        obj['thumbnail'] = ApiClient.convertToType(data['thumbnail'], ['String']);
+        obj.thumbnail = ApiClient.convertToType(data.thumbnail, ['String']);
       }
       if (data.hasOwnProperty('stl')) {
-        obj['stl'] = ApiClient.convertToType(data['stl'], ['String']);
+        obj.stl = ApiClient.convertToType(data.stl, ['String']);
       }
       if (data.hasOwnProperty('step')) {
-        obj['step'] = ApiClient.convertToType(data['step'], ['String']);
+        obj.step = ApiClient.convertToType(data.step, ['String']);
       }
       if (data.hasOwnProperty('iges')) {
-        obj['iges'] = ApiClient.convertToType(data['iges'], ['String']);
+        obj.iges = ApiClient.convertToType(data.iges, ['String']);
       }
       if (data.hasOwnProperty('obj')) {
-        obj['obj'] = ApiClient.convertToType(data['obj'], ['String']);
+        obj.obj = ApiClient.convertToType(data.obj, ['String']);
       }
     }
     return obj;
@@ -99,27 +99,27 @@ module.exports = (function() {
   /**
    * @member {Array.<String>} svf
    */
-  exports.prototype['svf'] = undefined;
+  exports.prototype.svf = undefined;
   /**
    * @member {Array.<String>} thumbnail
    */
-  exports.prototype['thumbnail'] = undefined;
+  exports.prototype.thumbnail = undefined;
   /**
    * @member {Array.<String>} stl
    */
-  exports.prototype['stl'] = undefined;
+  exports.prototype.stl = undefined;
   /**
    * @member {Array.<String>} step
    */
-  exports.prototype['step'] = undefined;
+  exports.prototype.step = undefined;
   /**
    * @member {Array.<String>} iges
    */
-  exports.prototype['iges'] = undefined;
+  exports.prototype.iges = undefined;
   /**
    * @member {Array.<String>} obj
    */
-  exports.prototype['obj'] = undefined;
+  exports.prototype.obj = undefined;
 
 
 

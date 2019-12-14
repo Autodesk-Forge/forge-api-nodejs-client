@@ -46,7 +46,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('version')) {
-        obj['version'] = ApiClient.convertToType(data['version'], 'String');
+        obj.version = ApiClient.convertToType(data.version, 'String');
       }
     }
     return obj;
@@ -63,7 +63,7 @@ module.exports = (function() {
   var exports = function(version, theData, obj) {
     var _this = this;
 
-    _this['version'] = version;
+    _this.version = version;
 
     return constructFromObject(theData, obj);
   };
@@ -80,7 +80,7 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiVersionJsonapi.VersionEnum} version
    */
-  exports.prototype['version'] = undefined;
+  exports.prototype.version = undefined;
 
 
   /**

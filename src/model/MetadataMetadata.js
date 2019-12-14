@@ -46,10 +46,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('name')) {
-        obj['name'] = ApiClient.convertToType(data['name'], 'String');
+        obj.name = ApiClient.convertToType(data.name, 'String');
       }
       if (data.hasOwnProperty('guid')) {
-        obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+        obj.guid = ApiClient.convertToType(data.guid, 'String');
       }
     }
     return obj;
@@ -68,8 +68,8 @@ module.exports = (function() {
   var exports = function(name, guid, theData, obj) {
     var _this = this;
 
-    _this['name'] = name;
-    _this['guid'] = guid;
+    _this.name = name;
+    _this.guid = guid;
 
     return constructFromObject(theData, obj);
   };
@@ -87,12 +87,12 @@ module.exports = (function() {
    * Name of the model view
    * @member {String} name
    */
-  exports.prototype['name'] = undefined;
+  exports.prototype.name = undefined;
   /**
    * Unique identifier for the model view
    * @member {String} guid
    */
-  exports.prototype['guid'] = undefined;
+  exports.prototype.guid = undefined;
 
 
 

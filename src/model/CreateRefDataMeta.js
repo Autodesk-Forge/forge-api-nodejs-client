@@ -47,7 +47,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('extension')) {
-        obj['extension'] = BaseAttributesExtensionObject.constructFromObject(data['extension']);
+        obj.extension = BaseAttributesExtensionObject.constructFromObject(data.extension);
       }
     }
     return obj;
@@ -64,7 +64,7 @@ module.exports = (function() {
   var exports = function(extension, theData, obj) {
     var _this = this;
 
-    _this['extension'] = extension;
+    _this.extension = extension;
 
     return constructFromObject(theData, obj);
   };
@@ -81,7 +81,7 @@ module.exports = (function() {
   /**
    * @member {module:model/BaseAttributesExtensionObject} extension
    */
-  exports.prototype['extension'] = undefined;
+  exports.prototype.extension = undefined;
 
 
 

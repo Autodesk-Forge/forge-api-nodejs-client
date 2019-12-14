@@ -48,10 +48,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('tip')) {
-        obj['tip'] = CreateItemDataRelationshipsTip.constructFromObject(data['tip']);
+        obj.tip = CreateItemDataRelationshipsTip.constructFromObject(data.tip);
       }
       if (data.hasOwnProperty('parent')) {
-        obj['parent'] = CreateStorageDataRelationshipsTarget.constructFromObject(data['parent']);
+        obj.parent = CreateStorageDataRelationshipsTarget.constructFromObject(data.parent);
       }
     }
     return obj;
@@ -85,11 +85,11 @@ module.exports = (function() {
   /**
    * @member {module:model/CreateItemDataRelationshipsTip} tip
    */
-  exports.prototype['tip'] = undefined;
+  exports.prototype.tip = undefined;
   /**
    * @member {module:model/CreateStorageDataRelationshipsTarget} parent
    */
-  exports.prototype['parent'] = undefined;
+  exports.prototype.parent = undefined;
 
 
 

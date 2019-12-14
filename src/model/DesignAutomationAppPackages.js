@@ -49,7 +49,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('value')) {
-        obj['value'] = ApiClient.convertToType(data['value'], [AppPackage]);
+        obj.value = ApiClient.convertToType(data.value, [AppPackage]);
       }
     }
     return obj;
@@ -83,7 +83,7 @@ module.exports = (function() {
   /**
    * @member {Array.<module:model/AppPackage>} value
    */
-  exports.prototype['value'] = undefined;
+  exports.prototype.value = undefined;
 
 
 

@@ -48,10 +48,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('hub')) {
-        obj['hub'] = JsonApiRelationshipsLinksInternalResource.constructFromObject(data['hub']);
+        obj.hub = JsonApiRelationshipsLinksInternalResource.constructFromObject(data.hub);
       }
       if (data.hasOwnProperty('rootFolder')) {
-        obj['rootFolder'] = JsonApiRelationshipsLinksExternalResource.constructFromObject(data['rootFolder']);
+        obj.rootFolder = JsonApiRelationshipsLinksExternalResource.constructFromObject(data.rootFolder);
       }
     }
     return obj;
@@ -69,8 +69,8 @@ module.exports = (function() {
   var exports = function(hub, rootFolder, theData, obj) {
     var _this = this;
 
-    _this['hub'] = hub;
-    _this['rootFolder'] = rootFolder;
+    _this.hub = hub;
+    _this.rootFolder = rootFolder;
 
     return constructFromObject(theData, obj);
   };
@@ -87,11 +87,11 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiRelationshipsLinksInternalResource} hub
    */
-  exports.prototype['hub'] = undefined;
+  exports.prototype.hub = undefined;
   /**
    * @member {module:model/JsonApiRelationshipsLinksExternalResource} rootFolder
    */
-  exports.prototype['rootFolder'] = undefined;
+  exports.prototype.rootFolder = undefined;
 
 
 

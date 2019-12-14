@@ -46,25 +46,25 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('bucketKey')) {
-        obj['bucketKey'] = ApiClient.convertToType(data['bucketKey'], 'String');
+        obj.bucketKey = ApiClient.convertToType(data.bucketKey, 'String');
       }
       if (data.hasOwnProperty('objectId')) {
-        obj['objectId'] = ApiClient.convertToType(data['objectId'], 'String');
+        obj.objectId = ApiClient.convertToType(data.objectId, 'String');
       }
       if (data.hasOwnProperty('objectKey')) {
-        obj['objectKey'] = ApiClient.convertToType(data['objectKey'], 'String');
+        obj.objectKey = ApiClient.convertToType(data.objectKey, 'String');
       }
       if (data.hasOwnProperty('sha1')) {
-        obj['sha1'] = ApiClient.convertToType(data['sha1'], 'String');
+        obj.sha1 = ApiClient.convertToType(data.sha1, 'String');
       }
       if (data.hasOwnProperty('size')) {
-        obj['size'] = ApiClient.convertToType(data['size'], 'Integer');
+        obj.size = ApiClient.convertToType(data.size, 'Integer');
       }
       if (data.hasOwnProperty('contentType')) {
-        obj['contentType'] = ApiClient.convertToType(data['contentType'], 'String');
+        obj.contentType = ApiClient.convertToType(data.contentType, 'String');
       }
       if (data.hasOwnProperty('location')) {
-        obj['location'] = ApiClient.convertToType(data['location'], 'String');
+        obj.location = ApiClient.convertToType(data.location, 'String');
       }
     }
     return obj;
@@ -105,37 +105,37 @@ module.exports = (function() {
    * Bucket key
    * @member {String} bucketKey
    */
-  exports.prototype['bucketKey'] = undefined;
+  exports.prototype.bucketKey = undefined;
   /**
    * Object URN
    * @member {String} objectId
    */
-  exports.prototype['objectId'] = undefined;
+  exports.prototype.objectId = undefined;
   /**
    * Object name
    * @member {String} objectKey
    */
-  exports.prototype['objectKey'] = undefined;
+  exports.prototype.objectKey = undefined;
   /**
    * Object SHA1
    * @member {String} sha1
    */
-  exports.prototype['sha1'] = undefined;
+  exports.prototype.sha1 = undefined;
   /**
    * Object size
    * @member {Integer} size
    */
-  exports.prototype['size'] = undefined;
+  exports.prototype.size = undefined;
   /**
    * Object content-type
    * @member {String} contentType
    */
-  exports.prototype['contentType'] = undefined;
+  exports.prototype.contentType = undefined;
   /**
    * URL to download the object
    * @member {String} location
    */
-  exports.prototype['location'] = undefined;
+  exports.prototype.location = undefined;
 
 
 

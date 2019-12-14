@@ -49,13 +49,13 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('jsonapi')) {
-        obj['jsonapi'] = JsonApiVersion.constructFromObject(data['jsonapi']);
+        obj.jsonapi = JsonApiVersion.constructFromObject(data.jsonapi);
       }
       if (data.hasOwnProperty('links')) {
-        obj['links'] = JsonApiLinksSelf.constructFromObject(data['links']);
+        obj.links = JsonApiLinksSelf.constructFromObject(data.links);
       }
       if (data.hasOwnProperty('data')) {
-        obj['data'] = ApiClient.convertToType(data['data'], [Folder]);
+        obj.data = ApiClient.convertToType(data.data, [Folder]);
       }
     }
     return obj;
@@ -74,9 +74,9 @@ module.exports = (function() {
   var exports = function(jsonapi, links, data, theData, obj) {
     var _this = this;
 
-    _this['jsonapi'] = jsonapi;
-    _this['links'] = links;
-    _this['data'] = data;
+    _this.jsonapi = jsonapi;
+    _this.links = links;
+    _this.data = data;
 
     return constructFromObject(theData, obj);
   };
@@ -93,15 +93,15 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiVersion} jsonapi
    */
-  exports.prototype['jsonapi'] = undefined;
+  exports.prototype.jsonapi = undefined;
   /**
    * @member {module:model/JsonApiLinksSelf} links
    */
-  exports.prototype['links'] = undefined;
+  exports.prototype.links = undefined;
   /**
    * @member {Array.<module:model/Folder>} data
    */
-  exports.prototype['data'] = undefined;
+  exports.prototype.data = undefined;
 
 
 

@@ -46,10 +46,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('position')) {
-        obj['position'] = ApiClient.convertToType(data['position'], 'Integer');
+        obj.position = ApiClient.convertToType(data.position, 'Integer');
       }
       if (data.hasOwnProperty('sha1')) {
-        obj['sha1'] = ApiClient.convertToType(data['sha1'], 'String');
+        obj.sha1 = ApiClient.convertToType(data.sha1, 'String');
       }
     }
     return obj;
@@ -83,11 +83,11 @@ module.exports = (function() {
   /**
    * @member {Integer} position
    */
-  exports.prototype['position'] = undefined;
+  exports.prototype.position = undefined;
   /**
    * @member {String} sha1
    */
-  exports.prototype['sha1'] = undefined;
+  exports.prototype.sha1 = undefined;
 
 
 

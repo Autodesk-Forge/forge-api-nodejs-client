@@ -48,34 +48,34 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('Id')) {
-        obj['Id'] = ApiClient.convertToType(data['Id'], 'String');
+        obj.Id = ApiClient.convertToType(data.Id, 'String');
       }
       if (data.hasOwnProperty('Instruction')) {
-        obj['Instruction'] = ApiClient.convertToType(data['Instruction'], Object);
+        obj.Instruction = ApiClient.convertToType(data.Instruction, Object);
       }
       if (data.hasOwnProperty('AppPackages')) {
-        obj['AppPackages'] = ApiClient.convertToType(data['AppPackages'], ['String']);
+        obj.AppPackages = ApiClient.convertToType(data.AppPackages, ['String']);
       }
       if (data.hasOwnProperty('RequiredEngineVersion')) {
-        obj['RequiredEngineVersion'] = ApiClient.convertToType(data['RequiredEngineVersion'], 'String');
+        obj.RequiredEngineVersion = ApiClient.convertToType(data.RequiredEngineVersion, 'String');
       }
       if (data.hasOwnProperty('Parameters')) {
-        obj['Parameters'] = ApiClient.convertToType(data['Parameters'], Object);
+        obj.Parameters = ApiClient.convertToType(data.Parameters, Object);
       }
       if (data.hasOwnProperty('AllowedChildProcesses')) {
-        obj['AllowedChildProcesses'] = ApiClient.convertToType(data['AllowedChildProcesses'], [Object]);
+        obj.AllowedChildProcesses = ApiClient.convertToType(data.AllowedChildProcesses, [Object]);
       }
       if (data.hasOwnProperty('Version')) {
-        obj['Version'] = ApiClient.convertToType(data['Version'], 'Integer');
+        obj.Version = ApiClient.convertToType(data.Version, 'Integer');
       }
       if (data.hasOwnProperty('Description')) {
-        obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
+        obj.Description = ApiClient.convertToType(data.Description, 'String');
       }
       if (data.hasOwnProperty('HostApplication')) {
-        obj['HostApplication'] = ApiClient.convertToType(data['HostApplication'], 'String');
+        obj.HostApplication = ApiClient.convertToType(data.HostApplication, 'String');
       }
       if (data.hasOwnProperty('IsPublic')) {
-        obj['IsPublic'] = ApiClient.convertToType(data['IsPublic'], 'Boolean');
+        obj.IsPublic = ApiClient.convertToType(data.IsPublic, 'Boolean');
       }
     }
     return obj;
@@ -118,43 +118,43 @@ module.exports = (function() {
   /**
    * @member {String} Id
    */
-  exports.prototype['Id'] = undefined;
+  exports.prototype.Id = undefined;
   /**
    * @member {Object} Instruction
    */
-  exports.prototype['Instruction'] = undefined;
+  exports.prototype.Instruction = undefined;
   /**
    * @member {Array.<String>} AppPackages
    */
-  exports.prototype['AppPackages'] = undefined;
+  exports.prototype.AppPackages = undefined;
   /**
    * @member {String} RequiredEngineVersion
    */
-  exports.prototype['RequiredEngineVersion'] = undefined;
+  exports.prototype.RequiredEngineVersion = undefined;
   /**
    * @member {Object} Parameters
    */
-  exports.prototype['Parameters'] = undefined;
+  exports.prototype.Parameters = undefined;
   /**
    * @member {Array.<Object>} AllowedChildProcesses
    */
-  exports.prototype['AllowedChildProcesses'] = undefined;
+  exports.prototype.AllowedChildProcesses = undefined;
   /**
    * @member {Integer} Version
    */
-  exports.prototype['Version'] = undefined;
+  exports.prototype.Version = undefined;
   /**
    * @member {String} Description
    */
-  exports.prototype['Description'] = undefined;
+  exports.prototype.Description = undefined;
   /**
    * @member {String} HostApplication
    */
-  exports.prototype['HostApplication'] = undefined;
+  exports.prototype.HostApplication = undefined;
   /**
    * @member {Boolean} IsPublic
    */
-  exports.prototype['IsPublic'] = undefined;
+  exports.prototype.IsPublic = undefined;
 
 
 

@@ -47,10 +47,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('displayName')) {
-        obj['displayName'] = ApiClient.convertToType(data['displayName'], 'String');
+        obj.displayName = ApiClient.convertToType(data.displayName, 'String');
       }
       if (data.hasOwnProperty('extension')) {
-        obj['extension'] = BaseAttributesExtensionObject.constructFromObject(data['extension']);
+        obj.extension = BaseAttributesExtensionObject.constructFromObject(data.extension);
       }
     }
     return obj;
@@ -68,8 +68,8 @@ module.exports = (function() {
   var exports = function(displayName, extension, theData, obj) {
     var _this = this;
 
-    _this['displayName'] = displayName;
-    _this['extension'] = extension;
+    _this.displayName = displayName;
+    _this.extension = extension;
 
     return constructFromObject(theData, obj);
   };
@@ -87,11 +87,11 @@ module.exports = (function() {
    * displayable name of the item
    * @member {String} displayName
    */
-  exports.prototype['displayName'] = undefined;
+  exports.prototype.displayName = undefined;
   /**
    * @member {module:model/BaseAttributesExtensionObject} extension
    */
-  exports.prototype['extension'] = undefined;
+  exports.prototype.extension = undefined;
 
 
 

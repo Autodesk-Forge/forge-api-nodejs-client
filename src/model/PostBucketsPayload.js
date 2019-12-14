@@ -47,13 +47,13 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('bucketKey')) {
-        obj['bucketKey'] = ApiClient.convertToType(data['bucketKey'], 'String');
+        obj.bucketKey = ApiClient.convertToType(data.bucketKey, 'String');
       }
       if (data.hasOwnProperty('allow')) {
-        obj['allow'] = ApiClient.convertToType(data['allow'], [PostBucketsPayloadAllow]);
+        obj.allow = ApiClient.convertToType(data.allow, [PostBucketsPayloadAllow]);
       }
       if (data.hasOwnProperty('policyKey')) {
-        obj['policyKey'] = ApiClient.convertToType(data['policyKey'], 'String');
+        obj.policyKey = ApiClient.convertToType(data.policyKey, 'String');
       }
     }
     return obj;
@@ -72,9 +72,9 @@ module.exports = (function() {
   var exports = function(bucketKey, policyKey, theData, obj) {
     var _this = this;
 
-    _this['bucketKey'] = bucketKey;
+    _this.bucketKey = bucketKey;
 
-    _this['policyKey'] = policyKey;
+    _this.policyKey = policyKey;
 
     return constructFromObject(theData, obj);
   };
@@ -92,17 +92,17 @@ module.exports = (function() {
    * Bucket key
    * @member {String} bucketKey
    */
-  exports.prototype['bucketKey'] = undefined;
+  exports.prototype.bucketKey = undefined;
   /**
    * 
    * @member {Array.<module:model/PostBucketsPayloadAllow>} allow
    */
-  exports.prototype['allow'] = undefined;
+  exports.prototype.allow = undefined;
   /**
    * [Data retention policy](https://developer.autodesk.com/en/docs/data/v2/overview/retention-policy/)  Acceptable values: `transient`, `temporary` or `persistent` 
    * @member {module:model/PostBucketsPayload.PolicyKeyEnum} policyKey
    */
-  exports.prototype['policyKey'] = undefined;
+  exports.prototype.policyKey = undefined;
 
 
   /**

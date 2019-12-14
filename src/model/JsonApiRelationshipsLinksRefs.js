@@ -47,7 +47,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('links')) {
-        obj['links'] = JsonApiRelationshipsLinksRefsLinks.constructFromObject(data['links']);
+        obj.links = JsonApiRelationshipsLinksRefsLinks.constructFromObject(data.links);
       }
     }
     return obj;
@@ -80,7 +80,7 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiRelationshipsLinksRefsLinks} links
    */
-  exports.prototype['links'] = undefined;
+  exports.prototype.links = undefined;
 
 
 

@@ -46,16 +46,16 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('tolerance')) {
-        obj['tolerance'] = ApiClient.convertToType(data['tolerance'], 'Number');
+        obj.tolerance = ApiClient.convertToType(data.tolerance, 'Number');
       }
       if (data.hasOwnProperty('surfaceType')) {
-        obj['surfaceType'] = ApiClient.convertToType(data['surfaceType'], 'String');
+        obj.surfaceType = ApiClient.convertToType(data.surfaceType, 'String');
       }
       if (data.hasOwnProperty('sheetType')) {
-        obj['sheetType'] = ApiClient.convertToType(data['sheetType'], 'String');
+        obj.sheetType = ApiClient.convertToType(data.sheetType, 'String');
       }
       if (data.hasOwnProperty('solidType')) {
-        obj['solidType'] = ApiClient.convertToType(data['solidType'], 'String');
+        obj.solidType = ApiClient.convertToType(data.solidType, 'String');
       }
     }
     return obj;
@@ -94,25 +94,25 @@ module.exports = (function() {
    * @member {Number} tolerance
    * @default 0.001
    */
-  exports.prototype['tolerance'] = 0.001;
+  exports.prototype.tolerance = 0.001;
   /**
    * Possible values are `bounded`, `trimmed` and `wireframe`. By default it is set to bounded surface.
    * @member {module:model/JobIgesOutputPayloadAdvanced.SurfaceTypeEnum} surfaceType
    * @default 'bounded'
    */
-  exports.prototype['surfaceType'] = 'bounded';
+  exports.prototype.surfaceType = 'bounded';
   /**
    * Export the sheet body to IGES. `open`, `shell`, `surface` or `wireframe`. By default, it is set to `surface`.
    * @member {module:model/JobIgesOutputPayloadAdvanced.SheetTypeEnum} sheetType
    * @default 'surface'
    */
-  exports.prototype['sheetType'] = 'surface';
+  exports.prototype.sheetType = 'surface';
   /**
    * Export the solid body to IGES `solid`, `surface` or `wireframe`. By default, it is set to `solid`.
    * @member {module:model/JobIgesOutputPayloadAdvanced.SolidTypeEnum} solidType
    * @default 'solid'
    */
-  exports.prototype['solidType'] = 'solid';
+  exports.prototype.solidType = 'solid';
 
 
   /**

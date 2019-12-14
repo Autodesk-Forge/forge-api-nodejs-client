@@ -46,7 +46,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('result')) {
-        obj['result'] = ApiClient.convertToType(data['result'], 'String');
+        obj.result = ApiClient.convertToType(data.result, 'String');
       }
     }
     return obj;
@@ -63,7 +63,7 @@ module.exports = (function() {
   var exports = function(result, theData, obj) {
     var _this = this;
 
-    _this['result'] = result;
+    _this.result = result;
 
     return constructFromObject(theData, obj);
   };
@@ -80,7 +80,7 @@ module.exports = (function() {
   /**
    * @member {String} result
    */
-  exports.prototype['result'] = undefined;
+  exports.prototype.result = undefined;
 
 
 

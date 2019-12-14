@@ -47,22 +47,22 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('name')) {
-        obj['name'] = ApiClient.convertToType(data['name'], 'String');
+        obj.name = ApiClient.convertToType(data.name, 'String');
       }
       if (data.hasOwnProperty('hasThumbnail')) {
-        obj['hasThumbnail'] = ApiClient.convertToType(data['hasThumbnail'], 'Boolean');
+        obj.hasThumbnail = ApiClient.convertToType(data.hasThumbnail, 'Boolean');
       }
       if (data.hasOwnProperty('outputType')) {
-        obj['outputType'] = ApiClient.convertToType(data['outputType'], 'String');
+        obj.outputType = ApiClient.convertToType(data.outputType, 'String');
       }
       if (data.hasOwnProperty('progress')) {
-        obj['progress'] = ApiClient.convertToType(data['progress'], 'String');
+        obj.progress = ApiClient.convertToType(data.progress, 'String');
       }
       if (data.hasOwnProperty('status')) {
-        obj['status'] = ApiClient.convertToType(data['status'], 'String');
+        obj.status = ApiClient.convertToType(data.status, 'String');
       }
       if (data.hasOwnProperty('children')) {
-        obj['children'] = ApiClient.convertToType(data['children'], [ManifestChildren]);
+        obj.children = ApiClient.convertToType(data.children, [ManifestChildren]);
       }
     }
     return obj;
@@ -84,12 +84,12 @@ module.exports = (function() {
   var exports = function(name, hasThumbnail, progress, status, children, theData, obj) {
     var _this = this;
 
-    _this['name'] = name;
-    _this['hasThumbnail'] = hasThumbnail;
+    _this.name = name;
+    _this.hasThumbnail = hasThumbnail;
 
-    _this['progress'] = progress;
-    _this['status'] = status;
-    _this['children'] = children;
+    _this.progress = progress;
+    _this.status = status;
+    _this.children = children;
 
     return constructFromObject(theData, obj);
   };
@@ -107,30 +107,30 @@ module.exports = (function() {
    * Output file type
    * @member {String} name
    */
-  exports.prototype['name'] = undefined;
+  exports.prototype.name = undefined;
   /**
    * Indicates if a thumbnail has been generated
    * @member {Boolean} hasThumbnail
    */
-  exports.prototype['hasThumbnail'] = undefined;
+  exports.prototype.hasThumbnail = undefined;
   /**
    * @member {module:model/ManifestDerivative.OutputTypeEnum} outputType
    */
-  exports.prototype['outputType'] = undefined;
+  exports.prototype.outputType = undefined;
   /**
    * Translation progress for requested entity
    * @member {String} progress
    */
-  exports.prototype['progress'] = undefined;
+  exports.prototype.progress = undefined;
   /**
    * Status of the requested entity; possible values are: `pending`, `success`, `inprogress`, `failed`, `timeout` and `partialsuccess` 
    * @member {module:model/ManifestDerivative.StatusEnum} status
    */
-  exports.prototype['status'] = undefined;
+  exports.prototype.status = undefined;
   /**
    * @member {Array.<module:model/ManifestChildren>} children
    */
-  exports.prototype['children'] = undefined;
+  exports.prototype.children = undefined;
 
 
   /**

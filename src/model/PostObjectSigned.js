@@ -46,10 +46,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('signedUrl')) {
-        obj['signedUrl'] = ApiClient.convertToType(data['signedUrl'], 'String');
+        obj.signedUrl = ApiClient.convertToType(data.signedUrl, 'String');
       }
       if (data.hasOwnProperty('expiration')) {
-        obj['expiration'] = ApiClient.convertToType(data['expiration'], 'Integer');
+        obj.expiration = ApiClient.convertToType(data.expiration, 'Integer');
       }
     }
     return obj;
@@ -68,8 +68,8 @@ module.exports = (function() {
   var exports = function(signedUrl, expiration, theData, obj) {
     var _this = this;
 
-    _this['signedUrl'] = signedUrl;
-    _this['expiration'] = expiration;
+    _this.signedUrl = signedUrl;
+    _this.expiration = expiration;
 
     return constructFromObject(theData, obj);
   };
@@ -87,12 +87,12 @@ module.exports = (function() {
    * URL created for downloading the object
    * @member {String} signedUrl
    */
-  exports.prototype['signedUrl'] = undefined;
+  exports.prototype.signedUrl = undefined;
   /**
    * Value for expiration in minutes
    * @member {Integer} expiration
    */
-  exports.prototype['expiration'] = undefined;
+  exports.prototype.expiration = undefined;
 
 
 

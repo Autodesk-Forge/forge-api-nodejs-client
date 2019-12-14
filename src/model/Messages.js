@@ -62,7 +62,7 @@ module.exports = (function() {
    */
   var exports = function(theData, obj) {
     var _this = this;
-    _this = new Array();
+    _this = [];
     Object.setPrototypeOf(_this, exports);
 
 

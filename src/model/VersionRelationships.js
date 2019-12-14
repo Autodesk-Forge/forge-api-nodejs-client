@@ -49,19 +49,19 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('item')) {
-        obj['item'] = JsonApiRelationshipsLinksInternalResource.constructFromObject(data['item']);
+        obj.item = JsonApiRelationshipsLinksInternalResource.constructFromObject(data.item);
       }
       if (data.hasOwnProperty('refs')) {
-        obj['refs'] = JsonApiRelationshipsLinksRefs.constructFromObject(data['refs']);
+        obj.refs = JsonApiRelationshipsLinksRefs.constructFromObject(data.refs);
       }
       if (data.hasOwnProperty('storage')) {
-        obj['storage'] = JsonApiRelationshipsLinksExternalResource.constructFromObject(data['storage']);
+        obj.storage = JsonApiRelationshipsLinksExternalResource.constructFromObject(data.storage);
       }
       if (data.hasOwnProperty('derivatives')) {
-        obj['derivatives'] = JsonApiRelationshipsLinksExternalResource.constructFromObject(data['derivatives']);
+        obj.derivatives = JsonApiRelationshipsLinksExternalResource.constructFromObject(data.derivatives);
       }
       if (data.hasOwnProperty('thumbnails')) {
-        obj['thumbnails'] = JsonApiRelationshipsLinksExternalResource.constructFromObject(data['thumbnails']);
+        obj.thumbnails = JsonApiRelationshipsLinksExternalResource.constructFromObject(data.thumbnails);
       }
     }
     return obj;
@@ -79,8 +79,8 @@ module.exports = (function() {
   var exports = function(item, refs, theData, obj) {
     var _this = this;
 
-    _this['item'] = item;
-    _this['refs'] = refs;
+    _this.item = item;
+    _this.refs = refs;
 
 
 
@@ -100,23 +100,23 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiRelationshipsLinksInternalResource} item
    */
-  exports.prototype['item'] = undefined;
+  exports.prototype.item = undefined;
   /**
    * @member {module:model/JsonApiRelationshipsLinksRefs} refs
    */
-  exports.prototype['refs'] = undefined;
+  exports.prototype.refs = undefined;
   /**
    * @member {module:model/JsonApiRelationshipsLinksExternalResource} storage
    */
-  exports.prototype['storage'] = undefined;
+  exports.prototype.storage = undefined;
   /**
    * @member {module:model/JsonApiRelationshipsLinksExternalResource} derivatives
    */
-  exports.prototype['derivatives'] = undefined;
+  exports.prototype.derivatives = undefined;
   /**
    * @member {module:model/JsonApiRelationshipsLinksExternalResource} thumbnails
    */
-  exports.prototype['thumbnails'] = undefined;
+  exports.prototype.thumbnails = undefined;
 
 
 

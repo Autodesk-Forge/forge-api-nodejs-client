@@ -49,16 +49,16 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('parent')) {
-        obj['parent'] = JsonApiRelationshipsLinksInternalResource.constructFromObject(data['parent']);
+        obj.parent = JsonApiRelationshipsLinksInternalResource.constructFromObject(data.parent);
       }
       if (data.hasOwnProperty('tip')) {
-        obj['tip'] = JsonApiRelationshipsLinksInternalResource.constructFromObject(data['tip']);
+        obj.tip = JsonApiRelationshipsLinksInternalResource.constructFromObject(data.tip);
       }
       if (data.hasOwnProperty('versions')) {
-        obj['versions'] = JsonApiRelationshipsLinksInternal.constructFromObject(data['versions']);
+        obj.versions = JsonApiRelationshipsLinksInternal.constructFromObject(data.versions);
       }
       if (data.hasOwnProperty('refs')) {
-        obj['refs'] = JsonApiRelationshipsLinksRefs.constructFromObject(data['refs']);
+        obj.refs = JsonApiRelationshipsLinksRefs.constructFromObject(data.refs);
       }
     }
     return obj;
@@ -78,10 +78,10 @@ module.exports = (function() {
   var exports = function(parent, tip, versions, refs, theData, obj) {
     var _this = this;
 
-    _this['parent'] = parent;
-    _this['tip'] = tip;
-    _this['versions'] = versions;
-    _this['refs'] = refs;
+    _this.parent = parent;
+    _this.tip = tip;
+    _this.versions = versions;
+    _this.refs = refs;
 
     return constructFromObject(theData, obj);
   };
@@ -98,19 +98,19 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiRelationshipsLinksInternalResource} parent
    */
-  exports.prototype['parent'] = undefined;
+  exports.prototype.parent = undefined;
   /**
    * @member {module:model/JsonApiRelationshipsLinksInternalResource} tip
    */
-  exports.prototype['tip'] = undefined;
+  exports.prototype.tip = undefined;
   /**
    * @member {module:model/JsonApiRelationshipsLinksInternal} versions
    */
-  exports.prototype['versions'] = undefined;
+  exports.prototype.versions = undefined;
   /**
    * @member {module:model/JsonApiRelationshipsLinksRefs} refs
    */
-  exports.prototype['refs'] = undefined;
+  exports.prototype.refs = undefined;
 
 
 

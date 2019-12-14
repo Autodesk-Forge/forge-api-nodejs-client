@@ -47,16 +47,16 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('name')) {
-        obj['name'] = ApiClient.convertToType(data['name'], 'String');
+        obj.name = ApiClient.convertToType(data.name, 'String');
       }
       if (data.hasOwnProperty('displayName')) {
-        obj['displayName'] = ApiClient.convertToType(data['displayName'], 'String');
+        obj.displayName = ApiClient.convertToType(data.displayName, 'String');
       }
       if (data.hasOwnProperty('objectCount')) {
-        obj['objectCount'] = ApiClient.convertToType(data['objectCount'], 'Integer');
+        obj.objectCount = ApiClient.convertToType(data.objectCount, 'Integer');
       }
       if (data.hasOwnProperty('extension')) {
-        obj['extension'] = BaseAttributesExtensionObject.constructFromObject(data['extension']);
+        obj.extension = BaseAttributesExtensionObject.constructFromObject(data.extension);
       }
     }
     return obj;
@@ -76,10 +76,10 @@ module.exports = (function() {
   var exports = function(name, displayName, objectCount, extension, theData, obj) {
     var _this = this;
 
-    _this['name'] = name;
-    _this['displayName'] = displayName;
-    _this['objectCount'] = objectCount;
-    _this['extension'] = extension;
+    _this.name = name;
+    _this.displayName = displayName;
+    _this.objectCount = objectCount;
+    _this.extension = extension;
 
     return constructFromObject(theData, obj);
   };
@@ -97,21 +97,21 @@ module.exports = (function() {
    * filename used when synced to local disk
    * @member {String} name
    */
-  exports.prototype['name'] = undefined;
+  exports.prototype.name = undefined;
   /**
    * displayable name of the folder
    * @member {String} displayName
    */
-  exports.prototype['displayName'] = undefined;
+  exports.prototype.displayName = undefined;
   /**
    * number of contained sub-folders and items
    * @member {Integer} objectCount
    */
-  exports.prototype['objectCount'] = undefined;
+  exports.prototype.objectCount = undefined;
   /**
    * @member {module:model/BaseAttributesExtensionObject} extension
    */
-  exports.prototype['extension'] = undefined;
+  exports.prototype.extension = undefined;
 
 
 

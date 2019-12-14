@@ -47,40 +47,40 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        obj.type = ApiClient.convertToType(data.type, 'String');
       }
       if (data.hasOwnProperty('role')) {
-        obj['role'] = ApiClient.convertToType(data['role'], 'String');
+        obj.role = ApiClient.convertToType(data.role, 'String');
       }
       if (data.hasOwnProperty('name')) {
-        obj['name'] = ApiClient.convertToType(data['name'], 'String');
+        obj.name = ApiClient.convertToType(data.name, 'String');
       }
       if (data.hasOwnProperty('hasThumbnail')) {
-        obj['hasThumbnail'] = ApiClient.convertToType(data['hasThumbnail'], 'Boolean');
+        obj.hasThumbnail = ApiClient.convertToType(data.hasThumbnail, 'Boolean');
       }
       if (data.hasOwnProperty('mime')) {
-        obj['mime'] = ApiClient.convertToType(data['mime'], 'String');
+        obj.mime = ApiClient.convertToType(data.mime, 'String');
       }
       if (data.hasOwnProperty('urn')) {
-        obj['urn'] = ApiClient.convertToType(data['urn'], 'String');
+        obj.urn = ApiClient.convertToType(data.urn, 'String');
       }
       if (data.hasOwnProperty('progress')) {
-        obj['progress'] = ApiClient.convertToType(data['progress'], 'String');
+        obj.progress = ApiClient.convertToType(data.progress, 'String');
       }
       if (data.hasOwnProperty('status')) {
-        obj['status'] = ApiClient.convertToType(data['status'], 'String');
+        obj.status = ApiClient.convertToType(data.status, 'String');
       }
       if (data.hasOwnProperty('resolution')) {
-        obj['resolution'] = ApiClient.convertToType(data['resolution'], ['String']);
+        obj.resolution = ApiClient.convertToType(data.resolution, ['String']);
       }
       if (data.hasOwnProperty('modelGUID')) {
-        obj['modelGUID'] = ApiClient.convertToType(data['modelGUID'], 'String');
+        obj.modelGUID = ApiClient.convertToType(data.modelGUID, 'String');
       }
       if (data.hasOwnProperty('objectIds')) {
-        obj['objectIds'] = ApiClient.convertToType(data['objectIds'], ['Integer']);
+        obj.objectIds = ApiClient.convertToType(data.objectIds, ['Integer']);
       }
       if (data.hasOwnProperty('messages')) {
-        obj['messages'] = Messages.constructFromObject(data['messages']);
+        obj.messages = Messages.constructFromObject(data.messages);
       }
     }
     return obj;
@@ -100,11 +100,11 @@ module.exports = (function() {
   var exports = function(type, role, mime, theData, obj) {
     var _this = this;
 
-    _this['type'] = type;
-    _this['role'] = role;
+    _this.type = type;
+    _this.role = role;
 
 
-    _this['mime'] = mime;
+    _this.mime = mime;
 
 
 
@@ -129,59 +129,59 @@ module.exports = (function() {
    * Type of this JSON object
    * @member {module:model/ManifestChildren.TypeEnum} type
    */
-  exports.prototype['type'] = undefined;
+  exports.prototype.type = undefined;
   /**
    * Output file type
    * @member {module:model/ManifestChildren.RoleEnum} role
    */
-  exports.prototype['role'] = undefined;
+  exports.prototype.role = undefined;
   /**
    * Output file type
    * @member {String} name
    */
-  exports.prototype['name'] = undefined;
+  exports.prototype.name = undefined;
   /**
    * Indicates if a thumbnail has been generated 
    * @member {Boolean} hasThumbnail
    */
-  exports.prototype['hasThumbnail'] = undefined;
+  exports.prototype.hasThumbnail = undefined;
   /**
    * MIME type of the generated file
    * @member {String} mime
    */
-  exports.prototype['mime'] = undefined;
+  exports.prototype.mime = undefined;
   /**
    * Output file URN; used as a file identifier
    * @member {String} urn
    */
-  exports.prototype['urn'] = undefined;
+  exports.prototype.urn = undefined;
   /**
    * Translation progress for requested entity
    * @member {String} progress
    */
-  exports.prototype['progress'] = undefined;
+  exports.prototype.progress = undefined;
   /**
    * Status of the requested entity; possible values are: `pending`, `success`, `inprogress`, `failed`, `timeout` and `partialsuccess` 
    * @member {module:model/ManifestChildren.StatusEnum} status
    */
-  exports.prototype['status'] = undefined;
+  exports.prototype.status = undefined;
   /**
    * Available thumbnail resolution
    * @member {Array.<String>} resolution
    */
-  exports.prototype['resolution'] = undefined;
+  exports.prototype.resolution = undefined;
   /**
    * @member {String} modelGUID
    */
-  exports.prototype['modelGUID'] = undefined;
+  exports.prototype.modelGUID = undefined;
   /**
    * @member {Array.<Integer>} objectIds
    */
-  exports.prototype['objectIds'] = undefined;
+  exports.prototype.objectIds = undefined;
   /**
    * @member {module:model/Messages} messages
    */
-  exports.prototype['messages'] = undefined;
+  exports.prototype.messages = undefined;
 
 
   /**

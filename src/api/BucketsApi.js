@@ -163,9 +163,9 @@ module.exports = (function () {
 
 			var pathParams = {};
 			var queryParams = {
-				'region': opts['region'],
-				'limit': opts['limit'],
-				'startAt': opts['startAt']
+				'region': opts.region,
+				'limit': opts.limit,
+				'startAt': opts.startAt
 			};
 			var headerParams = {};
 			var formParams = {};

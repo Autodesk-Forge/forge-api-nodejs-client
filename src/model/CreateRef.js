@@ -23,87 +23,79 @@
  */
 
 module.exports = (function() {
-  'use strict';
+	'use strict';
 
-  var ApiClient = require('../ApiClient'),
-      CreateRefData = require('./CreateRefData'),
-      JsonApiVersion = require('./JsonApiVersion'),
-      JsonApiVersionJsonapi = require('./JsonApiVersionJsonapi');
-
-
-
-  /**
-   * The CreateRef model module.
-   * @module model/CreateRef
-   */
-
-   /**
-    * Constructs a <code>CreateRef</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/CreateRef} obj Optional instance to populate.
-    * @return {module:model/CreateRef} The populated <code>CreateRef</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
-    if (data) {
-      obj = obj || new exports();
-  
-        JsonApiVersion.constructFromObject(data, obj);
-      if (data.hasOwnProperty('jsonapi')) {
-        obj['jsonapi'] = JsonApiVersionJsonapi.constructFromObject(data['jsonapi']);
-      }
-      if (data.hasOwnProperty('data')) {
-        obj['data'] = CreateRefData.constructFromObject(data['data']);
-      }
-    }
-    return obj;
-  };
-
-  /**
-   * Constructs a new <code>CreateRef</code>.
-   * @alias module:model/CreateRef
-   * @class
-   * @implements module:model/JsonApiVersion
-   * @param {Object} theData The plain JavaScript object bearing properties of interest.
-   * @param {module:model/CreateRef} obj Optional instance to populate.
-   */
-  var exports = function(theData, obj) {
-    var _this = this;
-
-    JsonApiVersion.call(_this);
+	var ApiClient = require('../ApiClient'),
+			CreateRefData = require('./CreateRefData'),
+			JsonApiVersion = require('./JsonApiVersion'),
+			JsonApiVersionJsonapi = require('./JsonApiVersionJsonapi');
 
 
 
-    return constructFromObject(theData, obj);
-  };
+	/**
+	 * The CreateRef model module.
+	 * @module model/CreateRef
+	 */
 
-  /**
-   * Constructs a <code>CreateRef</code> from a plain JavaScript object, optionally creating a new instance.
-   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-   * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/CreateRef} obj Optional instance to populate.
-   * @return {module:model/CreateRef} The populated <code>CreateRef</code> instance.
-   */
-  exports.constructFromObject = constructFromObject;
+	 /**
+		* Constructs a <code>CreateRef</code> from a plain JavaScript object, optionally creating a new instance.
+		* Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+		* @param {Object} data The plain JavaScript object bearing properties of interest.
+		* @param {module:model/CreateRef} obj Optional instance to populate.
+		* @return {module:model/CreateRef} The populated <code>CreateRef</code> instance.
+		*/
+	var constructFromObject = function(data, obj) {
+		if (data) {
+			obj = obj || new exports();
+	
+				JsonApiVersion.constructFromObject(data, obj);
+			if (data.hasOwnProperty('jsonapi')) {
+				obj.jsonapi = JsonApiVersionJsonapi.constructFromObject(data.jsonapi);
+			}
+			if (data.hasOwnProperty('data')) {
+				obj.data = CreateRefData.constructFromObject(data.data);
+			}
+		}
+		return obj;
+	};
 
-  /**
-   * @member {module:model/JsonApiVersionJsonapi} jsonapi
-   */
-  exports.prototype['jsonapi'] = undefined;
-  /**
-   * @member {module:model/CreateRefData} data
-   */
-  exports.prototype['data'] = undefined;
+	/**
+	 * Constructs a new <code>CreateRef</code>.
+	 * @alias module:model/CreateRef
+	 * @class
+	 * @implements module:model/JsonApiVersion
+	 * @param {Object} theData The plain JavaScript object bearing properties of interest.
+	 * @param {module:model/CreateRef} obj Optional instance to populate.
+	 */
+	var exports = function(theData, obj) {
+		var _this = this;
 
-  // Implement JsonApiVersion interface:
-  /**
-   * @member {module:model/JsonApiVersionJsonapi} jsonapi
-   */
-exports.prototype['jsonapi'] = undefined;
+		JsonApiVersion.call(_this);
 
 
 
-  return exports;
+		return constructFromObject(theData, obj);
+	};
+
+	/**
+	 * Constructs a <code>CreateRef</code> from a plain JavaScript object, optionally creating a new instance.
+	 * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+	 * @param {Object} data The plain JavaScript object bearing properties of interest.
+	 * @param {module:model/CreateRef} obj Optional instance to populate.
+	 * @return {module:model/CreateRef} The populated <code>CreateRef</code> instance.
+	 */
+	exports.constructFromObject = constructFromObject;
+
+	/**
+	 * @member {module:model/JsonApiVersionJsonapi} jsonapi
+	 */
+	exports.prototype.jsonapi = undefined;
+	/**
+	 * @member {module:model/CreateRefData} data
+	 */
+	exports.prototype.data = undefined;
+
+	return exports;
 }());
 
 

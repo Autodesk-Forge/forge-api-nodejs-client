@@ -64,6 +64,7 @@ module.export = (function () {
 
 
 	describe('FoldersApi', function () {
+
 		describe('getFolder', function () {
 			it('should call getFolder successfully', function (done) {
 
@@ -97,6 +98,7 @@ module.export = (function () {
 				});
 			});
 		});
+
 		describe('getFolderContents', function () {
 			it('should call getFolderContents successfully', function (done) {
 
@@ -136,6 +138,7 @@ module.export = (function () {
 				});
 			});
 		});
+
 		describe('getFolderParent', function () {
 			it('should call getFolderParent successfully', function (done) {
 
@@ -168,6 +171,7 @@ module.export = (function () {
 				});
 			});
 		});
+
 		describe('getFolderRefs', function () {
 			it('should call getFolderRefs successfully', function (done) {
 
@@ -204,6 +208,7 @@ module.export = (function () {
 				});
 			});
 		});
+
 		describe('getFolderRelationshipsRefs', function () {
 			it('should call getFolderRelationshipsRefs successfully', function (done) {
 
@@ -242,6 +247,7 @@ module.export = (function () {
 				});
 			});
 		});
+
 		describe('postFolder', function () {
 			it('should call postFolder successfully', function (done) {
 
@@ -273,6 +279,7 @@ module.export = (function () {
 				});
 			});
 		});
+
 		describe('postFolderRelationshipsRef', function () {
 			it('should call postFolderRelationshipsRef successfully', function (done) {
 
@@ -305,6 +312,7 @@ module.export = (function () {
 				});
 			});
 		});
+
 		describe('patchFolder', function () {
 			it('should call patchFolder successfully', function (done) {
 
@@ -337,6 +345,7 @@ module.export = (function () {
 				});
 			});
 		});
+		
 	});
 
 }());

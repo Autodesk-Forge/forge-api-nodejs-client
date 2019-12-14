@@ -113,9 +113,9 @@ module.exports = (function () {
 
 			var pathParams = {};
 			var queryParams = {
-				'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-				'filter[name]': this.apiClient.buildCollectionParam(opts['filterName'], 'csv'),
-				'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
+				'filter[id]': this.apiClient.buildCollectionParam(opts.filterId, 'csv'),
+				'filter[name]': this.apiClient.buildCollectionParam(opts.filterName, 'csv'),
+				'filter[extension.type]': this.apiClient.buildCollectionParam(opts.filterExtensionType, 'csv')
 			};
 			var keys = Object.keys(opts).filter(function (elt) {
 				return (new RegExp(/^filter\[/).test(elt));

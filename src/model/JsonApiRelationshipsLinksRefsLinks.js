@@ -47,10 +47,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('self')) {
-        obj['self'] = JsonApiLink.constructFromObject(data['self']);
+        obj.self = JsonApiLink.constructFromObject(data.self);
       }
       if (data.hasOwnProperty('related')) {
-        obj['related'] = JsonApiLink.constructFromObject(data['related']);
+        obj.related = JsonApiLink.constructFromObject(data.related);
       }
     }
     return obj;
@@ -68,8 +68,8 @@ module.exports = (function() {
   var exports = function(self, related, theData, obj) {
     var _this = this;
 
-    _this['self'] = self;
-    _this['related'] = related;
+    _this.self = self;
+    _this.related = related;
 
     return constructFromObject(theData, obj);
   };
@@ -86,11 +86,11 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiLink} self
    */
-  exports.prototype['self'] = undefined;
+  exports.prototype.self = undefined;
   /**
    * @member {module:model/JsonApiLink} related
    */
-  exports.prototype['related'] = undefined;
+  exports.prototype.related = undefined;
 
 
 

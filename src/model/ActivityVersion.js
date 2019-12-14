@@ -48,7 +48,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('Version')) {
-        obj['Version'] = ApiClient.convertToType(data['Version'], 'Integer');
+        obj.Version = ApiClient.convertToType(data.Version, 'Integer');
       }
     }
     return obj;
@@ -82,7 +82,7 @@ module.exports = (function() {
   /**
    * @member {Integer} Version
    */
-  exports.prototype['Version'] = undefined;
+  exports.prototype.Version = undefined;
 
 
 

@@ -48,10 +48,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('item')) {
-        obj['item'] = CreateVersionDataRelationshipsItem.constructFromObject(data['item']);
+        obj.item = CreateVersionDataRelationshipsItem.constructFromObject(data.item);
       }
       if (data.hasOwnProperty('storage')) {
-        obj['storage'] = CreateItemRelationshipsStorage.constructFromObject(data['storage']);
+        obj.storage = CreateItemRelationshipsStorage.constructFromObject(data.storage);
       }
     }
     return obj;
@@ -85,11 +85,11 @@ module.exports = (function() {
   /**
    * @member {module:model/CreateVersionDataRelationshipsItem} item
    */
-  exports.prototype['item'] = undefined;
+  exports.prototype.item = undefined;
   /**
    * @member {module:model/CreateItemRelationshipsStorage} storage
    */
-  exports.prototype['storage'] = undefined;
+  exports.prototype.storage = undefined;
 
 
 

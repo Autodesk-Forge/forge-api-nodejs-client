@@ -47,7 +47,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('formats')) {
-        obj['formats'] = ApiClient.convertToType(data['formats'], [JobPayloadItem]);
+        obj.formats = ApiClient.convertToType(data.formats, [JobPayloadItem]);
       }
     }
     return obj;
@@ -65,7 +65,7 @@ module.exports = (function() {
   var exports = function(formats, theData, obj) {
     var _this = this;
 
-    _this['formats'] = formats;
+    _this.formats = formats;
 
     return constructFromObject(theData, obj);
   };
@@ -83,7 +83,7 @@ module.exports = (function() {
    * Group of requested formats/types. User can request multiple formats.
    * @member {Array.<module:model/JobPayloadItem>} formats
    */
-  exports.prototype['formats'] = undefined;
+  exports.prototype.formats = undefined;
 
 
 

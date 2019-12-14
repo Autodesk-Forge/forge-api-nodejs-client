@@ -46,10 +46,10 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('authId')) {
-        obj['authId'] = ApiClient.convertToType(data['authId'], 'String');
+        obj.authId = ApiClient.convertToType(data.authId, 'String');
       }
       if (data.hasOwnProperty('access')) {
-        obj['access'] = ApiClient.convertToType(data['access'], 'String');
+        obj.access = ApiClient.convertToType(data.access, 'String');
       }
     }
     return obj;
@@ -67,8 +67,8 @@ module.exports = (function() {
   var exports = function(authId, access, theData, obj) {
     var _this = this;
 
-    _this['authId'] = authId;
-    _this['access'] = access;
+    _this.authId = authId;
+    _this.access = access;
 
     return constructFromObject(theData, obj);
   };
@@ -86,12 +86,12 @@ module.exports = (function() {
    * The application key to grant access to
    * @member {String} authId
    */
-  exports.prototype['authId'] = undefined;
+  exports.prototype.authId = undefined;
   /**
    * Acceptable values: `full` or `read` 
    * @member {module:model/PostBucketsPayloadAllow.AccessEnum} access
    */
-  exports.prototype['access'] = undefined;
+  exports.prototype.access = undefined;
 
 
   /**

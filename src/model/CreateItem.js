@@ -51,13 +51,13 @@ module.exports = (function() {
   
         JsonApiVersion.constructFromObject(data, obj);
       if (data.hasOwnProperty('jsonapi')) {
-        obj['jsonapi'] = JsonApiVersionJsonapi.constructFromObject(data['jsonapi']);
+        obj.jsonapi = JsonApiVersionJsonapi.constructFromObject(data.jsonapi);
       }
       if (data.hasOwnProperty('data')) {
-        obj['data'] = CreateItemData.constructFromObject(data['data']);
+        obj.data = CreateItemData.constructFromObject(data.data);
       }
       if (data.hasOwnProperty('included')) {
-        obj['included'] = ApiClient.convertToType(data['included'], [CreateItemIncluded]);
+        obj.included = ApiClient.convertToType(data.included, [CreateItemIncluded]);
       }
     }
     return obj;
@@ -78,7 +78,7 @@ module.exports = (function() {
     JsonApiVersion.call(_this);
 
 
-    _this['included'] = included;
+    _this.included = included;
 
     return constructFromObject(theData, obj);
   };
@@ -95,23 +95,15 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiVersionJsonapi} jsonapi
    */
-  exports.prototype['jsonapi'] = undefined;
+  exports.prototype.jsonapi = undefined;
   /**
    * @member {module:model/CreateItemData} data
    */
-  exports.prototype['data'] = undefined;
+  exports.prototype.data = undefined;
   /**
    * @member {Array.<module:model/CreateItemIncluded>} included
    */
-  exports.prototype['included'] = undefined;
-
-  // Implement JsonApiVersion interface:
-  /**
-   * @member {module:model/JsonApiVersionJsonapi} jsonapi
-   */
-exports.prototype['jsonapi'] = undefined;
-
-
+  exports.prototype.included = undefined;
 
   return exports;
 }());

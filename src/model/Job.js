@@ -47,13 +47,13 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('result')) {
-        obj['result'] = ApiClient.convertToType(data['result'], 'String');
+        obj.result = ApiClient.convertToType(data.result, 'String');
       }
       if (data.hasOwnProperty('urn')) {
-        obj['urn'] = ApiClient.convertToType(data['urn'], 'String');
+        obj.urn = ApiClient.convertToType(data.urn, 'String');
       }
       if (data.hasOwnProperty('acceptedJobs')) {
-        obj['acceptedJobs'] = JobAcceptedJobs.constructFromObject(data['acceptedJobs']);
+        obj.acceptedJobs = JobAcceptedJobs.constructFromObject(data.acceptedJobs);
       }
     }
     return obj;
@@ -71,8 +71,8 @@ module.exports = (function() {
   var exports = function(result, urn, theData, obj) {
     var _this = this;
 
-    _this['result'] = result;
-    _this['urn'] = urn;
+    _this.result = result;
+    _this.urn = urn;
 
 
     return constructFromObject(theData, obj);
@@ -91,16 +91,16 @@ module.exports = (function() {
    * reporting success status
    * @member {String} result
    */
-  exports.prototype['result'] = undefined;
+  exports.prototype.result = undefined;
   /**
    * the urn identifier of the source file
    * @member {String} urn
    */
-  exports.prototype['urn'] = undefined;
+  exports.prototype.urn = undefined;
   /**
    * @member {module:model/JobAcceptedJobs} acceptedJobs
    */
-  exports.prototype['acceptedJobs'] = undefined;
+  exports.prototype.acceptedJobs = undefined;
 
 
 

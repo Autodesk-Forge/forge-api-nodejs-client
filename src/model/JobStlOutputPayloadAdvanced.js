@@ -46,13 +46,13 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('format')) {
-        obj['format'] = ApiClient.convertToType(data['format'], 'String');
+        obj.format = ApiClient.convertToType(data.format, 'String');
       }
       if (data.hasOwnProperty('exportColor')) {
-        obj['exportColor'] = ApiClient.convertToType(data['exportColor'], 'Boolean');
+        obj.exportColor = ApiClient.convertToType(data.exportColor, 'Boolean');
       }
       if (data.hasOwnProperty('exportFileStructure')) {
-        obj['exportFileStructure'] = ApiClient.convertToType(data['exportFileStructure'], 'String');
+        obj.exportFileStructure = ApiClient.convertToType(data.exportFileStructure, 'String');
       }
     }
     return obj;
@@ -90,19 +90,19 @@ module.exports = (function() {
    * @member {module:model/JobStlOutputPayloadAdvanced.FormatEnum} format
    * @default 'binary'
    */
-  exports.prototype['format'] = 'binary';
+  exports.prototype.format = 'binary';
   /**
    * Color is exported by default. If set to `true`, color is exported. If set to `false`, color is not exported.
    * @member {Boolean} exportColor
    * @default true
    */
-  exports.prototype['exportColor'] = true;
+  exports.prototype.exportColor = true;
   /**
    * `single` (default): creates one STL file for all the input files (assembly file)  `multiple`: creates a separate STL file for each object 
    * @member {module:model/JobStlOutputPayloadAdvanced.ExportFileStructureEnum} exportFileStructure
    * @default 'single'
    */
-  exports.prototype['exportFileStructure'] = 'single';
+  exports.prototype.exportFileStructure = 'single';
 
 
   /**

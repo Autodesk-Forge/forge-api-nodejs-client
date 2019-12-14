@@ -47,13 +47,13 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        obj.type = ApiClient.convertToType(data.type, 'String');
       }
       if (data.hasOwnProperty('id')) {
-        obj['id'] = ApiClient.convertToType(data['id'], 'String');
+        obj.id = ApiClient.convertToType(data.id, 'String');
       }
       if (data.hasOwnProperty('meta')) {
-        obj['meta'] = CreateRefDataMeta.constructFromObject(data['meta']);
+        obj.meta = CreateRefDataMeta.constructFromObject(data.meta);
       }
     }
     return obj;
@@ -71,8 +71,8 @@ module.exports = (function() {
   var exports = function(type, id, theData, obj) {
     var _this = this;
 
-    _this['type'] = type;
-    _this['id'] = id;
+    _this.type = type;
+    _this.id = id;
 
 
     return constructFromObject(theData, obj);
@@ -90,15 +90,15 @@ module.exports = (function() {
   /**
    * @member {module:model/CreateRefData.TypeEnum} type
    */
-  exports.prototype['type'] = undefined;
+  exports.prototype.type = undefined;
   /**
    * @member {String} id
    */
-  exports.prototype['id'] = undefined;
+  exports.prototype.id = undefined;
   /**
    * @member {module:model/CreateRefDataMeta} meta
    */
-  exports.prototype['meta'] = undefined;
+  exports.prototype.meta = undefined;
 
 
   /**

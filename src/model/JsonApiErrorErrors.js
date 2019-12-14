@@ -47,25 +47,25 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('id')) {
-        obj['id'] = ApiClient.convertToType(data['id'], 'String');
+        obj.id = ApiClient.convertToType(data.id, 'String');
       }
       if (data.hasOwnProperty('status')) {
-        obj['status'] = ApiClient.convertToType(data['status'], 'String');
+        obj.status = ApiClient.convertToType(data.status, 'String');
       }
       if (data.hasOwnProperty('code')) {
-        obj['code'] = ApiClient.convertToType(data['code'], 'String');
+        obj.code = ApiClient.convertToType(data.code, 'String');
       }
       if (data.hasOwnProperty('title')) {
-        obj['title'] = ApiClient.convertToType(data['title'], 'String');
+        obj.title = ApiClient.convertToType(data.title, 'String');
       }
       if (data.hasOwnProperty('detail')) {
-        obj['detail'] = ApiClient.convertToType(data['detail'], 'String');
+        obj.detail = ApiClient.convertToType(data.detail, 'String');
       }
       if (data.hasOwnProperty('meta')) {
-        obj['meta'] = ApiClient.convertToType(data['meta'], Object);
+        obj.meta = ApiClient.convertToType(data.meta, Object);
       }
       if (data.hasOwnProperty('links')) {
-        obj['links'] = JsonApiErrorLinks.constructFromObject(data['links']);
+        obj.links = JsonApiErrorLinks.constructFromObject(data.links);
       }
     }
     return obj;
@@ -84,11 +84,11 @@ module.exports = (function() {
   var exports = function(id, status, detail, theData, obj) {
     var _this = this;
 
-    _this['id'] = id;
-    _this['status'] = status;
+    _this.id = id;
+    _this.status = status;
 
 
-    _this['detail'] = detail;
+    _this.detail = detail;
 
 
 
@@ -108,36 +108,36 @@ module.exports = (function() {
    * a unique identifier for this particular occurrence of the problem
    * @member {String} id
    */
-  exports.prototype['id'] = undefined;
+  exports.prototype.id = undefined;
   /**
    * the HTTP status code applicable to this problem, expressed as a string value
    * @member {String} status
    */
-  exports.prototype['status'] = undefined;
+  exports.prototype.status = undefined;
   /**
    * an application-specific error code, expressed as a string value
    * @member {String} code
    */
-  exports.prototype['code'] = undefined;
+  exports.prototype.code = undefined;
   /**
    * a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization
    * @member {String} title
    */
-  exports.prototype['title'] = undefined;
+  exports.prototype.title = undefined;
   /**
    * a human-readable explanation specific to this occurrence of the problem. Like title, this field's value can be localized
    * @member {String} detail
    */
-  exports.prototype['detail'] = undefined;
+  exports.prototype.detail = undefined;
   /**
    * a meta object containing non-standard meta-information about the error
    * @member {Object} meta
    */
-  exports.prototype['meta'] = undefined;
+  exports.prototype.meta = undefined;
   /**
    * @member {module:model/JsonApiErrorLinks} links
    */
-  exports.prototype['links'] = undefined;
+  exports.prototype.links = undefined;
 
 
 

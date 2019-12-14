@@ -52,16 +52,16 @@ module.exports = (function() {
   
         JsonApiDocument.constructFromObject(data, obj);
       if (data.hasOwnProperty('jsonapi')) {
-        obj['jsonapi'] = JsonApiVersionJsonapi.constructFromObject(data['jsonapi']);
+        obj.jsonapi = JsonApiVersionJsonapi.constructFromObject(data.jsonapi);
       }
       if (data.hasOwnProperty('data')) {
-        obj['data'] = Item.constructFromObject(data['data']);
+        obj.data = Item.constructFromObject(data.data);
       }
       if (data.hasOwnProperty('included')) {
-        obj['included'] = ApiClient.convertToType(data['included'], [JsonApiResource]);
+        obj.included = ApiClient.convertToType(data.included, [JsonApiResource]);
       }
       if (data.hasOwnProperty('links')) {
-        obj['links'] = JsonApiLinksSelf.constructFromObject(data['links']);
+        obj.links = JsonApiLinksSelf.constructFromObject(data.links);
       }
     }
     return obj;
@@ -82,9 +82,9 @@ module.exports = (function() {
 
     JsonApiDocument.call(_this, data, links);
 
-    _this['data'] = data;
+    _this.data = data;
 
-    _this['links'] = links;
+    _this.links = links;
 
     return constructFromObject(theData, obj);
   };
@@ -101,42 +101,19 @@ module.exports = (function() {
   /**
    * @member {module:model/JsonApiVersionJsonapi} jsonapi
    */
-  exports.prototype['jsonapi'] = undefined;
+  exports.prototype.jsonapi = undefined;
   /**
    * @member {module:model/Item} data
    */
-  exports.prototype['data'] = undefined;
+  exports.prototype.data = undefined;
   /**
    * @member {Array.<module:model/JsonApiResource>} included
    */
-  exports.prototype['included'] = undefined;
+  exports.prototype.included = undefined;
   /**
    * @member {module:model/JsonApiLinksSelf} links
    */
-  exports.prototype['links'] = undefined;
-
-  // Implement JsonApiDocument interface:
-  /**
-   * @member {module:model/JsonApiVersionJsonapi} jsonapi
-   */
-exports.prototype['jsonapi'] = undefined;
-
-  /**
-   * @member {module:model/JsonApiResource} data
-   */
-exports.prototype['data'] = undefined;
-
-  /**
-   * @member {Array.<module:model/JsonApiResource>} included
-   */
-exports.prototype['included'] = undefined;
-
-  /**
-   * @member {module:model/JsonApiLinksSelf} links
-   */
-exports.prototype['links'] = undefined;
-
-
+  exports.prototype.links = undefined;
 
   return exports;
 }());

@@ -106,8 +106,8 @@ module.export = (function () {
 				};
 				var formParams = {};
 
-				var contentTypes = ['application/vnd.api+json'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
+				var contentTypes = [];
+				var accepts = [];
 				var returnType = Hubs;
 
 				mockedApiClientRequest.withArgs('/project/v1/hubs', 'GET',

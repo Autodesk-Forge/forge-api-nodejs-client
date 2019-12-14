@@ -145,13 +145,11 @@ module.exports = (function () {
 				'folder_id': folderId
 			};
 			var queryParams = {
-				'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
-				'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-				'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
-				'page[number]': opts['pageNumber'],
-				'page[limit]': opts['pageLimit'],
-				// 'page[number]': this.apiClient.buildCollectionParam(opts['pageNumber'], 'csv'),
-				// 'page[limit]': this.apiClient.buildCollectionParam(opts['pageLimit'], 'csv'),
+				'filter[type]': this.apiClient.buildCollectionParam(opts.filterType, 'csv'),
+				'filter[id]': this.apiClient.buildCollectionParam(opts.filterId, 'csv'),
+				'filter[extension.type]': this.apiClient.buildCollectionParam(opts.filterExtensionType, 'csv'),
+				'page[number]': opts.pageNumber,
+				'page[limit]': opts.pageLimit,
 				'includeHidden': opts.includeHidden
 			};
 			var keys = Object.keys(opts).filter(function (elt) {
@@ -188,7 +186,7 @@ module.exports = (function () {
 		 * @param {Object} credentials credentials for the call
 		 */
 		this.getFolderParent = function (projectId, folderId, oauth2client, credentials) {
-			this.getFolderParent2(projectId, folderId, {}, oauth2client, credentials)
+			return(this.getFolderParent2(projectId, folderId, {}, oauth2client, credentials));
 		};
 
 		/**
@@ -269,9 +267,9 @@ module.exports = (function () {
 				'folder_id': folderId
 			};
 			var queryParams = {
-				'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
-				'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-				'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
+				'filter[type]': this.apiClient.buildCollectionParam(opts.filterType, 'csv'),
+				'filter[id]': this.apiClient.buildCollectionParam(opts.filterId, 'csv'),
+				'filter[extension.type]': this.apiClient.buildCollectionParam(opts.filterExtensionType, 'csv')
 			};
 			var keys = Object.keys(opts).filter(function (elt) {
 				return (new RegExp(/^filter\[/).test(elt));
@@ -332,10 +330,10 @@ module.exports = (function () {
 				'folder_id': folderId
 			};
 			var queryParams = {
-				'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
-				'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-				'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
-				'filter[mimeType]': this.apiClient.buildCollectionParam(opts['filterMimeType'], 'csv')
+				'filter[type]': this.apiClient.buildCollectionParam(opts.filterType, 'csv'),
+				'filter[id]': this.apiClient.buildCollectionParam(opts.filterId, 'csv'),
+				'filter[extension.type]': this.apiClient.buildCollectionParam(opts.filterExtensionType, 'csv'),
+				'filter[mimeType]': this.apiClient.buildCollectionParam(opts.filterMimeType, 'csv')
 			};
 			var keys = Object.keys(opts).filter(function (elt) {
 				return (new RegExp(/^filter\[/).test(elt));
@@ -397,11 +395,11 @@ module.exports = (function () {
 				'folder_id': folderId
 			};
 			var queryParams = {
-				'filter[type]': this.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
-				'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-				'filter[refType]': this.apiClient.buildCollectionParam(opts['filterRefType'], 'csv'),
-				'filter[direction]': opts['filterDirection'],
-				'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
+				'filter[type]': this.apiClient.buildCollectionParam(opts.filterType, 'csv'),
+				'filter[id]': this.apiClient.buildCollectionParam(opts.filterId, 'csv'),
+				'filter[refType]': this.apiClient.buildCollectionParam(opts.filterRefType, 'csv'),
+				'filter[direction]': opts.filterDirection,
+				'filter[extension.type]': this.apiClient.buildCollectionParam(opts.filterExtensionType, 'csv')
 			};
 			var keys = Object.keys(opts).filter(function (elt) {
 				return (new RegExp(/^filter\[/).test(elt));
@@ -458,10 +456,8 @@ module.exports = (function () {
 				'folder_id': folderId
 			};
 			var queryParams = {
-				'page[number]': opts['pageNumber'],
-				'page[limit]': opts['pageLimit']
-				// 'page[number]': this.apiClient.buildCollectionParam(opts['pageNumber'], 'csv'),
-				// 'page[limit]': this.apiClient.buildCollectionParam(opts['pageLimit'], 'csv'),
+				'page[number]': opts.pageNumber,
+				'page[limit]': opts.pageLimit
 			};
 			var keys = Object.keys(opts).filter(function (elt) {
 				return (new RegExp(/^filter\[/).test(elt));
@@ -551,7 +547,7 @@ module.exports = (function () {
 		 * @param {Object} credentials credentials for the call
 		 */
 		this.postFolderRelationshipsRef = function (projectId, folderId, body, oauth2client, credentials) {
-			return this.postFolderRelationshipsRef2(projectId, folderId, body, {}, oauth2client, credentials)
+			return this.postFolderRelationshipsRef2(projectId, folderId, body, {}, oauth2client, credentials);
 		};
 
 		/**

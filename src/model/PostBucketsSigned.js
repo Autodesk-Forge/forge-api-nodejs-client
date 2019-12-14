@@ -46,7 +46,7 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('minutesExpiration')) {
-        obj['minutesExpiration'] = ApiClient.convertToType(data['minutesExpiration'], 'Integer');
+        obj.minutesExpiration = ApiClient.convertToType(data.minutesExpiration, 'Integer');
       }
     }
     return obj;
@@ -63,7 +63,7 @@ module.exports = (function() {
   var exports = function(minutesExpiration, theData, obj) {
     var _this = this;
 
-    _this['minutesExpiration'] = minutesExpiration;
+    _this.minutesExpiration = minutesExpiration;
 
     return constructFromObject(theData, obj);
   };
@@ -82,7 +82,7 @@ module.exports = (function() {
    * @member {Integer} minutesExpiration
    * @default 60
    */
-  exports.prototype['minutesExpiration'] = 60;
+  exports.prototype.minutesExpiration = 60;
 
 
 

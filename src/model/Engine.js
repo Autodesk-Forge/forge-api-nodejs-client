@@ -48,22 +48,22 @@ module.exports = (function() {
       obj = obj || new exports();
   
       if (data.hasOwnProperty('Id')) {
-        obj['Id'] = ApiClient.convertToType(data['Id'], 'String');
+        obj.Id = ApiClient.convertToType(data.Id, 'String');
       }
       if (data.hasOwnProperty('Resource')) {
-        obj['Resource'] = ApiClient.convertToType(data['Resource'], 'String');
+        obj.Resource = ApiClient.convertToType(data.Resource, 'String');
       }
       if (data.hasOwnProperty('IsPublic')) {
-        obj['IsPublic'] = ApiClient.convertToType(data['IsPublic'], 'Boolean');
+        obj.IsPublic = ApiClient.convertToType(data.IsPublic, 'Boolean');
       }
       if (data.hasOwnProperty('Version')) {
-        obj['Version'] = ApiClient.convertToType(data['Version'], 'Integer');
+        obj.Version = ApiClient.convertToType(data.Version, 'Integer');
       }
       if (data.hasOwnProperty('Timestamp')) {
-        obj['Timestamp'] = ApiClient.convertToType(data['Timestamp'], 'String');
+        obj.Timestamp = ApiClient.convertToType(data.Timestamp, 'String');
       }
       if (data.hasOwnProperty('Description')) {
-        obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
+        obj.Description = ApiClient.convertToType(data.Description, 'String');
       }
     }
     return obj;
@@ -102,27 +102,27 @@ module.exports = (function() {
   /**
    * @member {String} Id
    */
-  exports.prototype['Id'] = undefined;
+  exports.prototype.Id = undefined;
   /**
    * @member {String} Resource
    */
-  exports.prototype['Resource'] = undefined;
+  exports.prototype.Resource = undefined;
   /**
    * @member {Boolean} IsPublic
    */
-  exports.prototype['IsPublic'] = undefined;
+  exports.prototype.IsPublic = undefined;
   /**
    * @member {Integer} Version
    */
-  exports.prototype['Version'] = undefined;
+  exports.prototype.Version = undefined;
   /**
    * @member {String} Timestamp
    */
-  exports.prototype['Timestamp'] = undefined;
+  exports.prototype.Timestamp = undefined;
   /**
    * @member {String} Description
    */
-  exports.prototype['Description'] = undefined;
+  exports.prototype.Description = undefined;
 
 
 
