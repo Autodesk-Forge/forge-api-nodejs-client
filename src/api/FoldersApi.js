@@ -511,6 +511,11 @@ module.exports = (function() {
       opts = opts || {};
       var postBody = body;
 
+      // verify the required parameter 'folderId' is set
+      if (projectId == undefined || projectId == null) {
+        return Promise.reject("Missing the required parameter 'projectId' when calling postFolder");
+      }
+      
       // verify the required parameter 'body' is set
       if (body == undefined || body == null) {
         return Promise.reject("Missing the required parameter 'body' when calling postFolder");

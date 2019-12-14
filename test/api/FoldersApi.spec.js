@@ -296,6 +296,38 @@ module.export = (function() {
         });
       });
     });
+    describe('patchFolder', function() {
+      it('should call patchFolder successfully', function(done) {
+
+        var postBody = sampleStrParam;
+
+        var pathParams = {
+        'project_id': sampleStrParam,
+        'folder_id': sampleStrParam
+        };
+        var queryParams = {
+        };
+        var headerParams = {
+        };
+        var formParams = {
+        };
+
+        var contentTypes = ['application/vnd.api+json'];
+        var accepts = ['application/vnd.api+json', 'application/json'];
+        var returnType = null;
+
+        mockedApiClientRequest.withArgs('/data/v1/projects/{project_id}/folders/{folder_id}', 'PATCH',
+                pathParams, queryParams, headerParams, formParams, postBody,
+                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+        instance.patchFolder(sampleStrParam, sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
+            expect(response).to.be.ok();
+            done();
+        }, function(err){
+            done(err);
+        });
+      });
+    });
   });
 
 }());
