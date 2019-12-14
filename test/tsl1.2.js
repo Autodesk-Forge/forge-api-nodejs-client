@@ -21,7 +21,7 @@ var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client
 
 var ApiClient = require('../src/ApiClient');
 var apiclient = new ApiClient();
-apiclient.basePath = 'https://developer-stg.api.autodesk.com'.replace(/\/+$/, '');
+apiclient.basePath = 'https://developer.api.autodesk.com'.replace(/\/+$/, '');
 
 ApiClient.instance = apiclient;
 

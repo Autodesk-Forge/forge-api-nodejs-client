@@ -35,7 +35,8 @@ module.exports = (function() {
   /**
    * Print service.
    * @module api/PrintApi
-\   */
+   * @deprecated
+   */
 
   /**
    * Constructs a new PrintApi.
@@ -43,6 +44,7 @@ module.exports = (function() {
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
    * default to {@link module:ApiClient#instance} if unspecified.
+   * @deprecated
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
@@ -52,6 +54,7 @@ module.exports = (function() {
      * @param {module:model/AnalyzeMeshParams} analyzeMeshParams
      * data is of type: {module:model/Task}
      * @param {Object} credentials Credentials for the call
+     * @deprecated
      */
     this.analyzeMesh = function(analyzeMeshParams, credentials) {
       var postBody = analyzeMeshParams;
@@ -86,6 +89,7 @@ module.exports = (function() {
      * @param {module:model/MeshObj} meshObj
      * data is of type: {module:model/Task}
      * @param {Object} credentials Credentials for the call
+     * @deprecated
      */
     this.exportMesh = function(meshObj, credentials) {
       var postBody = meshObj;
@@ -120,6 +124,7 @@ module.exports = (function() {
      * @param {String} id
      * data is of type: {module:model/Task}
      * @param {Object} credentials Credentials for the call
+     * @deprecated
      */
     this.getTaskById = function(id, credentials) {
       var postBody = null;
@@ -155,6 +160,7 @@ module.exports = (function() {
      * @param {module:model/ImportMeshParams} importMeshParams
      * data is of type: {module:model/Task}
      * @param {Object} credentials Credentials for the call
+     * @deprecated
      */
     this.importMesh = function(importMeshParams, credentials) {
       var postBody = importMeshParams;
@@ -189,6 +195,7 @@ module.exports = (function() {
      * @param {module:model/RepairMeshParams} repairMeshParams
      * data is of type: {module:model/Task}
      * @param {Object} credentials Credentials for the call
+     * @deprecated
      */
     this.repairMesh = function(repairMeshParams, credentials) {
       var postBody = repairMeshParams;

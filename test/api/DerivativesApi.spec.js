@@ -47,7 +47,7 @@ module.export = (function() {
   var apiClient = new ApiClient();
 
   before(function(){
-    oauth2client = new ForgeSdk.AuthClientTwoLegged('CLIENT_ID', 'CLIENT_SECRET', ['data:read', 'data:write']);
+    oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
     credentials = {access_token: 'abce'};
     instance = new ForgeSdk.DerivativesApi(apiClient);
     mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');

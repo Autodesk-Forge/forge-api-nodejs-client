@@ -33,6 +33,7 @@ module.exports = (function() {
   /**
    * The DesignAutomationActivities model module.
    * @module model/DesignAutomationActivities
+   * @deprecated
    */
 
    /**
@@ -41,6 +42,7 @@ module.exports = (function() {
     * @param {Object} data The plain JavaScript object bearing properties of interest.
     * @param {module:model/DesignAutomationActivities} obj Optional instance to populate.
     * @return {module:model/DesignAutomationActivities} The populated <code>DesignAutomationActivities</code> instance.
+    * @deprecated
     */
   var constructFromObject = function(data, obj) {
     if (data) {
@@ -59,6 +61,7 @@ module.exports = (function() {
    * @class
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/DesignAutomationActivities} obj Optional instance to populate.
+   * @deprecated
    */
   var exports = function(theData, obj) {
     var _this = this;

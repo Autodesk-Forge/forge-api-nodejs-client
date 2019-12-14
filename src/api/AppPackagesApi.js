@@ -34,6 +34,7 @@ module.exports = (function() {
   /**
    * AppPackages service.
    * @module api/AppPackagesApi
+   * @deprecated
    */
 
   /**
@@ -42,6 +43,7 @@ module.exports = (function() {
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
    * default to {@link module:ApiClient#instance} if unspecified.
+   * @deprecated
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
@@ -52,6 +54,7 @@ module.exports = (function() {
      * data is of type: {module:model/AppPackage}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.createAppPackage = function(appPackage, oauth2client, credentials) {
       var postBody = appPackage;
@@ -86,6 +89,7 @@ module.exports = (function() {
      * @param {String} id
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.deleteAppPackage = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -121,6 +125,7 @@ module.exports = (function() {
      * @param {String} id
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.deleteAppPackageHistory = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -156,6 +161,7 @@ module.exports = (function() {
      * data is of type: {module:model/DesignAutomationAppPackages}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.getAllAppPackages = function(oauth2client, credentials) {
       var postBody = null;
@@ -186,6 +192,7 @@ module.exports = (function() {
      * data is of type: {module:model/AppPackage}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.getAppPackage = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -222,6 +229,7 @@ module.exports = (function() {
      * data is of type: {module:model/DesignAutomationAppPackages}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.getAppPackageVersions = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -256,6 +264,7 @@ module.exports = (function() {
      * Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage.
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.getUploadUrl = function(oauth2client, credentials) {
       var postBody = null;
@@ -285,6 +294,7 @@ module.exports = (function() {
      * @param {Boolean} require
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.getUploadUrlWithRequireContentType = function(require, oauth2client, credentials) {
       var postBody = null;
@@ -321,6 +331,7 @@ module.exports = (function() {
      * @param {module:model/AppPackageOptional} appPackage
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.patchAppPackage = function(id, appPackage, oauth2client, credentials) {
       var postBody = appPackage;
@@ -362,6 +373,7 @@ module.exports = (function() {
      * @param {module:model/AppPackageVersion} appPackageVersion
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.setAppPackageVersion = function(id, appPackageVersion, oauth2client, credentials) {
       var postBody = appPackageVersion;
@@ -403,6 +415,7 @@ module.exports = (function() {
      * @param {module:model/AppPackage} appPackage
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.updateAppPackage = function(id, appPackage, oauth2client, credentials) {
       var postBody = appPackage;

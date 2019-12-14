@@ -47,13 +47,27 @@ module.exports = (function() {
     this.apiClient = apiClient || ApiClient.instance;
 
     /**
-     * Returns data on a specific &#x60;hub_id&#x60;.
-     * @param {String} hubId the &#x60;hub id&#x60; for the current operation
+     * Returns data on a specific hub_id.
+     * @param {String} hubId the hub id for the current operation
      * data is of type: {module:model/Hub}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
      */
     this.getHub = function(hubId, oauth2client, credentials) {
+      return this.getHub2(hubId, {}, oauth2client, credentials);
+    };
+
+    /**
+     * Returns data on a specific hub_id.
+     * @param {String} hubId the hub id for the current operation
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+     * data is of type: {module:model/Hub}
+     * @param {Object} oauth2client oauth2client for the call
+     * @param {Object} credentials credentials for the call
+     */
+    this.getHub2 = function(hubId, opts, oauth2client, credentials) {
+      opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'hubId' is set
@@ -67,6 +81,7 @@ module.exports = (function() {
       var queryParams = {
       };
       var headerParams = {
+        'x-user-id': opts.xuserid
       };
       var formParams = {
       };
@@ -85,8 +100,11 @@ module.exports = (function() {
     /**
      * Returns a collection of accessible hubs for this member. A Hub represents an A360 Team/Personal hub or a BIM 360 account.
      * @param {Object} opts Optional parameters
+     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
      * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
+     * @param {Array.<String>} opts.filterName filter by the `name` of the `ref` target
      * @param {Array.<String>} opts.filterExtensionType filter by the extension type
+     * @param {Array.<*>} opts['filter[*]<-modifier>'] generic filter / <-modifier> is optional
      * data is of type: {module:model/Hubs}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
@@ -99,15 +117,24 @@ module.exports = (function() {
       };
       var queryParams = {
         'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+        'filter[name]': this.apiClient.buildCollectionParam(opts['filterName'], 'csv'),
         'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
       };
+      var keys = Object.keys(opts).filter(function(elt) { return (new RegExp(/^filter\[/).test(elt)); });
+      var that = this;
+      keys.map (function(elt) {
+        queryParams[elt] = that.apiClient.buildCollectionParam(opts[elt], 'csv');
+        return (elt);
+      });
+
       var headerParams = {
+        'x-user-id': opts.xuserid
       };
       var formParams = {
       };
 
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
+      var contentTypes = [];
+      var accepts = [];
       var returnType = Hubs;
 
       return this.apiClient.callApi(
@@ -116,6 +143,7 @@ module.exports = (function() {
         contentTypes, accepts, returnType, oauth2client, credentials
       );
     };
+    
   };
 
   return exports;

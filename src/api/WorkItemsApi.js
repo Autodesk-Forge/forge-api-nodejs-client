@@ -33,6 +33,7 @@ module.exports = (function() {
   /**
    * WorkItems service.
    * @module api/WorkItemsApi
+   * @deprecated
    */
 
   /**
@@ -41,6 +42,7 @@ module.exports = (function() {
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
    * default to {@link module:ApiClient#instance} if unspecified.
+   * @deprecated
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
@@ -51,6 +53,7 @@ module.exports = (function() {
      * data is of type: {module:model/WorkItemResp}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.createWorkItem = function(workItem, oauth2client, credentials) {
       var postBody = workItem;
@@ -85,6 +88,7 @@ module.exports = (function() {
      * @param {String} id
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.deleteWorkItem = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -122,6 +126,7 @@ module.exports = (function() {
      * data is of type: {module:model/DesignAutomationWorkItems}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.getAllWorkItems = function(opts, oauth2client, credentials) {
       opts = opts || {};
@@ -154,6 +159,7 @@ module.exports = (function() {
      * data is of type: {module:model/WorkItemResp}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.getWorkItem = function(id, oauth2client, credentials) {
       var postBody = null;

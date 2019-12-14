@@ -44,7 +44,7 @@ module.export = (function() {
   var apiClient = new ApiClient();
 
   before(function(){
-    oauth2client = new ForgeSdk.AuthClientTwoLegged('CLIENT_ID', 'CLIENT_SECRET', ['data:read', 'data:write']);
+    oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
     credentials = {access_token: 'abce'};
     instance = new ForgeSdk.BucketsApi(apiClient);
     mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');
@@ -61,14 +61,14 @@ module.export = (function() {
         var opts = {};
         var postBody = sampleStrParam;
 
-        var pathParams = { 
+        var pathParams = {
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         'x-ads-region': opts['xAdsRegion']
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -92,14 +92,14 @@ module.export = (function() {
 
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'bucketKey': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -123,14 +123,14 @@ module.export = (function() {
 
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'bucketKey': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];
@@ -154,16 +154,16 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         };
-        var queryParams = { 
+        var queryParams = {
         'region': opts['region'],
         'limit': opts['limit'],
         'startAt': opts['startAt']
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/json'];

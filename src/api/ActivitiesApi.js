@@ -34,6 +34,7 @@ module.exports = (function() {
   /**
    * Activities service.
    * @module api/ActivitiesApi
+   * @deprecated
    */
 
   /**
@@ -42,6 +43,7 @@ module.exports = (function() {
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
    * default to {@link module:ApiClient#instance} if unspecified.
+   * @deprecated
    */
   var exports = function(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
@@ -52,6 +54,7 @@ module.exports = (function() {
      * data is of type: {module:model/Activity}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.createActivity = function(activity, oauth2client, credentials) {
       var postBody = activity;
@@ -86,6 +89,7 @@ module.exports = (function() {
      * @param {String} id
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.deleteActivity = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -121,6 +125,7 @@ module.exports = (function() {
      * @param {String} id
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.deleteActivityHistory = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -157,6 +162,7 @@ module.exports = (function() {
      * data is of type: {module:model/Activity}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.getActivity = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -193,6 +199,7 @@ module.exports = (function() {
      * data is of type: {module:model/DesignAutomationActivities}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.getActivityVersions = function(id, oauth2client, credentials) {
       var postBody = null;
@@ -228,6 +235,7 @@ module.exports = (function() {
      * data is of type: {module:model/DesignAutomationActivities}
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.getAllActivities = function(oauth2client, credentials) {
       var postBody = null;
@@ -258,6 +266,7 @@ module.exports = (function() {
      * @param {module:model/ActivityOptional} activity
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.patchActivity = function(id, activity, oauth2client, credentials) {
       var postBody = activity;
@@ -299,6 +308,7 @@ module.exports = (function() {
      * @param {module:model/ActivityVersion} activityVersion
      * @param {Object} oauth2client oauth2client for the call
      * @param {Object} credentials credentials for the call
+     * @deprecated
      */
     this.setActivityVersion = function(id, activityVersion, oauth2client, credentials) {
       var postBody = activityVersion;

@@ -22,6 +22,8 @@
  * limitations under the License.
  */
 
+console.warn( "WARNING: The 'Forge Design Automation v2' API is deprecated in favor of the 'Forge Design Automation v3' API npm package (aka: npm install autodesk.forge.designautomation), please upgrade.");
+
 module.exports = (function() {
   'use strict';
 
@@ -172,6 +174,7 @@ module.exports = (function() {
       ActivitiesApi = require('./api/ActivitiesApi'),
       AppPackagesApi = require('./api/AppPackagesApi'),
       BucketsApi = require('./api/BucketsApi'),
+      CommandsApi = require('./api/CommandsApi'),
       DerivativesApi = require('./api/DerivativesApi'),
       EnginesApi = require('./api/EnginesApi'),
       FoldersApi = require('./api/FoldersApi'),
@@ -951,6 +954,11 @@ module.exports = (function() {
      * @property {module:api/BucketsApi}
      */
     BucketsApi: BucketsApi,
+    /**
+     * The CommandsApi service constructor.
+     * @property {module:api/CommandsApi}
+     */
+    CommandsApi: CommandsApi,
     /**
      * The DerivativesApi service constructor.
      * @property {module:api/DerivativesApi}

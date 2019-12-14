@@ -32,6 +32,7 @@ module.exports = (function() {
   /**
    * The ActivityOptional model module.
    * @module model/ActivityOptional
+   * @deprecated
    */
 
    /**
@@ -40,6 +41,7 @@ module.exports = (function() {
     * @param {Object} data The plain JavaScript object bearing properties of interest.
     * @param {module:model/ActivityOptional} obj Optional instance to populate.
     * @return {module:model/ActivityOptional} The populated <code>ActivityOptional</code> instance.
+    * @deprecated
     */
   var constructFromObject = function(data, obj) {
     if (data) {
@@ -85,6 +87,7 @@ module.exports = (function() {
    * @class
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/ActivityOptional} obj Optional instance to populate.
+   * @deprecated
    */
   var exports = function(theData, obj) {
     var _this = this;

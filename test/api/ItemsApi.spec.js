@@ -53,7 +53,7 @@ module.export = (function() {
   var apiClient = new ApiClient();
 
   before(function(){
-    oauth2client = new ForgeSdk.AuthClientTwoLegged('CLIENT_ID', 'CLIENT_SECRET', ['data:read', 'data:write']);
+    oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
     credentials = {access_token: 'abce'};
     instance = new ForgeSdk.ItemsApi(apiClient);
     mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');
@@ -70,15 +70,15 @@ module.export = (function() {
 
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'project_id': sampleStrParam,
         'item_id': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/vnd.api+json'];
@@ -102,15 +102,15 @@ module.export = (function() {
 
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'project_id': sampleStrParam,
         'item_id': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/vnd.api+json'];
@@ -134,18 +134,18 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'project_id': sampleStrParam,
         'item_id': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         'filter[type]': instance.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
         'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
         'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/vnd.api+json'];
@@ -169,20 +169,20 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'project_id': sampleStrParam,
         'item_id': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         'filter[type]': instance.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
         'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
         'filter[refType]': instance.apiClient.buildCollectionParam(opts['filterRefType'], 'csv'),
         'filter[direction]': opts['filterDirection'],
         'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/vnd.api+json'];
@@ -206,15 +206,15 @@ module.export = (function() {
 
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'project_id': sampleStrParam,
         'item_id': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/vnd.api+json'];
@@ -238,11 +238,11 @@ module.export = (function() {
         var opts = {};
         var postBody = null;
 
-        var pathParams = { 
+        var pathParams = {
         'project_id': sampleStrParam,
         'item_id': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         'filter[type]': instance.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
         'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
         'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
@@ -250,9 +250,9 @@ module.export = (function() {
         'page[number]': opts['pageNumber'],
         'page[limit]': opts['pageLimit']
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/vnd.api+json'];
@@ -276,14 +276,14 @@ module.export = (function() {
 
         var postBody = sampleStrParam;
 
-        var pathParams = { 
+        var pathParams = {
         'project_id': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/vnd.api+json'];
@@ -307,15 +307,15 @@ module.export = (function() {
 
         var postBody = sampleStrParam;
 
-        var pathParams = { 
+        var pathParams = {
         'project_id': sampleStrParam,
         'item_id': sampleStrParam
         };
-        var queryParams = { 
+        var queryParams = {
         };
-        var headerParams = { 
+        var headerParams = {
         };
-        var formParams = { 
+        var formParams = {
         };
 
         var contentTypes = ['application/vnd.api+json'];

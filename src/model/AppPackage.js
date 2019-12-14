@@ -32,6 +32,7 @@ module.exports = (function() {
   /**
    * The AppPackage model module.
    * @module model/AppPackage
+   * @deprecated
    */
 
    /**
@@ -40,6 +41,7 @@ module.exports = (function() {
     * @param {Object} data The plain JavaScript object bearing properties of interest.
     * @param {module:model/AppPackage} obj Optional instance to populate.
     * @return {module:model/AppPackage} The populated <code>AppPackage</code> instance.
+    * @deprecated
     */
   var constructFromObject = function(data, obj) {
     if (data) {
@@ -84,6 +86,7 @@ module.exports = (function() {
    * @param version {Integer} 
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/AppPackage} obj Optional instance to populate.
+   * @deprecated
    */
   var exports = function(id, resource, references, requiredEngineVersion, version, theData, obj) {
     var _this = this;

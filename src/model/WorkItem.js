@@ -32,6 +32,7 @@ module.exports = (function() {
   /**
    * The WorkItem model module.
    * @module model/WorkItem
+   * @deprecated
    */
 
    /**
@@ -40,6 +41,7 @@ module.exports = (function() {
     * @param {Object} data The plain JavaScript object bearing properties of interest.
     * @param {module:model/WorkItem} obj Optional instance to populate.
     * @return {module:model/WorkItem} The populated <code>WorkItem</code> instance.
+    * @deprecated
     */
   var constructFromObject = function(data, obj) {
     if (data) {
@@ -82,6 +84,7 @@ module.exports = (function() {
    * @param activityId {String} 
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/WorkItem} obj Optional instance to populate.
+   * @deprecated
    */
   var exports = function(id, _arguments, activityId, theData, obj) {
     var _this = this;

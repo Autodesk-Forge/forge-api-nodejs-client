@@ -135,8 +135,11 @@ module.exports = (function () {
    * @returns {Boolean} <code>true</code> if <code>param</code> represents a file.
    */
   exports.prototype.isFileParam = function (param) {
-
-    return param instanceof require('fs').ReadStream || (typeof Buffer === 'function' && param instanceof Buffer);
+    var type = typeof param;
+    if ((type === 'number') || (type === 'boolean') || (type === 'string') || (type === 'undefined')) {
+      return false;
+    }
+    return (param instanceof require('fs').ReadStream) || (typeof Buffer === 'function' && param instanceof Buffer);
   };
 
   /**
@@ -204,7 +207,7 @@ module.exports = (function () {
    * @returns {String|Array} A string representation of the supplied collection, using the specified delimiter. Returns
    * <code>param</code> as is if <code>collectionFormat</code> is <code>multi</code>.
    */
-  exports.prototype.buildCollectionParam = function buildCollectionParam(param, collectionFormat) {
+  exports.prototype.buildCollectionParam = function buildCollectionParam (param, collectionFormat) {
     if (param === undefined || param === null) {
       return null;
     }
@@ -236,7 +239,7 @@ module.exports = (function () {
 
     var _this = this;
 
-    function setAuthHeader(credentials) {
+    function setAuthHeader (credentials) {
       if (credentials.access_token) {
         headers['Authorization'] = 'Bearer ' + credentials.access_token; // jshint ignore:line
       }
@@ -289,7 +292,7 @@ module.exports = (function () {
    * Enable working in debug mode
    * To activate, simple set ForgeSdk.setDebug(true);
    */
-  exports.prototype.debug = function debug() {
+  exports.prototype.debug = function debug () {
     if (this.isDebugMode) {
       var args = Array.prototype.slice.call(arguments);
       args.map(function (arg) {
@@ -319,7 +322,7 @@ module.exports = (function () {
    * @param {Object} credentials credentials for the call
    * @returns {Object} A Promise object.
    */
-  exports.prototype.callApi = function callApi(path, httpMethod, pathParams,
+  exports.prototype.callApi = function callApi (path, httpMethod, pathParams,
     queryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
     returnType, oauth2client, credentials) {
 
