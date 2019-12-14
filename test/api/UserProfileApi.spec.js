@@ -37,6 +37,8 @@ module.export = (function() {
 
   var sampleStrParam = 'test_string';
   var sampleIntParam = 10;
+  var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
+  var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
 
   var apiClient = new ApiClient();
 

@@ -1,12 +1,13 @@
 {
   "name": "forge-apis",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "description": "The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.",
   "license": "Apache-2.0",
   "main": "src/index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha -u tdd --timeout 999999 --colors ./test",
-    "coverage": "istanbul cover _mocha -- --recursive"
+    "test": "./node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 ./test",
+    "test2": "./node_modules/mocha/bin/mocha --colors --timeout 10000 ./test/api/FoldersApi.spec",
+    "coverage": "nyc npm run test"
   },
   "repository": {
     "type": "git",
@@ -19,9 +20,9 @@
   "contributors": [
     "Cyrille Fauvel <cyrille@autodesk.com>",
     "Augusto Goncalves <augusto.goncalves@autodesk.com>"
-],
+  ],
   "dependencies": {
-    "request": "^2.87.0"
+    "request": "^2.88.0"
   },
   "keywords": [
     "autodesk",
@@ -31,10 +32,10 @@
     "api"
   ],
   "devDependencies": {
-    "expect.js": "~0.3.1",
-    "istanbul": "^0.4.5",
-    "mocha": "~2.3.4",
-    "nock": "^10.0.6",
-    "sinon": "1.17.3"
+    "expect.js": "^0.3.1",
+    "nyc": "^14.1.1",
+    "mocha": "^6.2.2",
+    "nock": "^11.7.0",
+    "sinon": "^7.5.0"
   }
 }

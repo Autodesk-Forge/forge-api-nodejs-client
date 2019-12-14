@@ -100,7 +100,7 @@ module.exports = (function() {
                     });
 
                 oauth2client2legged.doPostRequest(urlBasePath + '/foo', {}, function(response){
-                    expect(response).to.be.ok();
+                    expect(response).to.be.equal('');
                     done();
                 }, function(err){
                     done(err);

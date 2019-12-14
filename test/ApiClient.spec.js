@@ -42,7 +42,9 @@ module.exports = (function () {
     });
 
     describe('ApiClient', function () {
+
         describe('properties', function () {
+
             it('should have basePath property', function () {
                 expect(apiClient).to.have.property('basePath');
             });
@@ -52,9 +54,11 @@ module.exports = (function () {
             it('should have basePath property', function () {
                 expect(apiClient).to.have.property('timeout');
             });
+
         });
 
         describe('paramToString method', function () {
+
             it('should work for a non-empty param', function () {
                 var a = 9,
                     now = new Date();
@@ -67,9 +71,11 @@ module.exports = (function () {
                 expect(apiClient.paramToString(a)).to.be('');
                 expect(apiClient.paramToString(b)).to.be('');
             });
+
         });
 
         describe('buildUrl method', function () {
+
             it('should work for a qualified URL', function () {
                 var path = '/test/{p1}/{p2}',
                     pathParams = {
@@ -81,17 +87,19 @@ module.exports = (function () {
             });
 
             it('should ignore pathParams when URL is not qualified', function () {
-                var path = '/test',
-                    pathParams = {
-                        p1: 'foo',
-                        p2: true
-                    }
+                var path = '/test';
+                var pathParams = {
+                    p1: 'foo',
+                    p2: true
+                };
 
                 expect(apiClient.buildUrl(path, pathParams)).to.be(apiClient.basePath + '/test');
             });
+
         });
 
         describe('isJsonMime method', function () {
+
             it('should return true for a json mime', function () {
                 expect(apiClient.isJsonMime('application/json')).to.be(true);
             });
@@ -103,9 +111,11 @@ module.exports = (function () {
             it('should return false for a non-json mime', function () {
                 expect(apiClient.isJsonMime('application/xml')).to.be(false);
             });
+
         });
 
         describe('jsonPreferredMime method', function () {
+
             it('should return the json mime if it is present in an array', function () {
                 var mimeTypes = ['application/xml', 'application/json', 'application/x-www-form-urlencoded'];
                 expect(apiClient.jsonPreferredMime(mimeTypes)).to.be('application/json');
@@ -127,18 +137,20 @@ module.exports = (function () {
             });
 
             it('should fail for a an empty array', function () {
-                expect(apiClient.jsonPreferredMime([])).to.not.be.ok;
+                expect(apiClient.jsonPreferredMime([])).to.not.be.ok();
             });
+
         });
 
         describe('isFileParam method', function () {
+
             it('should return true for a Buffer file type', function () {
                 var buffer = Buffer.alloc(100);
                 expect(apiClient.isFileParam(buffer)).to.be(true);
             });
 
             it('should return true for a ReadStream file type', function () {
-                var readStream = require('fs').createReadStream('abc');
+                var readStream = require('fs').createReadStream(__filename);
                 expect(apiClient.isFileParam(readStream)).to.be(true);
             });
 
@@ -147,9 +159,11 @@ module.exports = (function () {
                 expect(apiClient.isFileParam(true)).to.be(false);
                 expect(apiClient.isFileParam(3)).to.be(false);
             });
+
         });
 
         describe('normalizeParams method', function () {
+
             it('should normalize objects', function () {
                 expect(apiClient.normalizeParams({
                     foo: 'bar',
@@ -157,7 +171,7 @@ module.exports = (function () {
                 })).to.eql({
                     foo: 'bar',
                     'baz': 'true'
-                })
+                });
             });
 
             it('should normalize arrays', function () {
@@ -167,9 +181,11 @@ module.exports = (function () {
                     foo: ['abc', true]
                 });
             });
+
         });
 
         describe('buildCollectionParam method', function () {
+
             it('should build collection param for csv', function () {
                 expect(apiClient.buildCollectionParam(['foo', 'bar'], 'csv')).to.equal('foo' + ForgeSdk.ApiClient.CollectionFormatEnum.CSV + 'bar');
             });
@@ -193,6 +209,7 @@ module.exports = (function () {
                 }
 
             });
+
         });
 
         describe('applyAuthToRequest method', function () {
@@ -251,17 +268,18 @@ module.exports = (function () {
         });
 
         describe('debug method', function () {
+
             it('able to work in debug mode', function () {
                 apiClient.isDebugMode = true;
                 apiClient.debug('foo');
                 apiClient.debug(10);
-                //expect(console.log).to.be.called;
             });
+
         });
 
         describe('callApi method', function () {
-            it('able to call api successfully', function (done) {
 
+            it('able to call api successfully', function (done) {
                 var path = '/oss/v2/buckets',
                     httpMethod = 'POST',
                     pathParams = {},
@@ -304,7 +322,6 @@ module.exports = (function () {
             });
 
             it('able to call api successfully with vnd.api+json content-type', function (done) {
-
                 var path = '/oss/v2/buckets',
                     httpMethod = 'POST',
                     pathParams = {},
@@ -347,7 +364,6 @@ module.exports = (function () {
             });
 
             it('able to call api successfully with form-data', function (done) {
-
                 var path = '/',
                     httpMethod = 'DELETE',
                     pathParams = {
@@ -366,8 +382,6 @@ module.exports = (function () {
                         access_token: 'abcdef'
                     };
 
-                //console.log(apiClient.basePath);
-
                 nock(apiClient.basePath)
                     .delete(path)
                     .reply(200, {
@@ -382,11 +396,10 @@ module.exports = (function () {
                     done();
                 }, function (err) {
                     done(err);
-                })
+                });
             });
 
             it('able to call api successfully with x-www-url-encoded', function (done) {
-
                 var path = '/',
                     httpMethod = 'DELETE',
                     pathParams = {
@@ -405,8 +418,6 @@ module.exports = (function () {
                         access_token: 'abcdef'
                     };
 
-                //console.log(apiClient.basePath);
-
                 nock(apiClient.basePath)
                     .delete(path)
                     .reply(200, {
@@ -421,10 +432,11 @@ module.exports = (function () {
                     done();
                 }, function (err) {
                     done(err);
-                })
+                });
             });
 
         });
 
     });
+
 }());

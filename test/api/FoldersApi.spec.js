@@ -44,6 +44,8 @@ module.export = (function() {
 
   var sampleStrParam = 'test_string';
   var sampleIntParam = 10;
+  var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
+  var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
 
   var apiClient = new ApiClient();
 
@@ -63,15 +65,18 @@ module.export = (function() {
     describe('getFolder', function() {
       it('should call getFolder successfully', function(done) {
 
+        var opts = {};
         var postBody = null;
 
         var pathParams = {
-        'project_id': sampleStrParam,
-        'folder_id': sampleStrParam
+          'project_id': sampleStrParam,
+          'folder_id': sampleStrParam
         };
         var queryParams = {
         };
         var headerParams = {
+          'x-user-id': opts.xuserid,
+          'If-Modified-Since': opts.ifModifiedSince
         };
         var formParams = {
         };
@@ -94,21 +99,24 @@ module.export = (function() {
     });
     describe('getFolderContents', function() {
       it('should call getFolderContents successfully', function(done) {
+        
         var opts = {};
         var postBody = null;
 
         var pathParams = {
-        'project_id': sampleStrParam,
-        'folder_id': sampleStrParam
+          'project_id': sampleStrParam,
+          'folder_id': sampleStrParam
         };
         var queryParams = {
-        'filter[type]': instance.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
-        'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-        'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
-        'page[number]': opts['pageNumber'],
-        'page[limit]': opts['pageLimit']
+          'filter[type]': instance.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
+          'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+          'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
+          'page[number]': opts['pageNumber'],
+          'page[limit]': opts['pageLimit'],
+          'includeHidden': opts.includeHidden
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -129,53 +137,57 @@ module.export = (function() {
         });
       });
     });
-    describe('getFolderParent', function() {
-      it('should call getFolderParent successfully', function(done) {
+    // describe('getFolderParent', function() {
+    //   it('should call getFolderParent successfully', function(done) {
 
-        var postBody = null;
+    //     var opts = {};
+    //     var postBody = null;
 
-        var pathParams = {
-        'project_id': sampleStrParam,
-        'folder_id': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+    //     var pathParams = {
+    //       'project_id': sampleStrParam,
+    //       'folder_id': sampleStrParam
+    //     };
+    //     var queryParams = {
+    //     };
+    //     var headerParams = {
+    //       'x-user-id': opts.xuserid
+    //     };
+    //     var formParams = {
+    //     };
 
-        var contentTypes = ['application/vnd.api+json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = Folder;
+    //     var contentTypes = ['application/vnd.api+json'];
+    //     var accepts = ['application/vnd.api+json', 'application/json'];
+    //     var returnType = Folder;
 
-        mockedApiClientRequest.withArgs('/data/v1/projects/{project_id}/folders/{folder_id}/parent', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+    //     mockedApiClientRequest.withArgs('/data/v1/projects/{project_id}/folders/{folder_id}/parent', 'GET',
+    //             pathParams, queryParams, headerParams, formParams, postBody,
+    //             contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.getFolderParent(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
+    //     instance.getFolderParent(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
+    //         expect(response).to.be.ok();
+    //         done();
+    //     }, function(err){
+    //         done(err);
+    //     });
+    //   });
+    // });
     describe('getFolderRefs', function() {
       it('should call getFolderRefs successfully', function(done) {
+        
         var opts = {};
         var postBody = null;
 
         var pathParams = {
-        'project_id': sampleStrParam,
-        'folder_id': sampleStrParam
+          'project_id': sampleStrParam,
+          'folder_id': sampleStrParam
         };
         var queryParams = {
-        'filter[type]': instance.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
-        'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-        'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
+          'filter[type]': instance.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
+          'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+          'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -198,21 +210,23 @@ module.export = (function() {
     });
     describe('getFolderRelationshipsRefs', function() {
       it('should call getFolderRelationshipsRefs successfully', function(done) {
+        
         var opts = {};
         var postBody = null;
 
         var pathParams = {
-        'project_id': sampleStrParam,
-        'folder_id': sampleStrParam
+          'project_id': sampleStrParam,
+          'folder_id': sampleStrParam
         };
         var queryParams = {
-        'filter[type]': instance.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
-        'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-        'filter[refType]': instance.apiClient.buildCollectionParam(opts['filterRefType'], 'csv'),
-        'filter[direction]': opts['filterDirection'],
-        'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
+          'filter[type]': instance.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
+          'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+          'filter[refType]': instance.apiClient.buildCollectionParam(opts['filterRefType'], 'csv'),
+          'filter[direction]': opts['filterDirection'],
+          'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -236,14 +250,16 @@ module.export = (function() {
     describe('postFolder', function() {
       it('should call postFolder successfully', function(done) {
 
+        var opts = {};
         var postBody = sampleStrParam;
 
         var pathParams = {
-            'project_id': sampleStrParam
+          'project_id': sampleStrParam
         };
         var queryParams = {
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -267,15 +283,17 @@ module.export = (function() {
     describe('postFolderRelationshipsRef', function() {
       it('should call postFolderRelationshipsRef successfully', function(done) {
 
+        var opts = {};
         var postBody = sampleStrParam;
 
         var pathParams = {
-        'project_id': sampleStrParam,
-        'folder_id': sampleStrParam
+          'project_id': sampleStrParam,
+          'folder_id': sampleStrParam
         };
         var queryParams = {
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -299,15 +317,17 @@ module.export = (function() {
     describe('patchFolder', function() {
       it('should call patchFolder successfully', function(done) {
 
+        var opts = {};
         var postBody = sampleStrParam;
 
         var pathParams = {
-        'project_id': sampleStrParam,
-        'folder_id': sampleStrParam
+          'project_id': sampleStrParam,
+          'folder_id': sampleStrParam
         };
         var queryParams = {
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -320,7 +340,7 @@ module.export = (function() {
                 pathParams, queryParams, headerParams, formParams, postBody,
                 contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.patchFolder(sampleStrParam, sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
+        instance.patchFolder(sampleStrParam, sampleStrParam, postBody, opts, oauth2client, credentials).then(function(response){
             expect(response).to.be.ok();
             done();
         }, function(err){

@@ -118,7 +118,7 @@ module.exports = (function() {
      * @param {Object} credentials credentials for the call
      */
     this.getProject = function(hubId, projectId, oauth2client, credentials) {
-      return this.getProject (hubId, projectId, {}, oauth2client, credentials);
+      return this.getProject2 (hubId, projectId, {}, oauth2client, credentials);
     };
 
     /**

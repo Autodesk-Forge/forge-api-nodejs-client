@@ -10,16 +10,17 @@ pids
 *.seed
 
 # Dependency directory
-node_modules
+node_modules/
+.nyc_output/
 
 # Optional npm cache directory
-.npm
+.npm/
 
 # Coverage
-coverage
+coverage/
 
 # IDE
-.idea
-.vscode
+.idea/
+.vscode/
 
 .DS_Store

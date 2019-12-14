@@ -47,6 +47,8 @@ module.export = (function() {
 
   var sampleStrParam = 'test_string';
   var sampleIntParam = 10;
+  var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
+  var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
 
   var apiClient = new ApiClient();
 
@@ -65,16 +67,17 @@ module.export = (function() {
   describe('VersionsApi', function() {
     describe('getVersion', function() {
       it('should call getVersion successfully', function(done) {
-
+        var opts = {};
         var postBody = null;
 
         var pathParams = {
-        'project_id': sampleStrParam,
-        'version_id': sampleStrParam
+          'project_id': sampleStrParam,
+          'version_id': sampleStrParam
         };
         var queryParams = {
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -97,16 +100,17 @@ module.export = (function() {
     });
     describe('getVersionItem', function() {
       it('should call getVersionItem successfully', function(done) {
-
+        var opts = {};
         var postBody = null;
 
         var pathParams = {
-        'project_id': sampleStrParam,
-        'version_id': sampleStrParam
+          'project_id': sampleStrParam,
+          'version_id': sampleStrParam
         };
         var queryParams = {
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -133,15 +137,16 @@ module.export = (function() {
         var postBody = null;
 
         var pathParams = {
-        'project_id': sampleStrParam,
-        'version_id': sampleStrParam
+          'project_id': sampleStrParam,
+          'version_id': sampleStrParam
         };
         var queryParams = {
-        'filter[type]': instance.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
-        'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-        'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
+          'filter[type]': instance.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
+          'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+          'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -168,17 +173,18 @@ module.export = (function() {
         var postBody = null;
 
         var pathParams = {
-        'project_id': sampleStrParam,
-        'version_id': sampleStrParam
+          'project_id': sampleStrParam,
+          'version_id': sampleStrParam
         };
         var queryParams = {
-        'filter[type]': instance.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
-        'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-        'filter[refType]': instance.apiClient.buildCollectionParam(opts['filterRefType'], 'csv'),
-        'filter[direction]': opts['filterDirection'],
-        'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
+          'filter[type]': instance.apiClient.buildCollectionParam(opts['filterType'], 'csv'),
+          'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+          'filter[refType]': instance.apiClient.buildCollectionParam(opts['filterRefType'], 'csv'),
+          'filter[direction]': opts['filterDirection'],
+          'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -201,15 +207,16 @@ module.export = (function() {
     });
     describe('postVersion', function() {
       it('should call postVersion successfully', function(done) {
-
+        var opts = {};
         var postBody = sampleStrParam;
 
         var pathParams = {
-        'project_id': sampleStrParam
+          'project_id': sampleStrParam
         };
         var queryParams = {
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -232,16 +239,17 @@ module.export = (function() {
     });
     describe('postVersionRelationshipsRef', function() {
       it('should call postVersionRelationshipsRef successfully', function(done) {
-
+        var opts = {};
         var postBody = sampleStrParam;
 
         var pathParams = {
-        'project_id': sampleStrParam,
-        'version_id': sampleStrParam
+          'project_id': sampleStrParam,
+          'version_id': sampleStrParam
         };
         var queryParams = {
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };

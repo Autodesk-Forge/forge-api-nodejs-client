@@ -45,6 +45,8 @@ module.export = (function() {
 
   var sampleStrParam = 'test_string';
   var sampleIntParam = 10;
+  var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
+  var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
 
   var apiClient = new ApiClient();
 
@@ -67,13 +69,16 @@ module.export = (function() {
         var postBody = null;
 
         var pathParams = {
-        'hub_id': sampleStrParam
+          'hub_id': sampleStrParam
         };
         var queryParams = {
-        'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-        'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
+          'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+          'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
+          'page[number]': opts['pageNumber'],
+          'page[limit]': opts['pageLimit']
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -96,16 +101,17 @@ module.export = (function() {
     });
     describe('getProject', function() {
       it('should call getProject successfully', function(done) {
-
+        var opts = {};
         var postBody = null;
 
         var pathParams = {
-        'hub_id': sampleStrParam,
-        'project_id': sampleStrParam
+          'hub_id': sampleStrParam,
+          'project_id': sampleStrParam
         };
         var queryParams = {
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -128,16 +134,17 @@ module.export = (function() {
     });
     describe('getProjectHub', function() {
       it('should call getProjectHub successfully', function(done) {
-
+        var opts = {};
         var postBody = null;
 
         var pathParams = {
-        'hub_id': sampleStrParam,
-        'project_id': sampleStrParam
+          'hub_id': sampleStrParam,
+          'project_id': sampleStrParam
         };
         var queryParams = {
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -160,16 +167,17 @@ module.export = (function() {
     });
     describe('getProjectTopFolders', function() {
       it('should call getProjectTopFolders successfully', function(done) {
-
+        var opts = {};
         var postBody = null;
 
         var pathParams = {
-        'hub_id': sampleStrParam,
-        'project_id': sampleStrParam
+          'hub_id': sampleStrParam,
+          'project_id': sampleStrParam
         };
         var queryParams = {
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
@@ -192,7 +200,7 @@ module.export = (function() {
     });
     describe('postStorage', function() {
       it('should call postStorage successfully', function(done) {
-
+        var opts = {};
         var postBody = sampleStrParam;
 
         var pathParams = {
@@ -201,6 +209,7 @@ module.export = (function() {
         var queryParams = {
         };
         var headerParams = {
+          'x-user-id': opts.xuserid
         };
         var formParams = {
         };
