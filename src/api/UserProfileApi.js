@@ -22,56 +22,52 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
-   'use strict';
+module.exports = (function () {
+	'use strict';
 
-   var ApiClient = require('../ApiClient'),
-       UserProfile = require('../model/UserProfile');
+	var ApiClient = require('../ApiClient'),
+		UserProfile = require('../model/UserProfile');
 
-  /**
-   * UserProfile service.
-   * @module api/UserProfileApi
-   */
+	/**
+	 * UserProfile service.
+	 * @module api/UserProfileApi
+	 */
 
-  /**
-   * Constructs a new UserProfileApi.
-   * @alias module:api/UserProfileApi
-   * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
-   */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+	/**
+	 * Constructs a new UserProfileApi.
+	 * @alias module:api/UserProfileApi
+	 * @class
+	 * @param {module:ApiClient} apiClient Optional API client implementation to use,
+	 * default to {@link module:ApiClient#instance} if unspecified.
+	 */
+	var exports = function (apiClient) {
+		this.apiClient = apiClient || ApiClient.instance;
 
-    /**
-     * Returns the profile information of an authorizing end user.
-     * data is of type: {module:model/UserProfile}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.getUserProfile = function(oauth2client, credentials) {
-      var postBody = null;
+		/**
+		 * Returns the profile information of an authorizing end user.
+		 * data is of type: {module:model/UserProfile}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.getUserProfile = function (oauth2client, credentials) {
+			var postBody = null;
 
-      var pathParams = {
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
+			var pathParams = {};
+			var queryParams = {};
+			var headerParams = {};
+			var formParams = {};
 
-      var contentTypes = ['application/json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = UserProfile;
+			var contentTypes = ['application/json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = UserProfile;
 
-      return this.apiClient.callApi(
-        '/userprofile/v1/users/@me', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
-  };
+			return this.apiClient.callApi(
+				'/userprofile/v1/users/@me', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
+	};
 
-  return exports;
+	return exports;
 }());

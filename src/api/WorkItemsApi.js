@@ -22,174 +22,161 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
-   'use strict';
+module.exports = (function () {
+	'use strict';
 
-   var ApiClient = require('../ApiClient'),
-       DesignAutomationWorkItems = require('../model/DesignAutomationWorkItems'),
-       WorkItem = require('../model/WorkItem'),
-       WorkItemResp = require('../model/WorkItemResp');
+	var ApiClient = require('../ApiClient'),
+		DesignAutomationWorkItems = require('../model/DesignAutomationWorkItems'),
+		WorkItem = require('../model/WorkItem'),
+		WorkItemResp = require('../model/WorkItemResp');
 
-  /**
-   * WorkItems service.
-   * @module api/WorkItemsApi
-   * @deprecated
-   */
+	/**
+	 * WorkItems service.
+	 * @module api/WorkItemsApi
+	 * @deprecated
+	 */
 
-  /**
-   * Constructs a new WorkItemsApi.
-   * @alias module:api/WorkItemsApi
-   * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
-   * @deprecated
-   */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+	/**
+	 * Constructs a new WorkItemsApi.
+	 * @alias module:api/WorkItemsApi
+	 * @class
+	 * @param {module:ApiClient} apiClient Optional API client implementation to use,
+	 * default to {@link module:ApiClient#instance} if unspecified.
+	 * @deprecated
+	 */
+	var exports = function (apiClient) {
+		this.apiClient = apiClient || ApiClient.instance;
 
-    /**
-     * Creates a new WorkItem.
-     * @param {module:model/WorkItem} workItem
-     * data is of type: {module:model/WorkItemResp}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     * @deprecated
-     */
-    this.createWorkItem = function(workItem, oauth2client, credentials) {
-      var postBody = workItem;
+		/**
+		 * Creates a new WorkItem.
+		 * @param {module:model/WorkItem} workItem
+		 * data is of type: {module:model/WorkItemResp}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @deprecated
+		 */
+		this.createWorkItem = function (workItem, oauth2client, credentials) {
+			var postBody = workItem;
 
-      // verify the required parameter 'workItem' is set
-      if (workItem == undefined || workItem == null) {
-        return Promise.reject("Missing the required parameter 'workItem' when calling createWorkItem");
-      }
+			// verify the required parameter 'workItem' is set
+			if (workItem == undefined || workItem == null) {
+				return Promise.reject("Missing the required parameter 'workItem' when calling createWorkItem");
+			}
 
-      var pathParams = {
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
+			var pathParams = {};
+			var queryParams = {};
+			var headerParams = {};
+			var formParams = {};
 
-      var contentTypes = ['application/json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = WorkItemResp;
+			var contentTypes = ['application/json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = WorkItemResp;
 
-      return this.apiClient.callApi(
-        '/autocad.io/us-east/v2/WorkItems', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
+			return this.apiClient.callApi(
+				'/autocad.io/us-east/v2/WorkItems', 'POST',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
 
-    /**
-     * Removes a specific WorkItem.
-     * @param {String} id
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     * @deprecated
-     */
-    this.deleteWorkItem = function(id, oauth2client, credentials) {
-      var postBody = null;
+		/**
+		 * Removes a specific WorkItem.
+		 * @param {String} id
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @deprecated
+		 */
+		this.deleteWorkItem = function (id, oauth2client, credentials) {
+			var postBody = null;
 
-      // verify the required parameter 'id' is set
-      if (id == undefined || id == null) {
-        return Promise.reject("Missing the required parameter 'id' when calling deleteWorkItem");
-      }
+			// verify the required parameter 'id' is set
+			if (id == undefined || id == null) {
+				return Promise.reject("Missing the required parameter 'id' when calling deleteWorkItem");
+			}
 
-      var pathParams = {
-        'id': id
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
+			var pathParams = {
+				'id': id
+			};
+			var queryParams = {};
+			var headerParams = {};
+			var formParams = {};
 
-      var contentTypes = ['application/json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = null;
+			var contentTypes = ['application/json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = null;
 
-      return this.apiClient.callApi(
-        '/autocad.io/us-east/v2/WorkItems(%27{id}%27)', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
+			return this.apiClient.callApi(
+				'/autocad.io/us-east/v2/WorkItems(%27{id}%27)', 'DELETE',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
 
-    /**
-     * Returns the details of all WorkItems.
-     * @param {Object} opts Optional parameters
-     * @param {Integer} opts.skip
-     * data is of type: {module:model/DesignAutomationWorkItems}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     * @deprecated
-     */
-    this.getAllWorkItems = function(opts, oauth2client, credentials) {
-      opts = opts || {};
-      var postBody = null;
+		/**
+		 * Returns the details of all WorkItems.
+		 * @param {Object} opts Optional parameters
+		 * @param {Integer} opts.skip
+		 * data is of type: {module:model/DesignAutomationWorkItems}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @deprecated
+		 */
+		this.getAllWorkItems = function (opts, oauth2client, credentials) {
+			opts = opts || {};
+			var postBody = null;
 
-      var pathParams = {
-      };
-      var queryParams = {
-        '$skip': opts['skip']
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
+			var pathParams = {};
+			var queryParams = {
+				'$skip': opts['skip']
+			};
+			var headerParams = {};
+			var formParams = {};
 
-      var contentTypes = ['application/json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = DesignAutomationWorkItems;
+			var contentTypes = ['application/json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = DesignAutomationWorkItems;
 
-      return this.apiClient.callApi(
-        '/autocad.io/us-east/v2/WorkItems', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
+			return this.apiClient.callApi(
+				'/autocad.io/us-east/v2/WorkItems', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
 
-    /**
-     * Returns the details of a specific WorkItem.
-     * @param {String} id
-     * data is of type: {module:model/WorkItemResp}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     * @deprecated
-     */
-    this.getWorkItem = function(id, oauth2client, credentials) {
-      var postBody = null;
+		/**
+		 * Returns the details of a specific WorkItem.
+		 * @param {String} id
+		 * data is of type: {module:model/WorkItemResp}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @deprecated
+		 */
+		this.getWorkItem = function (id, oauth2client, credentials) {
+			var postBody = null;
 
-      // verify the required parameter 'id' is set
-      if (id == undefined || id == null) {
-        return Promise.reject("Missing the required parameter 'id' when calling getWorkItem");
-      }
+			// verify the required parameter 'id' is set
+			if (id == undefined || id == null) {
+				return Promise.reject("Missing the required parameter 'id' when calling getWorkItem");
+			}
 
-      var pathParams = {
-        'id': id
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
+			var pathParams = {
+				'id': id
+			};
+			var queryParams = {};
+			var headerParams = {};
+			var formParams = {};
 
-      var contentTypes = ['application/json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = WorkItemResp;
+			var contentTypes = ['application/json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = WorkItemResp;
 
-      return this.apiClient.callApi(
-        '/autocad.io/us-east/v2/WorkItems(%27{id}%27)', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
-  };
+			return this.apiClient.callApi(
+				'/autocad.io/us-east/v2/WorkItems(%27{id}%27)', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
+	};
 
-  return exports;
+	return exports;
 }());

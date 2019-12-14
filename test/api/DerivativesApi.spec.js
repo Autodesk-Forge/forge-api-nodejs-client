@@ -22,336 +22,354 @@
  * limitations under the License.
  */
 
-module.export = (function() {
-  'use strict';
+module.export = (function () {
+	'use strict';
 
-  var expect = require('expect.js'),
-      sinon = require('sinon'),
-      ForgeSdk = require('../../src'),
-      instance,
-      oauth2client,
-      credentials,
-      mockedApiClientRequest,
-      ApiClient = require('../../src/ApiClient'),
-      Diagnostics = require('../../src/model/Diagnostics'),
-      Formats = require('../../src/model/Formats'),
-      Job = require('../../src/model/Job'),
-      JobPayload = require('../../src/model/JobPayload'),
-      Manifest = require('../../src/model/Manifest'),
-      Metadata = require('../../src/model/Metadata'),
-      Result = require('../../src/model/Result');
+	var expect = require('expect.js');
+	var sinon = require('sinon');
+	var ForgeSdk = require('../../src');
+	var instance;
+	var oauth2client;
+	var credentials;
+	var mockedApiClientRequest;
+	var ApiClient = require('../../src/ApiClient');
+	var Diagnostics = require('../../src/model/Diagnostics');
+	var Formats = require('../../src/model/Formats');
+	var Job = require('../../src/model/Job');
+	var JobPayload = require('../../src/model/JobPayload');
+	var Manifest = require('../../src/model/Manifest');
+	var Metadata = require('../../src/model/Metadata');
+	var Result = require('../../src/model/Result');
 
-  var sampleStrParam = 'test_string';
-  var sampleIntParam = 10;
-  var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
-  var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
+	var sampleStrParam = 'test_string';
+	var sampleIntParam = 10;
+	var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
+	var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
 
-  var apiClient = new ApiClient();
+	var apiClient = new ApiClient();
 
-  before(function(){
-    oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
-    credentials = {access_token: 'abce'};
-    instance = new ForgeSdk.DerivativesApi(apiClient);
-    mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');
-  });
+	before(function () {
+		oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
+		credentials = {
+			access_token: 'abce'
+		};
+		instance = new ForgeSdk.DerivativesApi(apiClient);
+		mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');
+	});
 
-   after(function () {
-     apiClient.callApi.restore();
-   });
+	after(function () {
+		apiClient.callApi.restore();
+	});
 
+	describe('DerivativesApi', function () {
 
-  describe('DerivativesApi', function() {
-    describe('deleteManifest', function() {
-      it('should call deleteManifest successfully', function(done) {
+		describe('getFormats', function () {
+			it('should call getFormats successfully', function (done) {
+				var opts = {};
+				var postBody = null;
 
-        var postBody = null;
+				var pathParams = {};
+				var queryParams = {};
+				var headerParams = {
+					'If-Modified-Since': opts.ifModifiedSince,
+					'Accept-Encoding': opts.acceptEncoding
+				};
+				var formParams = {};
 
-        var pathParams = {
-        'urn': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = Formats;
 
-        var contentTypes = ['application/x-www-form-urlencoded'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = Result;
+				mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/formats', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/manifest', 'DELETE',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				instance.getFormats(opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
 
-        instance.deleteManifest(sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('getDerivativeManifest', function() {
-      it('should call getDerivativeManifest successfully', function(done) {
-        var opts = {};
-        var postBody = null;
+		describe('translate', function () {
+			it('should call translate successfully', function (done) {
+				var opts = {};
+				var postBody = sampleStrParam;
 
-        var pathParams = {
-        'urn': sampleStrParam,
-        'derivativeUrn': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        'Range': opts['range']
-        };
-        var formParams = {
-        };
+				var pathParams = {};
+				var queryParams = {};
+				var headerParams = {
+					'x-ads-force': opts.xAdsForce
+				};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/octet-stream'];
-        var returnType = null;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = Job;
 
-        mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/manifest/{derivativeUrn}', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/job', 'POST',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.getDerivativeManifest(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('getFormats', function() {
-      it('should call getFormats successfully', function(done) {
-        var opts = {};
-        var postBody = null;
+				instance.translate(sampleStrParam, opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
 
-        var pathParams = {
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        'If-Modified-Since': opts['ifModifiedSince'],
-        'Accept-Encoding': opts['acceptEncoding']
-        };
-        var formParams = {
-        };
+		describe('setReferences', function () {
+			it('should call setReferences successfully', function (done) {
+				var opts = {};
+				var postBody = sampleStrParam;
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = Formats;
+				var pathParams = {
+					urn: sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
 
-        mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/formats', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = null;
 
-        instance.getFormats(opts, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('getManifest', function() {
-      it('should call getManifest successfully', function(done) {
-        var opts = {};
-        var postBody = null;
+				mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/references', 'POST',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        var pathParams = {
-        'urn': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        'Accept-Encoding': opts['acceptEncoding']
-        };
-        var formParams = {
-        };
+				instance.setReferences(sampleStrParam, postBody, opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = Manifest;
+		describe('getThumbnail', function () {
+			it('should call getThumbnail successfully', function (done) {
+				var opts = {};
+				var postBody = null;
 
-        mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/manifest', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				var pathParams = {
+					'urn': sampleStrParam
+				};
+				var queryParams = {
+					'width': opts.width,
+					'height': opts.height
+				};
+				var headerParams = {};
+				var formParams = {};
 
-        instance.getManifest(sampleStrParam, opts, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('getMetadata', function() {
-      it('should call getMetadata successfully', function(done) {
-        var opts = {};
-        var postBody = null;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/octet-stream'];
+				var returnType = Object;
 
-        var pathParams = {
-        'urn': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        'Accept-Encoding': opts['acceptEncoding']
-        };
-        var formParams = {
-        };
+				mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/thumbnail', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = Metadata;
+				instance.getThumbnail(sampleStrParam, opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
 
-        mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/metadata', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+		describe('getManifest', function () {
+			it('should call getManifest successfully', function (done) {
+				var opts = {};
+				var postBody = null;
 
-        instance.getMetadata(sampleStrParam, opts, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('getModelviewMetadata', function() {
-      it('should call getModelviewMetadata successfully', function(done) {
-        var opts = {};
-        var postBody = null;
+				var pathParams = {
+					'urn': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {
+					'Accept-Encoding': opts.acceptEncoding
+				};
+				var formParams = {};
 
-        var pathParams = {
-        'urn': sampleStrParam,
-        'guid': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        'Accept-Encoding': opts['acceptEncoding']
-        };
-        var formParams = {
-        };
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = Manifest;
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = Metadata;
+				mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/manifest', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/metadata/{guid}', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				instance.getManifest(sampleStrParam, opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
 
-        instance.getModelviewMetadata(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('getModelviewProperties', function() {
-      it('should call getModelviewProperties successfully', function(done) {
-        var opts = {};
-        var postBody = null;
+		describe('deleteManifest', function () {
+			it('should call deleteManifest successfully', function (done) {
+				var postBody = null;
+				var pathParams = {
+					'urn': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
 
-        var pathParams = {
-        'urn': sampleStrParam,
-        'guid': sampleStrParam
-        };
-        var queryParams = {
-          'forceget': opts['forceget'] || false
-        };
-        var headerParams = {
-        'Accept-Encoding': opts['acceptEncoding']
-        };
-        var formParams = {
-        };
+				var contentTypes = ['application/x-www-form-urlencoded'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = Result;
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = Metadata;
+				mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/manifest', 'DELETE',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/metadata/{guid}/properties', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				instance.deleteManifest(sampleStrParam, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
 
-        instance.getModelviewProperties(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('getThumbnail', function() {
-      it('should call getThumbnail successfully', function(done) {
-        var opts = {};
-        var postBody = null;
+		describe('getDerivativeManifest', function () {
+			it('should call getDerivativeManifest successfully', function (done) {
+				var opts = {};
+				var postBody = null;
 
-        var pathParams = {
-        'urn': sampleStrParam
-        };
-        var queryParams = {
-        'width': opts['width'],
-        'height': opts['height']
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var pathParams = {
+					'urn': sampleStrParam,
+					'derivativeUrn': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {
+					'Range': opts.range
+				};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/octet-stream'];
-        var returnType = Object;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/octet-stream'];
+				var returnType = null;
 
-        mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/thumbnail', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/manifest/{derivativeUrn}', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.getThumbnail(sampleStrParam, opts, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('translate', function() {
-      it('should call translate successfully', function(done) {
-        var opts = {};
-        var postBody = sampleStrParam;
+				instance.getDerivativeManifest(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
 
-        var pathParams = {
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        'x-ads-force': opts['xAdsForce']
-        };
-        var formParams = {
-        };
+		describe('getMetadata', function () {
+			it('should call getMetadata successfully', function (done) {
+				var opts = {};
+				var postBody = null;
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = Job;
+				var pathParams = {
+					'urn': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {
+					'Accept-Encoding': opts.acceptEncoding
+				};
+				var formParams = {};
 
-        mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/job', 'POST',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = Metadata;
 
-        instance.translate(sampleStrParam, opts, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-  });
+				mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/metadata', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+				instance.getMetadata(sampleStrParam, opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+
+		describe('getModelviewMetadata', function () {
+			it('should call getModelviewMetadata successfully', function (done) {
+				var opts = {};
+				var postBody = null;
+
+				var pathParams = {
+					'urn': sampleStrParam,
+					'guid': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {
+					'Accept-Encoding': opts.acceptEncoding
+				};
+				var formParams = {};
+
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = Metadata;
+
+				mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/metadata/{guid}', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+				instance.getModelviewMetadata(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+
+		describe('getModelviewProperties', function () {
+			it('should call getModelviewProperties successfully', function (done) {
+				var opts = {};
+				var postBody = null;
+
+				var pathParams = {
+					'urn': sampleStrParam,
+					'guid': sampleStrParam
+				};
+				var queryParams = {
+					'forceget': opts.forceget || false
+				};
+				var headerParams = {
+					'Accept-Encoding': opts.acceptEncoding
+				};
+				var formParams = {};
+
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = Metadata;
+
+				mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/metadata/{guid}/properties', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+				instance.getModelviewProperties(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+
+	});
 
 }());

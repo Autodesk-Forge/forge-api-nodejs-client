@@ -23,121 +23,121 @@
  */
 
 module.exports = (function () {
-    'use strict';
+	'use strict';
 
-    var request = require('request');
-    var ApiClient = require('../ApiClient').instance;
+	var request = require('request');
+	var ApiClient = require('../ApiClient').instance;
 
-    /**
-     * Construct the scope string
-     * @param allScopes
-     * @param specificScope
-     * @returns {Boolean}
-     */
-    var validateScope = function (allScopes, specificScope) {
-        if (allScopes) {
-            if (specificScope) {
-                for (var key in specificScope) {
-                    if (!allScopes.hasOwnProperty(specificScope[key])) {
-                        throw specificScope[key] + " scope is not allowed";
-                    }
-                }
-            } else { // throw if scope is null or undefined
-                throw "Scope is missing or empty, you must provide a valid scope";
-            }
-        } else {
-            throw "Authentication does not allow any scopes";
-        }
-        return true;
-    };
+	/**
+	 * Construct the scope string
+	 * @param allScopes
+	 * @param specificScope
+	 * @returns {Boolean}
+	 */
+	var validateScope = function (allScopes, specificScope) {
+		if (allScopes) {
+			if (specificScope) {
+				for (var key in specificScope) {
+					if (!allScopes.hasOwnProperty(specificScope[key])) {
+						throw specificScope[key] + " scope is not allowed";
+					}
+				}
+			} else { // throw if scope is null or undefined
+				throw "Scope is missing or empty, you must provide a valid scope";
+			}
+		} else {
+			throw "Authentication does not allow any scopes";
+		}
+		return true;
+	};
 
-    /**
-     * A general POST request
-     * @param url
-     * @param params
-     * @param callbackSuccess
-     * @param callbackError
-     */
-    var doPostRequest = function (url, params, callbackSuccess, callbackError) {
-        var headers = {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        };
+	/**
+	 * A general POST request
+	 * @param url
+	 * @param params
+	 * @param callbackSuccess
+	 * @param callbackError
+	 */
+	var doPostRequest = function (url, params, callbackSuccess, callbackError) {
+		var headers = {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		};
 
-        var paramsBody = [];
-        for (var key in params) {
-            if (params.hasOwnProperty(key)) {
-                paramsBody.push(key + '=' + params[key]);
-            }
-        }
+		var paramsBody = [];
+		for (var key in params) {
+			if (params.hasOwnProperty(key)) {
+				paramsBody.push(key + '=' + params[key]);
+			}
+		}
 
-        request({
-            headers: headers,
-            uri: url,
-            body: paramsBody.join('&'),
-            method: 'POST'
-        }, function (err, response, body) {
-            var resp;
-            try {
-                resp = JSON.parse(body);
-            } catch(e) {
-                resp = body;
-            }
-            if (!err && response.statusCode === 200) {
-                callbackSuccess(resp);
-            } else {
-                if (err) {
-                    callbackError(err);
-                } else {
-                    callbackError(resp);
-                }
-            }
-        });
-    };
+		request({
+			headers: headers,
+			uri: url,
+			body: paramsBody.join('&'),
+			method: 'POST'
+		}, function (err, response, body) {
+			var resp;
+			try {
+				resp = JSON.parse(body);
+			} catch (e) {
+				resp = body;
+			}
+			if (!err && response.statusCode === 200) {
+				callbackSuccess(resp);
+			} else {
+				if (err) {
+					callbackError(err);
+				} else {
+					callbackError(resp);
+				}
+			}
+		});
+	};
 
-    /**
-     * @module auth/OAuth2
-     */
+	/**
+	 * @module auth/OAuth2
+	 */
 
-    /**
-     * Trait for creating OAuth2 objects
-     * Constructs a new <code>oAuth2</code>.
-     * @alias module:auth/OAuth2
-     */
-    var OAuth2 = function (clientId, clientSecret, scope, autoRefresh) {
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
-        this.credentials = {};
-        this.credentials.expires_at = Date.now();
-        this.autoRefresh = autoRefresh || false; // don't auto refresh by default
+	/**
+	 * Trait for creating OAuth2 objects
+	 * Constructs a new <code>oAuth2</code>.
+	 * @alias module:auth/OAuth2
+	 */
+	var OAuth2 = function (clientId, clientSecret, scope, autoRefresh) {
+		this.clientId = clientId;
+		this.clientSecret = clientSecret;
+		this.credentials = {};
+		this.credentials.expires_at = Date.now();
+		this.autoRefresh = autoRefresh || false; // don't auto refresh by default
 
-        //set the base path for the auth endpoints
-        this.basePath = ApiClient.basePath;
+		//set the base path for the auth endpoints
+		this.basePath = ApiClient.basePath;
 
-        // Implement a sort of interface in JS
-        if (!this.hasMember('authentication')) {
-            throw new Error('Your OAuth2 object is missing the "authentication" property');
-        }
+		// Implement a sort of interface in JS
+		if (!this.hasMember('authentication')) {
+			throw new Error('Your OAuth2 object is missing the "authentication" property');
+		}
 
-        //this.authentications must be implemented in the child Class
-        var validScope = validateScope(this.authentication.scopes, scope);
+		//this.authentications must be implemented in the child Class
+		var validScope = validateScope(this.authentication.scopes, scope);
 
-        //Make sure passed scope is valid
-        if (validScope){
-            this.scope = scope.join(' ');
-        }
-    };
+		//Make sure passed scope is valid
+		if (validScope) {
+			this.scope = scope.join(' ');
+		}
+	};
 
-    OAuth2.prototype.doPostRequest = doPostRequest;
+	OAuth2.prototype.doPostRequest = doPostRequest;
 
-    // This allows us to create class members that
-    // must be present in the child object
-    Object.defineProperty(OAuth2.prototype, 'hasMember', {
-        enumerable: false,
-        value: function (memberName) {
-            return (typeof this[memberName] === 'object');
-        }
-    });
+	// This allows us to create class members that
+	// must be present in the child object
+	Object.defineProperty(OAuth2.prototype, 'hasMember', {
+		enumerable: false,
+		value: function (memberName) {
+			return (typeof this[memberName] === 'object');
+		}
+	});
 
-    return OAuth2;
+	return OAuth2;
 
 }());

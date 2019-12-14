@@ -22,12 +22,12 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
-   'use strict';
+module.exports = (function () {
+  'use strict';
 
-   var ApiClient = require('../ApiClient'),
-       DesignAutomationEngines = require('../model/DesignAutomationEngines'),
-       Engine = require('../model/Engine');
+  var ApiClient = require('../ApiClient'),
+    DesignAutomationEngines = require('../model/DesignAutomationEngines'),
+    Engine = require('../model/Engine');
 
   /**
    * Engines service.
@@ -43,7 +43,7 @@ module.exports = (function() {
    * default to {@link module:ApiClient#instance} if unspecified.
    * @deprecated
    */
-  var exports = function(apiClient) {
+  var exports = function (apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
 
     /**
@@ -53,17 +53,13 @@ module.exports = (function() {
      * @param {Object} credentials credentials for the call
      * @deprecated
      */
-    this.getAllEngines = function(oauth2client, credentials) {
+    this.getAllEngines = function (oauth2client, credentials) {
       var postBody = null;
 
-      var pathParams = {
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
+      var pathParams = {};
+      var queryParams = {};
+      var headerParams = {};
+      var formParams = {};
 
       var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];
@@ -84,7 +80,7 @@ module.exports = (function() {
      * @param {Object} credentials credentials for the call
      * @deprecated
      */
-    this.getEngine = function(id, oauth2client, credentials) {
+    this.getEngine = function (id, oauth2client, credentials) {
       var postBody = null;
 
       // verify the required parameter 'id' is set
@@ -95,12 +91,9 @@ module.exports = (function() {
       var pathParams = {
         'id': id
       };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
+      var queryParams = {};
+      var headerParams = {};
+      var formParams = {};
 
       var contentTypes = ['application/json'];
       var accepts = ['application/vnd.api+json', 'application/json'];

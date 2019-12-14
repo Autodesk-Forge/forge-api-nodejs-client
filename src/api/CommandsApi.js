@@ -22,182 +22,180 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
-   'use strict';
+module.exports = (function () {
+	'use strict';
 
-   var ApiClient = require('../ApiClient');
+	var ApiClient = require('../ApiClient');
 
-  /**
-   * Commands service.
-   * @module api/CommandsApi
-   */
+	/**
+	 * Commands service.
+	 * @module api/CommandsApi
+	 */
 
-  /**
-   * Constructs a new CommandsApi.
-   * @alias module:api/CommandsApi
-   * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
-   */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+	/**
+	 * Constructs a new CommandsApi.
+	 * @alias module:api/CommandsApi
+	 * @class
+	 * @param {module:ApiClient} apiClient Optional API client implementation to use,
+	 * default to {@link module:ApiClient#instance} if unspecified.
+	 */
+	var exports = function (apiClient) {
+		this.apiClient = apiClient || ApiClient.instance;
 
-    /**
-     * Checks if a user has permission to perform specified actions on specified resources.
-     * @param {String} projectId the project id
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * @param {Object} body API payload
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.checkPermission = function(projectId, body, opts, oauth2client, credentials) {
-      body.jsonapi.version = '1.0';
+		/**
+		 * Checks if a user has permission to perform specified actions on specified resources.
+		 * @param {String} projectId the project id
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * @param {Object} body API payload
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.checkPermission = function (projectId, body, opts, oauth2client, credentials) {
+			body.jsonapi.version = '1.0';
 
-      body.data.type = 'commands';
-      body.data.attributes.extension.type = 'commands:autodesk.core:CheckPermission';
+			body.data.type = 'commands';
+			body.data.attributes.extension.type = 'commands:autodesk.core:CheckPermission';
 
-      return (this._commandsApiCall(projectId, body, opts, oauth2client, credentials));
-    };
+			return (this._commandsApiCall(projectId, body, opts, oauth2client, credentials));
+		};
 
-    /**
-     * Retrieves the custom relationships between specified versions of items and other resources in the data domain service (folders, items, and versions). You can retrieve the relationships of up to 50 versions.
-     * @param {String} projectId the project id
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * @param {Object} body API payload
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.listRefs = function(projectId, body, opts, oauth2client, credentials) {
-      body.jsonapi.version = '1.0';
-      
-      body.data.type = 'commands';
-      body.data.attributes.extension.type = 'commands:autodesk.core:ListRefs';
+		/**
+		 * Retrieves the custom relationships between specified versions of items and other resources in the data domain service (folders, items, and versions). You can retrieve the relationships of up to 50 versions.
+		 * @param {String} projectId the project id
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * @param {Object} body API payload
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.listRefs = function (projectId, body, opts, oauth2client, credentials) {
+			body.jsonapi.version = '1.0';
 
-      return (this._commandsApiCall(projectId, body, opts, oauth2client, credentials));
-    };
+			body.data.type = 'commands';
+			body.data.attributes.extension.type = 'commands:autodesk.core:ListRefs';
 
-    /**
-     * Retrieves metadata for up to 50 specified items. For example, an item name, or the date it was created. It returns the tip (latest) version of the items.
-     * @param {String} projectId the project id
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * @param {Object} body API payload
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.listItems = function(projectId, body, opts, oauth2client, credentials) {
-      body.jsonapi.version = '1.0';
-      
-      body.data.type = 'commands';
-      body.data.attributes.extension.type = 'commands:autodesk.core:ListItems';
+			return (this._commandsApiCall(projectId, body, opts, oauth2client, credentials));
+		};
 
-      return (this._commandsApiCall(projectId, body, opts, oauth2client, credentials));
-    };
+		/**
+		 * Retrieves metadata for up to 50 specified items. For example, an item name, or the date it was created. It returns the tip (latest) version of the items.
+		 * @param {String} projectId the project id
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * @param {Object} body API payload
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.listItems = function (projectId, body, opts, oauth2client, credentials) {
+			body.jsonapi.version = '1.0';
 
-    /**
-     * Creates folders in BIM 360 Docs.
-     * @param {String} projectId the project id
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * @param {Object} body API payload
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.createFolder = function(projectId, body, opts, oauth2client, credentials) {
-      body.jsonapi.version = '1.0';
-      
-      body.data.type = 'commands';
-      body.data.attributes.extension.type = 'commands:autodesk.core:CreateFolder';
+			body.data.type = 'commands';
+			body.data.attributes.extension.type = 'commands:autodesk.core:ListItems';
 
-      return (this._commandsApiCall(projectId, body, opts, oauth2client, credentials));
-    };
+			return (this._commandsApiCall(projectId, body, opts, oauth2client, credentials));
+		};
 
-    /**
-     * Publishes the latest version of a Collaboration for Revit (C4R) model to BIM 360 Docs.
-     * @param {String} projectId the project id
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * @param {Object} body API payload
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.publishModel = function(projectId, body, opts, oauth2client, credentials) {
-      body.jsonapi.version = '1.0';
-      
-      body.data.type = 'commands';
-      body.data.attributes.extension.type = 'commands:autodesk.bim360:C4RModelPublish';
+		/**
+		 * Creates folders in BIM 360 Docs.
+		 * @param {String} projectId the project id
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * @param {Object} body API payload
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.createFolder = function (projectId, body, opts, oauth2client, credentials) {
+			body.jsonapi.version = '1.0';
 
-      return (this._commandsApiCall(projectId, body, opts, oauth2client, credentials));
-    };
+			body.data.type = 'commands';
+			body.data.attributes.extension.type = 'commands:autodesk.core:CreateFolder';
 
-    /**
-     * Verifies whether a Collaboration for Revit (C4R) model needs to be published to BIM 360 Docs.
-     * @param {String} projectId the project id
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * @param {Object} body API payload
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.getPublishModelJob = function(projectId, body, opts, oauth2client, credentials) {
-      body.jsonapi.version = '1.0';
-      
-      body.data.type = 'commands';
-      body.data.attributes.extension.type = 'commands:autodesk.bim360:C4RModelGetPublishJob';
+			return (this._commandsApiCall(projectId, body, opts, oauth2client, credentials));
+		};
 
-      return (this._commandsApiCall(projectId, body, opts, oauth2client, credentials));
-    };
+		/**
+		 * Publishes the latest version of a Collaboration for Revit (C4R) model to BIM 360 Docs.
+		 * @param {String} projectId the project id
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * @param {Object} body API payload
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.publishModel = function (projectId, body, opts, oauth2client, credentials) {
+			body.jsonapi.version = '1.0';
 
-    /**
-     * private method
-     * @param {String} projectId the project id
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * @param {Object} body API payload
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this._commandsApiCall = function(projectId, body, opts, oauth2client, credentials) {
-      opts = opts || {};
+			body.data.type = 'commands';
+			body.data.attributes.extension.type = 'commands:autodesk.bim360:C4RModelPublish';
 
-      // verify the required parameter 'projectId' is set
-      if (projectId == undefined || projectId == null) {
-        return Promise.reject("Missing the required parameter 'projectId' when calling checkPermission");
-      }
+			return (this._commandsApiCall(projectId, body, opts, oauth2client, credentials));
+		};
 
-      // verify the required parameter 'body' is set
-      if (body == undefined || body == null) {
-        return Promise.reject("Missing the required parameter 'body' when calling checkPermission");
-      }
+		/**
+		 * Verifies whether a Collaboration for Revit (C4R) model needs to be published to BIM 360 Docs.
+		 * @param {String} projectId the project id
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * @param {Object} body API payload
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.getPublishModelJob = function (projectId, body, opts, oauth2client, credentials) {
+			body.jsonapi.version = '1.0';
 
-      var postBody = body;
+			body.data.type = 'commands';
+			body.data.attributes.extension.type = 'commands:autodesk.bim360:C4RModelGetPublishJob';
 
-      var pathParams = {
-        project_id: projectId
-      };
-      var queryParams = {
-      };
+			return (this._commandsApiCall(projectId, body, opts, oauth2client, credentials));
+		};
 
-      var headerParams = {
-        'x-user-id': opts.xuserid
-      };
-      var formParams = {
-      };
+		/**
+		 * private method
+		 * @param {String} projectId the project id
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * @param {Object} body API payload
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this._commandsApiCall = function (projectId, body, opts, oauth2client, credentials) {
+			opts = opts || {};
 
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = null;
+			// verify the required parameter 'projectId' is set
+			if (projectId == undefined || projectId == null) {
+				return Promise.reject("Missing the required parameter 'projectId' when calling checkPermission");
+			}
 
-      return this.apiClient.callApi(
-        '/data/v1/projects/{project_id}/commands', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
-    
-  };
+			// verify the required parameter 'body' is set
+			if (body == undefined || body == null) {
+				return Promise.reject("Missing the required parameter 'body' when calling checkPermission");
+			}
 
-  return exports;
+			var postBody = body;
+
+			var pathParams = {
+				project_id: projectId
+			};
+			var queryParams = {};
+
+			var headerParams = {
+				'x-user-id': opts.xuserid
+			};
+			var formParams = {};
+
+			var contentTypes = ['application/vnd.api+json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = null;
+
+			return this.apiClient.callApi(
+				'/data/v1/projects/{project_id}/commands', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
+
+	};
+
+	return exports;
 }());

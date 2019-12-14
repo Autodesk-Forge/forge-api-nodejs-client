@@ -95,7 +95,7 @@ module.exports = (function() {
                     .post('/foo', {})
                     .reply(200, function(uri, respBody){
                         expect(this.req.headers).to.have.property('content-type');
-                        expect(this.req.headers['host']).to.equal(host);
+                        expect(this.req.headers.host).to.equal(host);
                         return respBody;
                     });
 

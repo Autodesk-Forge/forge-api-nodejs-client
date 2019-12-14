@@ -22,164 +22,153 @@
  * limitations under the License.
  */
 
-module.export = (function() {
-  'use strict';
+module.export = (function () {
+	'use strict';
 
-  var expect = require('expect.js'),
-      sinon = require('sinon'),
-      ForgeSdk = require('../../src'),
-      instance,
-      oauth2client,
-      credentials,
-      mockedApiClientRequest,
-      ApiClient = require('../../src/ApiClient'),
-      DesignAutomationWorkItems = require('../../src/model/DesignAutomationWorkItems'),
-      WorkItem = require('../../src/model/WorkItem'),
-      WorkItemResp = require('../../src/model/WorkItemResp');
+	var expect = require('expect.js'),
+		sinon = require('sinon'),
+		ForgeSdk = require('../../src'),
+		instance,
+		oauth2client,
+		credentials,
+		mockedApiClientRequest,
+		ApiClient = require('../../src/ApiClient'),
+		DesignAutomationWorkItems = require('../../src/model/DesignAutomationWorkItems'),
+		WorkItem = require('../../src/model/WorkItem'),
+		WorkItemResp = require('../../src/model/WorkItemResp');
 
-  var sampleStrParam = 'test_string';
-  var sampleIntParam = 10;
-  var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
-  var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
+	var sampleStrParam = 'test_string';
+	var sampleIntParam = 10;
+	var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
+	var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
 
-  var apiClient = new ApiClient();
+	var apiClient = new ApiClient();
 
-  before(function(){
-    oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
-    credentials = {access_token: 'abce'};
-    instance = new ForgeSdk.WorkItemsApi(apiClient);
-    mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');
-  });
+	before(function () {
+		oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
+		credentials = {
+			access_token: 'abce'
+		};
+		instance = new ForgeSdk.WorkItemsApi(apiClient);
+		mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');
+	});
 
-   after(function () {
-     apiClient.callApi.restore();
-   });
+	after(function () {
+		apiClient.callApi.restore();
+	});
 
 
-  describe('WorkItemsApi', function() {
-    describe('createWorkItem', function() {
-      it('should call createWorkItem successfully', function(done) {
+	describe('WorkItemsApi', function () {
+		describe('createWorkItem', function () {
+			it('should call createWorkItem successfully', function (done) {
 
-        var postBody = sampleStrParam;
+				var postBody = sampleStrParam;
 
-        var pathParams = {
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var pathParams = {};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = WorkItemResp;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = WorkItemResp;
 
-        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/WorkItems', 'POST',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/WorkItems', 'POST',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.createWorkItem(sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('deleteWorkItem', function() {
-      it('should call deleteWorkItem successfully', function(done) {
+				instance.createWorkItem(sampleStrParam, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+		describe('deleteWorkItem', function () {
+			it('should call deleteWorkItem successfully', function (done) {
 
-        var postBody = null;
+				var postBody = null;
 
-        var pathParams = {
-        'id': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var pathParams = {
+					'id': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = null;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = null;
 
-        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/WorkItems(%27{id}%27)', 'DELETE',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/WorkItems(%27{id}%27)', 'DELETE',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.deleteWorkItem(sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('getAllWorkItems', function() {
-      it('should call getAllWorkItems successfully', function(done) {
-        var opts = {};
-        var postBody = null;
+				instance.deleteWorkItem(sampleStrParam, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+		describe('getAllWorkItems', function () {
+			it('should call getAllWorkItems successfully', function (done) {
+				var opts = {};
+				var postBody = null;
 
-        var pathParams = {
-        };
-        var queryParams = {
-        '$skip': opts['skip']
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var pathParams = {};
+				var queryParams = {
+					'$skip': opts.skip
+				};
+				var headerParams = {};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = DesignAutomationWorkItems;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = DesignAutomationWorkItems;
 
-        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/WorkItems', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/WorkItems', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.getAllWorkItems(opts, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('getWorkItem', function() {
-      it('should call getWorkItem successfully', function(done) {
+				instance.getAllWorkItems(opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+		describe('getWorkItem', function () {
+			it('should call getWorkItem successfully', function (done) {
 
-        var postBody = null;
+				var postBody = null;
 
-        var pathParams = {
-        'id': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var pathParams = {
+					'id': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = WorkItemResp;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = WorkItemResp;
 
-        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/WorkItems(%27{id}%27)', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/WorkItems(%27{id}%27)', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.getWorkItem(sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-  });
+				instance.getWorkItem(sampleStrParam, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+	});
 
 }());

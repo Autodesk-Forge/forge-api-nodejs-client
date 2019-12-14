@@ -3,8 +3,8 @@ var fs = require('fs');
 var ForgeSDK = require('./../src/index');
 
 // TODO - insert your CLIENT_ID and CLIENT_SECRET
-var FORGE_CLIENT_ID = 'your forge client id',
-	FORGE_CLIENT_SECRET = 'your forge client secret';
+var FORGE_CLIENT_ID = 'your forge client id';
+var FORGE_CLIENT_SECRET = 'your forge client secret';
 
 // TODO - Choose a bucket key - a unique name to assign to a bucket. It must be globally unique across all applications and
 // regions, otherwise the call will fail. Possible values: -_.a-z0-9 (between 3-128 characters in
@@ -22,14 +22,14 @@ var bucketsApi = new ForgeSDK.BucketsApi(), // Buckets Client
 
 // Initialize the 2-legged oauth2 client
 var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,
-	['data:write', 'data:read', 'bucket:read','bucket:update','bucket:create'], true);
+	['data:write', 'data:read', 'bucket:read', 'bucket:update', 'bucket:create'], true);
 
 /**
  * General error handling method
  * @param err
  */
 function defaultHandleError(err) {
-	console.error('\x1b[31m Error:', err, '\x1b[0m' ) ;
+	console.error('\x1b[31m Error:', err, '\x1b[0m');
 }
 
 /**
@@ -49,7 +49,10 @@ var getBucketDetails = function (bucketKey) {
  */
 var createBucket = function (bucketKey) {
 	console.log("**** Creating Bucket : " + bucketKey);
-	var createBucketJson = {'bucketKey': bucketKey, 'policyKey': 'temporary'};
+	var createBucketJson = {
+		'bucketKey': bucketKey,
+		'policyKey': 'temporary'
+	};
 	return bucketsApi.createBucket(createBucketJson, {}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
 };
 
@@ -62,20 +65,19 @@ var createBucket = function (bucketKey) {
 var createBucketIfNotExist = function (bucketKey) {
 	console.log("**** Creating bucket if not exist :", bucketKey);
 
-	return new Promise(function(resolve, reject) {
+	return new Promise(function (resolve, reject) {
 		getBucketDetails(bucketKey).then(function (resp) {
 				resolve(resp);
 			},
 			function (err) {
 				if (err.statusCode === 404) {
-					createBucket(bucketKey).then(function(res){
+					createBucket(bucketKey).then(function (res) {
 							resolve(res);
 						},
-						function(err){
+						function (err) {
 							reject(err);
 						})
-				}
-				else{
+				} else {
 					reject(err);
 				}
 			});
@@ -90,18 +92,18 @@ var createBucketIfNotExist = function (bucketKey) {
  * @param fileName
  * @returns {Promise}
  */
-var uploadFile = function(bucketKey, filePath, fileName){
-	console.log("**** Uploading file. bucket:"+ bucketKey + " filePath:"+filePath);
-	return new Promise(function(resolve, reject) {
+var uploadFile = function (bucketKey, filePath, fileName) {
+	console.log("**** Uploading file. bucket:" + bucketKey + " filePath:" + filePath);
+	return new Promise(function (resolve, reject) {
 		fs.readFile(filePath, function (err, data) {
-			if (err){
+			if (err) {
 				reject(err);
-			}
-			else{
+			} else {
 				objectsApi.uploadObject(bucketKey, fileName, data.length, data, {}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials()).then(
-					function(res){
+					function (res) {
 						resolve(res);
-					},function(err){
+					},
+					function (err) {
 						reject(err);
 					}
 				)
@@ -116,48 +118,48 @@ var uploadFile = function(bucketKey, filePath, fileName){
  * @param bucketKey
  * @param fileName
  */
-var deleteFile = function(bucketKey, fileName) {
-	console.log("**** Deleting file from bucket:" + bucketKey + ", filename:"+fileName);
-	return objectsApi.deleteObject(bucketKey,fileName,oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
+var deleteFile = function (bucketKey, fileName) {
+	console.log("**** Deleting file from bucket:" + bucketKey + ", filename:" + fileName);
+	return objectsApi.deleteObject(bucketKey, fileName, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
 };
 
 /**
  * Get the buckets owned by an application.
  * Uses the oAuth2TwoLegged object that you retrieved previously.
  */
-var getBuckets = function(){
+var getBuckets = function () {
 	console.log("**** Getting all buckets");
-	return bucketsApi.getBuckets({},oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
+	return bucketsApi.getBuckets({}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
 };
 
 /**
  * Create an access token and run the API calls.
  */
-oAuth2TwoLegged.authenticate().then(function(credentials){
+oAuth2TwoLegged.authenticate().then(function (credentials) {
 
-	console.log("**** Got Credentials",credentials);
+	console.log("**** Got Credentials", credentials);
 
 	createBucketIfNotExist(BUCKET_KEY).then(
 
-		function(createBucketRes){
+		function (createBucketRes) {
 			console.log("**** Create bucket if not exist response:", createBucketRes.body);
 
-			getBuckets().then(function(getBucketsRes){
+			getBuckets().then(function (getBucketsRes) {
 				console.log("**** Get all buckets response:");
 				var bucketsArray = getBucketsRes.body.items;
-				bucketsArray.map(function(currentBucket){
+				bucketsArray.map(function (currentBucket) {
 					console.log(currentBucket.bucketKey);
 				})
-			},function(err){
+			}, function (err) {
 				console.error(err);
 			});
 
-			uploadFile(BUCKET_KEY, FILE_PATH, FILE_NAME).then(function(uploadRes){
+			uploadFile(BUCKET_KEY, FILE_PATH, FILE_NAME).then(function (uploadRes) {
 				console.log("**** Upload file response:", uploadRes.body);
 
-				deleteFile(BUCKET_KEY, FILE_NAME).then(function(deleteRes) {
+				deleteFile(BUCKET_KEY, FILE_NAME).then(function (deleteRes) {
 					console.log("**** Delete file response status code:", deleteRes.statusCode);
-				},defaultHandleError);
+				}, defaultHandleError);
 
 			}, defaultHandleError);
 

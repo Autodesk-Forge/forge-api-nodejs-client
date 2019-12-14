@@ -22,469 +22,456 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
-   'use strict';
+module.exports = (function () {
+	'use strict';
 
-   var ApiClient = require('../ApiClient'),
-       BadInput = require('../model/BadInput'),
-       CreateStorage = require('../model/CreateStorage'),
-       Forbidden = require('../model/Forbidden'),
-       Hub = require('../model/Hub'),
-       NotFound = require('../model/NotFound'),
-       Project = require('../model/Project'),
-       Projects = require('../model/Projects'),
-       StorageCreated = require('../model/StorageCreated'),
-       TopFolders = require('../model/TopFolders');
+	var ApiClient = require('../ApiClient'),
+		BadInput = require('../model/BadInput'),
+		CreateStorage = require('../model/CreateStorage'),
+		Forbidden = require('../model/Forbidden'),
+		Hub = require('../model/Hub'),
+		NotFound = require('../model/NotFound'),
+		Project = require('../model/Project'),
+		Projects = require('../model/Projects'),
+		StorageCreated = require('../model/StorageCreated'),
+		TopFolders = require('../model/TopFolders');
 
-  /**
-   * Projects service.
-   * @module api/ProjectsApi
-   */
+	/**
+	 * Projects service.
+	 * @module api/ProjectsApi
+	 */
 
-  /**
-   * Constructs a new ProjectsApi.
-   * @alias module:api/ProjectsApi
-   * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
-   */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+	/**
+	 * Constructs a new ProjectsApi.
+	 * @alias module:api/ProjectsApi
+	 * @class
+	 * @param {module:ApiClient} apiClient Optional API client implementation to use,
+	 * default to {@link module:ApiClient#instance} if unspecified.
+	 */
+	var exports = function (apiClient) {
+		this.apiClient = apiClient || ApiClient.instance;
 
-    /**
-     * Returns a collection of projects for a given hub_id. A project represents an A360 project or a BIM 360 project which is set up under an A360 hub or BIM 360 account, respectively. Within a hub or an account, multiple projects can be created to be used.
-     * @param {String} hubId the hub id for the current operation
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
-     * @param {Array.<String>} opts.filterExtensionType filter by the extension type
-     * @param {Array.<Integer>} opts.pageNumber Specify the page number.
-     * @param {Array.<Integer>} opts.pageLimit Specify the maximal number of elements per page.
-     * @param {Array.<*>} opts['filter[*]<-modifier>'] generic filter / <-modifier> is optional
-     * data is of type: {module:model/Projects}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.getHubProjects = function(hubId, opts, oauth2client, credentials) {
-      opts = opts || {};
-      var postBody = null;
+		/**
+		 * Returns a collection of projects for a given hub_id. A project represents an A360 project or a BIM 360 project which is set up under an A360 hub or BIM 360 account, respectively. Within a hub or an account, multiple projects can be created to be used.
+		 * @param {String} hubId the hub id for the current operation
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * @param {Array.<String>} opts.filterId filter by the `id` of the `ref` target
+		 * @param {Array.<String>} opts.filterExtensionType filter by the extension type
+		 * @param {Array.<Integer>} opts.pageNumber Specify the page number.
+		 * @param {Array.<Integer>} opts.pageLimit Specify the maximal number of elements per page.
+		 * @param {Array.<*>} opts['filter[*]<-modifier>'] generic filter / <-modifier> is optional
+		 * data is of type: {module:model/Projects}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.getHubProjects = function (hubId, opts, oauth2client, credentials) {
+			opts = opts || {};
+			var postBody = null;
 
-      // verify the required parameter 'hubId' is set
-      if (hubId == undefined || hubId == null) {
-        return Promise.reject("Missing the required parameter 'hubId' when calling getHubProjects");
-      }
+			// verify the required parameter 'hubId' is set
+			if (hubId == undefined || hubId == null) {
+				return Promise.reject("Missing the required parameter 'hubId' when calling getHubProjects");
+			}
 
-      var pathParams = {
-        'hub_id': hubId
-      };
-      var queryParams = {
-        'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-        'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
-        'page[number]': opts['pageNumber'],
-        'page[limit]': opts['pageLimit']
-        // 'page[number]': this.apiClient.buildCollectionParam(opts['pageNumber'], 'csv'),
-        // 'page[limit]': this.apiClient.buildCollectionParam(opts['pageLimit'], 'csv')
-      };
-      var keys = Object.keys(opts).filter(function(elt) { return (new RegExp(/^filter\[/).test(elt)); });
-      var that = this;
-      keys.map (function(elt) {
-        queryParams[elt] = that.apiClient.buildCollectionParam(opts[elt], 'csv');
-        return (elt);
-      });
+			var pathParams = {
+				'hub_id': hubId
+			};
+			var queryParams = {
+				'filter[id]': this.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
+				'filter[extension.type]': this.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv'),
+				'page[number]': opts['pageNumber'],
+				'page[limit]': opts['pageLimit']
+				// 'page[number]': this.apiClient.buildCollectionParam(opts['pageNumber'], 'csv'),
+				// 'page[limit]': this.apiClient.buildCollectionParam(opts['pageLimit'], 'csv')
+			};
+			var keys = Object.keys(opts).filter(function (elt) {
+				return (new RegExp(/^filter\[/).test(elt));
+			});
+			var that = this;
+			keys.map(function (elt) {
+				queryParams[elt] = that.apiClient.buildCollectionParam(opts[elt], 'csv');
+				return (elt);
+			});
 
-      var headerParams = {
-        'x-user-id': opts.xuserid
-      };
-      var formParams = {
-      };
+			var headerParams = {
+				'x-user-id': opts.xuserid
+			};
+			var formParams = {};
 
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Projects;
+			var contentTypes = ['application/vnd.api+json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = Projects;
 
-      return this.apiClient.callApi(
-        '/project/v1/hubs/{hub_id}/projects', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
+			return this.apiClient.callApi(
+				'/project/v1/hubs/{hub_id}/projects', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
 
-    /**
-     * Returns a project for a given project_id.
-     * @param {String} hubId the hub id for the current operation
-     * @param {String} projectId the project id
-     * data is of type: {module:model/Project}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.getProject = function(hubId, projectId, oauth2client, credentials) {
-      return this.getProject2 (hubId, projectId, {}, oauth2client, credentials);
-    };
+		/**
+		 * Returns a project for a given project_id.
+		 * @param {String} hubId the hub id for the current operation
+		 * @param {String} projectId the project id
+		 * data is of type: {module:model/Project}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.getProject = function (hubId, projectId, oauth2client, credentials) {
+			return this.getProject2(hubId, projectId, {}, oauth2client, credentials);
+		};
 
-    /**
-     * Returns a project for a given project_id.
-     * @param {String} hubId the hub id for the current operation
-     * @param {String} projectId the project id
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * data is of type: {module:model/Project}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.getProject2 = function(hubId, projectId, opts, oauth2client, credentials) {
-      opts = opts || {};
-      var postBody = null;
+		/**
+		 * Returns a project for a given project_id.
+		 * @param {String} hubId the hub id for the current operation
+		 * @param {String} projectId the project id
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * data is of type: {module:model/Project}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.getProject2 = function (hubId, projectId, opts, oauth2client, credentials) {
+			opts = opts || {};
+			var postBody = null;
 
-      // verify the required parameter 'hubId' is set
-      if (hubId == undefined || hubId == null) {
-        return Promise.reject("Missing the required parameter 'hubId' when calling getProject");
-      }
+			// verify the required parameter 'hubId' is set
+			if (hubId == undefined || hubId == null) {
+				return Promise.reject("Missing the required parameter 'hubId' when calling getProject");
+			}
 
-      // verify the required parameter 'projectId' is set
-      if (projectId == undefined || projectId == null) {
-        return Promise.reject("Missing the required parameter 'projectId' when calling getProject");
-      }
+			// verify the required parameter 'projectId' is set
+			if (projectId == undefined || projectId == null) {
+				return Promise.reject("Missing the required parameter 'projectId' when calling getProject");
+			}
 
-      var pathParams = {
-        'hub_id': hubId,
-        'project_id': projectId
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-        'x-user-id': opts.xuserid
-      };
-      var formParams = {
-      };
+			var pathParams = {
+				'hub_id': hubId,
+				'project_id': projectId
+			};
+			var queryParams = {};
+			var headerParams = {
+				'x-user-id': opts.xuserid
+			};
+			var formParams = {};
 
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Project;
+			var contentTypes = ['application/vnd.api+json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = Project;
 
-      return this.apiClient.callApi(
-        '/project/v1/hubs/{hub_id}/projects/{project_id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
+			return this.apiClient.callApi(
+				'/project/v1/hubs/{hub_id}/projects/{project_id}', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
 
-    /**
-     * Returns the hub for a given project_id.
-     * @param {String} hubId the hub id for the current operation
-     * @param {String} projectId the project id
-     * data is of type: {module:model/Hub}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.getProjectHub = function(hubId, projectId, oauth2client, credentials) {
-      return this.getProjectHub2 (hubId, projectId, {}, oauth2client, credentials);
-    };
+		/**
+		 * Returns the hub for a given project_id.
+		 * @param {String} hubId the hub id for the current operation
+		 * @param {String} projectId the project id
+		 * data is of type: {module:model/Hub}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.getProjectHub = function (hubId, projectId, oauth2client, credentials) {
+			return this.getProjectHub2(hubId, projectId, {}, oauth2client, credentials);
+		};
 
-    /**
-     * Returns the hub for a given project_id.
-     * @param {String} hubId the hub id for the current operation
-     * @param {String} projectId the project id
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * data is of type: {module:model/Hub}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.getProjectHub2 = function(hubId, projectId, opts, oauth2client, credentials) {
-      opts = opts || {};
-      var postBody = null;
+		/**
+		 * Returns the hub for a given project_id.
+		 * @param {String} hubId the hub id for the current operation
+		 * @param {String} projectId the project id
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * data is of type: {module:model/Hub}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.getProjectHub2 = function (hubId, projectId, opts, oauth2client, credentials) {
+			opts = opts || {};
+			var postBody = null;
 
-      // verify the required parameter 'hubId' is set
-      if (hubId == undefined || hubId == null) {
-        return Promise.reject("Missing the required parameter 'hubId' when calling getProjectHub");
-      }
+			// verify the required parameter 'hubId' is set
+			if (hubId == undefined || hubId == null) {
+				return Promise.reject("Missing the required parameter 'hubId' when calling getProjectHub");
+			}
 
-      // verify the required parameter 'projectId' is set
-      if (projectId == undefined || projectId == null) {
-        return Promise.reject("Missing the required parameter 'projectId' when calling getProjectHub");
-      }
+			// verify the required parameter 'projectId' is set
+			if (projectId == undefined || projectId == null) {
+				return Promise.reject("Missing the required parameter 'projectId' when calling getProjectHub");
+			}
 
-      var pathParams = {
-        'hub_id': hubId,
-        'project_id': projectId
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-        'x-user-id': opts.xuserid
-      };
-      var formParams = {
-      };
+			var pathParams = {
+				'hub_id': hubId,
+				'project_id': projectId
+			};
+			var queryParams = {};
+			var headerParams = {
+				'x-user-id': opts.xuserid
+			};
+			var formParams = {};
 
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Hub;
+			var contentTypes = ['application/vnd.api+json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = Hub;
 
-      return this.apiClient.callApi(
-        '/project/v1/hubs/{hub_id}/projects/{project_id}/hub', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
+			return this.apiClient.callApi(
+				'/project/v1/hubs/{hub_id}/projects/{project_id}/hub', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
 
-    /**
-     * Returns the details of the highest level folders the user has access to for a given project
-     * @param {String} hubId the hub id for the current operation
-     * @param {String} projectId the project id
-     * data is of type: {module:model/TopFolders}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.getProjectTopFolders = function(hubId, projectId, oauth2client, credentials) {
-      return this.getProjectTopFolders2(hubId, projectId, {}, oauth2client, credentials) ;
-    };
+		/**
+		 * Returns the details of the highest level folders the user has access to for a given project
+		 * @param {String} hubId the hub id for the current operation
+		 * @param {String} projectId the project id
+		 * data is of type: {module:model/TopFolders}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.getProjectTopFolders = function (hubId, projectId, oauth2client, credentials) {
+			return this.getProjectTopFolders2(hubId, projectId, {}, oauth2client, credentials);
+		};
 
-    /**
-     * Returns the details of the highest level folders the user has access to for a given project
-     * @param {String} hubId the hub id for the current operation
-     * @param {String} projectId the project id
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * data is of type: {module:model/TopFolders}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.getProjectTopFolders2 = function(hubId, projectId, opts, oauth2client, credentials) {
-      opts = opts || {};
-      var postBody = null;
+		/**
+		 * Returns the details of the highest level folders the user has access to for a given project
+		 * @param {String} hubId the hub id for the current operation
+		 * @param {String} projectId the project id
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * data is of type: {module:model/TopFolders}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.getProjectTopFolders2 = function (hubId, projectId, opts, oauth2client, credentials) {
+			opts = opts || {};
+			var postBody = null;
 
-      // verify the required parameter 'hubId' is set
-      if (hubId == undefined || hubId == null) {
-        return Promise.reject("Missing the required parameter 'hubId' when calling getProjectTopFolders");
-      }
+			// verify the required parameter 'hubId' is set
+			if (hubId == undefined || hubId == null) {
+				return Promise.reject("Missing the required parameter 'hubId' when calling getProjectTopFolders");
+			}
 
-      // verify the required parameter 'projectId' is set
-      if (projectId == undefined || projectId == null) {
-        return Promise.reject("Missing the required parameter 'projectId' when calling getProjectTopFolders");
-      }
+			// verify the required parameter 'projectId' is set
+			if (projectId == undefined || projectId == null) {
+				return Promise.reject("Missing the required parameter 'projectId' when calling getProjectTopFolders");
+			}
 
-      var pathParams = {
-        'hub_id': hubId,
-        'project_id': projectId
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-        'x-user-id': opts.xuserid
-      };
-      var formParams = {
-      };
+			var pathParams = {
+				'hub_id': hubId,
+				'project_id': projectId
+			};
+			var queryParams = {};
+			var headerParams = {
+				'x-user-id': opts.xuserid
+			};
+			var formParams = {};
 
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = TopFolders;
+			var contentTypes = ['application/vnd.api+json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = TopFolders;
 
-      return this.apiClient.callApi(
-        '/project/v1/hubs/{hub_id}/projects/{project_id}/topFolders', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
+			return this.apiClient.callApi(
+				'/project/v1/hubs/{hub_id}/projects/{project_id}/topFolders', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
 
-    /**
-     * Returns the details for a specific download.
-     * @param {String} projectId the project id
-     * @param {String} downloadId The unique identifier of a download job.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * data is of type: {module:model/TopFolders}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.getDownload = function(projectId, downloadId, opts, oauth2client, credentials) {
-      opts = opts || {};
-      var postBody = null;
+		/**
+		 * Returns the details for a specific download.
+		 * @param {String} projectId the project id
+		 * @param {String} downloadId The unique identifier of a download job.
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * data is of type: {module:model/TopFolders}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.getDownload = function (projectId, downloadId, opts, oauth2client, credentials) {
+			opts = opts || {};
+			var postBody = null;
 
-      // verify the required parameter 'hubId' is set
-      if (downloadId == undefined || downloadId == null) {
-        return Promise.reject("Missing the required parameter 'downloadId' when calling getDownload");
-      }
+			// verify the required parameter 'hubId' is set
+			if (downloadId == undefined || downloadId == null) {
+				return Promise.reject("Missing the required parameter 'downloadId' when calling getDownload");
+			}
 
-      // verify the required parameter 'projectId' is set
-      if (projectId == undefined || projectId == null) {
-        return Promise.reject("Missing the required parameter 'projectId' when calling getDownload");
-      }
+			// verify the required parameter 'projectId' is set
+			if (projectId == undefined || projectId == null) {
+				return Promise.reject("Missing the required parameter 'projectId' when calling getDownload");
+			}
 
-      var pathParams = {
-        'project_id': projectId,
-        'download_id': downloadId,
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-        'x-user-id': opts.xuserid
-      };
-      var formParams = {
-      };
+			var pathParams = {
+				'project_id': projectId,
+				'download_id': downloadId,
+			};
+			var queryParams = {};
+			var headerParams = {
+				'x-user-id': opts.xuserid
+			};
+			var formParams = {};
 
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = null;
+			var contentTypes = ['application/vnd.api+json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = null;
 
-      return this.apiClient.callApi(
-        '/data/v1/projects/{project_id}/downloads/{download_id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
+			return this.apiClient.callApi(
+				'/data/v1/projects/{project_id}/downloads/{download_id}', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
 
-    /**
-     * Returns the job_id object.
-     * @param {String} projectId the project id
-     * @param {String} jobId The unique identifier of a job.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * data is of type: {module:model/TopFolders}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.getJob = function(projectId, jobId, opts, oauth2client, credentials) {
-      opts = opts || {};
-      var postBody = null;
+		/**
+		 * Returns the job_id object.
+		 * @param {String} projectId the project id
+		 * @param {String} jobId The unique identifier of a job.
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * data is of type: {module:model/TopFolders}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.getJob = function (projectId, jobId, opts, oauth2client, credentials) {
+			opts = opts || {};
+			var postBody = null;
 
-      // verify the required parameter 'hubId' is set
-      if (jobId == undefined || jobId == null) {
-        return Promise.reject("Missing the required parameter 'downloadId' when calling getJob");
-      }
+			// verify the required parameter 'hubId' is set
+			if (jobId == undefined || jobId == null) {
+				return Promise.reject("Missing the required parameter 'downloadId' when calling getJob");
+			}
 
-      // verify the required parameter 'projectId' is set
-      if (projectId == undefined || projectId == null) {
-        return Promise.reject("Missing the required parameter 'projectId' when calling getJob");
-      }
+			// verify the required parameter 'projectId' is set
+			if (projectId == undefined || projectId == null) {
+				return Promise.reject("Missing the required parameter 'projectId' when calling getJob");
+			}
 
-      var pathParams = {
-        'project_id': projectId,
-        'job_id': jobId,
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-        'x-user-id': opts.xuserid
-      };
-      var formParams = {
-      };
+			var pathParams = {
+				'project_id': projectId,
+				'job_id': jobId,
+			};
+			var queryParams = {};
+			var headerParams = {
+				'x-user-id': opts.xuserid
+			};
+			var formParams = {};
 
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = null;
+			var contentTypes = ['application/vnd.api+json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = null;
 
-      return this.apiClient.callApi(
-        '/data/v1/projects/{project_id}/jobs/{job_id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
+			return this.apiClient.callApi(
+				'/data/v1/projects/{project_id}/jobs/{job_id}', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
 
-    /**
-     * Request the creation of a new download for a specific and supported file type.
-     * @param {String} projectId the project id
-     * @param {module:model/CreateStorage} body describe the file the storage is created for
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * data is of type: {module:model/StorageCreated}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.postDownload = function(projectId, body, opts, oauth2client, credentials) {
-      opts = opts || {};
-      var postBody = body;
+		/**
+		 * Request the creation of a new download for a specific and supported file type.
+		 * @param {String} projectId the project id
+		 * @param {module:model/CreateStorage} body describe the file the storage is created for
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * data is of type: {module:model/StorageCreated}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.postDownload = function (projectId, body, opts, oauth2client, credentials) {
+			opts = opts || {};
+			var postBody = body;
 
-      // verify the required parameter 'projectId' is set
-      if (projectId == undefined || projectId == null) {
-        return Promise.reject("Missing the required parameter 'projectId' when calling postDownload");
-      }
+			// verify the required parameter 'projectId' is set
+			if (projectId == undefined || projectId == null) {
+				return Promise.reject("Missing the required parameter 'projectId' when calling postDownload");
+			}
 
-      // verify the required parameter 'body' is set
-      if (body == undefined || body == null) {
-        return Promise.reject("Missing the required parameter 'body' when calling postDownload");
-      }
+			// verify the required parameter 'body' is set
+			if (body == undefined || body == null) {
+				return Promise.reject("Missing the required parameter 'body' when calling postDownload");
+			}
 
-      var pathParams = {
-        'project_id': projectId
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-        'x-user-id': opts.xuserid
-      };
-      var formParams = {
-      };
+			var pathParams = {
+				'project_id': projectId
+			};
+			var queryParams = {};
+			var headerParams = {
+				'x-user-id': opts.xuserid
+			};
+			var formParams = {};
 
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = null;
+			var contentTypes = ['application/vnd.api+json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = null;
 
-      return this.apiClient.callApi(
-        '/data/v1/projects/{project_id}/downloads', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
+			return this.apiClient.callApi(
+				'/data/v1/projects/{project_id}/downloads', 'POST',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
 
-    /**
-     * Creates a storage location in the OSS where data can be uploaded to.
-     * @param {String} projectId the project id
-     * @param {module:model/CreateStorage} body describe the file the storage is created for
-     * data is of type: {module:model/StorageCreated}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.postStorage = function(projectId, body, oauth2client, credentials) {
-      return this.postStorage2(projectId, body, {}, oauth2client, credentials);
-    };
+		/**
+		 * Creates a storage location in the OSS where data can be uploaded to.
+		 * @param {String} projectId the project id
+		 * @param {module:model/CreateStorage} body describe the file the storage is created for
+		 * data is of type: {module:model/StorageCreated}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.postStorage = function (projectId, body, oauth2client, credentials) {
+			return this.postStorage2(projectId, body, {}, oauth2client, credentials);
+		};
 
-    /**
-     * Creates a storage location in the OSS where data can be uploaded to.
-     * @param {String} projectId the project id
-     * @param {module:model/CreateStorage} body describe the file the storage is created for
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
-     * data is of type: {module:model/StorageCreated}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     */
-    this.postStorage2 = function(projectId, body, opts, oauth2client, credentials) {
-      opts = opts || {};
-      var postBody = body;
+		/**
+		 * Creates a storage location in the OSS where data can be uploaded to.
+		 * @param {String} projectId the project id
+		 * @param {module:model/CreateStorage} body describe the file the storage is created for
+		 * @param {Object} opts Optional parameters
+		 * @param {String} opts.xuserid API call will be limited to act on behalf of only the user specified
+		 * data is of type: {module:model/StorageCreated}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.postStorage2 = function (projectId, body, opts, oauth2client, credentials) {
+			opts = opts || {};
+			var postBody = body;
 
-      // verify the required parameter 'projectId' is set
-      if (projectId == undefined || projectId == null) {
-        return Promise.reject("Missing the required parameter 'projectId' when calling postStorage");
-      }
+			// verify the required parameter 'projectId' is set
+			if (projectId == undefined || projectId == null) {
+				return Promise.reject("Missing the required parameter 'projectId' when calling postStorage");
+			}
 
-      // verify the required parameter 'body' is set
-      if (body == undefined || body == null) {
-        return Promise.reject("Missing the required parameter 'body' when calling postStorage");
-      }
+			// verify the required parameter 'body' is set
+			if (body == undefined || body == null) {
+				return Promise.reject("Missing the required parameter 'body' when calling postStorage");
+			}
 
-      var pathParams = {
-        'project_id': projectId
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-        'x-user-id': opts.xuserid
-      };
-      var formParams = {
-      };
+			var pathParams = {
+				'project_id': projectId
+			};
+			var queryParams = {};
+			var headerParams = {
+				'x-user-id': opts.xuserid
+			};
+			var formParams = {};
 
-      var contentTypes = ['application/vnd.api+json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = StorageCreated;
+			var contentTypes = ['application/vnd.api+json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = StorageCreated;
 
-      return this.apiClient.callApi(
-        '/data/v1/projects/{project_id}/storage', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
+			return this.apiClient.callApi(
+				'/data/v1/projects/{project_id}/storage', 'POST',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
 
-  };
+	};
 
-  return exports;
+	return exports;
 }());

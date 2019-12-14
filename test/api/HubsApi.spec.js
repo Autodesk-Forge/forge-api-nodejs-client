@@ -22,108 +22,106 @@
  * limitations under the License.
  */
 
-module.export = (function() {
-  'use strict';
+module.export = (function () {
+	'use strict';
 
-  var expect = require('expect.js'),
-      sinon = require('sinon'),
-      ForgeSdk = require('../../src'),
-      instance,
-      oauth2client,
-      credentials,
-      mockedApiClientRequest,
-      ApiClient = require('../../src/ApiClient'),
-      Forbidden = require('../../src/model/Forbidden'),
-      Hub = require('../../src/model/Hub'),
-      Hubs = require('../../src/model/Hubs'),
-      NotFound = require('../../src/model/NotFound');
+	var expect = require('expect.js'),
+		sinon = require('sinon'),
+		ForgeSdk = require('../../src'),
+		instance,
+		oauth2client,
+		credentials,
+		mockedApiClientRequest,
+		ApiClient = require('../../src/ApiClient'),
+		Forbidden = require('../../src/model/Forbidden'),
+		Hub = require('../../src/model/Hub'),
+		Hubs = require('../../src/model/Hubs'),
+		NotFound = require('../../src/model/NotFound');
 
-  var sampleStrParam = 'test_string';
-  var sampleIntParam = 10;
-  var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
-  var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
+	var sampleStrParam = 'test_string';
+	var sampleIntParam = 10;
+	var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
+	var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
 
-  var apiClient = new ApiClient();
+	var apiClient = new ApiClient();
 
-  before(function(){
-    oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
-    credentials = {access_token: 'abce'};
-    instance = new ForgeSdk.HubsApi(apiClient);
-    mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');
-  });
+	before(function () {
+		oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
+		credentials = {
+			access_token: 'abce'
+		};
+		instance = new ForgeSdk.HubsApi(apiClient);
+		mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');
+	});
 
-   after(function () {
-     apiClient.callApi.restore();
-   });
+	after(function () {
+		apiClient.callApi.restore();
+	});
 
 
-  describe('HubsApi', function() {
-    describe('getHub', function() {
-      it('should call getHub successfully', function(done) {
-        var opts = {};
-        var postBody = null;
+	describe('HubsApi', function () {
+		describe('getHub', function () {
+			it('should call getHub successfully', function (done) {
+				var opts = {};
+				var postBody = null;
 
-        var pathParams = {
-          'hub_id': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-          'x-user-id': opts.xuserid
-        };
-        var formParams = {
-        };
+				var pathParams = {
+					'hub_id': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {
+					'x-user-id': opts.xuserid
+				};
+				var formParams = {};
 
-        var contentTypes = ['application/vnd.api+json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = Hub;
+				var contentTypes = ['application/vnd.api+json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = Hub;
 
-        mockedApiClientRequest.withArgs('/project/v1/hubs/{hub_id}', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/project/v1/hubs/{hub_id}', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.getHub(sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    // describe('getHubs', function() {
-    //   it('should call getHubs successfully', function(done) {
-    //     var opts = {};
-    //     var postBody = null;
+				instance.getHub(sampleStrParam, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+		describe('getHubs', function () {
+			it('should call getHubs successfully', function (done) {
+				var opts = {};
+				var postBody = null;
 
-    //     var pathParams = {
-    //     };
-    //     var queryParams = {
-    //       'filter[id]': instance.apiClient.buildCollectionParam(opts['filterId'], 'csv'),
-    //       'filter[name]': instance.apiClient.buildCollectionParam(opts['filterName'], 'csv'),
-    //       'filter[extension.type]': instance.apiClient.buildCollectionParam(opts['filterExtensionType'], 'csv')
-    //     };
-    //     var headerParams = {
-    //       'x-user-id': opts.xuserid
-    //     };
-    //     var formParams = {
-    //     };
+				var pathParams = {};
+				var queryParams = {
+					'filter[id]': instance.apiClient.buildCollectionParam(opts.filterId, 'csv'),
+					'filter[name]': instance.apiClient.buildCollectionParam(opts.filterName, 'csv'),
+					'filter[extension.type]': instance.apiClient.buildCollectionParam(opts.filterExtensionType, 'csv')
+				};
+				var headerParams = {
+					'x-user-id': opts.xuserid
+				};
+				var formParams = {};
 
-    //     var contentTypes = ['application/vnd.api+json'];
-    //     var accepts = ['application/vnd.api+json', 'application/json'];
-    //     var returnType = Hubs;
+				var contentTypes = ['application/vnd.api+json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = Hubs;
 
-    //     mockedApiClientRequest.withArgs('/project/v1/hubs', 'GET',
-    //             pathParams, queryParams, headerParams, formParams, postBody,
-    //             contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/project/v1/hubs', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-    //     instance.getHubs(opts, oauth2client, credentials).then(function(response){
-    //         expect(response).to.be.ok();
-    //         done();
-    //     }, function(err){
-    //         done(err);
-    //     });
-    //   });
-    // });
-  });
+				instance.getHubs(opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+	});
 
 }());

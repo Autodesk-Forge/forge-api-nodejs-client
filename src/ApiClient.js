@@ -23,466 +23,466 @@
  */
 
 module.exports = (function () {
-  'use strict';
+	'use strict';
 
-  var request = require('request');
+	var request = require('request');
 
-  /**
-   * @module ApiClient
-   */
+	/**
+	 * @module ApiClient
+	 */
 
-  /**
-   * Manages low level client-server communications, parameter marshalling, etc. There should not be any need for an
-   * application to use this class directly - the *Api and model classes provide the public API for the service. The
-   * contents of this file should be regarded as internal but are documented for completeness.
-   * @alias module:ApiClient
-   * @class
-   */
-  var exports = function () {
-    /**
-     * The base URL against which to resolve every API call's (relative) path.
-     * @type {String}
-     * @default https://developer.api.autodesk.com
-     */
-    this.basePath = 'https://developer.api.autodesk.com'.replace(/\/+$/, '');
-    /**
-     * The default HTTP headers to be included for all API calls.
-     * @type {Array.<String>}
-     * @default {}
-     */
-    this.defaultHeaders = {};
+	/**
+	 * Manages low level client-server communications, parameter marshalling, etc. There should not be any need for an
+	 * application to use this class directly - the *Api and model classes provide the public API for the service. The
+	 * contents of this file should be regarded as internal but are documented for completeness.
+	 * @alias module:ApiClient
+	 * @class
+	 */
+	var exports = function () {
+		/**
+		 * The base URL against which to resolve every API call's (relative) path.
+		 * @type {String}
+		 * @default https://developer.api.autodesk.com
+		 */
+		this.basePath = 'https://developer.api.autodesk.com'.replace(/\/+$/, '');
+		/**
+		 * The default HTTP headers to be included for all API calls.
+		 * @type {Array.<String>}
+		 * @default {}
+		 */
+		this.defaultHeaders = {};
 
-    /**
-     * The default HTTP timeout for all API calls.
-     * @type {Number}
-     * @default 60000
-     */
-    this.timeout = 60000;
-  };
+		/**
+		 * The default HTTP timeout for all API calls.
+		 * @type {Number}
+		 * @default 60000
+		 */
+		this.timeout = 60000;
+	};
 
-  /**
-   * Returns a string representation for an actual parameter.
-   * @param param The actual parameter.
-   * @returns {String} The string representation of <code>param</code>.
-   */
-  exports.prototype.paramToString = function (param) {
-    if (param === undefined || param === null) {
-      return '';
-    }
-    if (param instanceof Date) {
-      return param.toJSON();
-    }
-    return param.toString();
-  };
+	/**
+	 * Returns a string representation for an actual parameter.
+	 * @param param The actual parameter.
+	 * @returns {String} The string representation of <code>param</code>.
+	 */
+	exports.prototype.paramToString = function (param) {
+		if (param === undefined || param === null) {
+			return '';
+		}
+		if (param instanceof Date) {
+			return param.toJSON();
+		}
+		return param.toString();
+	};
 
-  /**
-   * Builds full URL by appending the given path to the base URL and replacing path parameter place-holders with parameter values.
-   * NOTE: query parameters are not handled here.
-   * @param {String} path The path to append to the base URL.
-   * @param {Object} pathParams The parameter values to append.
-   * @returns {String} The encoded path with parameter values substituted.
-   */
-  exports.prototype.buildUrl = function (path, pathParams) {
-    if (!path.match(/^\//)) {
-      path = '/' + path;
-    }
-    var url = this.basePath + path;
-    var _this = this;
-    url = url.replace(/\{([\w-]+)}/g, function (fullMatch, key) {
-      var value;
-      if (pathParams.hasOwnProperty(key)) {
-        value = _this.paramToString(pathParams[key]);
-      } else {
-        value = fullMatch;
-      }
-      return encodeURIComponent(value);
-    });
-    return url;
-  };
+	/**
+	 * Builds full URL by appending the given path to the base URL and replacing path parameter place-holders with parameter values.
+	 * NOTE: query parameters are not handled here.
+	 * @param {String} path The path to append to the base URL.
+	 * @param {Object} pathParams The parameter values to append.
+	 * @returns {String} The encoded path with parameter values substituted.
+	 */
+	exports.prototype.buildUrl = function (path, pathParams) {
+		if (!path.match(/^\//)) {
+			path = '/' + path;
+		}
+		var url = this.basePath + path;
+		var _this = this;
+		url = url.replace(/\{([\w-]+)}/g, function (fullMatch, key) {
+			var value;
+			if (pathParams.hasOwnProperty(key)) {
+				value = _this.paramToString(pathParams[key]);
+			} else {
+				value = fullMatch;
+			}
+			return encodeURIComponent(value);
+		});
+		return url;
+	};
 
-  /**
-   * Checks whether the given content type represents JSON.<br>
-   * JSON content type examples:<br>
-   * <ul>
-   * <li>application/json</li>
-   * <li>application/json; charset=UTF8</li>
-   * <li>APPLICATION/JSON</li>
-   * </ul>
-   * @param {String} contentType The MIME content type to check.
-   * @returns {Boolean} <code>true</code> if <code>contentType</code> represents JSON, otherwise <code>false</code>.
-   */
-  exports.prototype.isJsonMime = function (contentType) {
-    return Boolean(contentType !== undefined && contentType !== null && contentType.match(/^application\/(vnd.api\+)?json(;.*)?$/i));
-  };
+	/**
+	 * Checks whether the given content type represents JSON.<br>
+	 * JSON content type examples:<br>
+	 * <ul>
+	 * <li>application/json</li>
+	 * <li>application/json; charset=UTF8</li>
+	 * <li>APPLICATION/JSON</li>
+	 * </ul>
+	 * @param {String} contentType The MIME content type to check.
+	 * @returns {Boolean} <code>true</code> if <code>contentType</code> represents JSON, otherwise <code>false</code>.
+	 */
+	exports.prototype.isJsonMime = function (contentType) {
+		return Boolean(contentType !== undefined && contentType !== null && contentType.match(/^application\/(vnd.api\+)?json(;.*)?$/i));
+	};
 
-  /**
-   * Chooses a content type from the given array, with JSON preferred; i.e. return JSON if included, otherwise return the first.
-   * @param {Array.<String>} contentTypes
-   * @returns {String} The chosen content type, preferring JSON.
-   */
-  exports.prototype.jsonPreferredMime = function (contentTypes) {
-    for (var i = 0; i < contentTypes.length; i++) {
-      if (this.isJsonMime(contentTypes[i])) {
-        return contentTypes[i];
-      }
-    }
-    return contentTypes[0];
-  };
+	/**
+	 * Chooses a content type from the given array, with JSON preferred; i.e. return JSON if included, otherwise return the first.
+	 * @param {Array.<String>} contentTypes
+	 * @returns {String} The chosen content type, preferring JSON.
+	 */
+	exports.prototype.jsonPreferredMime = function (contentTypes) {
+		for (var i = 0; i < contentTypes.length; i++) {
+			if (this.isJsonMime(contentTypes[i])) {
+				return contentTypes[i];
+			}
+		}
+		return contentTypes[0];
+	};
 
-  /**
-   * Checks whether the given parameter value represents file-like content.
-   * @param param The parameter to check.
-   * @returns {Boolean} <code>true</code> if <code>param</code> represents a file.
-   */
-  exports.prototype.isFileParam = function (param) {
-    var type = typeof param;
-    if ((type === 'number') || (type === 'boolean') || (type === 'string') || (type === 'undefined')) {
-      return false;
-    }
-    return (param instanceof require('fs').ReadStream) || (typeof Buffer === 'function' && param instanceof Buffer);
-  };
+	/**
+	 * Checks whether the given parameter value represents file-like content.
+	 * @param param The parameter to check.
+	 * @returns {Boolean} <code>true</code> if <code>param</code> represents a file.
+	 */
+	exports.prototype.isFileParam = function (param) {
+		var type = typeof param;
+		if ((type === 'number') || (type === 'boolean') || (type === 'string') || (type === 'undefined')) {
+			return false;
+		}
+		return (param instanceof require('fs').ReadStream) || (typeof Buffer === 'function' && param instanceof Buffer);
+	};
 
-  /**
-   * Normalizes parameter values:
-   * <ul>
-   * <li>remove nils</li>
-   * <li>keep files and arrays</li>
-   * <li>format to string with `paramToString` for other cases</li>
-   * </ul>
-   * @param {Object.<String, Object>} params The parameters as object properties.
-   * @returns {Object.<String, Object>} normalized parameters.
-   */
-  exports.prototype.normalizeParams = function (params) {
-    var newParams = {};
-    for (var key in params) {
-      if (params.hasOwnProperty(key) && params[key] !== undefined && params[key] !== null) {
-        var value = params[key];
-        if (this.isFileParam(value) || Array.isArray(value)) {
-          newParams[key] = value;
-        } else {
-          newParams[key] = this.paramToString(value);
-        }
-      }
-    }
-    return newParams;
-  };
+	/**
+	 * Normalizes parameter values:
+	 * <ul>
+	 * <li>remove nils</li>
+	 * <li>keep files and arrays</li>
+	 * <li>format to string with `paramToString` for other cases</li>
+	 * </ul>
+	 * @param {Object.<String, Object>} params The parameters as object properties.
+	 * @returns {Object.<String, Object>} normalized parameters.
+	 */
+	exports.prototype.normalizeParams = function (params) {
+		var newParams = {};
+		for (var key in params) {
+			if (params.hasOwnProperty(key) && params[key] !== undefined && params[key] !== null) {
+				var value = params[key];
+				if (this.isFileParam(value) || Array.isArray(value)) {
+					newParams[key] = value;
+				} else {
+					newParams[key] = this.paramToString(value);
+				}
+			}
+		}
+		return newParams;
+	};
 
-  /**
-   * Enumeration of collection format separator strategies.
-   * @enum {String}
-   * @readonly
-   */
-  exports.CollectionFormatEnum = {
-    /**
-     * Comma-separated values. Value: <code>csv</code>
-     * @const
-     */
-    CSV: ',',
-    /**
-     * Space-separated values. Value: <code>ssv</code>
-     * @const
-     */
-    SSV: ' ',
-    /**
-     * Tab-separated values. Value: <code>tsv</code>
-     * @const
-     */
-    TSV: '\t',
-    /**
-     * Pipe(|)-separated values. Value: <code>pipes</code>
-     * @const
-     */
-    PIPES: '|',
-    /**
-     * Native array. Value: <code>multi</code>
-     * @const
-     */
-    MULTI: 'multi'
-  };
+	/**
+	 * Enumeration of collection format separator strategies.
+	 * @enum {String}
+	 * @readonly
+	 */
+	exports.CollectionFormatEnum = {
+		/**
+		 * Comma-separated values. Value: <code>csv</code>
+		 * @const
+		 */
+		CSV: ',',
+		/**
+		 * Space-separated values. Value: <code>ssv</code>
+		 * @const
+		 */
+		SSV: ' ',
+		/**
+		 * Tab-separated values. Value: <code>tsv</code>
+		 * @const
+		 */
+		TSV: '\t',
+		/**
+		 * Pipe(|)-separated values. Value: <code>pipes</code>
+		 * @const
+		 */
+		PIPES: '|',
+		/**
+		 * Native array. Value: <code>multi</code>
+		 * @const
+		 */
+		MULTI: 'multi'
+	};
 
-  /**
-   * Builds a string representation of an array-type actual parameter, according to the given collection format.
-   * @param {Array} param An array parameter.
-   * @param {module:ApiClient.CollectionFormatEnum} collectionFormat The array element separator strategy.
-   * @returns {String|Array} A string representation of the supplied collection, using the specified delimiter. Returns
-   * <code>param</code> as is if <code>collectionFormat</code> is <code>multi</code>.
-   */
-  exports.prototype.buildCollectionParam = function buildCollectionParam (param, collectionFormat) {
-    if (param === undefined || param === null) {
-      return null;
-    }
-    switch (collectionFormat) {
-      case 'csv':
-        return param.map(this.paramToString).join(',');
-      case 'ssv':
-        return param.map(this.paramToString).join(' ');
-      case 'tsv':
-        return param.map(this.paramToString).join('\t');
-      case 'pipes':
-        return param.map(this.paramToString).join('|');
-      case 'multi':
-        // return the array directly
-        return param.map(this.paramToString);
-      default:
-        throw new Error('Unknown collection format: ' + collectionFormat);
-    }
-  };
+	/**
+	 * Builds a string representation of an array-type actual parameter, according to the given collection format.
+	 * @param {Array} param An array parameter.
+	 * @param {module:ApiClient.CollectionFormatEnum} collectionFormat The array element separator strategy.
+	 * @returns {String|Array} A string representation of the supplied collection, using the specified delimiter. Returns
+	 * <code>param</code> as is if <code>collectionFormat</code> is <code>multi</code>.
+	 */
+	exports.prototype.buildCollectionParam = function buildCollectionParam(param, collectionFormat) {
+		if (param === undefined || param === null) {
+			return null;
+		}
+		switch (collectionFormat) {
+			case 'csv':
+				return param.map(this.paramToString).join(',');
+			case 'ssv':
+				return param.map(this.paramToString).join(' ');
+			case 'tsv':
+				return param.map(this.paramToString).join('\t');
+			case 'pipes':
+				return param.map(this.paramToString).join('|');
+			case 'multi':
+				// return the array directly
+				return param.map(this.paramToString);
+			default:
+				throw new Error('Unknown collection format: ' + collectionFormat);
+		}
+	};
 
-  /**
-   * Applies authentication header to the request.
-   * @param {Object} requestParams - The requestParams object created by a <code>request()</code> call.
-   * @param {Object} headers - The headers that passed to this method
-   * @param {Object} oauth2client - OAuth2 client that has a credentials object
-   * @param {Object} credentials - The credentials object
-   */
-  exports.prototype.applyAuthToRequest = function (requestParams, headers, oauth2client, credentials) {
+	/**
+	 * Applies authentication header to the request.
+	 * @param {Object} requestParams - The requestParams object created by a <code>request()</code> call.
+	 * @param {Object} headers - The headers that passed to this method
+	 * @param {Object} oauth2client - OAuth2 client that has a credentials object
+	 * @param {Object} credentials - The credentials object
+	 */
+	exports.prototype.applyAuthToRequest = function (requestParams, headers, oauth2client, credentials) {
 
-    var _this = this;
+		var _this = this;
 
-    function setAuthHeader (credentials) {
-      if (credentials.access_token) {
-        headers['Authorization'] = 'Bearer ' + credentials.access_token; // jshint ignore:line
-      }
-    }
+		function setAuthHeader(credentials) {
+			if (credentials.access_token) {
+				headers['Authorization'] = 'Bearer ' + credentials.access_token; // jshint ignore:line
+			}
+		}
 
-    return new Promise(function (resolve, reject) {
-      //if the request doesn't require authentication, just resolve the promise
-      if (!credentials || (credentials && !credentials.access_token)) {
-        resolve();
-      }
+		return new Promise(function (resolve, reject) {
+			//if the request doesn't require authentication, just resolve the promise
+			if (!credentials || (credentials && !credentials.access_token)) {
+				resolve();
+			}
 
-      // let's see if the token is already expired?
-      // be careful access tokens are validated once teh query was received by the server, not when emitted
-      // for this reason, we need to aknowledge the time to upload payload/file/etc... (300 == 5min)
-      if (oauth2client && oauth2client.autoRefresh && new Date(credentials.expires_at).getTime() - 300000 <= Date.now()) {
+			// let's see if the token is already expired?
+			// be careful access tokens are validated once teh query was received by the server, not when emitted
+			// for this reason, we need to aknowledge the time to upload payload/file/etc... (300 == 5min)
+			if (oauth2client && oauth2client.autoRefresh && new Date(credentials.expires_at).getTime() - 300000 <= Date.now()) {
 
-        // set the correct promiseObj, for 2 or 3 legged token
-        var isCredentialsTypeTwoLegged = true;
+				// set the correct promiseObj, for 2 or 3 legged token
+				var isCredentialsTypeTwoLegged = true;
 
-        if (credentials.refresh_token) {
-          isCredentialsTypeTwoLegged = false;
-        }
+				if (credentials.refresh_token) {
+					isCredentialsTypeTwoLegged = false;
+				}
 
-        var getCredentialsPromise = isCredentialsTypeTwoLegged ?
-          oauth2client.authenticate() // 2-legged: create a new credentials object
-          :
-          oauth2client.refreshToken(credentials); // 3-legged: use refresh
+				var getCredentialsPromise = isCredentialsTypeTwoLegged ?
+					oauth2client.authenticate() // 2-legged: create a new credentials object
+					:
+					oauth2client.refreshToken(credentials); // 3-legged: use refresh
 
-        getCredentialsPromise.then(function (newCredentials) {
-          _this.debug('credentials were refreshed, new credentials:', newCredentials);
+				getCredentialsPromise.then(function (newCredentials) {
+					_this.debug('credentials were refreshed, new credentials:', newCredentials);
 
-          // For a 2-legged token just update the credentials object
-          if (isCredentialsTypeTwoLegged) {
-            oauth2client.setCredentials(newCredentials);
-          }
-          setAuthHeader(newCredentials);
-          resolve();
-        }, function (err) {
-          reject(err);
-        });
-      } else {
-        setAuthHeader(credentials);
-        _this.debug('set current credentials to header', credentials);
-        resolve();
-      }
-    });
-  };
+					// For a 2-legged token just update the credentials object
+					if (isCredentialsTypeTwoLegged) {
+						oauth2client.setCredentials(newCredentials);
+					}
+					setAuthHeader(newCredentials);
+					resolve();
+				}, function (err) {
+					reject(err);
+				});
+			} else {
+				setAuthHeader(credentials);
+				_this.debug('set current credentials to header', credentials);
+				resolve();
+			}
+		});
+	};
 
-  /**
-   * Enable working in debug mode
-   * To activate, simple set ForgeSdk.setDebug(true);
-   */
-  exports.prototype.debug = function debug () {
-    if (this.isDebugMode) {
-      var args = Array.prototype.slice.call(arguments);
-      args.map(function (arg) {
-        if (typeof arg === 'string') {
-          console.log(arg + ': ');
-        } else {
-          console.log(arg);
-        }
-      });
-    }
-  };
+	/**
+	 * Enable working in debug mode
+	 * To activate, simple set ForgeSdk.setDebug(true);
+	 */
+	exports.prototype.debug = function debug() {
+		if (this.isDebugMode) {
+			var args = Array.prototype.slice.call(arguments);
+			args.map(function (arg) {
+				if (typeof arg === 'string') {
+					console.log(arg + ': ');
+				} else {
+					console.log(arg);
+				}
+			});
+		}
+	};
 
-  /**
-   * Invokes the REST service using the supplied settings and parameters.
-   * @param {String} path The base URL to invoke.
-   * @param {String} httpMethod The HTTP method to use.
-   * @param {Object.<String, String>} pathParams A map of path parameters and their values.
-   * @param {Object.<String, Object>} queryParams A map of query parameters and their values.
-   * @param {Object.<String, Object>} headerParams A map of header parameters and their values.
-   * @param {Object.<String, Object>} formParams A map of form parameters and their values.
-   * @param {Object} bodyParam The value to pass as the request body.
-   * @param {Array.<String>} contentTypes An array of request MIME types.
-   * @param {Array.<String>} accepts An array of acceptable response MIME types.
-   * @param {(String|Array|Object|Function)} returnType The required type to return; can be a string for simple types or the
-   *    constructor for a complex type.
-   * @param {Object} oauth2client oauth2client for the call
-   * @param {Object} credentials credentials for the call
-   * @returns {Object} A Promise object.
-   */
-  exports.prototype.callApi = function callApi (path, httpMethod, pathParams,
-    queryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
-    returnType, oauth2client, credentials) {
+	/**
+	 * Invokes the REST service using the supplied settings and parameters.
+	 * @param {String} path The base URL to invoke.
+	 * @param {String} httpMethod The HTTP method to use.
+	 * @param {Object.<String, String>} pathParams A map of path parameters and their values.
+	 * @param {Object.<String, Object>} queryParams A map of query parameters and their values.
+	 * @param {Object.<String, Object>} headerParams A map of header parameters and their values.
+	 * @param {Object.<String, Object>} formParams A map of form parameters and their values.
+	 * @param {Object} bodyParam The value to pass as the request body.
+	 * @param {Array.<String>} contentTypes An array of request MIME types.
+	 * @param {Array.<String>} accepts An array of acceptable response MIME types.
+	 * @param {(String|Array|Object|Function)} returnType The required type to return; can be a string for simple types or the
+	 *    constructor for a complex type.
+	 * @param {Object} oauth2client oauth2client for the call
+	 * @param {Object} credentials credentials for the call
+	 * @returns {Object} A Promise object.
+	 */
+	exports.prototype.callApi = function callApi(path, httpMethod, pathParams,
+		queryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
+		returnType, oauth2client, credentials) {
 
-    var _this = this;
-    var requestParams = {};
-    requestParams.uri = this.buildUrl(path, pathParams);
-    requestParams.method = httpMethod;
-    var headers = {};
-    requestParams.qs = this.normalizeParams(queryParams);
-    requestParams.timeout = this.timeout;
+		var _this = this;
+		var requestParams = {};
+		requestParams.uri = this.buildUrl(path, pathParams);
+		requestParams.method = httpMethod;
+		var headers = {};
+		requestParams.qs = this.normalizeParams(queryParams);
+		requestParams.timeout = this.timeout;
 
-    var contentType = this.jsonPreferredMime(contentTypes);
-    if (contentType) {
-      headers['Content-Type'] = contentType;
-    }
+		var contentType = this.jsonPreferredMime(contentTypes);
+		if (contentType) {
+			headers['Content-Type'] = contentType;
+		}
 
-    if (contentType === 'application/x-www-form-urlencoded') {
-      requestParams.form = this.normalizeParams(formParams);
-    } else if (contentType === 'multipart/form-data') {
-      requestParams.formData = this.normalizeParams(formParams);
-    } else if (bodyParam) {
-      requestParams.body = bodyParam;
-      if (this.isJsonMime(contentType)) {
-        requestParams.json = true;
-      }
-    }
+		if (contentType === 'application/x-www-form-urlencoded') {
+			requestParams.form = this.normalizeParams(formParams);
+		} else if (contentType === 'multipart/form-data') {
+			requestParams.formData = this.normalizeParams(formParams);
+		} else if (bodyParam) {
+			requestParams.body = bodyParam;
+			if (this.isJsonMime(contentType)) {
+				requestParams.json = true;
+			}
+		}
 
-    if (accepts.length > 0) {
-      headers['Accept'] = accepts.join(','); // jshint ignore:line
-      for (var i = 0; i < accepts.length; i++) {
-        if (accepts[i] === 'application/octet-stream') {
-          requestParams.encoding = null;
-        }
-      }
-    }
-    if (headerParams['Accept-Encoding'] === 'gzip, deflate') {
-      requestParams.encoding = null;
-    }
-    _this.debug('request params were', requestParams);
+		if (accepts.length > 0) {
+			headers['Accept'] = accepts.join(','); // jshint ignore:line
+			for (var i = 0; i < accepts.length; i++) {
+				if (accepts[i] === 'application/octet-stream') {
+					requestParams.encoding = null;
+				}
+			}
+		}
+		if (headerParams['Accept-Encoding'] === 'gzip, deflate') {
+			requestParams.encoding = null;
+		}
+		_this.debug('request params were', requestParams);
 
-    return new Promise(function (resolve, reject) {
-      _this.applyAuthToRequest(requestParams, headers, oauth2client, credentials).then(function () {
+		return new Promise(function (resolve, reject) {
+			_this.applyAuthToRequest(requestParams, headers, oauth2client, credentials).then(function () {
 
-        // headerParams optional overrides
-        requestParams.headers = Object.assign(headers, headerParams);
-        requestParams.agentOptions = {
-          secureProtocol: 'TLSv1_2_method' // 'TLSv1.2'
-        };
+				// headerParams optional overrides
+				requestParams.headers = Object.assign(headers, headerParams);
+				requestParams.agentOptions = {
+					secureProtocol: 'TLSv1_2_method' // 'TLSv1.2'
+				};
 
-        // Call API endpoint
-        request(requestParams,
-          function (error, response, body) {
-            if (error) {
-              reject(error);
-            } else {
-              var resp;
-              try {
-                resp = JSON.parse(body);
-              } catch (e) {
-                resp = body;
-              }
+				// Call API endpoint
+				request(requestParams,
+					function (error, response, body) {
+						if (error) {
+							reject(error);
+						} else {
+							var resp;
+							try {
+								resp = JSON.parse(body);
+							} catch (e) {
+								resp = body;
+							}
 
-              if (response.statusCode >= 400) {
-                _this.debug('error response', {
-                  statusCode: response.statusCode,
-                  statusMessage: response.statusMessage
-                });
-                reject({
-                  statusCode: response.statusCode,
-                  statusMessage: response.statusMessage,
-                  statusBody: resp
-                });
-              } else {
-                resolve({
-                  statusCode: response.statusCode,
-                  headers: response.headers,
-                  body: resp
-                });
-              }
-            }
-          });
-      }, function (err) {
-        throw new Error(err.toString);
-      });
-    });
-  };
+							if (response.statusCode >= 400) {
+								_this.debug('error response', {
+									statusCode: response.statusCode,
+									statusMessage: response.statusMessage
+								});
+								reject({
+									statusCode: response.statusCode,
+									statusMessage: response.statusMessage,
+									statusBody: resp
+								});
+							} else {
+								resolve({
+									statusCode: response.statusCode,
+									headers: response.headers,
+									body: resp
+								});
+							}
+						}
+					});
+			}, function (err) {
+				throw new Error(err.toString);
+			});
+		});
+	};
 
-  /**
-   * Parses an ISO-8601 string representation of a date value.
-   * @param {String} str The date value as a string.
-   * @returns {Date} The parsed date object.
-   */
-  exports.parseDate = function (str) {
-    return new Date(str.replace(/T/i, ' '));
-  };
+	/**
+	 * Parses an ISO-8601 string representation of a date value.
+	 * @param {String} str The date value as a string.
+	 * @returns {Date} The parsed date object.
+	 */
+	exports.parseDate = function (str) {
+		return new Date(str.replace(/T/i, ' '));
+	};
 
-  /**
-   * Converts a value to the specified type.
-   * @param {(String|Object)} data The data to convert, as a string or object.
-   * @param {(String|Array.<String>|Object.<String, Object>|Function)} type The type to return. Pass a string for simple types
-   * or the constructor function for a complex type. Pass an array containing the type name to return an array of that type. To
-   * return an object, pass an object with one property whose name is the key type and whose value is the corresponding value type:
-   * all properties on <code>data<code> will be converted to this type.
-   * @returns {Object} An instance of the specified type.
-   */
-  exports.convertToType = function (data, type) {
-    switch (type) {
-      case 'Boolean':
-        return Boolean(data);
-      case 'Integer':
-        return parseInt(data, 10);
-      case 'Number':
-        return parseFloat(data);
-      case 'String':
-        return String(data);
-      case 'Date':
-        return this.parseDate(String(data));
-      default:
-        if (type === Object) {
-          // generic object, return directly
-          return data;
-        } else if (typeof type === 'function') {
-          // for model type like: User
-          return type.constructFromObject(data);
-        } else if (Array.isArray(type)) {
-          // for array type like: ['String']
-          var itemType = type[0];
-          return data.map(function (item) {
-            return exports.convertToType(item, itemType);
-          });
-        } else if (typeof type === 'object') {
-          // for plain object type like: {'String': 'Integer'}
-          var keyType, valueType;
-          for (var k in type) {
-            if (type.hasOwnProperty(k)) {
-              keyType = k;
-              valueType = type[k];
-              break;
-            }
-          }
-          var result = {};
-          for (var j in data) {
-            if (data.hasOwnProperty(j)) {
-              var key = exports.convertToType(j, keyType);
-              result[key] = exports.convertToType(data[j], valueType);
-            }
-          }
-          return result;
-        } else {
-          // for unknown type, return the data directly
-          return data;
-        }
-    }
-  };
+	/**
+	 * Converts a value to the specified type.
+	 * @param {(String|Object)} data The data to convert, as a string or object.
+	 * @param {(String|Array.<String>|Object.<String, Object>|Function)} type The type to return. Pass a string for simple types
+	 * or the constructor function for a complex type. Pass an array containing the type name to return an array of that type. To
+	 * return an object, pass an object with one property whose name is the key type and whose value is the corresponding value type:
+	 * all properties on <code>data<code> will be converted to this type.
+	 * @returns {Object} An instance of the specified type.
+	 */
+	exports.convertToType = function (data, type) {
+		switch (type) {
+			case 'Boolean':
+				return Boolean(data);
+			case 'Integer':
+				return parseInt(data, 10);
+			case 'Number':
+				return parseFloat(data);
+			case 'String':
+				return String(data);
+			case 'Date':
+				return this.parseDate(String(data));
+			default:
+				if (type === Object) {
+					// generic object, return directly
+					return data;
+				} else if (typeof type === 'function') {
+					// for model type like: User
+					return type.constructFromObject(data);
+				} else if (Array.isArray(type)) {
+					// for array type like: ['String']
+					var itemType = type[0];
+					return data.map(function (item) {
+						return exports.convertToType(item, itemType);
+					});
+				} else if (typeof type === 'object') {
+					// for plain object type like: {'String': 'Integer'}
+					var keyType, valueType;
+					for (var k in type) {
+						if (type.hasOwnProperty(k)) {
+							keyType = k;
+							valueType = type[k];
+							break;
+						}
+					}
+					var result = {};
+					for (var j in data) {
+						if (data.hasOwnProperty(j)) {
+							var key = exports.convertToType(j, keyType);
+							result[key] = exports.convertToType(data[j], valueType);
+						}
+					}
+					return result;
+				} else {
+					// for unknown type, return the data directly
+					return data;
+				}
+		}
+	};
 
-  /**
-   * The default API client implementation.
-   * @type {module:ApiClient}
-   */
-  exports.instance = new exports();
+	/**
+	 * The default API client implementation.
+	 * @type {module:ApiClient}
+	 */
+	exports.instance = new exports();
 
-  return exports;
+	return exports;
 }());

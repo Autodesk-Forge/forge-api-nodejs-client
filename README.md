@@ -163,6 +163,29 @@ You can get the full documentation for the API on the [Developer Portal](https:/
 
 All URIs are relative to *https://developer.api.autodesk.com/* (for example createBucket URI is 'https://developer.api.autodesk.com/oss/v2/buckets')
 
+#### DerivativesApi regions
+
+```javascript
+ForgeSDK.DerivativesApi(apiClient =null, region ='US'); // defaults to US
+// if null/undefined, apiClient defaults to the default ForgeSDK.ApiClient.instance
+```
+
+Region | Path |
+------------ | ------------- |
+US | /modelderivative/v2/ |
+EMEA | /modelderivative/v2/regions/eu/ |
+EU | /modelderivative/v2/regions/eu/ |
+
+ex:
+```javascript
+var DerivativesApi = new ForgeSDK.DerivativesApi(); // defaults to US
+var DerivativesApi = new ForgeSDK.DerivativesApi(undefined, 'EMEA'); // Use EMEA endpoint
+var DerivativesApi = new ForgeSDK.DerivativesApi(undefined, 'EU'); // Use EMEA endpoint
+var DerivativesApi = new ForgeSDK.DerivativesApi(undefined, 'US'); // Use US endpoint
+```
+
+#### Classes
+
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ForgeSdk.BucketsApi* | [**createBucket**](docs/BucketsApi.md#createBucket) | **POST** /oss/v2/buckets |

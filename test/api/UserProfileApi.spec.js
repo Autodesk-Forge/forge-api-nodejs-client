@@ -22,69 +22,67 @@
  * limitations under the License.
  */
 
-module.export = (function() {
-  'use strict';
+module.export = (function () {
+	'use strict';
 
-  var expect = require('expect.js'),
-      sinon = require('sinon'),
-      ForgeSdk = require('../../src'),
-      instance,
-      oauth2client,
-      credentials,
-      mockedApiClientRequest,
-      ApiClient = require('../../src/ApiClient'),
-      UserProfile = require('../../src/model/UserProfile');
+	var expect = require('expect.js'),
+		sinon = require('sinon'),
+		ForgeSdk = require('../../src'),
+		instance,
+		oauth2client,
+		credentials,
+		mockedApiClientRequest,
+		ApiClient = require('../../src/ApiClient'),
+		UserProfile = require('../../src/model/UserProfile');
 
-  var sampleStrParam = 'test_string';
-  var sampleIntParam = 10;
-  var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
-  var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
+	var sampleStrParam = 'test_string';
+	var sampleIntParam = 10;
+	var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
+	var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
 
-  var apiClient = new ApiClient();
+	var apiClient = new ApiClient();
 
-  before(function(){
-    oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
-    credentials = {access_token: 'abce'};
-    instance = new ForgeSdk.UserProfileApi(apiClient);
-    mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');
-  });
+	before(function () {
+		oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
+		credentials = {
+			access_token: 'abce'
+		};
+		instance = new ForgeSdk.UserProfileApi(apiClient);
+		mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');
+	});
 
-   after(function () {
-     apiClient.callApi.restore();
-   });
+	after(function () {
+		apiClient.callApi.restore();
+	});
 
 
-  describe('UserProfileApi', function() {
-    describe('getUserProfile', function() {
-      it('should call getUserProfile successfully', function(done) {
+	describe('UserProfileApi', function () {
+		describe('getUserProfile', function () {
+			it('should call getUserProfile successfully', function (done) {
 
-        var postBody = null;
+				var postBody = null;
 
-        var pathParams = {
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var pathParams = {};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = UserProfile;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = UserProfile;
 
-        mockedApiClientRequest.withArgs('/userprofile/v1/users/@me', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/userprofile/v1/users/@me', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.getUserProfile(oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-  });
+				instance.getUserProfile(oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+	});
 
 }());

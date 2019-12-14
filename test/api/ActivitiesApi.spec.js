@@ -22,287 +22,263 @@
  * limitations under the License.
  */
 
-module.export = (function() {
-  'use strict';
+module.export = (function () {
+	'use strict';
 
-  var expect = require('expect.js'),
-      sinon = require('sinon'),
-      ForgeSdk = require('../../src'),
-      instance,
-      oauth2client,
-      credentials,
-      mockedApiClientRequest,
-      ApiClient = require('../../src/ApiClient'),
-      Activity = require('../../src/model/Activity'),
-      ActivityOptional = require('../../src/model/ActivityOptional'),
-      ActivityVersion = require('../../src/model/ActivityVersion'),
-      DesignAutomationActivities = require('../../src/model/DesignAutomationActivities');
+	var expect = require('expect.js'),
+		sinon = require('sinon'),
+		ForgeSdk = require('../../src'),
+		instance,
+		oauth2client,
+		credentials,
+		mockedApiClientRequest,
+		ApiClient = require('../../src/ApiClient'),
+		Activity = require('../../src/model/Activity'),
+		ActivityOptional = require('../../src/model/ActivityOptional'),
+		ActivityVersion = require('../../src/model/ActivityVersion'),
+		DesignAutomationActivities = require('../../src/model/DesignAutomationActivities');
 
-  var sampleStrParam = 'test_string';
-  var sampleIntParam = 10;
-  var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
-  var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
+	var sampleStrParam = 'test_string';
+	var sampleIntParam = 10;
+	var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
+	var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
 
-  var apiClient = new ApiClient();
+	var apiClient = new ApiClient();
 
-  before(function(){
-    oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
-    credentials = {access_token: 'abce'};
-    instance = new ForgeSdk.ActivitiesApi(apiClient);
-    mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');
-  });
+	before(function () {
+		oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
+		credentials = {
+			access_token: 'abce'
+		};
+		instance = new ForgeSdk.ActivitiesApi(apiClient);
+		mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');
+	});
 
-   after(function () {
-     apiClient.callApi.restore();
-   });
+	after(function () {
+		apiClient.callApi.restore();
+	});
 
-  describe('ActivitiesApi', function() {
-    describe('createActivity', function() {
-      it('should call createActivity successfully', function(done) {
+	describe('ActivitiesApi', function () {
+		describe('createActivity', function () {
+			it('should call createActivity successfully', function (done) {
 
-        var postBody = sampleStrParam;
+				var postBody = sampleStrParam;
 
-        var pathParams = {
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var pathParams = {};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = Activity;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = Activity;
 
-        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities', 'POST',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities', 'POST',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.createActivity(sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('deleteActivity', function() {
-      it('should call deleteActivity successfully', function(done) {
+				instance.createActivity(sampleStrParam, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+		describe('deleteActivity', function () {
+			it('should call deleteActivity successfully', function (done) {
 
-        var postBody = null;
+				var postBody = null;
 
-        var pathParams = {
-        'id': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var pathParams = {
+					'id': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = null;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = null;
 
-        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities(%27{id}%27)', 'DELETE',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities(%27{id}%27)', 'DELETE',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.deleteActivity(sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('deleteActivityHistory', function() {
-      it('should call deleteActivityHistory successfully', function(done) {
+				instance.deleteActivity(sampleStrParam, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+		describe('deleteActivityHistory', function () {
+			it('should call deleteActivityHistory successfully', function (done) {
 
-        var postBody = null;
+				var postBody = null;
 
-        var pathParams = {
-        'id': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var pathParams = {
+					'id': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = null;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = null;
 
-        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.DeleteHistory', 'POST',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.DeleteHistory', 'POST',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.deleteActivityHistory(sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('getActivity', function() {
-      it('should call getActivity successfully', function(done) {
+				instance.deleteActivityHistory(sampleStrParam, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+		describe('getActivity', function () {
+			it('should call getActivity successfully', function (done) {
 
-        var postBody = null;
+				var postBody = null;
 
-        var pathParams = {
-        'id': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var pathParams = {
+					'id': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = Activity;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = Activity;
 
-        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities(%27{id}%27)', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities(%27{id}%27)', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.getActivity(sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('getActivityVersions', function() {
-      it('should call getActivityVersions successfully', function(done) {
+				instance.getActivity(sampleStrParam, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+		describe('getActivityVersions', function () {
+			it('should call getActivityVersions successfully', function (done) {
 
-        var postBody = null;
+				var postBody = null;
 
-        var pathParams = {
-        'id': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var pathParams = {
+					'id': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = DesignAutomationActivities;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = DesignAutomationActivities;
 
-        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.GetVersions', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.GetVersions', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.getActivityVersions(sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('getAllActivities', function() {
-      it('should call getAllActivities successfully', function(done) {
+				instance.getActivityVersions(sampleStrParam, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+		describe('getAllActivities', function () {
+			it('should call getAllActivities successfully', function (done) {
 
-        var postBody = null;
+				var postBody = null;
 
-        var pathParams = {
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var pathParams = {};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = DesignAutomationActivities;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = DesignAutomationActivities;
 
-        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities', 'GET',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.getAllActivities(oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('patchActivity', function() {
-      it('should call patchActivity successfully', function(done) {
+				instance.getAllActivities(oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+		describe('patchActivity', function () {
+			it('should call patchActivity successfully', function (done) {
 
-        var postBody = sampleStrParam;
+				var postBody = sampleStrParam;
 
-        var pathParams = {
-        'id': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var pathParams = {
+					'id': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = null;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = null;
 
-        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities(%27{id}%27)', 'PATCH',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities(%27{id}%27)', 'PATCH',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.patchActivity(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-    describe('setActivityVersion', function() {
-      it('should call setActivityVersion successfully', function(done) {
+				instance.patchActivity(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+		describe('setActivityVersion', function () {
+			it('should call setActivityVersion successfully', function (done) {
 
-        var postBody = sampleStrParam;
+				var postBody = sampleStrParam;
 
-        var pathParams = {
-        'id': sampleStrParam
-        };
-        var queryParams = {
-        };
-        var headerParams = {
-        };
-        var formParams = {
-        };
+				var pathParams = {
+					'id': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
 
-        var contentTypes = ['application/json'];
-        var accepts = ['application/vnd.api+json', 'application/json'];
-        var returnType = null;
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = null;
 
-        mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.SetVersion', 'POST',
-                pathParams, queryParams, headerParams, formParams, postBody,
-                contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/Activities(%27{id}%27)/Operations.SetVersion', 'POST',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-        instance.setActivityVersion(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function(response){
-            expect(response).to.be.ok();
-            done();
-        }, function(err){
-            done(err);
-        });
-      });
-    });
-  });
+				instance.setActivityVersion(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+	});
 
 }());

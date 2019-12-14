@@ -25,18 +25,21 @@
 module.export = (function () {
 	'use strict';
 
-	var expect = require('expect.js'),
-		sinon = require('sinon'),
-		ForgeSdk = require('../../src'),
-		instance,
-		oauth2client,
-		credentials,
-		mockedApiClientRequest,
-		ApiClient = require('../../src/ApiClient'),
-		AppPackage = require('../../src/model/AppPackage'),
-		AppPackageOptional = require('../../src/model/AppPackageOptional'),
-		AppPackageVersion = require('../../src/model/AppPackageVersion'),
-		DesignAutomationAppPackages = require('../../src/model/DesignAutomationAppPackages');
+	var expect = require('expect.js');
+	var sinon = require('sinon');
+	var ForgeSdk = require('../../src');
+	var instance;
+	var oauth2client;
+	var credentials;
+	var mockedApiClientRequest;
+	var ApiClient = require('../../src/ApiClient');
+	var Diagnostics = require('../../src/model/Diagnostics');
+	var Formats = require('../../src/model/Formats');
+	var Job = require('../../src/model/Job');
+	var JobPayload = require('../../src/model/JobPayload');
+	var Manifest = require('../../src/model/Manifest');
+	var Metadata = require('../../src/model/Metadata');
+	var Result = require('../../src/model/Result');
 
 	var sampleStrParam = 'test_string';
 	var sampleIntParam = 10;
@@ -50,7 +53,7 @@ module.export = (function () {
 		credentials = {
 			access_token: 'abce'
 		};
-		instance = new ForgeSdk.AppPackagesApi(apiClient);
+		instance = new ForgeSdk.DerivativesApi(apiClient, 'EU');
 		mockedApiClientRequest = sinon.stub(instance.apiClient, 'callApi');
 	});
 
@@ -58,136 +61,30 @@ module.export = (function () {
 		apiClient.callApi.restore();
 	});
 
-	describe('AppPackagesApi', function () {
-		describe('createAppPackage', function () {
-			it('should call createAppPackage successfully', function (done) {
+	describe('DerivativesApi', function () {
 
-				var postBody = sampleStrParam;
-
-				var pathParams = {};
-				var queryParams = {};
-				var headerParams = {};
-				var formParams = {};
-
-				var contentTypes = ['application/json'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = AppPackage;
-
-				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackages', 'POST',
-					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
-
-				instance.createAppPackage(sampleStrParam, oauth2client, credentials).then(function (response) {
-					expect(response).to.be.ok();
-					done();
-				}, function (err) {
-					done(err);
-				});
-			});
-		});
-		describe('deleteAppPackage', function () {
-			it('should call deleteAppPackage successfully', function (done) {
-
-				var postBody = null;
-
-				var pathParams = {
-					'id': sampleStrParam
-				};
-				var queryParams = {};
-				var headerParams = {};
-				var formParams = {};
-
-				var contentTypes = ['application/json'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = null;
-
-				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackages(%27{id}%27)', 'DELETE',
-					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
-
-				instance.deleteAppPackage(sampleStrParam, oauth2client, credentials).then(function (response) {
-					expect(response).to.be.ok();
-					done();
-				}, function (err) {
-					done(err);
-				});
-			});
-		});
-		describe('deleteAppPackageHistory', function () {
-			it('should call deleteAppPackageHistory successfully', function (done) {
-
-				var postBody = null;
-
-				var pathParams = {
-					'id': sampleStrParam
-				};
-				var queryParams = {};
-				var headerParams = {};
-				var formParams = {};
-
-				var contentTypes = ['application/json'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = null;
-
-				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackages(%27{id}%27)/Operations.DeleteHistory', 'POST',
-					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
-
-				instance.deleteAppPackageHistory(sampleStrParam, oauth2client, credentials).then(function (response) {
-					expect(response).to.be.ok();
-					done();
-				}, function (err) {
-					done(err);
-				});
-			});
-		});
-		describe('getAllAppPackages', function () {
-			it('should call getAllAppPackages successfully', function (done) {
-
+		describe('getFormats', function () {
+			it('should call getFormats successfully', function (done) {
+				var opts = {};
 				var postBody = null;
 
 				var pathParams = {};
 				var queryParams = {};
-				var headerParams = {};
-				var formParams = {};
-
-				var contentTypes = ['application/json'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = DesignAutomationAppPackages;
-
-				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackages', 'GET',
-					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
-
-				instance.getAllAppPackages(oauth2client, credentials).then(function (response) {
-					expect(response).to.be.ok();
-					done();
-				}, function (err) {
-					done(err);
-				});
-			});
-		});
-		describe('getAppPackage', function () {
-			it('should call getAppPackage successfully', function (done) {
-
-				var postBody = null;
-
-				var pathParams = {
-					'id': sampleStrParam
+				var headerParams = {
+					'If-Modified-Since': opts.ifModifiedSince,
+					'Accept-Encoding': opts.acceptEncoding
 				};
-				var queryParams = {};
-				var headerParams = {};
 				var formParams = {};
 
 				var contentTypes = ['application/json'];
 				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = AppPackage;
+				var returnType = Formats;
 
-				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackages(%27{id}%27)', 'GET',
+				mockedApiClientRequest.withArgs('/modelderivative/v2/regions/eu/designdata/formats', 'GET',
 					pathParams, queryParams, headerParams, formParams, postBody,
 					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-				instance.getAppPackage(sampleStrParam, oauth2client, credentials).then(function (response) {
+				instance.getFormats(opts, oauth2client, credentials).then(function (response) {
 					expect(response).to.be.ok();
 					done();
 				}, function (err) {
@@ -195,53 +92,28 @@ module.export = (function () {
 				});
 			});
 		});
-		describe('getAppPackageVersions', function () {
-			it('should call getAppPackageVersions successfully', function (done) {
 
-				var postBody = null;
-
-				var pathParams = {
-					'id': sampleStrParam
-				};
-				var queryParams = {};
-				var headerParams = {};
-				var formParams = {};
-
-				var contentTypes = ['application/json'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = DesignAutomationAppPackages;
-
-				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackages(%27{id}%27)/Operations.GetVersions', 'GET',
-					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
-
-				instance.getAppPackageVersions(sampleStrParam, oauth2client, credentials).then(function (response) {
-					expect(response).to.be.ok();
-					done();
-				}, function (err) {
-					done(err);
-				});
-			});
-		});
-		describe('getUploadUrl', function () {
-			it('should call getUploadUrl successfully', function (done) {
-
-				var postBody = null;
+		describe('translate', function () {
+			it('should call translate successfully', function (done) {
+				var opts = {};
+				var postBody = sampleStrParam;
 
 				var pathParams = {};
 				var queryParams = {};
-				var headerParams = {};
+				var headerParams = {
+					'x-ads-force': opts.xAdsForce
+				};
 				var formParams = {};
 
 				var contentTypes = ['application/json'];
 				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = null;
+				var returnType = Job;
 
-				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackages/Operations.GetUploadUrl', 'GET',
+				mockedApiClientRequest.withArgs('/modelderivative/v2/regions/eu/designdata/job', 'POST',
 					pathParams, queryParams, headerParams, formParams, postBody,
 					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-				instance.getUploadUrl(oauth2client, credentials).then(function (response) {
+				instance.translate(sampleStrParam, opts, oauth2client, credentials).then(function (response) {
 					expect(response).to.be.ok();
 					done();
 				}, function (err) {
@@ -249,27 +121,60 @@ module.export = (function () {
 				});
 			});
 		});
-		describe('getUploadUrlWithRequireContentType', function () {
-			it('should call getUploadUrlWithRequireContentType successfully', function (done) {
 
+		describe('setReferences', function () {
+			it('should call setReferences successfully', function (done) {
+				var opts = {};
+				var postBody = sampleStrParam;
+
+				var pathParams = {
+					urn: sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
+
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = null;
+
+				mockedApiClientRequest.withArgs('/modelderivative/v2/regions/eu/designdata/{urn}/references', 'POST',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+				instance.setReferences(sampleStrParam, postBody, opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+
+		describe('getThumbnail', function () {
+			it('should call getThumbnail successfully', function (done) {
+				var opts = {};
 				var postBody = null;
 
 				var pathParams = {
-					'require': sampleStrParam
+					'urn': sampleStrParam
 				};
-				var queryParams = {};
+				var queryParams = {
+					'width': opts.width,
+					'height': opts.height
+				};
 				var headerParams = {};
 				var formParams = {};
 
 				var contentTypes = ['application/json'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = null;
+				var accepts = ['application/octet-stream'];
+				var returnType = Object;
 
-				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackages/Operations.GetUploadUrl(RequireContentType={require})', 'GET',
+				mockedApiClientRequest.withArgs('/modelderivative/v2/regions/eu/designdata/{urn}/thumbnail', 'GET',
 					pathParams, queryParams, headerParams, formParams, postBody,
 					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-				instance.getUploadUrlWithRequireContentType(sampleStrParam, oauth2client, credentials).then(function (response) {
+				instance.getThumbnail(sampleStrParam, opts, oauth2client, credentials).then(function (response) {
 					expect(response).to.be.ok();
 					done();
 				}, function (err) {
@@ -277,27 +182,30 @@ module.export = (function () {
 				});
 			});
 		});
-		describe('patchAppPackage', function () {
-			it('should call patchAppPackage successfully', function (done) {
 
-				var postBody = sampleStrParam;
+		describe('getManifest', function () {
+			it('should call getManifest successfully', function (done) {
+				var opts = {};
+				var postBody = null;
 
 				var pathParams = {
-					'id': sampleStrParam
+					'urn': sampleStrParam
 				};
 				var queryParams = {};
-				var headerParams = {};
+				var headerParams = {
+					'Accept-Encoding': opts.acceptEncoding
+				};
 				var formParams = {};
 
 				var contentTypes = ['application/json'];
 				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = null;
+				var returnType = Manifest;
 
-				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackages(%27{id}%27)', 'PATCH',
+				mockedApiClientRequest.withArgs('/modelderivative/v2/regions/eu/designdata/{urn}/manifest', 'GET',
 					pathParams, queryParams, headerParams, formParams, postBody,
 					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-				instance.patchAppPackage(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function (response) {
+				instance.getManifest(sampleStrParam, opts, oauth2client, credentials).then(function (response) {
 					expect(response).to.be.ok();
 					done();
 				}, function (err) {
@@ -305,27 +213,58 @@ module.export = (function () {
 				});
 			});
 		});
-		describe('setAppPackageVersion', function () {
-			it('should call setAppPackageVersion successfully', function (done) {
 
-				var postBody = sampleStrParam;
+		describe('deleteManifest', function () {
+			it('should call deleteManifest successfully', function (done) {
+				var postBody = null;
+				var pathParams = {
+					'urn': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
+
+				var contentTypes = ['application/x-www-form-urlencoded'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = Result;
+
+				mockedApiClientRequest.withArgs('/modelderivative/v2/regions/eu/designdata/{urn}/manifest', 'DELETE',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+				instance.deleteManifest(sampleStrParam, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+
+		describe('getDerivativeManifest', function () {
+			it('should call getDerivativeManifest successfully', function (done) {
+				var opts = {};
+				var postBody = null;
 
 				var pathParams = {
-					'id': sampleStrParam
+					'urn': sampleStrParam,
+					'derivativeUrn': sampleStrParam
 				};
 				var queryParams = {};
-				var headerParams = {};
+				var headerParams = {
+					'Range': opts.range
+				};
 				var formParams = {};
 
 				var contentTypes = ['application/json'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
+				var accepts = ['application/octet-stream'];
 				var returnType = null;
 
-				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackages(%27{id}%27)/Operations.SetVersion', 'POST',
+				mockedApiClientRequest.withArgs('/modelderivative/v2/regions/eu/designdata/{urn}/manifest/{derivativeUrn}', 'GET',
 					pathParams, queryParams, headerParams, formParams, postBody,
 					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-				instance.setAppPackageVersion(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function (response) {
+				instance.getDerivativeManifest(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function (response) {
 					expect(response).to.be.ok();
 					done();
 				}, function (err) {
@@ -333,27 +272,30 @@ module.export = (function () {
 				});
 			});
 		});
-		describe('updateAppPackage', function () {
-			it('should call updateAppPackage successfully', function (done) {
 
-				var postBody = sampleStrParam;
+		describe('getMetadata', function () {
+			it('should call getMetadata successfully', function (done) {
+				var opts = {};
+				var postBody = null;
 
 				var pathParams = {
-					'id': sampleStrParam
+					'urn': sampleStrParam
 				};
 				var queryParams = {};
-				var headerParams = {};
+				var headerParams = {
+					'Accept-Encoding': opts.acceptEncoding
+				};
 				var formParams = {};
 
 				var contentTypes = ['application/json'];
 				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = null;
+				var returnType = Metadata;
 
-				mockedApiClientRequest.withArgs('/autocad.io/us-east/v2/AppPackages(%27{id}%27)', 'PUT',
+				mockedApiClientRequest.withArgs('/modelderivative/v2/regions/eu/designdata/{urn}/metadata', 'GET',
 					pathParams, queryParams, headerParams, formParams, postBody,
 					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-				instance.updateAppPackage(sampleStrParam, sampleStrParam, oauth2client, credentials).then(function (response) {
+				instance.getMetadata(sampleStrParam, opts, oauth2client, credentials).then(function (response) {
 					expect(response).to.be.ok();
 					done();
 				}, function (err) {
@@ -361,6 +303,73 @@ module.export = (function () {
 				});
 			});
 		});
+
+		describe('getModelviewMetadata', function () {
+			it('should call getModelviewMetadata successfully', function (done) {
+				var opts = {};
+				var postBody = null;
+
+				var pathParams = {
+					'urn': sampleStrParam,
+					'guid': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {
+					'Accept-Encoding': opts.acceptEncoding
+				};
+				var formParams = {};
+
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = Metadata;
+
+				mockedApiClientRequest.withArgs('/modelderivative/v2/regions/eu/designdata/{urn}/metadata/{guid}', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+				instance.getModelviewMetadata(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+
+		describe('getModelviewProperties', function () {
+			it('should call getModelviewProperties successfully', function (done) {
+				var opts = {};
+				var postBody = null;
+
+				var pathParams = {
+					'urn': sampleStrParam,
+					'guid': sampleStrParam
+				};
+				var queryParams = {
+					'forceget': opts.forceget || false
+				};
+				var headerParams = {
+					'Accept-Encoding': opts.acceptEncoding
+				};
+				var formParams = {};
+
+				var contentTypes = ['application/json'];
+				var accepts = ['application/vnd.api+json', 'application/json'];
+				var returnType = Metadata;
+
+				mockedApiClientRequest.withArgs('/modelderivative/v2/regions/eu/designdata/{urn}/metadata/{guid}/properties', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+				instance.getModelviewProperties(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+
 	});
 
 }());

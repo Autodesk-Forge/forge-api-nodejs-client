@@ -1,41 +1,41 @@
 {
-  "name": "forge-apis",
-  "version": "0.6.0",
-  "description": "The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.",
-  "license": "Apache-2.0",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 ./test",
-    "test2": "./node_modules/mocha/bin/mocha --colors --timeout 10000 ./test/api/FoldersApi.spec",
-    "coverage": "nyc npm run test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Autodesk-Forge/forge-api-nodejs-client"
-  },
-  "bugs": {
-    "url": "https://github.com/Autodesk-Forge/forge-api-nodejs-client/issues"
-  },
-  "author": "Autodesk Inc.",
-  "contributors": [
-    "Cyrille Fauvel <cyrille@autodesk.com>",
-    "Augusto Goncalves <augusto.goncalves@autodesk.com>"
-  ],
-  "dependencies": {
-    "request": "^2.88.0"
-  },
-  "keywords": [
-    "autodesk",
-    "autodesk-forge",
-    "rest",
-    "restful",
-    "api"
-  ],
-  "devDependencies": {
-    "expect.js": "^0.3.1",
-    "nyc": "^14.1.1",
-    "mocha": "^6.2.2",
-    "nock": "^11.7.0",
-    "sinon": "^7.5.0"
-  }
+	"name": "forge-apis",
+	"version": "0.7.0",
+	"description": "The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.",
+	"license": "Apache-2.0",
+	"main": "src/index.js",
+	"scripts": {
+		"test": "./node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 ./test",
+		"test2": "./node_modules/mocha/bin/mocha --colors --timeout 10000 ./test/api/DerivativesApi.spec",
+		"coverage": "nyc npm run test"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Autodesk-Forge/forge-api-nodejs-client"
+	},
+	"bugs": {
+		"url": "https://github.com/Autodesk-Forge/forge-api-nodejs-client/issues"
+	},
+	"author": "Autodesk Inc.",
+	"contributors": [
+		"Cyrille Fauvel <cyrille@autodesk.com>",
+		"Augusto Goncalves <augusto.goncalves@autodesk.com>"
+	],
+	"dependencies": {
+		"request": "^2.88.0"
+	},
+	"keywords": [
+		"autodesk",
+		"autodesk-forge",
+		"rest",
+		"restful",
+		"api"
+	],
+	"devDependencies": {
+		"expect.js": "^0.3.1",
+		"nyc": "^14.1.1",
+		"mocha": "^6.2.2",
+		"nock": "^11.7.0",
+		"sinon": "^7.5.0"
+	}
 }
