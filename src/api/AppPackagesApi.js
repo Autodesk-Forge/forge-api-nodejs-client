@@ -48,6 +48,9 @@ module.exports = (function () {
 	var exports = function (apiClient) {
 		this.apiClient = apiClient || ApiClient.instance;
 
+		if ( !this.__proto__ || !this.__proto__.constructor || this.__proto__.constructor.disable_dav2_deprecated_Warning !== true)
+			console.warn("WARNING: The 'Forge Design Automation v2' API is deprecated in favor of the 'Forge Design Automation v3' API npm package (aka: npm install autodesk.forge.designautomation), please upgrade.\n");
+
 		/**
 		 * Creates an AppPackage module.
 		 * @param {module:model/AppPackage} appPackage

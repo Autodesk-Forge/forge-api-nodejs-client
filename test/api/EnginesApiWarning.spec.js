@@ -45,8 +45,6 @@ module.export = (function () {
 	//ForgeSdk.disable_dav2_deprecated_Warning();
 
 	before(function () {
-		ForgeSdk.disable_dav2_deprecated_Warning(true);
-
 		oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
 		credentials = {
 			access_token: 'abce'
@@ -57,11 +55,9 @@ module.export = (function () {
 
 	after(function () {
 		apiClient.callApi.restore();
-
-		ForgeSdk.disable_dav2_deprecated_Warning(false);
 	});
 
-	describe('EnginesApi', function () {
+	describe('EnginesApi deprecated', function () {
 		describe('getAllEngines', function () {
 			it('should call getAllEngines successfully', function (done) {
 

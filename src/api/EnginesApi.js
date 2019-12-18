@@ -23,89 +23,92 @@
  */
 
 module.exports = (function () {
-  'use strict';
+	'use strict';
 
-  var ApiClient = require('../ApiClient'),
-    DesignAutomationEngines = require('../model/DesignAutomationEngines'),
-    Engine = require('../model/Engine');
+	var ApiClient = require('../ApiClient'),
+		DesignAutomationEngines = require('../model/DesignAutomationEngines'),
+		Engine = require('../model/Engine');
 
-  /**
-   * Engines service.
-   * @module api/EnginesApi
-   * @deprecated
-   */
+	/**
+	 * Engines service.
+	 * @module api/EnginesApi
+	 * @deprecated
+	 */
 
-  /**
-   * Constructs a new EnginesApi.
-   * @alias module:api/EnginesApi
-   * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
-   * @deprecated
-   */
-  var exports = function (apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+	/**
+	 * Constructs a new EnginesApi.
+	 * @alias module:api/EnginesApi
+	 * @class
+	 * @param {module:ApiClient} apiClient Optional API client implementation to use,
+	 * default to {@link module:ApiClient#instance} if unspecified.
+	 * @deprecated
+	 */
+	var exports = function (apiClient) {
+		this.apiClient = apiClient || ApiClient.instance;
 
-    /**
-     * Returns the details of all available AutoCAD core engines.
-     * data is of type: {module:model/DesignAutomationEngines}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     * @deprecated
-     */
-    this.getAllEngines = function (oauth2client, credentials) {
-      var postBody = null;
+		if ( !this.__proto__ || !this.__proto__.constructor || this.__proto__.constructor.disable_dav2_deprecated_Warning !== true)
+			console.warn("WARNING: The 'Forge Design Automation v2' API is deprecated in favor of the 'Forge Design Automation v3' API npm package (aka: npm install autodesk.forge.designautomation), please upgrade.\n");
 
-      var pathParams = {};
-      var queryParams = {};
-      var headerParams = {};
-      var formParams = {};
+		/**
+		 * Returns the details of all available AutoCAD core engines.
+		 * data is of type: {module:model/DesignAutomationEngines}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @deprecated
+		 */
+		this.getAllEngines = function (oauth2client, credentials) {
+			var postBody = null;
 
-      var contentTypes = ['application/json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = DesignAutomationEngines;
+			var pathParams = {};
+			var queryParams = {};
+			var headerParams = {};
+			var formParams = {};
 
-      return this.apiClient.callApi(
-        '/autocad.io/us-east/v2/Engines', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
+			var contentTypes = ['application/json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = DesignAutomationEngines;
 
-    /**
-     * Returns the details of a specific AutoCAD core engine.
-     * @param {String} id
-     * data is of type: {module:model/Engine}
-     * @param {Object} oauth2client oauth2client for the call
-     * @param {Object} credentials credentials for the call
-     * @deprecated
-     */
-    this.getEngine = function (id, oauth2client, credentials) {
-      var postBody = null;
+			return this.apiClient.callApi(
+				'/autocad.io/us-east/v2/Engines', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
 
-      // verify the required parameter 'id' is set
-      if (id == undefined || id == null) {
-        return Promise.reject("Missing the required parameter 'id' when calling getEngine");
-      }
+		/**
+		 * Returns the details of a specific AutoCAD core engine.
+		 * @param {String} id
+		 * data is of type: {module:model/Engine}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @deprecated
+		 */
+		this.getEngine = function (id, oauth2client, credentials) {
+			var postBody = null;
 
-      var pathParams = {
-        'id': id
-      };
-      var queryParams = {};
-      var headerParams = {};
-      var formParams = {};
+			// verify the required parameter 'id' is set
+			if (id == undefined || id == null) {
+				return Promise.reject("Missing the required parameter 'id' when calling getEngine");
+			}
 
-      var contentTypes = ['application/json'];
-      var accepts = ['application/vnd.api+json', 'application/json'];
-      var returnType = Engine;
+			var pathParams = {
+				'id': id
+			};
+			var queryParams = {};
+			var headerParams = {};
+			var formParams = {};
 
-      return this.apiClient.callApi(
-        '/autocad.io/us-east/v2/Engines(%27{id}%27)', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        contentTypes, accepts, returnType, oauth2client, credentials
-      );
-    };
-  };
+			var contentTypes = ['application/json'];
+			var accepts = ['application/vnd.api+json', 'application/json'];
+			var returnType = Engine;
 
-  return exports;
+			return this.apiClient.callApi(
+				'/autocad.io/us-east/v2/Engines(%27{id}%27)', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
+	};
+
+	return exports;
 }());

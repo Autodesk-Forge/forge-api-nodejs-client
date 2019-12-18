@@ -61,7 +61,7 @@ module.export = (function () {
 		apiClient.callApi.restore();
 	});
 
-	describe('DerivativesApi', function () {
+	describe('DerivativesApi EMEA/EU', function () {
 
 		describe('getFormats', function () {
 			it('should call getFormats successfully', function (done) {

@@ -22,8 +22,6 @@
  * limitations under the License.
  */
 
-console.warn("WARNING: The 'Forge Design Automation v2' API is deprecated in favor of the 'Forge Design Automation v3' API npm package (aka: npm install autodesk.forge.designautomation), please upgrade.");
-
 module.exports = (function () {
 	'use strict';
 
@@ -1025,6 +1023,17 @@ module.exports = (function () {
 		 */
 		setDebug: function (isDebug) {
 			ApiClient.instance.isDebugMode = isDebug;
+		},
+
+		/**
+		 * Controls display of DA v2 deprecated message
+		 */
+		disable_dav2_deprecated_Warning: function (val) {
+			val = val || false;
+			ActivitiesApi.disable_dav2_deprecated_Warning =val;
+			AppPackagesApi.disable_dav2_deprecated_Warning =val;
+			EnginesApi.disable_dav2_deprecated_Warning =val;
+			WorkItemsApi.disable_dav2_deprecated_Warning =val;
 		}
 
 	};
