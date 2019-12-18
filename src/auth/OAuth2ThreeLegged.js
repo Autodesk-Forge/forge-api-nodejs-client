@@ -75,11 +75,15 @@ module.exports = (function () {
 
 	/**
 	 * Get Authorize URL
+	 * @param {String} state - parameter that allows you to restore the previous state of your application
+	 * @param {String} flow - enum string to define the grant flow type [code: Code grant type, token: Implicit grant type]. Default: code
+	 * @return String
 	 */
-	OAuth2ThreeLegged.prototype.generateAuthUrl = function (state) {
+	OAuth2ThreeLegged.prototype.generateAuthUrl = function (state, flow) {
+		flow = flow || 'code';
 		if (this.authentication && this.authentication.authorizationUrl) {
 			var redirectionUrl = this.basePath + this.authentication.authorizationUrl +
-				'?response_type=code' +
+				'?response_type=' + flow +
 				'&client_id=' + this.clientId +
 				'&redirect_uri=' + this.redirectUri +
 				'&scope=' + this.scope +
@@ -94,7 +98,7 @@ module.exports = (function () {
 
 	/**
 	 * Get a 3-legged access token
-	 * @param code - The code that needs to be exchanged to get the access token
+	 * @param {String} code - The code that needs to be exchanged to get the access token
 	 * @return Promise
 	 */
 	OAuth2ThreeLegged.prototype.getToken = function (code) {
@@ -132,7 +136,7 @@ module.exports = (function () {
 
 	/**
 	 * Refresh a 3-legged token
-	 * @param credentials
+	 * @param credentials - name-value pairs (refresh_token)
 	 * @param scope - optional scope for new token. It must be subset of the scopes used for original token.
 	 * @return Promise
 	 */
