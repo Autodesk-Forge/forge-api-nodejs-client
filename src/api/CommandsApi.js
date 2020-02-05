@@ -189,7 +189,7 @@ module.exports = (function () {
 			var returnType = null;
 
 			return this.apiClient.callApi(
-				'/data/v1/projects/{project_id}/commands', 'GET',
+				'/data/v1/projects/{project_id}/commands', 'POST',
 				pathParams, queryParams, headerParams, formParams, postBody,
 				contentTypes, accepts, returnType, oauth2client, credentials
 			);
