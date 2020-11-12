@@ -92,10 +92,9 @@ module.exports = (function() {
     _this.progress = progress;
     _this.status = status;
     _this.hasThumbnail = hasThumbnail;
-
     _this.derivatives = derivatives;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

@@ -22,14 +22,14 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      JsonApiDocumentBase = require('./JsonApiDocumentBase'),
-      JsonApiResource = require('./JsonApiResource'),
-      JsonApiVersionJsonapi = require('./JsonApiVersionJsonapi'),
-      Storage = require('./Storage');
+    JsonApiDocumentBase = require('./JsonApiDocumentBase'),
+    JsonApiResource = require('./JsonApiResource'),
+    JsonApiVersionJsonapi = require('./JsonApiVersionJsonapi'),
+    Storage = require('./Storage');
 
 
 
@@ -38,18 +38,18 @@ module.exports = (function() {
    * @module model/StorageCreated
    */
 
-   /**
-    * Constructs a <code>StorageCreated</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/StorageCreated} obj Optional instance to populate.
-    * @return {module:model/StorageCreated} The populated <code>StorageCreated</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>StorageCreated</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/StorageCreated} obj Optional instance to populate.
+   * @return {module:model/StorageCreated} The populated <code>StorageCreated</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
-        JsonApiDocumentBase.constructFromObject(data, obj);
+
+      JsonApiDocumentBase.constructFromObject(data, obj);
       if (data.hasOwnProperty('jsonapi')) {
         obj.jsonapi = JsonApiVersionJsonapi.constructFromObject(data.jsonapi);
       }
@@ -72,15 +72,13 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/StorageCreated} obj Optional instance to populate.
    */
-  var exports = function(data, theData, obj) {
+  var exports = function (data, theData, obj) {
     var _this = this;
 
     JsonApiDocumentBase.call(_this, data);
-
     _this.data = data;
 
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

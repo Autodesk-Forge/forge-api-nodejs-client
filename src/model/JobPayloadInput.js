@@ -22,38 +22,33 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient');
-
-
 
   /**
    * The JobPayloadInput model module.
    * @module model/JobPayloadInput
    */
 
-   /**
-    * Constructs a <code>JobPayloadInput</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/JobPayloadInput} obj Optional instance to populate.
-    * @return {module:model/JobPayloadInput} The populated <code>JobPayloadInput</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>JobPayloadInput</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/JobPayloadInput} obj Optional instance to populate.
+   * @return {module:model/JobPayloadInput} The populated <code>JobPayloadInput</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
-      if (data.hasOwnProperty('urn')) {
+
+      if (data.hasOwnProperty('urn'))
         obj.urn = ApiClient.convertToType(data.urn, 'String');
-      }
-      if (data.hasOwnProperty('compressedUrn')) {
+      if (data.hasOwnProperty('compressedUrn'))
         obj.compressedUrn = ApiClient.convertToType(data.compressedUrn, 'Boolean');
-      }
-      if (data.hasOwnProperty('rootFilename')) {
+      if (data.hasOwnProperty('rootFilename'))
         obj.rootFilename = ApiClient.convertToType(data.rootFilename, 'String');
-      }
     }
     return obj;
   };
@@ -67,14 +62,18 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/JobPayloadInput} obj Optional instance to populate.
    */
-  var exports = function(urn, theData, obj) {
+
+  //param compressedUrn { Boolean } Set this to true if the source file is compressed.If set to true, you need to define the rootFilename.
+  //param rootFilename { String } The root filename of the compressed file.Mandatory if the compressedUrn is set to true.
+
+  var exports = function (urn, /*compressedUrn, rootFilename,*/ theData, obj) {
     var _this = this;
 
     _this.urn = urn;
+    // _this.compressedUrn = compressedUrn;
+    // _this.rootFilename = rootFilename;
 
-
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

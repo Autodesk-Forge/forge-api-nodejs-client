@@ -22,11 +22,11 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      PostBucketsPayloadAllow = require('./PostBucketsPayloadAllow');
+    PostBucketsPayloadAllow = require('./PostBucketsPayloadAllow');
 
 
 
@@ -35,17 +35,17 @@ module.exports = (function() {
    * @module model/PostBucketsPayload
    */
 
-   /**
-    * Constructs a <code>PostBucketsPayload</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/PostBucketsPayload} obj Optional instance to populate.
-    * @return {module:model/PostBucketsPayload} The populated <code>PostBucketsPayload</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>PostBucketsPayload</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/PostBucketsPayload} obj Optional instance to populate.
+   * @return {module:model/PostBucketsPayload} The populated <code>PostBucketsPayload</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
+
       if (data.hasOwnProperty('bucketKey')) {
         obj.bucketKey = ApiClient.convertToType(data.bucketKey, 'String');
       }
@@ -69,14 +69,13 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/PostBucketsPayload} obj Optional instance to populate.
    */
-  var exports = function(bucketKey, policyKey, theData, obj) {
+  var exports = function (bucketKey, policyKey, theData, obj) {
     var _this = this;
 
     _this.bucketKey = bucketKey;
-
     _this.policyKey = policyKey;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -125,7 +124,8 @@ module.exports = (function() {
      * value: "persistent"
      * @const
      */
-    "persistent": "persistent"  };
+    "persistent": "persistent"
+  };
 
 
   return exports;

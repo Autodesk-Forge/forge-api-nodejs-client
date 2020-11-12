@@ -111,7 +111,7 @@ module.exports = (function () {
 
 		_this.IsPublic = isPublic;
 
-		return constructFromObject(theData, obj);
+		return constructFromObject(theData, obj || _this);
 	};
 
 	/**

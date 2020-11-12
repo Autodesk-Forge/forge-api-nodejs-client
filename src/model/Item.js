@@ -22,18 +22,18 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      BaseAttributesCreatedUpdated = require('./BaseAttributesCreatedUpdated'),
-      ItemAttributes = require('./ItemAttributes'),
-      ItemRelationships = require('./ItemRelationships'),
-      JsonApiDocument = require('./JsonApiDocument'),
-      JsonApiLinks = require('./JsonApiLinks'),
-      JsonApiMeta = require('./JsonApiMeta'),
-      JsonApiResource = require('./JsonApiResource'),
-      JsonApiVersionJsonapi = require('./JsonApiVersionJsonapi');
+    BaseAttributesCreatedUpdated = require('./BaseAttributesCreatedUpdated'),
+    ItemAttributes = require('./ItemAttributes'),
+    ItemRelationships = require('./ItemRelationships'),
+    JsonApiDocument = require('./JsonApiDocument'),
+    JsonApiLinks = require('./JsonApiLinks'),
+    JsonApiMeta = require('./JsonApiMeta'),
+    JsonApiResource = require('./JsonApiResource'),
+    JsonApiVersionJsonapi = require('./JsonApiVersionJsonapi');
 
 
 
@@ -42,20 +42,20 @@ module.exports = (function() {
    * @module model/Item
    */
 
-   /**
-    * Constructs a <code>Item</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/Item} obj Optional instance to populate.
-    * @return {module:model/Item} The populated <code>Item</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>Item</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/Item} obj Optional instance to populate.
+   * @return {module:model/Item} The populated <code>Item</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
-        JsonApiDocument.constructFromObject(data, obj);
-        JsonApiResource.constructFromObject(data, obj);
-        BaseAttributesCreatedUpdated.constructFromObject(data, obj);
+
+      JsonApiDocument.constructFromObject(data, obj);
+      JsonApiResource.constructFromObject(data, obj);
+      BaseAttributesCreatedUpdated.constructFromObject(data, obj);
       if (data.hasOwnProperty('jsonapi')) {
         obj.jsonapi = JsonApiVersionJsonapi.constructFromObject(data.jsonapi);
       }
@@ -101,7 +101,7 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/Item} obj Optional instance to populate.
    */
-  var exports = function(data, links, id, type, theData, obj) {
+  var exports = function (data, links, id, type, theData, obj) {
     var _this = this;
 
     JsonApiDocument.call(_this, data, links);
@@ -114,10 +114,7 @@ module.exports = (function() {
     _this.id = id;
     _this.type = type;
 
-
-
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -177,7 +174,8 @@ module.exports = (function() {
      * value: "items"
      * @const
      */
-    "items": "items"  };
+    "items": "items"
+  };
 
 
   return exports;

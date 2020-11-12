@@ -22,11 +22,11 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      MetadataObject = require('./MetadataObject');
+    MetadataObject = require('./MetadataObject');
 
 
 
@@ -35,26 +35,23 @@ module.exports = (function() {
    * @module model/MetadataObject
    */
 
-   /**
-    * Constructs a <code>MetadataObject</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/MetadataObject} obj Optional instance to populate.
-    * @return {module:model/MetadataObject} The populated <code>MetadataObject</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>MetadataObject</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/MetadataObject} obj Optional instance to populate.
+   * @return {module:model/MetadataObject} The populated <code>MetadataObject</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
-      if (data.hasOwnProperty('objectid')) {
+
+      if (data.hasOwnProperty('objectid'))
         obj.objectid = ApiClient.convertToType(data.objectid, 'Integer');
-      }
-      if (data.hasOwnProperty('name')) {
+      if (data.hasOwnProperty('name'))
         obj.name = ApiClient.convertToType(data.name, 'String');
-      }
-      if (data.hasOwnProperty('objects')) {
+      if (data.hasOwnProperty('objects'))
         obj.objects = ApiClient.convertToType(data.objects, [MetadataObject]);
-      }
     }
     return obj;
   };
@@ -69,14 +66,13 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/MetadataObject} obj Optional instance to populate.
    */
-  var exports = function(objectid, name, theData, obj) {
+  var exports = function (objectid, name, theData, obj) {
     var _this = this;
 
     _this.objectid = objectid;
     _this.name = name;
 
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -93,18 +89,18 @@ module.exports = (function() {
    * @member {Integer} objectid
    */
   exports.prototype.objectid = undefined;
+
   /**
    * Name of the object
    * @member {String} name
    */
   exports.prototype.name = undefined;
+
   /**
    * Optional collection of “children” objects within the hierarchy
    * @member {Array.<module:model/MetadataObject>} objects
    */
   exports.prototype.objects = undefined;
-
-
 
   return exports;
 }());

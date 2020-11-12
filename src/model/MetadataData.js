@@ -48,18 +48,14 @@ module.exports = (function() {
     if (data) {
       obj = obj || new exports();
   
-      if (data.hasOwnProperty('type')) {
+      if (data.hasOwnProperty('type'))
         obj.type = ApiClient.convertToType(data.type, 'String');
-      }
-      if (data.hasOwnProperty('metadata')) {
+      if (data.hasOwnProperty('metadata'))
         obj.metadata = ApiClient.convertToType(data.metadata, [MetadataMetadata]);
-      }
-      if (data.hasOwnProperty('objects')) {
+      if (data.hasOwnProperty('objects'))
         obj.objects = ApiClient.convertToType(data.objects, [MetadataObject]);
-      }
-      if (data.hasOwnProperty('collection')) {
+      if (data.hasOwnProperty('collection'))
         obj.collection = ApiClient.convertToType(data.collection, [MetadataCollection]);
-      }
     }
     return obj;
   };
@@ -78,10 +74,7 @@ module.exports = (function() {
 
     _this.type = type;
 
-
-
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

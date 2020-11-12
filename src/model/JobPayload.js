@@ -22,37 +22,36 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      JobPayloadInput = require('./JobPayloadInput'),
-      JobPayloadOutput = require('./JobPayloadOutput');
-
-
+    JobPayloadInput = require('./JobPayloadInput'),
+    JobPayloadOutput = require('./JobPayloadOutput'),
+    JobPayloadMisc = require('./JobPayloadMisc');
 
   /**
    * The JobPayload model module.
    * @module model/JobPayload
    */
 
-   /**
-    * Constructs a <code>JobPayload</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/JobPayload} obj Optional instance to populate.
-    * @return {module:model/JobPayload} The populated <code>JobPayload</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>JobPayload</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/JobPayload} obj Optional instance to populate.
+   * @return {module:model/JobPayload} The populated <code>JobPayload</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
-      if (data.hasOwnProperty('input')) {
+
+      if (data.hasOwnProperty('input'))
         obj.input = JobPayloadInput.constructFromObject(data.input);
-      }
-      if (data.hasOwnProperty('output')) {
+      if (data.hasOwnProperty('output'))
         obj.output = JobPayloadOutput.constructFromObject(data.output);
-      }
+      if (data.hasOwnProperty('misc'))
+        obj.misc = JobPayloadOutput.constructFromObject(data.misc);
     }
     return obj;
   };
@@ -64,13 +63,10 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/JobPayload} obj Optional instance to populate.
    */
-  var exports = function(theData, obj) {
+  var exports = function (theData, obj) {
     var _this = this;
 
-
-
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -86,12 +82,16 @@ module.exports = (function() {
    * @member {module:model/JobPayloadInput} input
    */
   exports.prototype.input = undefined;
+
   /**
    * @member {module:model/JobPayloadOutput} output
    */
   exports.prototype.output = undefined;
 
-
+  /**
+   * @member {module:model/JobPayloadMisc} misc
+   */
+  exports.prototype.misc = undefined;
 
   return exports;
 }());

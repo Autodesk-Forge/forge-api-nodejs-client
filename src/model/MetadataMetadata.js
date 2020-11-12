@@ -22,35 +22,33 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient');
-
-
 
   /**
    * The MetadataMetadata model module.
    * @module model/MetadataMetadata
    */
 
-   /**
-    * Constructs a <code>MetadataMetadata</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/MetadataMetadata} obj Optional instance to populate.
-    * @return {module:model/MetadataMetadata} The populated <code>MetadataMetadata</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>MetadataMetadata</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/MetadataMetadata} obj Optional instance to populate.
+   * @return {module:model/MetadataMetadata} The populated <code>MetadataMetadata</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
-      if (data.hasOwnProperty('name')) {
+
+      if (data.hasOwnProperty('name'))
         obj.name = ApiClient.convertToType(data.name, 'String');
-      }
-      if (data.hasOwnProperty('guid')) {
+      if (data.hasOwnProperty('guid'))
         obj.guid = ApiClient.convertToType(data.guid, 'String');
-      }
+      if (data.hasOwnProperty('role'))
+        obj.role = ApiClient.convertToType(data.role, 'String');
     }
     return obj;
   };
@@ -65,13 +63,13 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/MetadataMetadata} obj Optional instance to populate.
    */
-  var exports = function(name, guid, theData, obj) {
+  var exports = function (name, guid, theData, obj) {
     var _this = this;
 
     _this.name = name;
     _this.guid = guid;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -88,13 +86,18 @@ module.exports = (function() {
    * @member {String} name
    */
   exports.prototype.name = undefined;
+
   /**
    * Unique identifier for the model view
    * @member {String} guid
    */
   exports.prototype.guid = undefined;
 
-
+  /**
+   * Unique identifier for the model view
+   * @member {String} role
+   */
+  exports.prototype.role = undefined;
 
   return exports;
 }());

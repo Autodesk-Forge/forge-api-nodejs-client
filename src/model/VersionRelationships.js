@@ -82,10 +82,7 @@ module.exports = (function() {
     _this.item = item;
     _this.refs = refs;
 
-
-
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

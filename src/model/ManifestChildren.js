@@ -22,11 +22,11 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      Messages = require('./Messages');
+    Messages = require('./Messages');
 
 
 
@@ -35,17 +35,17 @@ module.exports = (function() {
    * @module model/ManifestChildren
    */
 
-   /**
-    * Constructs a <code>ManifestChildren</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/ManifestChildren} obj Optional instance to populate.
-    * @return {module:model/ManifestChildren} The populated <code>ManifestChildren</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>ManifestChildren</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/ManifestChildren} obj Optional instance to populate.
+   * @return {module:model/ManifestChildren} The populated <code>ManifestChildren</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
+
       if (data.hasOwnProperty('type')) {
         obj.type = ApiClient.convertToType(data.type, 'String');
       }
@@ -97,23 +97,14 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/ManifestChildren} obj Optional instance to populate.
    */
-  var exports = function(type, role, mime, theData, obj) {
+  var exports = function (type, role, mime, theData, obj) {
     var _this = this;
 
     _this.type = type;
     _this.role = role;
-
-
     _this.mime = mime;
 
-
-
-
-
-
-
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -209,7 +200,8 @@ module.exports = (function() {
      * value: "view"
      * @const
      */
-    "view": "view"  };
+    "view": "view"
+  };
 
   /**
    * Allowed values for the <code>role</code> property.
@@ -241,7 +233,8 @@ module.exports = (function() {
      * value: "thumbnail"
      * @const
      */
-    "thumbnail": "thumbnail"  };
+    "thumbnail": "thumbnail"
+  };
 
   /**
    * Allowed values for the <code>status</code> property.
@@ -278,7 +271,8 @@ module.exports = (function() {
      * value: "partialsuccess"
      * @const
      */
-    "partialsuccess": "partialsuccess"  };
+    "partialsuccess": "partialsuccess"
+  };
 
 
   return exports;

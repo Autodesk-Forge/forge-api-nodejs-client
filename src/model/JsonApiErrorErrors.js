@@ -22,11 +22,11 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      JsonApiErrorLinks = require('./JsonApiErrorLinks');
+    JsonApiErrorLinks = require('./JsonApiErrorLinks');
 
 
 
@@ -35,17 +35,17 @@ module.exports = (function() {
    * @module model/JsonApiErrorErrors
    */
 
-   /**
-    * Constructs a <code>JsonApiErrorErrors</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/JsonApiErrorErrors} obj Optional instance to populate.
-    * @return {module:model/JsonApiErrorErrors} The populated <code>JsonApiErrorErrors</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>JsonApiErrorErrors</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/JsonApiErrorErrors} obj Optional instance to populate.
+   * @return {module:model/JsonApiErrorErrors} The populated <code>JsonApiErrorErrors</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
+
       if (data.hasOwnProperty('id')) {
         obj.id = ApiClient.convertToType(data.id, 'String');
       }
@@ -81,18 +81,14 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/JsonApiErrorErrors} obj Optional instance to populate.
    */
-  var exports = function(id, status, detail, theData, obj) {
+  var exports = function (id, status, detail, theData, obj) {
     var _this = this;
 
     _this.id = id;
     _this.status = status;
-
-
     _this.detail = detail;
 
-
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

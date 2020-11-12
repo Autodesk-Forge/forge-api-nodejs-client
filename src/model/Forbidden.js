@@ -75,7 +75,7 @@ module.exports = (function() {
 
     _this.errors = errors;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

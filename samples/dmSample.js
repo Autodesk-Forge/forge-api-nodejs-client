@@ -3,8 +3,8 @@ var fs = require('fs');
 var ForgeSDK = require('./../src/index');
 
 // TODO - insert your CLIENT_ID and CLIENT_SECRET
-var FORGE_CLIENT_ID = 'your forge client id';
-var FORGE_CLIENT_SECRET = 'your forge client secret';
+var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || 'your forge client id';
+var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || 'your forge client secret';
 
 // TODO - Choose a bucket key - a unique name to assign to a bucket. It must be globally unique across all applications and
 // regions, otherwise the call will fail. Possible values: -_.a-z0-9 (between 3-128 characters in
@@ -12,10 +12,10 @@ var FORGE_CLIENT_SECRET = 'your forge client secret';
 var BUCKET_KEY = 'forge_sample_' + FORGE_CLIENT_ID.toLowerCase();
 
 // TODO - Choose a filename - a key for the uploaded object
-var FILE_NAME = 'my-file.extension';
+var FILE_NAME = 'vrokit.f3d';
 
 // TODO - specify the full filename and path
-var FILE_PATH = '/path/to/your/file.extension';
+var FILE_PATH = 'vrokit.f3d';
 
 var bucketsApi = new ForgeSDK.BucketsApi(), // Buckets Client
 	objectsApi = new ForgeSDK.ObjectsApi(); // Objects Client

@@ -91,7 +91,7 @@ module.exports = (function() {
     _this.status = status;
     _this.children = children;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -165,10 +165,26 @@ module.exports = (function() {
      */
     "svf": "svf",
     /**
+     * value: "svf2"
+     * @const
+     */
+    "svf2": "svf2",
+    /**
      * value: "thumbnail"
      * @const
      */
-    "thumbnail": "thumbnail"  };
+    "thumbnail": "thumbnail",
+    /**
+     * value: "dwg"
+     * @const
+     */
+    "dwg": "dwg",
+    /**
+     * value: "ifc"
+     * @const
+     */
+    "ifc": "ifc"
+  };
 
   /**
    * Allowed values for the <code>status</code> property.

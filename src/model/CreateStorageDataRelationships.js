@@ -63,9 +63,7 @@ module.exports = (function() {
   var exports = function(theData, obj) {
     var _this = this;
 
-
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

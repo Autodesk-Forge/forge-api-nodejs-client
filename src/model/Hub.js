@@ -22,17 +22,17 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      HubAttributes = require('./HubAttributes'),
-      HubRelationships = require('./HubRelationships'),
-      JsonApiDocument = require('./JsonApiDocument'),
-      JsonApiLinks = require('./JsonApiLinks'),
-      JsonApiMeta = require('./JsonApiMeta'),
-      JsonApiResource = require('./JsonApiResource'),
-      JsonApiVersionJsonapi = require('./JsonApiVersionJsonapi');
+    HubAttributes = require('./HubAttributes'),
+    HubRelationships = require('./HubRelationships'),
+    JsonApiDocument = require('./JsonApiDocument'),
+    JsonApiLinks = require('./JsonApiLinks'),
+    JsonApiMeta = require('./JsonApiMeta'),
+    JsonApiResource = require('./JsonApiResource'),
+    JsonApiVersionJsonapi = require('./JsonApiVersionJsonapi');
 
 
 
@@ -41,19 +41,19 @@ module.exports = (function() {
    * @module model/Hub
    */
 
-   /**
-    * Constructs a <code>Hub</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/Hub} obj Optional instance to populate.
-    * @return {module:model/Hub} The populated <code>Hub</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>Hub</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/Hub} obj Optional instance to populate.
+   * @return {module:model/Hub} The populated <code>Hub</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
-        JsonApiDocument.constructFromObject(data, obj);
-        JsonApiResource.constructFromObject(data, obj);
+
+      JsonApiDocument.constructFromObject(data, obj);
+      JsonApiResource.constructFromObject(data, obj);
       if (data.hasOwnProperty('jsonapi')) {
         obj.jsonapi = JsonApiVersionJsonapi.constructFromObject(data.jsonapi);
       }
@@ -98,7 +98,7 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/Hub} obj Optional instance to populate.
    */
-  var exports = function(data, links, id, type, theData, obj) {
+  var exports = function (data, links, id, type, theData, obj) {
     var _this = this;
 
     JsonApiDocument.call(_this, data, links);
@@ -110,10 +110,7 @@ module.exports = (function() {
     _this.id = id;
     _this.type = type;
 
-
-
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -173,7 +170,8 @@ module.exports = (function() {
      * value: "hubs"
      * @const
      */
-    "hubs": "hubs"  };
+    "hubs": "hubs"
+  };
 
 
   return exports;

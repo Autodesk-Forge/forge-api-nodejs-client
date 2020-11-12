@@ -22,15 +22,15 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      JsonApiAttributes = require('./JsonApiAttributes'),
-      JsonApiLinks = require('./JsonApiLinks'),
-      JsonApiMeta = require('./JsonApiMeta'),
-      JsonApiResource = require('./JsonApiResource'),
-      StorageRelationships = require('./StorageRelationships');
+    JsonApiAttributes = require('./JsonApiAttributes'),
+    JsonApiLinks = require('./JsonApiLinks'),
+    JsonApiMeta = require('./JsonApiMeta'),
+    JsonApiResource = require('./JsonApiResource'),
+    StorageRelationships = require('./StorageRelationships');
 
 
 
@@ -39,18 +39,18 @@ module.exports = (function() {
    * @module model/Storage
    */
 
-   /**
-    * Constructs a <code>Storage</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/Storage} obj Optional instance to populate.
-    * @return {module:model/Storage} The populated <code>Storage</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>Storage</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/Storage} obj Optional instance to populate.
+   * @return {module:model/Storage} The populated <code>Storage</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
-        JsonApiResource.constructFromObject(data, obj);
+
+      JsonApiResource.constructFromObject(data, obj);
       if (data.hasOwnProperty('id')) {
         obj.id = ApiClient.convertToType(data.id, 'String');
       }
@@ -83,18 +83,14 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/Storage} obj Optional instance to populate.
    */
-  var exports = function(id, type, theData, obj) {
+  var exports = function (id, type, theData, obj) {
     var _this = this;
 
     JsonApiResource.call(_this, id, type);
     _this.id = id;
     _this.type = type;
 
-
-
-
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -142,7 +138,8 @@ module.exports = (function() {
      * value: "objects"
      * @const
      */
-    "objects": "objects"  };
+    "objects": "objects"
+  };
 
 
   return exports;

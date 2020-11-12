@@ -282,6 +282,7 @@ module.exports = (function () {
 		 * @param {String} derivativeUrn The URL-encoded URN of the derivatives. The URN is retrieved from the GET :urn/manifest endpoint.
 		 * @param {Object} opts Optional parameters
 		 * @param {Integer} opts.range This is the standard RFC 2616 range request header. It only supports one range specifier per request: 1. Range:bytes=0-63 (returns the first 64 bytes) 2. Range:bytes=64-127 (returns the second set of 64 bytes) 3. Range:bytes=1022- (returns all the bytes from offset 1022 to the end) 4. If the range header is not specified, the whole content is returned.
+		 * @param {String} opts.acceptEncoding If specified with `gzip` or `*`, content will be compressed and returned in a GZIP format.
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
 		 */
@@ -305,7 +306,8 @@ module.exports = (function () {
 			};
 			var queryParams = {};
 			var headerParams = {
-				'Range': opts.range
+				'Range': opts.range,
+				'Accept-Encoding': opts.acceptEncoding, // 'deflate, gzip, br'
 			};
 			var formParams = {};
 
@@ -315,6 +317,47 @@ module.exports = (function () {
 
 			return this.apiClient.callApi(
 				this.regionPaths[this.region] + '/designdata/{urn}/manifest/{derivativeUrn}', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
+
+		/**
+		 * Returns information about the specified derivative. 
+		 * @param {String} urn The Base64 (URL Safe) encoded design URN
+		 * @param {String} derivativeUrn The URL-encoded URN of the derivatives. The URN is retrieved from the GET :urn/manifest endpoint.
+		 * @param {Object} opts Optional parameters
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.getDerivativeManifestInfo = function (urn, derivativeUrn, opts, oauth2client, credentials) {
+			opts = opts || {};
+			var postBody = null;
+
+			// verify the required parameter 'urn' is set
+			if (urn == undefined || urn == null) {
+				return Promise.reject("Missing the required parameter 'urn' when calling getDerivativeManifest");
+			}
+
+			// verify the required parameter 'derivativeUrn' is set
+			if (derivativeUrn == undefined || derivativeUrn == null) {
+				return Promise.reject("Missing the required parameter 'derivativeUrn' when calling getDerivativeManifest");
+			}
+
+			var pathParams = {
+				'urn': urn,
+				'derivativeUrn': derivativeUrn
+			};
+			var queryParams = {};
+			var headerParams = {};
+			var formParams = {};
+
+			var contentTypes = [];
+			var accepts = [];
+			var returnType = null;
+
+			return this.apiClient.callApi(
+				this.regionPaths[this.region] + '/designdata/{urn}/manifest/{derivativeUrn}', 'HEAD',
 				pathParams, queryParams, headerParams, formParams, postBody,
 				contentTypes, accepts, returnType, oauth2client, credentials
 			);
@@ -364,6 +407,8 @@ module.exports = (function () {
 		 * @param {String} guid Unique model view ID. Call [GET {urn}/metadata](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/urn-metadata-GET) to get the ID
 		 * @param {Object} opts Optional parameters
 		 * @param {String} opts.acceptEncoding If specified with `gzip` or `*`, content will be compressed and returned in a GZIP format.
+		 * @param {Boolean} opts.xAdsForce Force retrieve the object tree even though it failed to be extracted (got 404 with error message) previously. (default is false) retrieve the object tree, and previously failures are not replaced.
+		 * @param {Boolean} opts.forceget To force get the large resource even if it exceeded the expected maximum length (20 MB). Possible values: true, false. The the implicit value is false.
 		 * data is of type: {module:model/Metadata}
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
@@ -386,9 +431,12 @@ module.exports = (function () {
 				'urn': urn,
 				'guid': guid
 			};
-			var queryParams = {};
+			var queryParams = {
+				'forceget': opts.forceget || false
+			};
 			var headerParams = {
-				'Accept-Encoding': opts.acceptEncoding
+				'Accept-Encoding': opts.acceptEncoding,
+				'x-ads-force': opts.xAdsForce || false
 			};
 			var formParams = {};
 
@@ -409,6 +457,8 @@ module.exports = (function () {
 		 * @param {String} guid Unique model view ID. Call [GET {urn}/metadata](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/urn-metadata-GET) to get the ID
 		 * @param {Object} opts Optional parameters
 		 * @param {String} opts.acceptEncoding If specified with `gzip` or `*`, content will be compressed and returned in a GZIP format.
+		 * @param {Boolean} opts.xAdsForce Force retrieve the object tree even though it failed to be extracted (got 404 with error message) previously. (default is false) retrieve the object tree, and previously failures are not replaced.
+		 * @param {Boolean} opts.forceget To force get the large resource even if it exceeded the expected maximum length (20 MB). Possible values: true, false. The the implicit value is false.
 		 * data is of type: {module:model/Metadata}
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
@@ -435,7 +485,8 @@ module.exports = (function () {
 				'forceget': opts.forceget || false
 			};
 			var headerParams = {
-				'Accept-Encoding': opts.acceptEncoding
+				'Accept-Encoding': opts.acceptEncoding,
+				'x-ads-force': opts.xAdsForce || false
 			};
 			var formParams = {};
 

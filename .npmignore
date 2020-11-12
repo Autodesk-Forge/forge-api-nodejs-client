@@ -19,4 +19,6 @@ coverage
 .vscode/
 .idea/
 
+samples/test.nwd
+
 .DS_Store

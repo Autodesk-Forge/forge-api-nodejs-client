@@ -22,7 +22,7 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient');
@@ -34,17 +34,17 @@ module.exports = (function() {
    * @module model/Diagnostics
    */
 
-   /**
-    * Constructs a <code>Diagnostics</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/Diagnostics} obj Optional instance to populate.
-    * @return {module:model/Diagnostics} The populated <code>Diagnostics</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>Diagnostics</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/Diagnostics} obj Optional instance to populate.
+   * @return {module:model/Diagnostics} The populated <code>Diagnostics</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
+
       if (data.hasOwnProperty('diagnostics')) {
         obj.diagnostics = ApiClient.convertToType(data.diagnostics, 'String');
       }
@@ -60,12 +60,12 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/Diagnostics} obj Optional instance to populate.
    */
-  var exports = function(diagnostics, theData, obj) {
+  var exports = function (diagnostics, theData, obj) {
     var _this = this;
 
     _this.diagnostics = diagnostics;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

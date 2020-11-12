@@ -22,11 +22,11 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      JsonApiRelationshipsLinksRefsLinks = require('./JsonApiRelationshipsLinksRefsLinks');
+    JsonApiRelationshipsLinksRefsLinks = require('./JsonApiRelationshipsLinksRefsLinks');
 
 
 
@@ -35,17 +35,17 @@ module.exports = (function() {
    * @module model/JsonApiRelationshipsLinksRefs
    */
 
-   /**
-    * Constructs a <code>JsonApiRelationshipsLinksRefs</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/JsonApiRelationshipsLinksRefs} obj Optional instance to populate.
-    * @return {module:model/JsonApiRelationshipsLinksRefs} The populated <code>JsonApiRelationshipsLinksRefs</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>JsonApiRelationshipsLinksRefs</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/JsonApiRelationshipsLinksRefs} obj Optional instance to populate.
+   * @return {module:model/JsonApiRelationshipsLinksRefs} The populated <code>JsonApiRelationshipsLinksRefs</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
+
       if (data.hasOwnProperty('links')) {
         obj.links = JsonApiRelationshipsLinksRefsLinks.constructFromObject(data.links);
       }
@@ -60,12 +60,10 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/JsonApiRelationshipsLinksRefs} obj Optional instance to populate.
    */
-  var exports = function(theData, obj) {
+  var exports = function (theData, obj) {
     var _this = this;
 
-
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

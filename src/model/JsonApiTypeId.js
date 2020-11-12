@@ -70,7 +70,7 @@ module.exports = (function() {
     _this.id = id;
     _this.type = type;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

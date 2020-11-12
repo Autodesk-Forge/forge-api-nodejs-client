@@ -25,9 +25,8 @@
 module.exports = (function() {
   'use strict';
 
-  var ApiClient = require('../ApiClient');
-
-
+  var ApiClient = require('../ApiClient'),
+    JobSvfOutputPayloadAdvanced = require('./JobSvfOutputPayloadAdvanced');
 
   /**
    * The JobSvfOutputPayload model module.
@@ -45,12 +44,13 @@ module.exports = (function() {
     if (data) {
       obj = obj || new exports();
   
-      if (data.hasOwnProperty('type')) {
+      if (data.hasOwnProperty('type'))
         obj.type = ApiClient.convertToType(data.type, 'String');
-      }
-      if (data.hasOwnProperty('views')) {
+      if (data.hasOwnProperty('views'))
         obj.views = ApiClient.convertToType(data.views, ['String']);
-      }
+      if (data.hasOwnProperty('advanced'))
+        obj.advanced = JobSvfOutputPayloadAdvanced.constructFromObject(data.advanced, obj && obj.advanced);
+
     }
     return obj;
   };
@@ -59,17 +59,20 @@ module.exports = (function() {
    * Constructs a new <code>JobSvfOutputPayload</code>.
    * @alias module:model/JobSvfOutputPayload
    * @class
-   * @param type {module:model/JobSvfOutputPayload.TypeEnum} The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
+   * @param type {module:model/JobSvfOutputPayload.TypeEnum} The requested output types. Possible values include dwg, fbx, ifc, iges, obj, step, stl, svf, svf2, thumbnail. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/JobSvfOutputPayload} obj Optional instance to populate.
    */
+
+  // param views {Array.<module:model/JobPayloadItem.ViewsEnum>} Required options for SVF/SVF2 type. Possible values: 2d, 3d
+  
   var exports = function(type, theData, obj) {
     var _this = this;
 
-    _this.type = type;
+    _this.type = 'svf';
+    //_this.views = views;
 
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -82,15 +85,22 @@ module.exports = (function() {
   exports.constructFromObject = constructFromObject;
 
   /**
-   * The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
+   * The requested output types. Possible values include dwg, fbx, ifc, iges, obj, step, stl, svf, svf2, thumbnail. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
    * @member {module:model/JobSvfOutputPayload.TypeEnum} type
    */
-  exports.prototype.type = undefined;
+  exports.prototype.type = 'svf';
+
   /**
-   * @member {Array.<module:model/JobPayloadItem.ViewsEnum>} views
+   * Required options for SVF/SVF2 type. Possible values: 2d, 3d
+   * @member {Array.<module:model/JobSvfOutputPayload.ViewsEnum>} views
    */
   exports.prototype.views = undefined;
 
+  /**
+   * A set of special options, which you must specify only if the input file type is IFC, Revit, or Navisworks.
+   * @member {module:model/JobSvfOutputPayloadAdvanced} advanced
+   */
+  exports.prototype.advanced = undefined;
 
   /**
    * Allowed values for the <code>type</code> property.
@@ -103,6 +113,11 @@ module.exports = (function() {
      * @const
      */
     "svf": "svf",
+    /**
+     * value: "svf2"
+     * @const
+     */
+    "svf2": "svf2",
     /**
      * value: "thumbnail"
      * @const
@@ -127,7 +142,18 @@ module.exports = (function() {
      * value: "obj"
      * @const
      */
-    "obj": "obj"  };
+    "obj": "obj",
+    /**
+     * value: "dwg"
+     * @const
+     */
+    "dwg": "dwg",
+    /**
+     * value: "ifc"
+     * @const
+     */
+    "ifc": "ifc"
+  };
 
   /**
    * Allowed values for the <code>views</code> property.
@@ -144,8 +170,8 @@ module.exports = (function() {
      * value: "3d"
      * @const
      */
-    "3d": "3d"  };
-
+    "3d": "3d"
+  };
 
   return exports;
 }());

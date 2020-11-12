@@ -22,7 +22,7 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient');
@@ -34,26 +34,23 @@ module.exports = (function() {
    * @module model/JobStlOutputPayloadAdvanced
    */
 
-   /**
-    * Constructs a <code>JobStlOutputPayloadAdvanced</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/JobStlOutputPayloadAdvanced} obj Optional instance to populate.
-    * @return {module:model/JobStlOutputPayloadAdvanced} The populated <code>JobStlOutputPayloadAdvanced</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>JobStlOutputPayloadAdvanced</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/JobStlOutputPayloadAdvanced} obj Optional instance to populate.
+   * @return {module:model/JobStlOutputPayloadAdvanced} The populated <code>JobStlOutputPayloadAdvanced</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
-      if (data.hasOwnProperty('format')) {
+
+      if (data.hasOwnProperty('format'))
         obj.format = ApiClient.convertToType(data.format, 'String');
-      }
-      if (data.hasOwnProperty('exportColor')) {
+      if (data.hasOwnProperty('exportColor'))
         obj.exportColor = ApiClient.convertToType(data.exportColor, 'Boolean');
-      }
-      if (data.hasOwnProperty('exportFileStructure')) {
+      if (data.hasOwnProperty('exportFileStructure'))
         obj.exportFileStructure = ApiClient.convertToType(data.exportFileStructure, 'String');
-      }
     }
     return obj;
   };
@@ -66,14 +63,10 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/JobStlOutputPayloadAdvanced} obj Optional instance to populate.
    */
-  var exports = function(theData, obj) {
+  var exports = function (theData, obj) {
     var _this = this;
 
-
-
-
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -120,7 +113,8 @@ module.exports = (function() {
      * value: "ascii"
      * @const
      */
-    "ascii": "ascii"  };
+    "ascii": "ascii"
+  };
 
   /**
    * Allowed values for the <code>exportFileStructure</code> property.
@@ -137,7 +131,8 @@ module.exports = (function() {
      * value: "multiple"
      * @const
      */
-    "multiple": "multiple"  };
+    "multiple": "multiple"
+  };
 
 
   return exports;

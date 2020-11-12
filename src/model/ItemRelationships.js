@@ -22,13 +22,13 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      JsonApiRelationshipsLinksInternal = require('./JsonApiRelationshipsLinksInternal'),
-      JsonApiRelationshipsLinksInternalResource = require('./JsonApiRelationshipsLinksInternalResource'),
-      JsonApiRelationshipsLinksRefs = require('./JsonApiRelationshipsLinksRefs');
+    JsonApiRelationshipsLinksInternal = require('./JsonApiRelationshipsLinksInternal'),
+    JsonApiRelationshipsLinksInternalResource = require('./JsonApiRelationshipsLinksInternalResource'),
+    JsonApiRelationshipsLinksRefs = require('./JsonApiRelationshipsLinksRefs');
 
 
 
@@ -37,17 +37,17 @@ module.exports = (function() {
    * @module model/ItemRelationships
    */
 
-   /**
-    * Constructs a <code>ItemRelationships</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/ItemRelationships} obj Optional instance to populate.
-    * @return {module:model/ItemRelationships} The populated <code>ItemRelationships</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>ItemRelationships</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/ItemRelationships} obj Optional instance to populate.
+   * @return {module:model/ItemRelationships} The populated <code>ItemRelationships</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
+
       if (data.hasOwnProperty('parent')) {
         obj.parent = JsonApiRelationshipsLinksInternalResource.constructFromObject(data.parent);
       }
@@ -75,7 +75,7 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/ItemRelationships} obj Optional instance to populate.
    */
-  var exports = function(parent, tip, versions, refs, theData, obj) {
+  var exports = function (parent, tip, versions, refs, theData, obj) {
     var _this = this;
 
     _this.parent = parent;
@@ -83,7 +83,7 @@ module.exports = (function() {
     _this.versions = versions;
     _this.refs = refs;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

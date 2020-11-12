@@ -22,11 +22,11 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      AppPackage = require('./AppPackage');
+    AppPackage = require('./AppPackage');
 
 
 
@@ -36,18 +36,18 @@ module.exports = (function() {
    * @deprecated
    */
 
-   /**
-    * Constructs a <code>DesignAutomationAppPackages</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/DesignAutomationAppPackages} obj Optional instance to populate.
-    * @return {module:model/DesignAutomationAppPackages} The populated <code>DesignAutomationAppPackages</code> instance.
-    * @deprecated
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>DesignAutomationAppPackages</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/DesignAutomationAppPackages} obj Optional instance to populate.
+   * @return {module:model/DesignAutomationAppPackages} The populated <code>DesignAutomationAppPackages</code> instance.
+   * @deprecated
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
+
       if (data.hasOwnProperty('value')) {
         obj.value = ApiClient.convertToType(data.value, [AppPackage]);
       }
@@ -63,12 +63,10 @@ module.exports = (function() {
    * @param {module:model/DesignAutomationAppPackages} obj Optional instance to populate.
    * @deprecated
    */
-  var exports = function(theData, obj) {
+  var exports = function (theData, obj) {
     var _this = this;
 
-
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

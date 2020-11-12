@@ -65,7 +65,7 @@ module.exports = (function() {
 
     _this.minutesExpiration = minutesExpiration;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

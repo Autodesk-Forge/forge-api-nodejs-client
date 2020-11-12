@@ -86,6 +86,10 @@ module.exports = (function () {
 		ItemRelationships = require('./model/ItemRelationships'),
 		Job = require('./model/Job'),
 		JobAcceptedJobs = require('./model/JobAcceptedJobs'),
+		JobDwgOutputPayload = require('./model/JobDwgOutputPayload'),
+		JobDwgOutputPayloadAdvanced = require('./model/JobDwgOutputPayloadAdvanced'),
+		JobIfcOutputPayload = require('./model/JobIfcOutputPayload'),
+		JobIfcOutputPayloadAdvanced = require('./model/JobIfcOutputPayloadAdvanced'),
 		JobIgesOutputPayload = require('./model/JobIgesOutputPayload'),
 		JobIgesOutputPayloadAdvanced = require('./model/JobIgesOutputPayloadAdvanced'),
 		JobObjOutputPayload = require('./model/JobObjOutputPayload'),
@@ -94,11 +98,15 @@ module.exports = (function () {
 		JobPayloadInput = require('./model/JobPayloadInput'),
 		JobPayloadItem = require('./model/JobPayloadItem'),
 		JobPayloadOutput = require('./model/JobPayloadOutput'),
+		JobPayloadDestination = require('./model/JobPayloadDestination'),
 		JobStepOutputPayload = require('./model/JobStepOutputPayload'),
 		JobStepOutputPayloadAdvanced = require('./model/JobStepOutputPayloadAdvanced'),
 		JobStlOutputPayload = require('./model/JobStlOutputPayload'),
 		JobStlOutputPayloadAdvanced = require('./model/JobStlOutputPayloadAdvanced'),
 		JobSvfOutputPayload = require('./model/JobSvfOutputPayload'),
+		JobSvfOutputPayloadAdvanced = require('./model/JobSvfOutputPayloadAdvanced'),
+		JobSvf2OutputPayload = require('./model/JobSvf2OutputPayload'),
+		JobSvf2OutputPayloadAdvanced = require('./model/JobSvf2OutputPayloadAdvanced'),
 		JobThumbnailOutputPayload = require('./model/JobThumbnailOutputPayload'),
 		JobThumbnailOutputPayloadAdvanced = require('./model/JobThumbnailOutputPayloadAdvanced'),
 		JsonApiAttributes = require('./model/JsonApiAttributes'),
@@ -523,6 +531,26 @@ module.exports = (function () {
 		 */
 		JobAcceptedJobs: JobAcceptedJobs,
 		/**
+		 * The JobDwgOutputPayload model constructor.
+		 * @property {module:model/JobDwgOutputPayload}
+		 */
+		JobDwgOutputPayload: JobDwgOutputPayload,
+		/**
+		 * The JobDwgOutputPayloadAdvanced model constructor.
+		 * @property {module:model/JobDwgOutputPayloadAdvanced}
+		 */
+		JobDwgOutputPayloadAdvanced: JobDwgOutputPayloadAdvanced,
+		/**
+		 * The JobIfcOutputPayload model constructor.
+		 * @property {module:model/JobIfcOutputPayload}
+		 */
+		JobIfcOutputPayload: JobIfcOutputPayload,
+		/**
+		 * The JobIfcOutputPayloadAdvanced model constructor.
+		 * @property {module:model/JobIfcOutputPayloadAdvanced}
+		 */
+		JobIfcOutputPayloadAdvanced: JobIfcOutputPayloadAdvanced,
+		/**
 		 * The JobIgesOutputPayload model constructor.
 		 * @property {module:model/JobIgesOutputPayload}
 		 */
@@ -563,6 +591,11 @@ module.exports = (function () {
 		 */
 		JobPayloadOutput: JobPayloadOutput,
 		/**
+		 * The JobPayloadDestination model constructor.
+		 * @property {module:model/JobPayloadDestination}
+		 */
+		JobPayloadDestination: JobPayloadDestination,
+		/**
 		 * The JobStepOutputPayload model constructor.
 		 * @property {module:model/JobStepOutputPayload}
 		 */
@@ -587,6 +620,21 @@ module.exports = (function () {
 		 * @property {module:model/JobSvfOutputPayload}
 		 */
 		JobSvfOutputPayload: JobSvfOutputPayload,
+		/**
+		 * The JobSvfOutputPayloadAdvanced model constructor.
+		 * @property {module:model/JobSvfOutputPayloadAdvanced}
+		 */
+		JobSvfOutputPayloadAdvanced: JobSvfOutputPayloadAdvanced,
+		/**
+		 * The JobSvf2OutputPayload model constructor.
+		 * @property {module:model/JobSvf2OutputPayload}
+		 */
+		JobSvf2OutputPayload: JobSvf2OutputPayload,
+		/**
+		 * The JobSvf2OutputPayloadAdvanced model constructor.
+		 * @property {module:model/JobSvf2OutputPayloadAdvanced}
+		 */
+		JobSvf2OutputPayloadAdvanced: JobSvf2OutputPayloadAdvanced,
 		/**
 		 * The JobThumbnailOutputPayload model constructor.
 		 * @property {module:model/JobThumbnailOutputPayload}

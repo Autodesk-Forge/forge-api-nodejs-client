@@ -26,8 +26,7 @@ module.export = (function() {
   'use strict';
 
   var expect = require('expect.js'),
-      ForgeSdk = require('../../src'),
-      JobPayloadItem = require('../../src/model/JobPayloadItem');
+    ForgeSdk = require('../../src');
 
   describe('JobPayloadOutput', function() {
     it('should create an instance of JobPayloadOutput', function() {

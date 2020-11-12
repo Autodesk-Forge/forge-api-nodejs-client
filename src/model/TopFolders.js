@@ -22,13 +22,13 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      Folder = require('./Folder'),
-      JsonApiLinksSelf = require('./JsonApiLinksSelf'),
-      JsonApiVersion = require('./JsonApiVersion');
+    Folder = require('./Folder'),
+    JsonApiLinksSelf = require('./JsonApiLinksSelf'),
+    JsonApiVersion = require('./JsonApiVersion');
 
 
 
@@ -37,17 +37,17 @@ module.exports = (function() {
    * @module model/TopFolders
    */
 
-   /**
-    * Constructs a <code>TopFolders</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/TopFolders} obj Optional instance to populate.
-    * @return {module:model/TopFolders} The populated <code>TopFolders</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>TopFolders</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/TopFolders} obj Optional instance to populate.
+   * @return {module:model/TopFolders} The populated <code>TopFolders</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
+
       if (data.hasOwnProperty('jsonapi')) {
         obj.jsonapi = JsonApiVersion.constructFromObject(data.jsonapi);
       }
@@ -71,14 +71,14 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/TopFolders} obj Optional instance to populate.
    */
-  var exports = function(jsonapi, links, data, theData, obj) {
+  var exports = function (jsonapi, links, data, theData, obj) {
     var _this = this;
 
     _this.jsonapi = jsonapi;
     _this.links = links;
     _this.data = data;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

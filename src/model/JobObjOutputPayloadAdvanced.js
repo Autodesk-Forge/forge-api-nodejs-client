@@ -22,38 +22,35 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient');
-
-
 
   /**
    * The JobObjOutputPayloadAdvanced model module.
    * @module model/JobObjOutputPayloadAdvanced
    */
 
-   /**
-    * Constructs a <code>JobObjOutputPayloadAdvanced</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/JobObjOutputPayloadAdvanced} obj Optional instance to populate.
-    * @return {module:model/JobObjOutputPayloadAdvanced} The populated <code>JobObjOutputPayloadAdvanced</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>JobObjOutputPayloadAdvanced</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/JobObjOutputPayloadAdvanced} obj Optional instance to populate.
+   * @return {module:model/JobObjOutputPayloadAdvanced} The populated <code>JobObjOutputPayloadAdvanced</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
-      if (data.hasOwnProperty('exportFileStructure')) {
+
+      if (data.hasOwnProperty('exportFileStructure'))
         obj.exportFileStructure = ApiClient.convertToType(data.exportFileStructure, 'String');
-      }
-      if (data.hasOwnProperty('modelGuid')) {
+      if (data.hasOwnProperty('modelGuid'))
         obj.modelGuid = ApiClient.convertToType(data.modelGuid, 'String');
-      }
-      if (data.hasOwnProperty('objectIds')) {
-        obj.objectIds = ApiClient.convertToType(data.objectIds, ['String']);
-      }
+      if (data.hasOwnProperty('objectIds'))
+        obj.objectIds = ApiClient.convertToType(data.objectIds, ['Integer']);
+      if (data.hasOwnProperty('unit'))
+        obj.unit = ApiClient.convertToType(data.unit, 'String');
     }
     return obj;
   };
@@ -66,14 +63,10 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/JobObjOutputPayloadAdvanced} obj Optional instance to populate.
    */
-  var exports = function(theData, obj) {
+  var exports = function (theData, obj) {
     var _this = this;
 
-
-
-
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -91,17 +84,26 @@ module.exports = (function() {
    * @default 'single'
    */
   exports.prototype.exportFileStructure = 'single';
+
   /**
    * Required for geometry extractions. The model view ID (guid).
    * @member {String} modelGuid
    */
   exports.prototype.modelGuid = undefined;
+
   /**
    * Required for geometry extractions. List object ids to be translated. -1 will extract the entire model. 
-   * @member {Array.<String>} objectIds
+   * @member {Array.<Integer>} objectIds
    */
   exports.prototype.objectIds = undefined;
 
+  /**
+   * Translate models into different units; this causes the values to change. For example, from millimeters (10, 123, 31) to centimeters (1.0, 12.3, 3.1). If the source unit or the unit you are translating into is not supported, the values remain unchanged.
+   * Possible values: meter, decimeter, centimeter, millimeter, micrometer, nanometer, yard, foot, inch, mil, microinch
+   * Note that this feature does not support F3D files.
+   * @member {module:model/JobObjOutputPayloadAdvanced.UnitEnum} unit
+   */
+  exports.prototype.unit = undefined;
 
   /**
    * Allowed values for the <code>exportFileStructure</code> property.
@@ -118,8 +120,71 @@ module.exports = (function() {
      * value: "multiple"
      * @const
      */
-    "multiple": "multiple"  };
+    "multiple": "multiple"
+  };
 
+  /**
+     * Allowed values for the <code>unit</code> property.
+     * @enum {String}
+     * @readonly
+     */
+  exports.UnitEnum = {
+    /**
+     * value: "meter"
+     * @const
+     */
+    "meter": "meter",
+    /**
+     * value: "decimeter"
+     * @const
+     */
+    "decimeter": "decimeter",
+    /**
+     * value: "centimeter"
+     * @const
+     */
+    "centimeter": "centimeter",
+    /**
+     * value: "millimeter"
+     * @const
+     */
+    "millimeter": "millimeter",
+    /**
+     * value: "micrometer"
+     * @const
+     */
+    "micrometer": "micrometer",
+    /**
+     * value: "nanometer"
+     * @const
+     */
+    "nanometer": "nanometer",
+    /**
+     * value: "yard"
+     * @const
+     */
+    "yard": "yard",
+    /**
+     * value: "foot"
+     * @const
+     */
+    "foot": "foot",
+    /**
+     * value: "inch"
+     * @const
+     */
+    "inch": "inch",
+    /**
+     * value: "mil"
+     * @const
+     */
+    "mil": "mil",
+    /**
+     * value: "microinch"
+     * @const
+     */
+    "microinch": "microinch",
+  };
 
   return exports;
 }());

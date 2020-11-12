@@ -22,7 +22,7 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient');
@@ -34,17 +34,17 @@ module.exports = (function() {
    * @module model/BucketsItems
    */
 
-   /**
-    * Constructs a <code>BucketsItems</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/BucketsItems} obj Optional instance to populate.
-    * @return {module:model/BucketsItems} The populated <code>BucketsItems</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>BucketsItems</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/BucketsItems} obj Optional instance to populate.
+   * @return {module:model/BucketsItems} The populated <code>BucketsItems</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
+
       if (data.hasOwnProperty('bucketKey')) {
         obj.bucketKey = ApiClient.convertToType(data.bucketKey, 'String');
       }
@@ -68,14 +68,14 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/BucketsItems} obj Optional instance to populate.
    */
-  var exports = function(bucketKey, createdDate, policyKey, theData, obj) {
+  var exports = function (bucketKey, createdDate, policyKey, theData, obj) {
     var _this = this;
 
     _this.bucketKey = bucketKey;
     _this.createdDate = createdDate;
     _this.policyKey = policyKey;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -124,7 +124,8 @@ module.exports = (function() {
      * value: "persistent"
      * @const
      */
-    "persistent": "persistent"  };
+    "persistent": "persistent"
+  };
 
 
   return exports;

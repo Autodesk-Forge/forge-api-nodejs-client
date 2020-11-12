@@ -22,7 +22,7 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient');
@@ -34,17 +34,17 @@ module.exports = (function() {
    * @module model/Reason
    */
 
-   /**
-    * Constructs a <code>Reason</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/Reason} obj Optional instance to populate.
-    * @return {module:model/Reason} The populated <code>Reason</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>Reason</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/Reason} obj Optional instance to populate.
+   * @return {module:model/Reason} The populated <code>Reason</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
+
       if (data.hasOwnProperty('reason')) {
         obj.reason = ApiClient.convertToType(data.reason, 'String');
       }
@@ -61,12 +61,12 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/Reason} obj Optional instance to populate.
    */
-  var exports = function(reason, theData, obj) {
+  var exports = function (reason, theData, obj) {
     var _this = this;
 
     _this.reason = reason;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

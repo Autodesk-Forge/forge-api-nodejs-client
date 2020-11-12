@@ -22,11 +22,11 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      BaseAttributesExtensionObject = require('./BaseAttributesExtensionObject');
+    BaseAttributesExtensionObject = require('./BaseAttributesExtensionObject');
 
 
 
@@ -35,17 +35,17 @@ module.exports = (function() {
    * @module model/RelRefMeta
    */
 
-   /**
-    * Constructs a <code>RelRefMeta</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/RelRefMeta} obj Optional instance to populate.
-    * @return {module:model/RelRefMeta} The populated <code>RelRefMeta</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>RelRefMeta</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/RelRefMeta} obj Optional instance to populate.
+   * @return {module:model/RelRefMeta} The populated <code>RelRefMeta</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
+
       if (data.hasOwnProperty('refType')) {
         obj.refType = ApiClient.convertToType(data.refType, 'String');
       }
@@ -85,7 +85,7 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/RelRefMeta} obj Optional instance to populate.
    */
-  var exports = function(refType, direction, fromId, fromType, toId, toType, extension, theData, obj) {
+  var exports = function (refType, direction, fromId, fromType, toId, toType, extension, theData, obj) {
     var _this = this;
 
     _this.refType = refType;
@@ -96,7 +96,7 @@ module.exports = (function() {
     _this.toType = toType;
     _this.extension = extension;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -164,7 +164,8 @@ module.exports = (function() {
      * value: "xrefs"
      * @const
      */
-    "xrefs": "xrefs"  };
+    "xrefs": "xrefs"
+  };
 
   /**
    * Allowed values for the <code>direction</code> property.
@@ -181,7 +182,8 @@ module.exports = (function() {
      * value: "to"
      * @const
      */
-    "to": "to"  };
+    "to": "to"
+  };
 
   /**
    * Allowed values for the <code>fromType</code> property.
@@ -203,7 +205,8 @@ module.exports = (function() {
      * value: "versions"
      * @const
      */
-    "versions": "versions"  };
+    "versions": "versions"
+  };
 
   /**
    * Allowed values for the <code>toType</code> property.
@@ -225,7 +228,8 @@ module.exports = (function() {
      * value: "versions"
      * @const
      */
-    "versions": "versions"  };
+    "versions": "versions"
+  };
 
 
   return exports;

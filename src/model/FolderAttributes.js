@@ -22,11 +22,11 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      BaseAttributesExtensionObject = require('./BaseAttributesExtensionObject');
+    BaseAttributesExtensionObject = require('./BaseAttributesExtensionObject');
 
 
 
@@ -35,17 +35,17 @@ module.exports = (function() {
    * @module model/FolderAttributes
    */
 
-   /**
-    * Constructs a <code>FolderAttributes</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/FolderAttributes} obj Optional instance to populate.
-    * @return {module:model/FolderAttributes} The populated <code>FolderAttributes</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>FolderAttributes</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/FolderAttributes} obj Optional instance to populate.
+   * @return {module:model/FolderAttributes} The populated <code>FolderAttributes</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
+
       if (data.hasOwnProperty('name')) {
         obj.name = ApiClient.convertToType(data.name, 'String');
       }
@@ -73,7 +73,7 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/FolderAttributes} obj Optional instance to populate.
    */
-  var exports = function(name, displayName, objectCount, extension, theData, obj) {
+  var exports = function (name, displayName, objectCount, extension, theData, obj) {
     var _this = this;
 
     _this.name = name;
@@ -81,7 +81,7 @@ module.exports = (function() {
     _this.objectCount = objectCount;
     _this.extension = extension;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

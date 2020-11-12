@@ -26,9 +26,8 @@ module.exports = (function() {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
+      JobPayloadDestination = require('./JobPayloadDestination'),
       JobPayloadItem = require('./JobPayloadItem');
-
-
 
   /**
    * The JobPayloadOutput model module.
@@ -46,9 +45,11 @@ module.exports = (function() {
     if (data) {
       obj = obj || new exports();
   
-      if (data.hasOwnProperty('formats')) {
+      if (data.hasOwnProperty('destination') && data.destination)
+        obj.destination = JobPayloadDestination.constructFromObject(data.destination);
+      if (data.hasOwnProperty('formats') && data.formats)
         obj.formats = ApiClient.convertToType(data.formats, [JobPayloadItem]);
-      }
+      
     }
     return obj;
   };
@@ -64,10 +65,11 @@ module.exports = (function() {
    */
   var exports = function(formats, theData, obj) {
     var _this = this;
-
+    
+    //_this.destination = destination; // param destination {module:model/JobPayloadDestination} Group of destination settings.
     _this.formats = formats;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -80,12 +82,16 @@ module.exports = (function() {
   exports.constructFromObject = constructFromObject;
 
   /**
+   * Group of destination settings.
+   * @member {module:model/JobPayloadDestination} destination
+   */
+  exports.prototype.destination = undefined;
+
+  /**
    * Group of requested formats/types. User can request multiple formats.
    * @member {Array.<module:model/JobPayloadItem>} formats
    */
   exports.prototype.formats = undefined;
-
-
 
   return exports;
 }());

@@ -22,36 +22,32 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      JobObjOutputPayloadAdvanced = require('./JobObjOutputPayloadAdvanced');
-
-
+    JobObjOutputPayloadAdvanced = require('./JobObjOutputPayloadAdvanced');
 
   /**
    * The JobObjOutputPayload model module.
    * @module model/JobObjOutputPayload
    */
 
-   /**
-    * Constructs a <code>JobObjOutputPayload</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/JobObjOutputPayload} obj Optional instance to populate.
-    * @return {module:model/JobObjOutputPayload} The populated <code>JobObjOutputPayload</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>JobObjOutputPayload</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/JobObjOutputPayload} obj Optional instance to populate.
+   * @return {module:model/JobObjOutputPayload} The populated <code>JobObjOutputPayload</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
-      if (data.hasOwnProperty('type')) {
+
+      if (data.hasOwnProperty('type'))
         obj.type = ApiClient.convertToType(data.type, 'String');
-      }
-      if (data.hasOwnProperty('advanced')) {
-        obj.advanced = JobObjOutputPayloadAdvanced.constructFromObject(data.advanced);
-      }
+      if (data.hasOwnProperty('advanced'))
+        obj.advanced = JobObjOutputPayloadAdvanced.constructFromObject(data.advanced, obj && obj.advanced);
     }
     return obj;
   };
@@ -60,17 +56,16 @@ module.exports = (function() {
    * Constructs a new <code>JobObjOutputPayload</code>.
    * @alias module:model/JobObjOutputPayload
    * @class
-   * @param type {module:model/JobPayloadItem.TypeEnum} The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
+   * @param type {module:model/JobPayloadItem.TypeEnum} The requested output types. Possible values include dwg, fbx, ifc, iges, obj, step, stl, svf, svf2, thumbnail. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/JobObjOutputPayload} obj Optional instance to populate.
    */
-  var exports = function(type, theData, obj) {
+  var exports = function (type, theData, obj) {
     var _this = this;
 
-    _this.type = type;
+    _this.type = 'obj';
 
-
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
@@ -83,15 +78,15 @@ module.exports = (function() {
   exports.constructFromObject = constructFromObject;
 
   /**
-   * The requested output types. Possible values include `svf`, `thumbnai`, `stl`, `step`, `iges`, or `obj`. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
+   * The requested output types. Possible values include dwg, fbx, ifc, iges, obj, step, stl, svf, svf2, thumbnail. For a list of supported types, call the [GET formats](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/formats-GET) endpoint.
    * @member {module:model/JobPayloadItem.TypeEnum} type
    */
-  exports.prototype.type = undefined;
+  exports.prototype.type = 'obj';
+
   /**
    * @member {module:model/JobObjOutputPayloadAdvanced} advanced
    */
   exports.prototype.advanced = undefined;
-
 
   /**
    * Allowed values for the <code>type</code> property.
@@ -104,6 +99,11 @@ module.exports = (function() {
      * @const
      */
     "svf": "svf",
+    /**
+     * value: "svf2"
+     * @const
+     */
+    "svf2": "svf2",
     /**
      * value: "thumbnail"
      * @const
@@ -128,8 +128,18 @@ module.exports = (function() {
      * value: "obj"
      * @const
      */
-    "obj": "obj"  };
-
+    "obj": "obj",
+    /**
+     * value: "dwg"
+     * @const
+     */
+    "dwg": "dwg",
+    /**
+     * value: "ifc"
+     * @const
+     */
+    "ifc": "ifc"
+  };
 
   return exports;
 }());

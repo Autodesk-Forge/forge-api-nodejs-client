@@ -252,7 +252,8 @@ module.export = (function () {
 				};
 				var queryParams = {};
 				var headerParams = {
-					'Range': opts.range
+					'Range': opts.range,
+					'Accept-Encoding': opts.acceptEncoding, // 'deflate, gzip, br'
 				};
 				var formParams = {};
 
@@ -265,6 +266,36 @@ module.export = (function () {
 					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
 				instance.getDerivativeManifest(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+
+		describe('getDerivativeManifestInfo', function () {
+			it('should call getDerivativeManifestInfo successfully', function (done) {
+				var opts = {};
+				var postBody = null;
+
+				var pathParams = {
+					'urn': sampleStrParam,
+					'derivativeUrn': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
+
+				var contentTypes = [];
+				var accepts = [];
+				var returnType = null;
+
+				mockedApiClientRequest.withArgs('/modelderivative/v2/regions/eu/designdata/{urn}/manifest/{derivativeUrn}', 'HEAD',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+				instance.getDerivativeManifestInfo(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function (response) {
 					expect(response).to.be.ok();
 					done();
 				}, function (err) {
@@ -313,9 +344,12 @@ module.export = (function () {
 					'urn': sampleStrParam,
 					'guid': sampleStrParam
 				};
-				var queryParams = {};
+				var queryParams = {
+					'forceget': opts.forceget || false
+				};
 				var headerParams = {
-					'Accept-Encoding': opts.acceptEncoding
+					'Accept-Encoding': opts.acceptEncoding,
+					'x-ads-force': opts.xAdsForce || false
 				};
 				var formParams = {};
 
@@ -349,7 +383,8 @@ module.export = (function () {
 					'forceget': opts.forceget || false
 				};
 				var headerParams = {
-					'Accept-Encoding': opts.acceptEncoding
+					'Accept-Encoding': opts.acceptEncoding,
+					'x-ads-force': opts.xAdsForce || false
 				};
 				var formParams = {};
 

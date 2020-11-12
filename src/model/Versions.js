@@ -22,13 +22,13 @@
  * limitations under the License.
  */
 
-module.exports = (function() {
+module.exports = (function () {
   'use strict';
 
   var ApiClient = require('../ApiClient'),
-      JsonApiCollection = require('./JsonApiCollection'),
-      JsonApiVersionJsonapi = require('./JsonApiVersionJsonapi'),
-      Version = require('./Version');
+    JsonApiCollection = require('./JsonApiCollection'),
+    JsonApiVersionJsonapi = require('./JsonApiVersionJsonapi'),
+    Version = require('./Version');
 
 
 
@@ -37,18 +37,18 @@ module.exports = (function() {
    * @module model/Versions
    */
 
-   /**
-    * Constructs a <code>Versions</code> from a plain JavaScript object, optionally creating a new instance.
-    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-    * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/Versions} obj Optional instance to populate.
-    * @return {module:model/Versions} The populated <code>Versions</code> instance.
-    */
-  var constructFromObject = function(data, obj) {
+  /**
+   * Constructs a <code>Versions</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/Versions} obj Optional instance to populate.
+   * @return {module:model/Versions} The populated <code>Versions</code> instance.
+   */
+  var constructFromObject = function (data, obj) {
     if (data) {
       obj = obj || new exports();
-  
-        JsonApiCollection.constructFromObject(data, obj);
+
+      JsonApiCollection.constructFromObject(data, obj);
       if (data.hasOwnProperty('jsonapi')) {
         obj.jsonapi = JsonApiVersionJsonapi.constructFromObject(data.jsonapi);
       }
@@ -68,14 +68,13 @@ module.exports = (function() {
    * @param {Object} theData The plain JavaScript object bearing properties of interest.
    * @param {module:model/Versions} obj Optional instance to populate.
    */
-  var exports = function(data, theData, obj) {
+  var exports = function (data, theData, obj) {
     var _this = this;
 
     JsonApiCollection.call(_this, data);
-
     _this.data = data;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**

@@ -71,7 +71,7 @@ module.exports = (function() {
     _this.name = name;
     _this.extension = extension;
 
-    return constructFromObject(theData, obj);
+    return constructFromObject(theData, obj || _this);
   };
 
   /**
