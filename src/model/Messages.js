@@ -28,8 +28,6 @@ module.exports = (function () {
   var ApiClient = require('../ApiClient'),
     Message = require('./Message');
 
-
-
   /**
    * The Messages model module.
    * @module model/Messages
@@ -65,7 +63,7 @@ module.exports = (function () {
     _this = [];
     Object.setPrototypeOf(_this, exports);
 
-    return constructFromObject(theData, obj || _this);
+    return constructFromObject(theData, obj);
   };
 
   /**
@@ -76,9 +74,6 @@ module.exports = (function () {
    * @return {module:model/Messages} The populated <code>Messages</code> instance.
    */
   exports.constructFromObject = constructFromObject;
-
-
-
 
   return exports;
 }());
