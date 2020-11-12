@@ -413,7 +413,7 @@ module.exports = (function () {
 						}
 					});
 			}, function (err) {
-				throw new Error(err.toString);
+				throw new Error(err.toString());
 			});
 		});
 	};

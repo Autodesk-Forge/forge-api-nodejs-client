@@ -1,9 +1,12 @@
 {
 	"name": "forge-apis",
-	"version": "0.8.2",
+	"version": "0.8.3",
 	"description": "The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.",
 	"license": "Apache-2.0",
 	"main": "src/index.js",
+	"engines": {
+		"node": ">= 10.12.0"
+	},
 	"scripts": {
 		"test": "./node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 ./test",
 		"test-oauth": "./node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 ./test/auth",
