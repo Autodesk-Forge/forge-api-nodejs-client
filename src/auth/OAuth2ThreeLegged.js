@@ -37,7 +37,8 @@ module.exports = (function () {
 	 * Inherits from OAuth2
 	 * @alias module:auth/OAuth2ThreeLegged
 	 */
-	var OAuth2ThreeLegged = function (clientId, clientSecret, redirectUri, scope, autoRefresh) {
+	var OAuth2ThreeLegged = function (clientId, clientSecret, redirectUri, scope, autoRefresh, apiClient) {
+		ApiClient = apiClient || require('../ApiClient').instance;
 
 		this.authentication = {
 			authorizationUrl: '/authentication/v1/authorize',
@@ -62,7 +63,7 @@ module.exports = (function () {
 
 		this.authName = 'oauth2_access_code';
 
-		OAuth2.call(this, clientId, clientSecret, scope, autoRefresh);
+		OAuth2.call(this, clientId, clientSecret, scope, autoRefresh, ApiClient);
 
 		this.redirectUri = redirectUri;
 	};

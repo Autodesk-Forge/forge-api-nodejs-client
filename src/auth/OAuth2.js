@@ -103,7 +103,9 @@ module.exports = (function () {
 	 * Constructs a new <code>oAuth2</code>.
 	 * @alias module:auth/OAuth2
 	 */
-	var OAuth2 = function (clientId, clientSecret, scope, autoRefresh) {
+	var OAuth2 = function (clientId, clientSecret, scope, autoRefresh, apiClient) {
+		ApiClient = apiClient || require('../ApiClient').instance;
+
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 		this.credentials = {};

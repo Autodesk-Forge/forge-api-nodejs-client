@@ -1,6 +1,12 @@
 var fs = require('fs');
 var ForgeSDK = require('../src/index');
 
+// ForgeSDK.ApiClient.instance.switchServerPath('https://developer-stg.api.autodesk.com');
+// var StgApiClient = new ForgeSDK.ApiClient('https://developer-stg.api.autodesk.com');
+// var bucketsApiStg = new ForgeSDK.BucketsApi(StgApiClient);
+// var oAuth2TwoLeggedStg = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read'], true, StgApiClient);
+// var oAuth2TwoLeggedtest = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read'], true); // back to prod
+
 // TODO - insert your CLIENT_ID and CLIENT_SECRET
 var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || 'your forge client id';
 var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || 'your forge client secret';

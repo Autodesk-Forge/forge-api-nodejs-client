@@ -38,13 +38,16 @@ module.exports = (function () {
 	 * @alias module:ApiClient
 	 * @class
 	 */
-	var exports = function () {
+	var exports = function (basepath) {
 		/**
 		 * The base URL against which to resolve every API call's (relative) path.
 		 * @type {String}
 		 * @default https://developer.api.autodesk.com
 		 */
 		this.basePath = 'https://developer.api.autodesk.com'.replace(/\/+$/, '');
+		if ( basepath !== undefined )
+			this.basePath = basepath.replace(/\/+$/, '');
+
 		/**
 		 * The default HTTP headers to be included for all API calls.
 		 * @type {Array.<String>}
@@ -58,6 +61,11 @@ module.exports = (function () {
 		 * @default 60000
 		 */
 		this.timeout = 60000;
+	};
+
+	exports.prototype.switchServerPath = function (basepath) {
+		if (basepath !== undefined)
+			this.basePath = basepath.replace(/\/+$/, '');
 	};
 
 	/**
