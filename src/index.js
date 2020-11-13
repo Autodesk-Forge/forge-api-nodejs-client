@@ -98,6 +98,7 @@ module.exports = (function () {
 		JobPayloadInput = require('./model/JobPayloadInput'),
 		JobPayloadItem = require('./model/JobPayloadItem'),
 		JobPayloadOutput = require('./model/JobPayloadOutput'),
+		JobPayloadMisc = require('./model/JobPayloadMisc'),
 		JobPayloadDestination = require('./model/JobPayloadDestination'),
 		JobStepOutputPayload = require('./model/JobStepOutputPayload'),
 		JobStepOutputPayloadAdvanced = require('./model/JobStepOutputPayloadAdvanced'),
@@ -590,6 +591,11 @@ module.exports = (function () {
 		 * @property {module:model/JobPayloadOutput}
 		 */
 		JobPayloadOutput: JobPayloadOutput,
+		/**
+		 * The JobPayloadMisc model constructor.
+		 * @property {module:model/JobPayloadMisc}
+		 */
+		JobPayloadMisc: JobPayloadMisc,
 		/**
 		 * The JobPayloadDestination model constructor.
 		 * @property {module:model/JobPayloadDestination}
