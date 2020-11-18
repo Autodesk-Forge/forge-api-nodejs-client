@@ -191,6 +191,8 @@ module.exports = (function () {
 		ProjectsApi = require('./api/ProjectsApi'),
 		UserProfileApi = require('./api/UserProfileApi'),
 		VersionsApi = require('./api/VersionsApi'),
+		WebhooksApi = require('./api/WebhooksApi'),
+		TokensApi = require('./api/TokensApi'),
 		WorkItemsApi = require('./api/WorkItemsApi'),
 		authClientTwoLegged = require('./auth/OAuth2TwoLegged'),
 		authClientThreeLegged = require('./auth/OAuth2ThreeLegged');
@@ -1056,6 +1058,16 @@ module.exports = (function () {
 		 * @property {module:api/VersionsApi}
 		 */
 		VersionsApi: VersionsApi,
+		/**
+		 * The WebhooksApi service constructor.
+		 * @property {module:api/WebhooksApi}
+		 */
+		WebhooksApi: WebhooksApi,
+		/**
+		 * The TokensApi service constructor.
+		 * @property {module:api/TokensApi}
+		 */
+		TokensApi: TokensApi,
 		/**
 		 * The WorkItemsApi service constructor.
 		 * @property {module:api/WorkItemsApi}

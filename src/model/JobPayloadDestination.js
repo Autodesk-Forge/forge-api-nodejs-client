@@ -79,10 +79,10 @@ module.exports = (function () {
 	exports.prototype.region = 'US';
 
 	/**
-   * Allowed values for the <code>region</code> property.
-   * @enum {String}
-   * @readonly
-   */
+	 * Allowed values for the <code>region</code> property.
+	 * @enum {String}
+	 * @readonly
+	 */
 	exports.RegionEnum = {
 		/**
 		 * value: "US"
@@ -94,6 +94,12 @@ module.exports = (function () {
 		 * @const
 		 */
 		"EMEA": "EMEA",
+		/**
+		 * value: "EU"
+		 * @const
+		 */
+		"EU": "EMEA",
+
 	};
 
 	return exports;

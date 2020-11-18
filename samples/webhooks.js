@@ -46,9 +46,9 @@ var FILE_NAME = 'test.nwd';
 // TODO - specify the full filename and path
 var FILE_PATH = 'test.nwd';
 
-var bucketsApi = new ForgeSDK.BucketsApi(),
-	objectsApi = new ForgeSDK.ObjectsApi(),
-	derivativesApi = new ForgeSDK.DerivativesApi(/* undefined, ForgeSDK.JobPayloadDestination.RegionEnum.EMEA */);
+var bucketsApi = new ForgeSDK.BucketsApi();
+var objectsApi = new ForgeSDK.ObjectsApi();
+var derivativesApi = new ForgeSDK.DerivativesApi(/* undefined, ForgeSDK.JobPayloadDestination.RegionEnum.EMEA */);
 
 // Initialize the 2-legged oauth2 client
 var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,
@@ -142,7 +142,6 @@ var createObj = function (urn, guid) {
 	return derivativesApi.translate(job, {}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
 };
 
-
 /**
  * Create an access token and run the API calls.
  */
@@ -161,12 +160,12 @@ oAuth2TwoLegged.authenticate()
 					.replace(/\//g, '_') // Convert '/' to '_'
 					.replace(/=+$/, '');
 
-				getMetadata (urn)
-					.then (function (metadata) {
+				getMetadata(urn)
+					.then(function (metadata) {
 						console.log("**** Metadata requested:", metadata.body);
 
-						var _metadata = ForgeSDK.Metadata.constructFromObject (metadata.body);
-						var guid = _metadata.data.metadata [0].guid;
+						var _metadata = ForgeSDK.Metadata.constructFromObject(metadata.body);
+						var guid = _metadata.data.metadata[0].guid;
 
 						createObj(urn, guid)
 							.then(function (reponse) {
@@ -182,11 +181,11 @@ oAuth2TwoLegged.authenticate()
 									}, defaultHandleError);
 
 							}, defaultHandleError);
-						
+
 					}, defaultHandleError);
 
 			}, defaultHandleError);
 
 	}, defaultHandleError)
-	
+
 	.catch(defaultHandleError);
