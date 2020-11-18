@@ -459,6 +459,7 @@ module.exports = (function () {
 		 * @param {String} opts.acceptEncoding If specified with `gzip` or `*`, content will be compressed and returned in a GZIP format.
 		 * @param {Boolean} opts.xAdsForce Force retrieve the object tree even though it failed to be extracted (got 404 with error message) previously. (default is false) retrieve the object tree, and previously failures are not replaced.
 		 * @param {Boolean} opts.forceget To force get the large resource even if it exceeded the expected maximum length (20 MB). Possible values: true, false. The the implicit value is false.
+		 * @param {Boolean} opts.objectid Object id which you want to query properties for.
 		 * data is of type: {module:model/Metadata}
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
@@ -482,7 +483,8 @@ module.exports = (function () {
 				'guid': guid
 			};
 			var queryParams = {
-				'forceget': opts.forceget || false
+				'forceget': opts.forceget || false,
+				'objectid': opts.objectid || null
 			};
 			var headerParams = {
 				'Accept-Encoding': opts.acceptEncoding,
