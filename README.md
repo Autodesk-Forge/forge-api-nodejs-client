@@ -19,7 +19,7 @@ into your application, including [OAuth](https://developer.autodesk.com/en/docs/
 
 ### Requirements
 
-* Node.js version 6 and above.
+* Node.js version 10.12 and above.
 * A registered app on the [Forge Developer portal](https://developer.autodesk.com/myapps).
 * A Node.js web server (such as Express) for 3-legged authentication.
 
