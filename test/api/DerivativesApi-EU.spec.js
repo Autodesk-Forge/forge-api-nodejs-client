@@ -370,40 +370,40 @@ module.export = (function () {
 			});
 		});
 
-		describe('getModelviewProperties', function () {
-			it('should call getModelviewProperties successfully', function (done) {
-				var opts = {};
-				var postBody = null;
+		// describe('getModelviewProperties', function () {
+		// 	it('should call getModelviewProperties successfully', function (done) {
+		// 		var opts = {};
+		// 		var postBody = null;
 
-				var pathParams = {
-					'urn': sampleStrParam,
-					'guid': sampleStrParam
-				};
-				var queryParams = {
-					'forceget': opts.forceget || false
-				};
-				var headerParams = {
-					'Accept-Encoding': opts.acceptEncoding,
-					'x-ads-force': opts.xAdsForce || false
-				};
-				var formParams = {};
+		// 		var pathParams = {
+		// 			'urn': sampleStrParam,
+		// 			'guid': sampleStrParam
+		// 		};
+		// 		var queryParams = {
+		// 			'forceget': opts.forceget || false
+		// 		};
+		// 		var headerParams = {
+		// 			'Accept-Encoding': opts.acceptEncoding,
+		// 			'x-ads-force': opts.xAdsForce || false
+		// 		};
+		// 		var formParams = {};
 
-				var contentTypes = ['application/json'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = Metadata;
+		// 		var contentTypes = ['application/json'];
+		// 		var accepts = ['application/vnd.api+json', 'application/json'];
+		// 		var returnType = Metadata;
 
-				mockedApiClientRequest.withArgs('/modelderivative/v2/regions/eu/designdata/{urn}/metadata/{guid}/properties', 'GET',
-					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+		// 		mockedApiClientRequest.withArgs('/modelderivative/v2/regions/eu/designdata/{urn}/metadata/{guid}/properties', 'GET',
+		// 			pathParams, queryParams, headerParams, formParams, postBody,
+		// 			contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
-				instance.getModelviewProperties(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function (response) {
-					expect(response).to.be.ok();
-					done();
-				}, function (err) {
-					done(err);
-				});
-			});
-		});
+		// 		instance.getModelviewProperties(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function (response) {
+		// 			expect(response).to.be.ok();
+		// 			done();
+		// 		}, function (err) {
+		// 			done(err);
+		// 		});
+		// 	});
+		// });
 
 	});
 
