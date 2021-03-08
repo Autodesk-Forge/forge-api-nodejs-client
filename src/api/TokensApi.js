@@ -41,7 +41,7 @@ module.exports = (function () {
 	 */
 	var exports = function (apiClient, region) {
 		this.apiClient = apiClient || ApiClient.instance;
-		this.region = region || RegionEnum.US; // US is default
+		this.region = region || 'US'; // US is default
 
 		/**
 		 * Add a new Webhook secret token.
@@ -65,7 +65,7 @@ module.exports = (function () {
 			var pathParams = {};
 			var queryParams = {};
 			var headerParams = {
-				'x-ads-region': opts.xAdsRegion
+				'x-ads-region': opts.xAdsRegion || this.region
 			};
 			var formParams = {};
 
@@ -102,7 +102,7 @@ module.exports = (function () {
 			var pathParams = {};
 			var queryParams = {};
 			var headerParams = {
-				'x-ads-region': opts.xAdsRegion
+				'x-ads-region': opts.xAdsRegion || this.region
 			};
 			var formParams = {};
 
@@ -119,15 +119,13 @@ module.exports = (function () {
 
 		/**
 		 * Delete a Webhook secret token
-		 * @param {WebhooksSystemEnum} webhooksSystem A system for example: data, for Data Management
-		 * @param {WebhookEventEnum} eventType The webhook event type to delete hook for.
-		 * @param {String} hookId The GUID of the hook to delete.
 		 * @param {Object} opts Optional parameters
 		 * @param {RegionEnum} opts.xAdsRegion Specifies the region the request will be run in. Currently the regions that are supported are: ‘EMEA’, ‘US’. Default is US.
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
 		 */
-		this.DeleteHook = function (opts, oauth2client, credentials) {
+		this.DeleteToken = function (opts, oauth2client, credentials) {
+			opts = opts || {};
 			var postBody = null;
 
 			var pathParams = {};
@@ -147,144 +145,6 @@ module.exports = (function () {
 				contentTypes, accepts, returnType, oauth2client, credentials
 			);
 		};
-
-	};
-
-	/**
-	 * Allowed values for the <code>export.DerivativeWebhookEvent</code> property.
-	 * @enum {String}
-	 * @readonly
-	 */
-	exports.WebhooksSystemEnum = {
-		/**
-		 * value: "derivative"
-		 * @const
-		 */
-		"derivative": "derivative",
-
-	};
-
-	/**
-	 * Allowed values for the <code>export.WebhookEventEnum</code> property.
-	 * @enum {String}
-	 * @readonly
-	 */
-	exports.WebhookEventEnum = {
-		// Data Management
-
-		/**
-		 * value: "VersionAdded"
-		 * @const
-		 */
-		"VersionAdded": "dm.version.added",
-		/**
-		 * value: "VersionModified"
-		 * @const
-		 */
-		"VersionModified": "dm.version.modified",
-		/**
-		 * value: "VersionDeleted"
-		 * @const
-		 */
-		"VersionDeleted": "dm.version.deleted",
-		/**
-		 * value: "VersionMoved"
-		 * @const
-		 */
-		"VersionMoved": "dm.version.moved",
-		/**
-		 * value: "VersionCopied"
-		 * @const
-		 */
-		"VersionCopied": "dm.version.copied",
-		/**
-		 * value: "FolderAdded"
-		 * @const
-		 */
-		"FolderAdded": "dm.folder.added",
-		/**
-		 * value: "FolderModified"
-		 * @const
-		 */
-		"FolderModified": "dm.folder.modified",
-		/**
-		 * value: "FolderDeleted"
-		 * @const
-		 */
-		"FolderDeleted": "dm.folder.deleted",
-		/**
-		 * value: "FolderMoved"
-		 * @const
-		 */
-		"FolderMoved": "dm.folder.moved",
-		/**
-		 * value: "FolderCopied"
-		 * @const
-		 */
-		"FolderCopied": "dm.folder.copied",
-
-		// Model Derivatives
-
-		/**
-		 * value: "ExtractionFinished"
-		 * @const
-		 */
-		"ExtractionFinished": "extraction.finished",
-		/**
-		 * value: "ExtractionUpdated"
-		 * @const
-		 */
-		"ExtractionUpdated": "extraction.updated",
-
-		// Revit Cloud Worksharing
-
-		/**
-		 * value: "ModelSync"
-		 * @const
-		 */
-		"ModelSync": "model.sync",
-		/**
-		 * value: "ModelPublish"
-		 * @const
-		 */
-		"ModelPublish": "model.publish",
-
-		// Fusion Lifecycle
-		/**
-		 * value: "ItemClone"
-		 * @const
-		 */
-		"ItemClone": "item.clone",
-		/**
-		 * value: "ItemCreate"
-		 * @const
-		 */
-		"ItemCreate": "item.create",
-		/**
-		 * value: "ItemLock"
-		 * @const
-		 */
-		"ItemLock": "item.lock",
-		/**
-		 * value: "ItemRelease"
-		 * @const
-		 */
-		"ItemRelease": "item.release",
-		/**
-		 * value: "ItemUnlock"
-		 * @const
-		 */
-		"ItemUnlock": "item.unlock",
-		/**
-		 * value: "ItemUpdate"
-		 * @const
-		 */
-		"ItemUpdate": "item.update",
-		/**
-		 * value: "WorkflowTransition"
-		 * @const
-		 */
-		"WorkflowTransition": "workflow.transition",
 
 	};
 
@@ -309,25 +169,6 @@ module.exports = (function () {
 		 * @const
 		 */
 		"EU": "EMEA",
-
-	};
-
-	/**
-	 * Allowed values for the <code>export.StatusEnum</code> property.
-	 * @enum {String}
-	 * @readonly
-	 */
-	exports.StatusEnum = {
-		/**
-		 * value: "Active"
-		 * @const
-		 */
-		'Active': 'active',
-		/**
-		 * value: "Inactive"
-		 * @const
-		 */
-		'Inactive': 'inactive',
 
 	};
 

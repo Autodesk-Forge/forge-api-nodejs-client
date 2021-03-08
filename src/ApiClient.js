@@ -248,7 +248,7 @@ module.exports = (function () {
 		var _this = this;
 
 		function setAuthHeader(credentials) {
-			if (credentials.access_token) {
+			if (credentials && credentials.access_token) {
 				headers['Authorization'] = 'Bearer ' + credentials.access_token; // jshint ignore:line
 			}
 		}

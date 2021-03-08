@@ -41,7 +41,7 @@ module.exports = (function () {
 	 */
 	var exports = function (apiClient, region) {
 		this.apiClient = apiClient || ApiClient.instance;
-		this.region = region || RegionEnum.US; // US is default
+		this.region = region || 'US'; // US is default
 
 		/**
 		 * Returns hooks.
@@ -60,8 +60,9 @@ module.exports = (function () {
 			var pathParams = {
 			};
 			var queryParams = {
-				status: opts.status || StatusEnum.Active,
+				status: opts.status || /*StatusEnum.Active*/'active',
 				pageState: opts.pageState,
+				//region
 			};
 			var headerParams = {
 				'Accept-Encoding': opts.acceptEncoding,
@@ -98,13 +99,14 @@ module.exports = (function () {
 			// verify the required parameter 'webhooksSystem' is set
 			if (webhooksSystem == undefined || webhooksSystem == null)
 				return Promise.reject("Missing the required parameter 'webhooksSystem' when calling GetSystemHooks");
-			
+
 			var pathParams = {
 				'webhooksSystem': webhooksSystem,
 			};
 			var queryParams = {
-				status: opts.status || StatusEnum.Active,
+				status: opts.status || /*StatusEnum.Active*/'active',
 				pageState: opts.pageState,
+				//region
 			};
 			var headerParams = {
 				'Accept-Encoding': opts.acceptEncoding,
@@ -153,10 +155,11 @@ module.exports = (function () {
 				'eventType': eventType
 			};
 			var queryParams = {
-				status: opts.status || StatusEnum.Active,
+				status: opts.status || /*StatusEnum.Active*/'active',
 				pageState: opts.pageState,
 				scopeName: opts.scopeName,
 				scopeValue: opts.scopeValue,
+				//region
 			};
 			var headerParams = {
 				'Accept-Encoding': opts.acceptEncoding,
@@ -204,7 +207,9 @@ module.exports = (function () {
 				'eventType': eventType,
 				'hookId': hookId
 			};
-			var queryParams = {};
+			var queryParams = {
+				//region
+			};
 			var headerParams = {
 				'Accept-Encoding': opts.acceptEncoding,
 				'x-ads-region': opts.xAdsRegion || this.region
@@ -223,7 +228,7 @@ module.exports = (function () {
 		};
 
 		/**
-		 * Creates a webhook.
+		 * Add new webhooks to receive the notification on all the events.
 		 * @param {WebhooksSystemEnum} webhooksSystem A system for example: data, for Data Management
 		 * @param {String} callbackUrl Callback URL registered for the webhook.
 		 * @param {Object} scope An object that represents the extent to where the event is monitored.
@@ -237,26 +242,26 @@ module.exports = (function () {
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
 		 */
-		this.CreateHook = function (webhooksSystem, callbackUrl, scope, opts, oauth2client, credentials) {
+		this.CreateSystemHook = function (webhooksSystem, callbackUrl, scope, opts, oauth2client, credentials) {
 			opts = opts || {};
 
 			// verify the required parameter 'webhooksSystem' is set
 			if (webhooksSystem == undefined || webhooksSystem == null)
-				return Promise.reject("Missing the required parameter 'webhooksSystem' when calling CreateHook");
+				return Promise.reject("Missing the required parameter 'webhooksSystem' when calling CreateSystemHook");
 			// verify the required parameter 'callbackUrl' is set
 			if (callbackUrl == undefined || callbackUrl == null)
-				return Promise.reject("Missing the required parameter 'callbackUrl' when calling CreateHook");
+				return Promise.reject("Missing the required parameter 'callbackUrl' when calling CreateSystemHook");
 			// verify the required parameter 'scope' is set
 			if (scope == undefined || scope == null)
-				return Promise.reject("Missing the required parameter 'scope' when calling CreateHook");
+				return Promise.reject("Missing the required parameter 'scope' when calling CreateSystemHook");
 
 			var postBody = {
 				callbackUrl: callbackUrl,
 				scope: scope,
 			};
-			if (opts.filter != undefined && opts.filter != null)
+			if (opts.hookAttribute != undefined && opts.hookAttribute != null)
 				postBody.hookAttribute = opts.hookAttribute;
-			if (opts.filter != undefined && opts.filter != null)
+			if (opts.tenant != undefined && opts.tenant != null)
 				postBody.tenant = opts.tenant;
 			if (opts.filter != undefined && opts.filter != null)
 				postBody.filter = opts.filter;
@@ -264,11 +269,15 @@ module.exports = (function () {
 				postBody.hubId = opts.hubId;
 			if (opts.projectId != undefined && opts.projectId != null)
 				postBody.projectId = opts.projectId;
-			
-			var pathParams = {};
-			var queryParams = {};
+
+			var pathParams = {
+				'webhooksSystem': webhooksSystem,
+			};
+			var queryParams = {
+				//region
+			};
 			var headerParams = {
-				'x-ads-region': opts.xAdsRegion
+				'x-ads-region': opts.xAdsRegion || this.region
 			};
 			var formParams = {};
 
@@ -284,7 +293,7 @@ module.exports = (function () {
 		};
 
 		/**
-		 * Creates a webhook for the given event.
+		 * Add new webhook to receive the notification on a specified event.
 		 * @param {WebhooksSystemEnum} webhooksSystem A system for example: data, for Data Management
 		 * @param {WebhookEventEnum} eventType The webhook event type to create hool for.
 		 * @param {String} callbackUrl Callback URL registered for the webhook.
@@ -299,29 +308,29 @@ module.exports = (function () {
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
 		 */
-		this.CreateEventHook = function (webhooksSystem, eventType, callbackUrl, scope, opts, oauth2client, credentials) {
+		this.CreateSystemEventHook = function (webhooksSystem, eventType, callbackUrl, scope, opts, oauth2client, credentials) {
 			opts = opts || {};
 
 			// verify the required parameter 'webhooksSystem' is set
 			if (webhooksSystem == undefined || webhooksSystem == null)
-				return Promise.reject("Missing the required parameter 'webhooksSystem' when calling CreateHook");
+				return Promise.reject("Missing the required parameter 'webhooksSystem' when calling CreateSystemEventHook");
 			// verify the required parameter 'eventType' is set
-			if (eventType == undefined || webheventTypeooksSystem == null)
-				return Promise.reject("Missing the required parameter 'eventType' when calling CreateHook");
+			if (eventType == undefined || eventType == null)
+				return Promise.reject("Missing the required parameter 'eventType' when calling CreateSystemEventHook");
 			// verify the required parameter 'callbackUrl' is set
 			if (callbackUrl == undefined || callbackUrl == null)
-				return Promise.reject("Missing the required parameter 'callbackUrl' when calling CreateHook");
+				return Promise.reject("Missing the required parameter 'callbackUrl' when calling CreateSystemEventHook");
 			// verify the required parameter 'scope' is set
 			if (scope == undefined || scope == null)
-				return Promise.reject("Missing the required parameter 'scope' when calling CreateHook");
+				return Promise.reject("Missing the required parameter 'scope' when calling CreateSystemEventHook");
 
 			var postBody = {
 				callbackUrl: callbackUrl,
 				scope: scope,
 			};
-			if (opts.filter != undefined && opts.filter != null)
+			if (opts.hookAttribute != undefined && opts.hookAttribute != null)
 				postBody.hookAttribute = opts.hookAttribute;
-			if (opts.filter != undefined && opts.filter != null)
+			if (opts.tenant != undefined && opts.tenant != null)
 				postBody.tenant = opts.tenant;
 			if (opts.filter != undefined && opts.filter != null)
 				postBody.filter = opts.filter;
@@ -329,11 +338,16 @@ module.exports = (function () {
 				postBody.hubId = opts.hubId;
 			if (opts.projectId != undefined && opts.projectId != null)
 				postBody.projectId = opts.projectId;
-			
-			var pathParams = {};
-			var queryParams = {};
+
+			var pathParams = {
+				'webhooksSystem': webhooksSystem,
+				'eventType': eventType
+			};
+			var queryParams = {
+				//region
+			};
 			var headerParams = {
-				'x-ads-region': opts.xAdsRegion
+				'x-ads-region': opts.xAdsRegion || this.region
 			};
 			var formParams = {};
 
@@ -359,27 +373,33 @@ module.exports = (function () {
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
 		 */
-		this.CreateEventHook = function (webhooksSystem, eventType, hookId, payload, opts, oauth2client, credentials) {
+		this.UpdateSystemEventHook = function (webhooksSystem, eventType, hookId, payload, opts, oauth2client, credentials) {
 			opts = opts || {};
 
 			// verify the required parameter 'webhooksSystem' is set
 			if (webhooksSystem == undefined || webhooksSystem == null)
-				return Promise.reject("Missing the required parameter 'webhooksSystem' when calling CreateEventHook");
+				return Promise.reject("Missing the required parameter 'webhooksSystem' when calling UpdateSystemEventHook");
 			// verify the required parameter 'eventType' is set
-			if (eventType == undefined || webheventTypeooksSystem == null)
-				return Promise.reject("Missing the required parameter 'eventType' when calling CreateEventHook");
+			if (eventType == undefined || eventType == null)
+				return Promise.reject("Missing the required parameter 'eventType' when calling UpdateSystemEventHook");
 			// verify the required parameter 'hookId' is set
 			if (hookId == undefined || hookId == null)
-				return Promise.reject("Missing the required parameter 'hookId' when calling CreateEventHook");
+				return Promise.reject("Missing the required parameter 'hookId' when calling UpdateSystemEventHook");
 			// verify the required parameter 'payload' is set
 			if (payload == undefined || payload == null)
-				return Promise.reject("Missing the required parameter 'payload' when calling CreateEventHook");
+				return Promise.reject("Missing the required parameter 'payload' when calling UpdateSystemEventHook");
 
 			var postBody = payload;
-			var pathParams = {};
-			var queryParams = {};
+			var pathParams = {
+				'webhooksSystem': webhooksSystem,
+				'eventType': eventType,
+				'hookId': hookId,
+			};
+			var queryParams = {
+				//region
+			};
 			var headerParams = {
-				'x-ads-region': opts.xAdsRegion
+				'x-ads-region': opts.xAdsRegion || this.region
 			};
 			var formParams = {};
 
@@ -405,11 +425,12 @@ module.exports = (function () {
 		 * @param {Object} credentials credentials for the call
 		 */
 		this.DeleteHook = function (webhooksSystem, eventType, hookId, opts, oauth2client, credentials) {
+			opts = opts || {};
 			var postBody = null;
 
 			// verify the required parameter 'webhooksSystem' is set
 			if (webhooksSystem == undefined || webhooksSystem == null)
-				return Promise.reject("Missing the required parameter 'webhooksSystem' when calling GetHooks");
+				return Promise.reject("Missing the required parameter 'webhooksSystem' when calling DeleteHook");
 			// verify the required parameter 'eventType' is set
 			if (eventType == undefined || eventType == null)
 				return Promise.reject("Missing the required parameter 'eventType' when calling DeleteHook");
@@ -418,10 +439,13 @@ module.exports = (function () {
 				return Promise.reject("Missing the required parameter 'hookId' when calling DeleteHook");
 
 			var pathParams = {
+				'webhooksSystem': webhooksSystem,
 				'eventType': eventType,
 				'hookId': hookId
 			};
-			var queryParams = {};
+			var queryParams = {
+				//region
+			};
 			var headerParams = {
 				'x-ads-region': opts.xAdsRegion || this.region
 			};
@@ -451,6 +475,16 @@ module.exports = (function () {
 		 * @const
 		 */
 		"derivative": "derivative",
+		/**
+		 * value: "data"
+		 * @const
+		 */
+		"data": "data",
+		/**
+		 * value: "adsk.c4r"
+		 * @const
+		 */
+		'c4r': 'adsk.c4r',
 
 	};
 

@@ -26,12 +26,6 @@ module.exports = (function () {
 	'use strict';
 
 	var ApiClient = require('./ApiClient'),
-		Activity = require('./model/Activity'),
-		ActivityOptional = require('./model/ActivityOptional'),
-		ActivityVersion = require('./model/ActivityVersion'),
-		AppPackage = require('./model/AppPackage'),
-		AppPackageOptional = require('./model/AppPackageOptional'),
-		AppPackageVersion = require('./model/AppPackageVersion'),
 		BadInput = require('./model/BadInput'),
 		BaseAttributesCreatedUpdated = require('./model/BaseAttributesCreatedUpdated'),
 		BaseAttributesCreatedUpdatedAttributes = require('./model/BaseAttributesCreatedUpdatedAttributes'),
@@ -64,12 +58,7 @@ module.exports = (function () {
 		CreateVersionDataRelationships = require('./model/CreateVersionDataRelationships'),
 		CreateVersionDataRelationshipsItem = require('./model/CreateVersionDataRelationshipsItem'),
 		CreateVersionDataRelationshipsItemData = require('./model/CreateVersionDataRelationshipsItemData'),
-		DesignAutomationActivities = require('./model/DesignAutomationActivities'),
-		DesignAutomationAppPackages = require('./model/DesignAutomationAppPackages'),
-		DesignAutomationEngines = require('./model/DesignAutomationEngines'),
-		DesignAutomationWorkItems = require('./model/DesignAutomationWorkItems'),
 		Diagnostics = require('./model/Diagnostics'),
-		Engine = require('./model/Engine'),
 		Folder = require('./model/Folder'),
 		FolderAttributes = require('./model/FolderAttributes'),
 		FolderRelationships = require('./model/FolderRelationships'),
@@ -176,14 +165,9 @@ module.exports = (function () {
 		VersionCreated = require('./model/VersionCreated'),
 		VersionRelationships = require('./model/VersionRelationships'),
 		Versions = require('./model/Versions'),
-		WorkItem = require('./model/WorkItem'),
-		WorkItemResp = require('./model/WorkItemResp'),
-		ActivitiesApi = require('./api/ActivitiesApi'),
-		AppPackagesApi = require('./api/AppPackagesApi'),
 		BucketsApi = require('./api/BucketsApi'),
 		CommandsApi = require('./api/CommandsApi'),
 		DerivativesApi = require('./api/DerivativesApi'),
-		EnginesApi = require('./api/EnginesApi'),
 		FoldersApi = require('./api/FoldersApi'),
 		HubsApi = require('./api/HubsApi'),
 		ItemsApi = require('./api/ItemsApi'),
@@ -193,7 +177,6 @@ module.exports = (function () {
 		VersionsApi = require('./api/VersionsApi'),
 		WebhooksApi = require('./api/WebhooksApi'),
 		TokensApi = require('./api/TokensApi'),
-		WorkItemsApi = require('./api/WorkItemsApi'),
 		authClientTwoLegged = require('./auth/OAuth2TwoLegged'),
 		authClientThreeLegged = require('./auth/OAuth2ThreeLegged');
 
@@ -233,36 +216,6 @@ module.exports = (function () {
 		 * @property {module:ApiClient}
 		 */
 		ApiClient: ApiClient,
-		/**
-		 * The Activity model constructor.
-		 * @property {module:model/Activity}
-		 */
-		Activity: Activity,
-		/**
-		 * The ActivityOptional model constructor.
-		 * @property {module:model/ActivityOptional}
-		 */
-		ActivityOptional: ActivityOptional,
-		/**
-		 * The ActivityVersion model constructor.
-		 * @property {module:model/ActivityVersion}
-		 */
-		ActivityVersion: ActivityVersion,
-		/**
-		 * The AppPackage model constructor.
-		 * @property {module:model/AppPackage}
-		 */
-		AppPackage: AppPackage,
-		/**
-		 * The AppPackageOptional model constructor.
-		 * @property {module:model/AppPackageOptional}
-		 */
-		AppPackageOptional: AppPackageOptional,
-		/**
-		 * The AppPackageVersion model constructor.
-		 * @property {module:model/AppPackageVersion}
-		 */
-		AppPackageVersion: AppPackageVersion,
 		/**
 		 * The BadInput model constructor.
 		 * @property {module:model/BadInput}
@@ -424,35 +377,10 @@ module.exports = (function () {
 		 */
 		CreateVersionDataRelationshipsItemData: CreateVersionDataRelationshipsItemData,
 		/**
-		 * The DesignAutomationActivities model constructor.
-		 * @property {module:model/DesignAutomationActivities}
-		 */
-		DesignAutomationActivities: DesignAutomationActivities,
-		/**
-		 * The DesignAutomationAppPackages model constructor.
-		 * @property {module:model/DesignAutomationAppPackages}
-		 */
-		DesignAutomationAppPackages: DesignAutomationAppPackages,
-		/**
-		 * The DesignAutomationEngines model constructor.
-		 * @property {module:model/DesignAutomationEngines}
-		 */
-		DesignAutomationEngines: DesignAutomationEngines,
-		/**
-		 * The DesignAutomationWorkItems model constructor.
-		 * @property {module:model/DesignAutomationWorkItems}
-		 */
-		DesignAutomationWorkItems: DesignAutomationWorkItems,
-		/**
 		 * The Diagnostics model constructor.
 		 * @property {module:model/Diagnostics}
 		 */
 		Diagnostics: Diagnostics,
-		/**
-		 * The Engine model constructor.
-		 * @property {module:model/Engine}
-		 */
-		Engine: Engine,
 		/**
 		 * The Folder model constructor.
 		 * @property {module:model/Folder}
@@ -984,26 +912,6 @@ module.exports = (function () {
 		 */
 		Versions: Versions,
 		/**
-		 * The WorkItem model constructor.
-		 * @property {module:model/WorkItem}
-		 */
-		WorkItem: WorkItem,
-		/**
-		 * The WorkItemResp model constructor.
-		 * @property {module:model/WorkItemResp}
-		 */
-		WorkItemResp: WorkItemResp,
-		/**
-		 * The ActivitiesApi service constructor.
-		 * @property {module:api/ActivitiesApi}
-		 */
-		ActivitiesApi: ActivitiesApi,
-		/**
-		 * The AppPackagesApi service constructor.
-		 * @property {module:api/AppPackagesApi}
-		 */
-		AppPackagesApi: AppPackagesApi,
-		/**
 		 * The BucketsApi service constructor.
 		 * @property {module:api/BucketsApi}
 		 */
@@ -1018,11 +926,6 @@ module.exports = (function () {
 		 * @property {module:api/DerivativesApi}
 		 */
 		DerivativesApi: DerivativesApi,
-		/**
-		 * The EnginesApi service constructor.
-		 * @property {module:api/EnginesApi}
-		 */
-		EnginesApi: EnginesApi,
 		/**
 		 * The FoldersApi service constructor.
 		 * @property {module:api/FoldersApi}
@@ -1069,11 +972,6 @@ module.exports = (function () {
 		 */
 		TokensApi: TokensApi,
 		/**
-		 * The WorkItemsApi service constructor.
-		 * @property {module:api/WorkItemsApi}
-		 */
-		WorkItemsApi: WorkItemsApi,
-		/**
 		 * The AuthClient service constructor for 2-legged flow.
 		 * @property {module:auth/OAuth2TwoLegged}
 		 */
@@ -1089,17 +987,6 @@ module.exports = (function () {
 		 */
 		setDebug: function (isDebug) {
 			ApiClient.instance.isDebugMode = isDebug;
-		},
-
-		/**
-		 * Controls display of DA v2 deprecated message
-		 */
-		disable_dav2_deprecated_Warning: function (val) {
-			val = val || false;
-			ActivitiesApi.disable_dav2_deprecated_Warning =val;
-			AppPackagesApi.disable_dav2_deprecated_Warning =val;
-			EnginesApi.disable_dav2_deprecated_Warning =val;
-			WorkItemsApi.disable_dav2_deprecated_Warning =val;
 		}
 
 	};

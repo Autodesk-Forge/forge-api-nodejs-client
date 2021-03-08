@@ -36,10 +36,10 @@ var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || 'your forge client 
 var BUCKET_KEY = 'forge_sample_' + FORGE_CLIENT_ID.toLowerCase();
 
 // TODO - Choose a filename - a key for the uploaded object
-var FILE_NAME = 'vrokit.f3d';
+var FILE_NAME = 'test.nwd';
 
 // TODO - specify the full filename and path
-var FILE_PATH = 'vrokit.f3d';
+var FILE_PATH = 'test.nwd';
 
 var bucketsApi = new ForgeSDK.BucketsApi(), // Buckets Client
 	objectsApi = new ForgeSDK.ObjectsApi(); // Objects Client
