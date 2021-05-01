@@ -41,8 +41,11 @@ var FILE_NAME = 'test.nwd';
 // TODO - specify the full filename and path
 var FILE_PATH = 'test.nwd';
 
-var bucketsApi = new ForgeSDK.BucketsApi(), // Buckets Client
-	objectsApi = new ForgeSDK.ObjectsApi(); // Objects Client
+var apiClient = new ForgeSDK.ApiClient();
+apiClient.defaultHeaders = { 'x-ads-test': BUCKET_KEY };
+
+var bucketsApi = new ForgeSDK.BucketsApi(apiClient), // Buckets Client
+	objectsApi = new ForgeSDK.ObjectsApi(apiClient); // Objects Client
 
 // Initialize the 2-legged oauth2 client
 var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,

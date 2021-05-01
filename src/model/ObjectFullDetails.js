@@ -23,132 +23,117 @@
  */
 
 module.exports = (function () {
-  'use strict';
+	'use strict';
 
-  var ApiClient = require('../ApiClient'),
-    ObjectFullDetailsDeltas = require('./ObjectFullDetailsDeltas');
+	var ApiClient = require('../ApiClient');
+	var ObjectFullDetailsDeltas = require('./ObjectFullDetailsDeltas');
 
+	/**
+	 * The ObjectFullDetails model module.
+	 * @module model/ObjectFullDetails
+	 */
 
+	/**
+	 * Constructs a <code>ObjectFullDetails</code> from a plain JavaScript object, optionally creating a new instance.
+	 * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+	 * @param {Object} data The plain JavaScript object bearing properties of interest.
+	 * @param {module:model/ObjectFullDetails} obj Optional instance to populate.
+	 * @return {module:model/ObjectFullDetails} The populated <code>ObjectFullDetails</code> instance.
+	 */
+	var constructFromObject = function (data, obj) {
+		if (data) {
+			obj = obj || new exports();
 
-  /**
-   * The ObjectFullDetails model module.
-   * @module model/ObjectFullDetails
-   */
+			if (data.hasOwnProperty('bucketKey'))
+				obj.bucketKey = ApiClient.convertToType(data.bucketKey, 'String');
+			if (data.hasOwnProperty('objectId'))
+				obj.objectId = ApiClient.convertToType(data.objectId, 'String');
+			if (data.hasOwnProperty('objectKey'))
+				obj.objectKey = ApiClient.convertToType(data.objectKey, 'String');
+			if (data.hasOwnProperty('sha1'))
+				obj.sha1 = ApiClient.convertToType(data.sha1, 'String');
+			if (data.hasOwnProperty('size'))
+				obj.size = ApiClient.convertToType(data.size, 'Integer');
+			if (data.hasOwnProperty('contentType'))
+				obj.contentType = ApiClient.convertToType(data.contentType, 'String');
+			if (data.hasOwnProperty('location'))
+				obj.location = ApiClient.convertToType(data.location, 'String');
+			if (data.hasOwnProperty('blockSizes'))
+				obj.blockSizes = ApiClient.convertToType(data.blockSizes, ['Integer']);
+			if (data.hasOwnProperty('deltas'))
+				obj.deltas = ApiClient.convertToType(data.deltas, [ObjectFullDetailsDeltas]);
+		}
+		return obj;
+	};
 
-  /**
-   * Constructs a <code>ObjectFullDetails</code> from a plain JavaScript object, optionally creating a new instance.
-   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-   * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/ObjectFullDetails} obj Optional instance to populate.
-   * @return {module:model/ObjectFullDetails} The populated <code>ObjectFullDetails</code> instance.
-   */
-  var constructFromObject = function (data, obj) {
-    if (data) {
-      obj = obj || new exports();
+	/**
+	 * Constructs a new <code>ObjectFullDetails</code>.
+	 * Object Details json response
+	 * @alias module:model/ObjectFullDetails
+	 * @class
+	 * @param {Object} theData The plain JavaScript object bearing properties of interest.
+	 * @param {module:model/ObjectFullDetails} obj Optional instance to populate.
+	 */
+	var exports = function (theData, obj) {
+		var _this = this;
 
-      if (data.hasOwnProperty('bucketKey')) {
-        obj.bucketKey = ApiClient.convertToType(data.bucketKey, 'String');
-      }
-      if (data.hasOwnProperty('objectId')) {
-        obj.objectId = ApiClient.convertToType(data.objectId, 'String');
-      }
-      if (data.hasOwnProperty('objectKey')) {
-        obj.objectKey = ApiClient.convertToType(data.objectKey, 'String');
-      }
-      if (data.hasOwnProperty('sha1')) {
-        obj.sha1 = ApiClient.convertToType(data.sha1, 'String');
-      }
-      if (data.hasOwnProperty('size')) {
-        obj.size = ApiClient.convertToType(data.size, 'Integer');
-      }
-      if (data.hasOwnProperty('contentType')) {
-        obj.contentType = ApiClient.convertToType(data.contentType, 'String');
-      }
-      if (data.hasOwnProperty('location')) {
-        obj.location = ApiClient.convertToType(data.location, 'String');
-      }
-      if (data.hasOwnProperty('blockSizes')) {
-        obj.blockSizes = ApiClient.convertToType(data.blockSizes, ['Integer']);
-      }
-      if (data.hasOwnProperty('deltas')) {
-        obj.deltas = ApiClient.convertToType(data.deltas, [ObjectFullDetailsDeltas]);
-      }
-    }
-    return obj;
-  };
+		return constructFromObject(theData, obj || _this);
+	};
 
-  /**
-   * Constructs a new <code>ObjectFullDetails</code>.
-   * Object Details json response
-   * @alias module:model/ObjectFullDetails
-   * @class
-   * @param {Object} theData The plain JavaScript object bearing properties of interest.
-   * @param {module:model/ObjectFullDetails} obj Optional instance to populate.
-   */
-  var exports = function (theData, obj) {
-    var _this = this;
+	/**
+	 * Constructs a <code>ObjectFullDetails</code> from a plain JavaScript object, optionally creating a new instance.
+	 * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+	 * @param {Object} data The plain JavaScript object bearing properties of interest.
+	 * @param {module:model/ObjectFullDetails} obj Optional instance to populate.
+	 * @return {module:model/ObjectFullDetails} The populated <code>ObjectFullDetails</code> instance.
+	 */
+	exports.constructFromObject = constructFromObject;
 
-    return constructFromObject(theData, obj || _this);
-  };
+	/**
+	 * Bucket key
+	 * @member {String} bucketKey
+	 */
+	exports.prototype.bucketKey = undefined;
+	/**
+	 * Object URN
+	 * @member {String} objectId
+	 */
+	exports.prototype.objectId = undefined;
+	/**
+	 * Object name
+	 * @member {String} objectKey
+	 */
+	exports.prototype.objectKey = undefined;
+	/**
+	 * Object SHA1
+	 * @member {String} sha1
+	 */
+	exports.prototype.sha1 = undefined;
+	/**
+	 * Object size
+	 * @member {Integer} size
+	 */
+	exports.prototype.size = undefined;
+	/**
+	 * Object content-type
+	 * @member {String} contentType
+	 */
+	exports.prototype.contentType = undefined;
+	/**
+	 * URL to download the object
+	 * @member {String} location
+	 */
+	exports.prototype.location = undefined;
+	/**
+	 * For delta-encoding. Represents whether a signature exists at a specific block size
+	 * @member {Array.<Integer>} blockSizes
+	 */
+	exports.prototype.blockSizes = undefined;
+	/**
+	 * Patch files available for download related to this object
+	 * @member {Array.<module:model/ObjectFullDetailsDeltas>} deltas
+	 */
+	exports.prototype.deltas = undefined;
 
-  /**
-   * Constructs a <code>ObjectFullDetails</code> from a plain JavaScript object, optionally creating a new instance.
-   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-   * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/ObjectFullDetails} obj Optional instance to populate.
-   * @return {module:model/ObjectFullDetails} The populated <code>ObjectFullDetails</code> instance.
-   */
-  exports.constructFromObject = constructFromObject;
-
-  /**
-   * Bucket key
-   * @member {String} bucketKey
-   */
-  exports.prototype.bucketKey = undefined;
-  /**
-   * Object URN
-   * @member {String} objectId
-   */
-  exports.prototype.objectId = undefined;
-  /**
-   * Object name
-   * @member {String} objectKey
-   */
-  exports.prototype.objectKey = undefined;
-  /**
-   * Object SHA1
-   * @member {String} sha1
-   */
-  exports.prototype.sha1 = undefined;
-  /**
-   * Object size
-   * @member {Integer} size
-   */
-  exports.prototype.size = undefined;
-  /**
-   * Object content-type
-   * @member {String} contentType
-   */
-  exports.prototype.contentType = undefined;
-  /**
-   * URL to download the object
-   * @member {String} location
-   */
-  exports.prototype.location = undefined;
-  /**
-   * For delta-encoding. Represents whether a signature exists at a specific block size
-   * @member {Array.<Integer>} blockSizes
-   */
-  exports.prototype.blockSizes = undefined;
-  /**
-   * Patch files available for download related to this object
-   * @member {Array.<module:model/ObjectFullDetailsDeltas>} deltas
-   */
-  exports.prototype.deltas = undefined;
-
-
-
-  return exports;
+	return exports;
 }());
-
-

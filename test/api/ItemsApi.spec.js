@@ -53,7 +53,8 @@ module.export = (function () {
 	var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
 
 	var apiClient = new ApiClient();
-
+	apiClient.defaultHeaders = { 'x-ads-test': sampleStrParam };
+	
 	before(function () {
 		oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
 		credentials = {

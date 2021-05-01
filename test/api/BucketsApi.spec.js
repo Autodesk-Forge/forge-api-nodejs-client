@@ -43,7 +43,10 @@ module.export = (function () {
 	var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
 	var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
 
+	var BUCKET_KEY = sampleStrParam + FORGE_CLIENT_ID.toLowerCase();
+
 	var apiClient = new ApiClient();
+	apiClient.defaultHeaders = { 'x-ads-test': sampleStrParam };
 
 	before(function () {
 		oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
@@ -62,14 +65,19 @@ module.export = (function () {
 	describe('BucketsApi', function () {
 		describe('createBucket', function () {
 			it('should call createBucket successfully', function (done) {
-				var opts = {};
-				var postBody = sampleStrParam;
+				var opts = {
+					xAdsRegion: 'US'
+				};
+
+				// var postBody = {
+				// 	bucketKey: BUCKET_KEY,
+				// 	policyKey: 'transient'
+				// };
+				var postBody = BUCKET_KEY;
 
 				var pathParams = {};
 				var queryParams = {};
-				var headerParams = {
-					'x-ads-region': opts.xAdsRegion
-				};
+				var headerParams = { 'x-ads-region': opts.xAdsRegion };
 				var formParams = {};
 
 				var contentTypes = ['application/json'];
@@ -78,23 +86,24 @@ module.export = (function () {
 
 				mockedApiClientRequest.withArgs('/oss/v2/buckets', 'POST',
 					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
 
-				instance.createBucket(sampleStrParam, opts, oauth2client, credentials).then(function (response) {
-					expect(response).to.be.ok();
-					done();
-				}, function (err) {
-					done(err);
-				});
+				instance.createBucket(BUCKET_KEY, opts, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
 			});
 		});
 		describe('deleteBucket', function () {
 			it('should call deleteBucket successfully', function (done) {
-
 				var postBody = null;
 
 				var pathParams = {
-					'bucketKey': sampleStrParam
+					'bucketKey': BUCKET_KEY
 				};
 				var queryParams = {};
 				var headerParams = {};
@@ -106,23 +115,24 @@ module.export = (function () {
 
 				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}', 'DELETE',
 					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
 
-				instance.deleteBucket(sampleStrParam, oauth2client, credentials).then(function (response) {
-					expect(response).to.be.ok();
-					done();
-				}, function (err) {
-					done(err);
-				});
+				instance.deleteBucket(BUCKET_KEY, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
 			});
 		});
 		describe('getBucketDetails', function () {
 			it('should call getBucketDetails successfully', function (done) {
-
 				var postBody = null;
 
 				var pathParams = {
-					'bucketKey': sampleStrParam
+					'bucketKey': BUCKET_KEY
 				};
 				var queryParams = {};
 				var headerParams = {};
@@ -134,26 +144,33 @@ module.export = (function () {
 
 				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/details', 'GET',
 					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
 
-				instance.getBucketDetails(sampleStrParam, oauth2client, credentials).then(function (response) {
-					expect(response).to.be.ok();
-					done();
-				}, function (err) {
-					done(err);
-				});
+				instance.getBucketDetails(BUCKET_KEY, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
 			});
 		});
 		describe('getBuckets', function () {
 			it('should call getBuckets successfully', function (done) {
-				var opts = {};
+				var opts = {
+					region: 'US',
+					limit: 50,
+					startAt: null
+				};
+
 				var postBody = null;
 
 				var pathParams = {};
 				var queryParams = {
-					'region': opts.region,
-					'limit': opts.limit,
-					'startAt': opts.startAt
+					region: opts.region,
+					limit: opts.limit,
+					startAt: opts.startAt,
 				};
 				var headerParams = {};
 				var formParams = {};
@@ -164,14 +181,16 @@ module.export = (function () {
 
 				mockedApiClientRequest.withArgs('/oss/v2/buckets', 'GET',
 					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
 
-				instance.getBuckets(opts, oauth2client, credentials).then(function (response) {
-					expect(response).to.be.ok();
-					done();
-				}, function (err) {
-					done(err);
-				});
+				instance.getBuckets(opts, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
 			});
 		});
 	});

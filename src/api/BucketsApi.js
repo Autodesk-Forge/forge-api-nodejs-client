@@ -67,7 +67,7 @@ module.exports = (function () {
 			var pathParams = {};
 			var queryParams = {};
 			var headerParams = {
-				'x-ads-region': opts.xAdsRegion
+				'x-ads-region': opts.xAdsRegion || 'US'
 			};
 			var formParams = {};
 
@@ -163,8 +163,8 @@ module.exports = (function () {
 
 			var pathParams = {};
 			var queryParams = {
-				'region': opts.region,
-				'limit': opts.limit,
+				'region': opts.region || 'US',
+				'limit': opts.limit || 10,
 				'startAt': opts.startAt
 			};
 			var headerParams = {};

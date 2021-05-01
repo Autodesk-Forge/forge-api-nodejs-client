@@ -376,6 +376,7 @@ module.exports = (function () {
 
 				// headerParams optional overrides
 				requestParams.headers = Object.assign(headers, headerParams);
+				requestParams.headers = Object.assign(requestParams.headers, _this.defaultHeaders);
 				requestParams.agentOptions = {
 					secureProtocol: 'TLSv1_2_method' // 'TLSv1.2'
 				};
