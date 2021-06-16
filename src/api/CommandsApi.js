@@ -104,6 +104,8 @@ module.exports = (function () {
 		 * @param {Object} body API payload
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
+		 * 
+		 * @deprecated
 		 */
 		this.createFolder = function (projectId, body, opts, oauth2client, credentials) {
 			body.jsonapi.version = '1.0';

@@ -34,7 +34,8 @@ module.exports = (function () {
 		PostBucketsSigned = require('../model/PostBucketsSigned'),
 		PostObjectSigned = require('../model/PostObjectSigned'),
 		Reason = require('../model/Reason'),
-		Result = require('../model/Result');
+		Result = require('../model/Result'),
+		crypto = require('crypto');
 
 	/**
 	 * Objects service.
@@ -600,7 +601,8 @@ module.exports = (function () {
 				'Content-Length': contentLength,
 				'Content-Disposition': opts.contentDisposition,
 				'x-ads-region': opts.xAdsRegion || 'US',
-				'If-Match': opts.ifMatch
+				'If-Match': opts.ifMatch,
+				'x-ads-content-sha1': opts.xAdsContentSha1,
 			};
 			var formParams = {};
 
@@ -656,6 +658,7 @@ module.exports = (function () {
 				'Content-Range': contentRange,
 				'Content-Disposition': opts.contentDisposition,
 				'x-ads-region': opts.xAdsRegion || 'US',
+				'x-ads-chunk-sha1': opts.xAdsChunkSha1,
 				'Session-Id': sessionId
 			};
 			var formParams = {};
@@ -671,312 +674,28 @@ module.exports = (function () {
 			);
 		};
 
-		/**
-		 * Returns a signed S3 URL.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {String} objectName URL-encoded object name to create signed URL for
-		 * @param {Object=} opts Optional parameters
-		 * @param {String=} opts.ifNoneMatch If the value of this header matches the ETag of the object, an entity will not be returned from the server; instead a 304 (not modified) response will be returned without any message-body.
-		 * @param {Date=} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message-body.
-		 * @param {string=} opts.responseContentType Value of the Content-Type header that the client expects to receive. If this attribute is not provided, it defaults to the value corresponding to the object.
-		 * @param {string=} opts.responseContentDisposition Value of the Content Disposition header the client expects to receive. If this attribute is not provided, it defaults to the value corresponding to the object.
-		 * @param {string=} opts.responseCacheControl Value of the Cache-Control header that the client expects to receive. If this attribute is not provided, it defaults to the value corresponding to the object.
-		 * @param {boolean=} opts.publicResourceFallback Allows fallback to OSS signed URLs in case of unmerged resumable uploads.
-		 * data is of type: {module:model/ObjectS3Download}
-		 * @param {Object} oauth2client oauth2client for the call
-		 * @param {Object} credentials credentials for the call
-		 */
-		this.getS3Download = function (bucketKey, objectName, opts, oauth2client, credentials) {
-			opts = opts || {};
-			var postBody = null;
-
-			// verify the required parameter 'bucketKey' is set
-			if (bucketKey == undefined || bucketKey == null)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling getS3Download");
-			// verify the required parameter 'objectName' is set
-			if (objectName == undefined || objectName == null)
-				return Promise.reject("Missing the required parameter 'objectName' when calling getS3Download");
-
-			var pathParams = {
-				'bucketKey': bucketKey,
-				'objectName': objectName
-			};
-			var queryParams = {
-				'response-content-type': opts.responseContentType,
-				'response-content-disposition': opts.responseContentDisposition,
-				'response-cache-control': opts.responseCacheControl,
-				'public-resource-fallback': opts.publicResourceFallback,
-			};
-			var headerParams = {
-				'If-None-Match': opts.ifNoneMatch,
-				'If-Modified-Since': opts.ifModifiedSince,
-			};
-			var formParams = {};
-
-			var contentTypes = ['application/json'];
-			var accepts = ['application/vnd.api+json', 'application/json'];
-			var returnType = ObjectS3Download;
-
-			return this.apiClient.callApi(
-				'/oss/v2/buckets/{bucketKey}/objects/{objectName}/signeds3download', 'GET',
-				pathParams, queryParams, headerParams, formParams, postBody,
-				contentTypes, accepts, returnType, oauth2client, credentials
-			);
-		};
-
-		/**
-		 * Gets one or more signed URLs to objects. The signed URLs can be used to download the objects directly from S3, skipping OSS servers.
-		 * Be aware that expiration time for the signed URL(s) is just 60 seconds. So, a request to the URL(s) must begin within 60 seconds; the transfer 
-		 * of the data can exceed 60 seconds.
-		 * A successful call to this endpoint requires bucket owner access.
-		 * Note that resumable uploads store each chunk individually. After upload completes, an async process merges all the chunks and creates the 
-		 * definitive OSS file. This async process can take time. If you request an S3 download URL before the async process completes, the response returns 
-		 * a map of S3 URLs, one per chunk where the key is the corresponding range bytes. In case you don’t want multiple URLs in the response, you can use 
-		 * OSS signed URL functionality , with the public-resource-fallback query parameter set to true.
-		 * Note: While this endpoint does not support range headers, the returned URL(s) can be used for ranged downloads. This way, downloads can be 
-		 * parallelized using multiple ranges for maximum speed.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {Object} body
-		 * 
-		 * @param {Object[]} body.requests An array of objects representing each request to get an S3 URL to download from.
-		 * @param {String} body.requests[].objectKey Object name to create a download S3 signed URL for
-		 * @param {String=} body.requests[].response-content-type Value of the Content-Type header that the client expects to receive. If this attribute is not provided, it defaults to the value corresponding to the object.
-		 * @param {String=} body.requests[].response-content-disposition Value of the Content Disposition header the client expects to receive. If this attribute is not provided, it defaults to the value corresponding to the object.
-		 * @param {String=} body.requests[].response-cache-control Value of the Cache-Control header that the client expects to receive. If this attribute is not provided, it defaults to the value corresponding to the object.
-		 * @param {String=} body.requests[].If-None-Match The value of this attribute is compared to the ETAG of the object. If they match, the response body will show the status of this item as “skipped” with the reason as “Not modified”.
-		 * @param {Date=} body.requests[].If-Modified-Since If the requested object has not been modified since the time specified in this attribute, the response body will show the status of this item as “skipped” with the reason as “Not modified”.
-		 * @param {Object=} opts Optional parameters
-		 * @param {boolean=} opts.publicResourceFallback Allows fallback to OSS signed URLs in case of unmerged resumable uploads.
-		 * data is of type: {Object.<module:model/ObjectS3Download>}
-		 * @param {Object} oauth2client oauth2client for the call
-		 * @param {Object} credentials credentials for the call
-		 */
-		this.getS3Downloads = function (bucketKey, body, opts, oauth2client, credentials) {
-			opts = opts || {};
-			var postBody = body;
-
-			// verify the required parameter 'bucketKey' is set
-			if (bucketKey == undefined || bucketKey == null)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling getS3Downloads");
-			// verify the required parameter 'body' is set
-			if (body == undefined || body == null)
-				return Promise.reject("Missing the required parameter 'body' when calling getS3Downloads");
-			if (body.requests == undefined || body.requests == null || !Array.isArray(body.requests) || body.request.length === 0)
-				return Promise.reject("Missing the required parameter 'body.requests' when calling getS3Downloads");
-			for (var i = 0; i < body.requests.length; i++) {
-				if (body.requests[i].objectKey == undefined || body.requests[i].objectKey == null)
-					return Promise.reject("Missing the required parameter 'body.requests[].objectKey' when calling getS3Downloads");
-			}
-
-			var pathParams = {
-				bucketKey: bucketKey
-			};
-			var queryParams = {
-				'public-resource-fallback': opts.publicResourceFallback,
-			};
-			var headerParams = {};
-			var formParams = {};
-
-			var contentTypes = ['application/json'];
-			var accepts = ['application/vnd.api+json', 'application/json'];
-			var returnType = Object;
-
-			return this.apiClient.callApi(
-				'/oss/v2/buckets/{bucketKey}/objects/batchsigneds3download', 'POST',
-				pathParams, queryParams, headerParams, formParams, postBody,
-				contentTypes, accepts, returnType, oauth2client, credentials
-			);
-		};
-
-		/**
-		 * Gets a signed URL to an object, which can be used to upload it directly to S3, skipping OSS servers.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {String} objectName URL-encoded object name to create signed URL for
-		 * @param {Object=} opts Optional parameters
-		 * @param {Integer} [opts.parts=1] Number of chunk to upload (default to 1 (raw upload))
-		 * @param {String=} opts.uploadKey Get a new set of signed urls if the ones that were generated before have already expired and the user still needs to upload some of them.
-		 * data is of type: {module:model/Object}
-		 * @param {Object} oauth2client oauth2client for the call
-		 * @param {Object} credentials credentials for the call
-		 */
-		this.getS3Upload = function (bucketKey, objectName, opts, oauth2client, credentials) {
-			opts = opts || {};
-			var postBody = null;
-
-			// verify the required parameter 'bucketKey' is set
-			if (bucketKey == undefined || bucketKey == null)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling getS3Upload");
-			// verify the required parameter 'objectName' is set
-			if (objectName == undefined || objectName == null)
-				return Promise.reject("Missing the required parameter 'objectName' when calling getS3Upload");
-
-			var pathParams = {
-				'bucketKey': bucketKey,
-				'objectName': objectName
-			};
-			var queryParams = {
-				parts: opts.parts || 1,
-				uploadKey: opts.uploadKey,
-			};
-			var headerParams = {};
-			var formParams = {};
-
-			var contentTypes = ['application/json'];
-			var accepts = ['application/vnd.api+json', 'application/json'];
-			var returnType = Object;
-
-			return this.apiClient.callApi(
-				'/oss/v2/buckets/{bucketKey}/objects/{objectName}/signeds3upload', 'GET',
-				pathParams, queryParams, headerParams, formParams, postBody,
-				contentTypes, accepts, returnType, oauth2client, credentials
-			);
-		};
-
-		/**
-		 * Gets a signed URL to an object, which can be used to upload it directly to S3, skipping OSS servers.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {String} objectName URL-encoded object name to create signed URL for
-		 * @param {String=} uploadKey -
-		 * @param {Object=} opts Optional parameters
-		 * @param {Integer=} opts.size Full expected object size
-		 * @param {String[]=} opts.eTags Collected part eTags
-		 * @param {String=} opts.x-ads-meta-Content-Type -
-		 * @param {String=} opts.x-ads-meta-Content-Disposition -
-		 * @param {String=} opts.x-ads-meta-Content-Encoding -
-		 * @param {String=} opts.x-ads-meta-Cache-Control -
-		 * data is of type: {module:model/Object}
-		 * @param {Object} oauth2client oauth2client for the call
-		 * @param {Object} credentials credentials for the call
-		 */
-		this.completeS3Upload = function (bucketKey, objectName, uploadKey, opts, oauth2client, credentials) {
-			opts = opts || {};
-
-			// verify the required parameter 'bucketKey' is set
-			if (bucketKey == undefined || bucketKey == null)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling completeS3Upload");
-			// verify the required parameter 'objectName' is set
-			if (objectName == undefined || objectName == null)
-				return Promise.reject("Missing the required parameter 'objectName' when calling completeS3Upload");
-			// verify the required parameter 'uploadKey' is set
-			if (uploadKey == undefined || uploadKey == null)
-				return Promise.reject("Missing the required parameter 'uploadKey' when calling completeS3Upload");
-
-			var postBody = {
-				uploadKey: uploadKey,
-				size: opts.size,
-				eTags: eTags,
-			};
-
-			var pathParams = {
-				'bucketKey': bucketKey,
-				'objectName': objectName
-			};
-			var queryParams = {
-				parts: opts.parts || 1,
-				uploadKey: opts.uploadKey,
-			};
-			var headerParams = {};
-			var formParams = {};
-
-			var contentTypes = ['application/json'];
-			var accepts = ['application/vnd.api+json', 'application/json'];
-			var returnType = Object;
-
-			return this.apiClient.callApi(
-				'/oss/v2/buckets/{bucketKey}/objects/{objectName}/signeds3upload', 'POST',
-				pathParams, queryParams, headerParams, formParams, postBody,
-				contentTypes, accepts, returnType, oauth2client, credentials
-			);
-		};
-
 		// Workflow implementations
 
 		/**
-		 * Download a resource.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {String} objectName URL-encoded object name
-		 * @param {Object=} opts Optional parameters
-		 * data is of type: {Object}
-		 * @param {Object} oauth2client oauth2client for the call
-		 * @param {Object} credentials credentials for the call
+		 * Calc SHA1
+		 * @param {String|Buffer|Stream} strorbuffer Content to calc SHA1 for
+		 * @async
+		 * @returns {string}
 		 */
-		this.downloadResource = function (bucketKey, objectName, opts, auth2client, credentials) {
-			opts = opts || {};
-			if (!bucketKey)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling uploadResource");
-			if (!objectName)
-				return Promise.reject("Missing the required parameter 'objectName' when calling uploadResource");
-
-		};
-
-		/**
-		 * Upload a resource. If the specified object name already exists in the bucket, the uploaded content will overwrite the existing content for the bucket name/object name combination.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {String} objectName URL-encoded object name
-		 * @param {File} content
-		 * @param {Object=} opts Optional parameters
-		 * data is of type: {module:model/ObjectDetails}
-		 * @param {Object} oauth2client oauth2client for the call
-		 * @param {Object} credentials credentials for the call
-		 */
-		this.uploadResource = function (bucketKey, objectName, content, opts, auth2client, credentials) {
-			var chunkSize = 5 * 1024 * 1024; // 5Mb
-			var minChunkSize = 2 * 1024 * 1024; // 2Mb
-
-			opts = opts || {};
-			if (!bucketKey)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling uploadResource");
-			if (!objectName)
-				return Promise.reject("Missing the required parameter 'objectName' when calling uploadResource");
-			if (!content)
-				return Promise.reject("Missing the required parameter 'content' when calling uploadResource");
-
-			var size = content.length; // string, Buffer, stream
-			if ( size <= chunkSize )
-				return (this.uploadObject(bucketKey, objectName, size, content, opts, auth2client, credentials));
-
-			var nb = Math.floor(size / chunkSize);
-			if ((size % chunkSize) !== 0)
-				nb++;
-			var arr = [];
-			var uuid = uuidv4();
-			for (var i = 0; i < nb; i++) {
-				var start = i * chunkSize;
-				var end = start + chunkSize - 1;
-				if (end > size - 1)
-					end = size - 1;
-				var range = {
-					ContentRange: 'bytes ' + start + '-' + end + '/' + size,
-					size: end - start + 1,
-					start: start,
-					end: end,
-				};
-				arr.push({ range: range, sessionId: uuid });
-			}
-
-			return (utils.promiseSerie(arr, (item, index) => { // eslint-disable-line no-unused-vars
-				return (new Promise((fulfill, reject) => {
-					// If still in parallel, but results processed in series with 'utils.promiseSerie', use item.then()
-					this.uploadChunk(
-						bucketKey,
-						objectName,
-						item.range.size,
-						item.range.ContentRange,
-						item.sessionId,
-						rstream,
-						{ xAdsRegion: opts.region || opts.xAdsRegion }
-					)
-						.then((content) => {
-							if (content.statusCode === 202)
-								return (fulfill(item.opts.ContentRange));
-							fulfill(content);
-						})
-						.catch((error) => {
-							reject(error);
-						});
-				}));
+		this.calculateSHA1 = function (strorbuffer) {
+			return (new Promise((fulfill, reject) => {
+				var shasum = crypto.createHash('sha1');
+				if (strorbuffer.readable) { // this is a stream
+					strorbuffer.on('end', () => {
+						//shasum.end(); .read();
+						fulfill(shasum.digest('hex'));
+					});
+					strorbuffer.pipe(shasum);
+					return;
+				}
+				shasum.update(strorbuffer);
+				fulfill(shasum.digest('hex'));
 			}));
-
 		};
 
 	};
