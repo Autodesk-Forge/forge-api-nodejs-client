@@ -13,14 +13,14 @@
 ## Overview
 
 This [Node.js](https://nodejs.org/) SDK enables you to easily integrate the Forge REST APIs
-into your application, including [OAuth](https://developer.autodesk.com/en/docs/oauth/v2/overview/),
-[Data Management](https://developer.autodesk.com/en/docs/data/v2/overview/),
-[Model Derivative](https://developer.autodesk.com/en/docs/model-derivative/v2/overview/),
+into your application, including [OAuth](https://forge.autodesk.com/en/docs/oauth/v2/overview/),
+[Data Management](https://forge.autodesk.com/en/docs/data/v2/overview/),
+[Model Derivative](https://forge.autodesk.com/en/docs/model-derivative/v2/overview/),
 
 ### Requirements
 
 * Node.js version 10.12 and above.
-* A registered app on the [Forge Developer portal](https://developer.autodesk.com/myapps).
+* A registered app on the [Forge Developer portal](https://forge.autodesk.com/myapps).
 * A Node.js web server (such as Express) for 3-legged authentication.
 
 
@@ -40,7 +40,7 @@ Create an app on the Forge Developer portal. Note the client ID and client secre
 
 ### Authentication
 
-This SDK comes with an [OAuth 2.0](https://developer.autodesk.com/en/docs/oauth/v2/overview/) client that allows you to
+This SDK comes with an [OAuth 2.0](https://forge.autodesk.com/en/docs/oauth/v2/overview/) client that allows you to
 retrieve 2-legged and 3-legged tokens. It also enables you to refresh 3-legged tokens. The tutorial uses 2-legged
 and 3-legged tokens for calling different Data Management endpoints.
 
@@ -48,7 +48,7 @@ and 3-legged tokens for calling different Data Management endpoints.
 
 This type of token is given directly to the application.
 
-To get a 2-legged token run the following code. Note that you need to replace `your-client-id` and `your-client-secret` with your [app](https://developer.autodesk.com/myapps)'s client ID and client secret.
+To get a 2-legged token run the following code. Note that you need to replace `your-client-id` and `your-client-secret` with your [app](https://forge.autodesk.com/myapps)'s client ID and client secret.
 
 ``` JavaScript
 var ForgeSDK = require('forge-apis');
@@ -78,7 +78,7 @@ oAuth2TwoLegged.authenticate().then(function(credentials){
 To ask for permissions from a user to retrieve an access token, you
 redirect the user to a consent page.
 
-Replace `your-client-id`, `your-client-secret`, and `your-redirect-url` with your [app](https://developer.autodesk.com/myapps)'s client ID, client secret, and redirect URL, and run the code to create a consent page URL.
+Replace `your-client-id`, `your-client-secret`, and `your-redirect-url` with your [app](https://forge.autodesk.com/myapps)'s client ID, client secret, and redirect URL, and run the code to create a consent page URL.
 
 Note that the redirect URL must match the pattern of the callback URL field of the app’s registration in the My Apps section. The pattern may include wildcards after the hostname, allowing different redirect URL values to be specified in different parts of your app.
 
@@ -156,7 +156,7 @@ HubsApi.getHubs({}, oAuth2ThreeLegged, credentials).then(function(hubs) {
 
 ## API Documentation
 
-You can get the full documentation for the API on the [Developer Portal](https://developer.autodesk.com/)
+You can get the full documentation for the API on the [Developer Portal](https://forge.autodesk.com/)
 
 
 ### Documentation for API Endpoints
