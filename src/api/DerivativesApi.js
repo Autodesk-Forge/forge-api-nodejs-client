@@ -169,6 +169,7 @@ module.exports = (function () {
 		 * Returns the thumbnail for the source file.
 		 * @param {String} urn The Base64 (URL Safe) encoded design URN
 		 * @param {Object} opts Optional parameters
+         * @param {String} opts.guid Unique model view ID. Call [GET {urn}/metadata](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/urn-metadata-GET) to get the ID
 		 * @param {Integer} opts.width The desired width of the thumbnail. Possible values are 100, 200 and 400.
 		 * @param {Integer} opts.height The desired height of the thumbnail. Possible values are 100, 200 and 400.
 		 * data is of type: {Object}
@@ -189,7 +190,8 @@ module.exports = (function () {
 			};
 			var queryParams = {
 				'width': opts.width,
-				'height': opts.height
+                'height': opts.height,
+                'guid' : opts.guid
 			};
 			var headerParams = {};
 			var formParams = {};
