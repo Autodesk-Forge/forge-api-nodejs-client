@@ -191,7 +191,7 @@ module.exports = (function () {
 			var queryParams = {
 				'width': opts.width,
                 'height': opts.height,
-                'guid' : opts.guid
+                'guid': opts.guid
 			};
 			var headerParams = {};
 			var formParams = {};
