@@ -25,7 +25,7 @@
 module.exports = (function () {
 	'use strict';
 
-	var request = require('request');
+	var superagent = require('superagent');
 
 	/**
 	 * @module ApiClient
@@ -238,7 +238,7 @@ module.exports = (function () {
 
 	/**
 	 * Applies authentication header to the request.
-	 * @param {Object} requestParams - The requestParams object created by a <code>request()</code> call.
+	 * @param {Object} requestParams - The requestParams object created by a <code>superagent()</code> call.
 	 * @param {Object} headers - The headers that passed to this method
 	 * @param {Object} oauth2client - OAuth2 client that has a credentials object
 	 * @param {Object} credentials - The credentials object
@@ -332,7 +332,8 @@ module.exports = (function () {
 	 */
 	exports.prototype.callApi = function callApi(path, httpMethod, pathParams,
 		queryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
-		returnType, oauth2client, credentials) {
+		returnType, oauth2client, credentials
+	) {
 
 		var _this = this;
 		var requestParams = {};
@@ -369,7 +370,7 @@ module.exports = (function () {
 		if (headerParams['Accept-Encoding'] === 'gzip, deflate') {
 			requestParams.encoding = null;
 		}
-		_this.debug('request params were', requestParams);
+		_this.debug('superagent params were', requestParams);
 
 		return new Promise(function (resolve, reject) {
 			_this.applyAuthToRequest(requestParams, headers, oauth2client, credentials).then(function () {
@@ -381,37 +382,37 @@ module.exports = (function () {
 					secureProtocol: 'TLSv1_2_method' // 'TLSv1.2'
 				};
 
-				// Call API endpoint
-				request(requestParams,
-					function (error, response, body) {
-						if (error) {
-							reject(error);
-						} else {
-							var resp;
-							try {
-								resp = JSON.parse(body);
-							} catch (e) {
-								resp = body;
-							}
+				Object.keys(requestParams.headers).map((key) => {
+					if (requestParams.headers[key] === undefined)
+						delete requestParams.headers[key];
+				});
 
-							if (response.statusCode >= 400) {
-								_this.debug('error response', {
-									statusCode: response.statusCode,
-									statusMessage: response.statusMessage
-								});
-								reject({
-									statusCode: response.statusCode,
-									statusMessage: response.statusMessage,
-									statusBody: resp
-								});
-							} else {
-								resolve({
-									statusCode: response.statusCode,
-									headers: response.headers,
-									body: resp
-								});
-							}
+				superagent (requestParams.method, requestParams.uri)
+					.set(requestParams.headers)
+					.send(requestParams.body)
+					.query(requestParams.qs || {})
+					.then((response) => {
+						if (response.statusCode >= 400) {
+							_this.debug('error response', {
+								statusCode: response.statusCode,
+								statusMessage: response.statusMessage
+							});
+							reject({
+								statusCode: response.statusCode,
+								statusMessage: response.statusMessage,
+								statusBody: response.body
+							});
+						} else {
+							resolve({
+								statusCode: response.statusCode,
+								headers: response.headers,
+								body: response.body
+							});
 						}
+					})
+					.catch((err) => {
+						err.statusCode = err.status;
+						reject(err);
 					});
 			}, function (err) {
 				throw new Error(err.toString());

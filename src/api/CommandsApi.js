@@ -26,6 +26,7 @@ module.exports = (function () {
 	'use strict';
 
 	var ApiClient = require('../ApiClient');
+	var FoldersApi = require('./FoldersApi');
 
 	/**
 	 * Commands service.
@@ -105,15 +106,30 @@ module.exports = (function () {
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
 		 * 
-		 * @deprecated
+		 * @deprecated Please use the POST /folders API instead (FoldersApi.postFolder2())
 		 */
 		this.createFolder = function (projectId, body, opts, oauth2client, credentials) {
 			body.jsonapi.version = '1.0';
-
 			body.data.type = 'commands';
 			body.data.attributes.extension.type = 'commands:autodesk.core:CreateFolder';
-
 			return (this._commandsApiCall(projectId, body, opts, oauth2client, credentials));
+
+			// return (new Promise(function (fullfil, reject) {
+			// 	var prs = body.included.map(function (item) {
+			// 		delete item.id;
+			// 		var data = {
+			// 			jsonapi: {
+			// 				version: '1.0'
+			// 			},
+			// 			data: item
+			// 		};
+			// 		var foldersApi = new FoldersApi(this.apiClient);
+			// 		return (foldersApi.postFolder2(projectId, data, opts, oauth2client, credentials));
+			// 	});
+			// 	Promise.all(prs)
+			// 		.then(fullfil)
+			// 		.catch(reject);
+			// }));
 		};
 
 		/**

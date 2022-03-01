@@ -25,7 +25,7 @@
 module.exports = (function () {
 	'use strict';
 
-	var request = require('request');
+	var superagent = require('superagent');
 	var ApiClient = require('../ApiClient').instance;
 
 	/**
@@ -70,28 +70,12 @@ module.exports = (function () {
 			}
 		}
 
-		request({
-			headers: headers,
-			uri: url,
-			body: paramsBody.join('&'),
-			method: 'POST'
-		}, function (err, response, body) {
-			var resp;
-			try {
-				resp = JSON.parse(body);
-			} catch (e) {
-				resp = body;
-			}
-			if (!err && response.statusCode === 200) {
-				callbackSuccess(resp);
-			} else {
-				if (err) {
-					callbackError(err);
-				} else {
-					callbackError(resp);
-				}
-			}
-		});
+		superagent
+			.post(url)
+			.set(headers)
+			.send(paramsBody.join('&'))
+			.then((res) => callbackSuccess(res.body))
+			.catch((err) => callbackError(err));
 	};
 
 	/**

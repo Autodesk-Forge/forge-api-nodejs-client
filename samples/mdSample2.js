@@ -23,6 +23,7 @@
 /*jshint esversion: 9 */
 
 var fs = require('fs');
+var _path = require('path');
 var ForgeSDK = require('../src/index');
 
 // ForgeSDK.ApiClient.instance.switchServerPath('https://developer-stg.api.autodesk.com');
@@ -44,7 +45,7 @@ var BUCKET_KEY = 'forge_sample_' + FORGE_CLIENT_ID.toLowerCase();
 var FILE_NAME = 'test.nwd';
 
 // TODO - specify the full filename and path
-var FILE_PATH = 'test.nwd';
+var FILE_PATH = _path.resolve(__dirname + '/test.nwd');
 
 var bucketsApi = new ForgeSDK.BucketsApi(),
 	objectsApi = new ForgeSDK.ObjectsApi(),

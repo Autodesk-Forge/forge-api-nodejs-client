@@ -23,6 +23,7 @@
 /*jshint esversion: 9 */
 
 var fs = require('fs');
+var _path = require('path');
 
 var ForgeSDK = require('./../src/index');
 
@@ -39,7 +40,7 @@ var BUCKET_KEY = 'forge_sample_' + FORGE_CLIENT_ID.toLowerCase();
 var FILE_NAME = 'test.nwd';
 
 // TODO - specify the full filename and path
-var FILE_PATH = 'test.nwd';
+var FILE_PATH = _path.resolve(__dirname + '/test.nwd');
 
 var apiClient = new ForgeSDK.ApiClient();
 apiClient.defaultHeaders = { 'x-ads-test': BUCKET_KEY };

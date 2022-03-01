@@ -27,7 +27,7 @@ module.exports = (function () {
 
     var expect = require('expect.js'),
         sinon = require('sinon'),
-        request = require('request'),
+        superagent = require('superagent'),
         ForgeSdk = require('../src'),
         nock = require('nock');
 

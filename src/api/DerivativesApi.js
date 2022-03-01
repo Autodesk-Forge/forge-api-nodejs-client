@@ -408,6 +408,7 @@ module.exports = (function () {
 		 * @param {Object} opts Optional parameters
 		 * @param {String} opts.acceptEncoding If specified with `gzip` or `*`, content will be compressed and returned in a GZIP format.
 		 * @param {Boolean} opts.xAdsForce Force retrieve the object tree even though it failed to be extracted (got 404 with error message) previously. (default is false) retrieve the object tree, and previously failures are not replaced.
+		 * @param {String} opts.xAdsFormat fallback: fallback to SVF format; latest: returns SVF2 if available. Possible values: latest / fallback; Default to latest.
 		 * @param {Boolean} opts.forceget To force get the large resource even if it exceeded the expected maximum length (20 MB). Possible values: true, false. The the implicit value is false.
 		 * data is of type: {module:model/Metadata}
 		 * @param {Object} oauth2client oauth2client for the call
@@ -436,7 +437,8 @@ module.exports = (function () {
 			};
 			var headerParams = {
 				'Accept-Encoding': opts.acceptEncoding,
-				'x-ads-force': opts.xAdsForce || false
+				'x-ads-force': opts.xAdsForce || false,
+				'x-ads-derivative-format': opts.xAdsFormat || 'latest'
 			};
 			var formParams = {};
 
@@ -458,6 +460,7 @@ module.exports = (function () {
 		 * @param {Object} opts Optional parameters
 		 * @param {String} opts.acceptEncoding If specified with `gzip` or `*`, content will be compressed and returned in a GZIP format.
 		 * @param {Boolean} opts.xAdsForce Force retrieve the object tree even though it failed to be extracted (got 404 with error message) previously. (default is false) retrieve the object tree, and previously failures are not replaced.
+		 * @param {String} opts.xAdsFormat fallback: fallback to SVF format; latest: returns SVF2 if available. Possible values: latest / fallback; Default to latest.
 		 * @param {Boolean} opts.forceget To force get the large resource even if it exceeded the expected maximum length (20 MB). Possible values: true, false. The the implicit value is false.
 		 * @param {Integer} opts.objectid Object id which you want to query properties for.
 		 * data is of type: {module:model/Metadata}
@@ -488,7 +491,8 @@ module.exports = (function () {
 			};
 			var headerParams = {
 				'Accept-Encoding': opts.acceptEncoding,
-				'x-ads-force': opts.xAdsForce || false
+				'x-ads-force': opts.xAdsForce || false,
+				'x-ads-derivative-format': opts.xAdsFormat || 'latest'
 			};
 			var formParams = {};
 

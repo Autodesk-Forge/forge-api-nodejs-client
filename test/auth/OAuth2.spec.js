@@ -27,7 +27,7 @@ module.exports = (function() {
 
     var expect = require('expect.js'),
         sinon = require('sinon'),
-        request = require('request'),
+        superagent = require('superagent'),
         OAuth2 = require('../../src/auth/OAuth2'),
         OAuth2TwoLegged = require('../../src/auth/OAuth2TwoLegged'),
         OAuth2ThreeLegged = require('../../src/auth/OAuth2ThreeLegged'),
