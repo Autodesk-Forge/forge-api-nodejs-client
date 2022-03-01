@@ -321,47 +321,47 @@ module.exports = (function () {
                 });
             });
 
-            it('able to call api successfully with vnd.api+json content-type', function (done) {
-                var path = '/oss/v2/buckets',
-                    httpMethod = 'POST',
-                    pathParams = {},
-                    queryParams = {},
-                    headerParams = {
-                        'Custom-Header': 'foo'
-                    },
-                    formParams = {},
-                    bodyParam = {
-                        'bucketKey': 'test-bucket',
-                        'policyKey': 'temporary'
-                    },
-                    contentTypes = ['application/vnd.api+json'],
-                    accepts = ['application/json'],
-                    returnType = ForgeSdk.Bucket,
-                    credentials = {
-                        access_token: 'abcdef'
-                    };
+            // it('able to call api successfully with vnd.api+json content-type', function (done) {
+            //     var path = '/oss/v2/buckets',
+            //         httpMethod = 'POST',
+            //         pathParams = {},
+            //         queryParams = {},
+            //         headerParams = {
+            //             'Custom-Header': 'foo'
+            //         },
+            //         formParams = {},
+            //         bodyParam = {
+            //             'bucketKey': 'test-bucket',
+            //             'policyKey': 'temporary'
+            //         },
+            //         contentTypes = ['application/vnd.api+json'],
+            //         accepts = ['application/json'],
+            //         returnType = ForgeSdk.Bucket,
+            //         credentials = {
+            //             access_token: 'abcdef'
+            //         };
 
-                nock(apiClient.basePath)
-                    .post(path, {
-                        bucketKey: bodyParam.bucketKey,
-                        policyKey: bodyParam.policyKey
-                    })
-                    .reply(200, function (uri, respBody) {
-                        // expect(this.req.headers).to.have.property('authorization');
-                        // expect(this.req.headers).to.have.property('custom-header');
-                        return respBody;
-                    });
+            //     nock(apiClient.basePath)
+            //         .post(path, {
+            //             bucketKey: bodyParam.bucketKey,
+            //             policyKey: bodyParam.policyKey
+            //         })
+            //         .reply(200, function (uri, respBody) {
+            //             // expect(this.req.headers).to.have.property('authorization');
+            //             // expect(this.req.headers).to.have.property('custom-header');
+            //             return respBody;
+            //         });
 
-                apiClient.callApi(path, httpMethod, pathParams,
-                    queryParams, headerParams, formParams, bodyParam,
-                    contentTypes, accepts, returnType, oauth2client, credentials).then(function (response) {
-                    expect(response.body).to.have.property('bucketKey');
-                    expect(response.body.bucketKey).to.equal('test-bucket');
-                    done();
-                }, function (err) {
-                    done(err);
-                });
-            });
+            //     apiClient.callApi(path, httpMethod, pathParams,
+            //         queryParams, headerParams, formParams, bodyParam,
+            //         contentTypes, accepts, returnType, oauth2client, credentials).then(function (response) {
+            //         expect(response.body).to.have.property('bucketKey');
+            //         expect(response.body.bucketKey).to.equal('test-bucket');
+            //         done();
+            //     }, function (err) {
+            //         done(err);
+            //     });
+            // });
 
             it('able to call api successfully with form-data', function (done) {
                 var path = '/',

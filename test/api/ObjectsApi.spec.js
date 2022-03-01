@@ -462,6 +462,7 @@ module.export = (function () {
 					xAdsRegion: 'US',
 					contentDisposition: 'application/octet-stream',
 					ifMatch: sampleStrParam,
+					xAdsContentSha1: sampleStrParam
 				};
 				var postBody = sampleStrParam;
 
@@ -473,7 +474,8 @@ module.export = (function () {
 					'Content-Length': sampleIntParam,
 					'Content-Disposition': opts.contentDisposition,
 					'x-ads-region': opts.xAdsRegion,
-					'If-Match': opts.ifMatch
+					'If-Match': opts.ifMatch,
+					'x-ads-content-sha1': opts.xAdsContentSha1,
 				};
 				var formParams = {};
 
@@ -486,7 +488,7 @@ module.export = (function () {
 					contentTypes, accepts, returnType, oauth2client, credentials
 				).returns(Promise.resolve('Success result'));
 
-				instance.uploadSignedResource(sampleStrParam, sampleIntParam, sampleStrParam, opts, oauth2client, credentials)
+				instance.uploadSignedResource(pathParams.id, headerParams['Content-Length'], postBody, opts, oauth2client, credentials)
 					.then(function (response) {
 						expect(response).to.be.ok();
 						done();
@@ -501,6 +503,7 @@ module.export = (function () {
 					xAdsRegion: 'US',
 					contentDisposition: 'application/octet-stream',
 					ifMatch: sampleStrParam,
+					xAdsChunkSha1: sampleStrParam
 				};
 
 				var postBody = sampleStrParam;
@@ -513,6 +516,7 @@ module.export = (function () {
 					'Content-Range': sampleStrParam,
 					'Content-Disposition': opts.contentDisposition,
 					'x-ads-region': opts.xAdsRegion,
+					'x-ads-chunk-sha1': opts.xAdsChunkSha1,
 					'Session-Id': sampleStrParam
 				};
 				var formParams = {};
@@ -526,7 +530,7 @@ module.export = (function () {
 					contentTypes, accepts, returnType, oauth2client, credentials
 				).returns(Promise.resolve('Success result'));
 
-				instance.uploadSignedResourcesChunk(sampleStrParam, sampleStrParam, sampleStrParam, sampleStrParam, opts, oauth2client, credentials)
+				instance.uploadSignedResourcesChunk(pathParams.id, headerParams['Content-Range'], headerParams['Session-Id'], postBody, opts, oauth2client, credentials)
 					.then(function (response) {
 						expect(response).to.be.ok();
 						done();

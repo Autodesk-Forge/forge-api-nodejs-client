@@ -382,7 +382,7 @@ module.exports = (function () {
 					secureProtocol: 'TLSv1_2_method' // 'TLSv1.2'
 				};
 
-				Object.keys(requestParams.headers).map((key) => {
+				requestParams.headers && Object.keys(requestParams.headers).map((key) => {
 					if (requestParams.headers[key] === undefined)
 						delete requestParams.headers[key];
 				});

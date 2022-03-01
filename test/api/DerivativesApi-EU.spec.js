@@ -350,7 +350,8 @@ module.export = (function () {
 				};
 				var headerParams = {
 					'Accept-Encoding': opts.acceptEncoding,
-					'x-ads-force': opts.xAdsForce || false
+					'x-ads-force': opts.xAdsForce || false,
+					'x-ads-derivative-format': opts.xAdsFormat || 'latest'
 				};
 				var formParams = {};
 
@@ -386,7 +387,8 @@ module.export = (function () {
 				};
 				var headerParams = {
 					'Accept-Encoding': opts.acceptEncoding,
-					'x-ads-force': opts.xAdsForce || false
+					'x-ads-force': opts.xAdsForce || false,
+					'x-ads-derivative-format': opts.xAdsFormat || 'latest'
 				};
 				var formParams = {};
 
