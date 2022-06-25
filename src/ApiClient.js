@@ -391,6 +391,7 @@ module.exports = (function () {
 					.set(requestParams.headers)
 					.send(requestParams.body)
 					.query(requestParams.qs || {})
+					.buffer(true)
 					.then((response) => {
 						if (response.statusCode >= 400) {
 							_this.debug('error response', {
