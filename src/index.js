@@ -179,6 +179,7 @@ module.exports = (function () {
 		VersionsApi = require('./api/VersionsApi'),
 		WebhooksApi = require('./api/WebhooksApi'),
 		TokensApi = require('./api/TokensApi'),
+    IssuesApi = require('./api/IssuesApi'),
 		authClientTwoLegged = require('./auth/OAuth2TwoLegged'),
 		authClientThreeLegged = require('./auth/OAuth2ThreeLegged');
 
@@ -983,6 +984,11 @@ module.exports = (function () {
 		 * @property {module:api/TokensApi}
 		 */
 		TokensApi: TokensApi,
+    /**
+		 * The IssuesApi service constructor.
+		 * @property {module:api/IssuesApi}
+		 */
+		IssuesApi: IssuesApi,
 		/**
 		 * The AuthClient service constructor for 2-legged flow.
 		 * @property {module:auth/OAuth2TwoLegged}
