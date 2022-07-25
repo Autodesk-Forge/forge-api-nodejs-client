@@ -21,21 +21,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*jshint esversion: 9 */
 
 module.exports = (function () {
 	'use strict';
 
-	var ApiClient = require('../ApiClient'),
-		BucketObjects = require('../model/BucketObjects'),
-		ObjectDetails = require('../model/ObjectDetails'),
-		ObjectFullDetails = require('../model/ObjectFullDetails'),
-		ObjectS3Download = require('../model/ObjectS3Download'),
-		ObjectS3Upload = require('../model/ObjectS3Upload'),
-		PostBucketsSigned = require('../model/PostBucketsSigned'),
-		PostObjectSigned = require('../model/PostObjectSigned'),
-		Reason = require('../model/Reason'),
-		Result = require('../model/Result'),
-		crypto = require('crypto');
+	const ApiClient = require('../ApiClient');
+	const BucketObjects = require('../model/BucketObjects');
+	const ObjectDetails = require('../model/ObjectDetails');
+	const ObjectFullDetails = require('../model/ObjectFullDetails');
+	const ObjectS3Download = require('../model/ObjectS3Download');
+	const ObjectS3Upload = require('../model/ObjectS3Upload');
+	const PostBucketsSigned = require('../model/PostBucketsSigned');
+	const PostObjectSigned = require('../model/PostObjectSigned');
+	const Reason = require('../model/Reason');
+	const Result = require('../model/Result');
+	const crypto = require('crypto');
+	const _path = require('path');
+	const __fs = require('fs');
+	const _fs = require('fs/promises');
+	const axios = require('axios');
+	//const rax = require('retry-axios');
 
 	/**
 	 * Objects service.
@@ -49,399 +55,74 @@ module.exports = (function () {
 	 * @param {module:ApiClient} apiClient Optional API client implementation to use,
 	 * default to {@link module:ApiClient#instance} if unspecified.
 	 */
-	var exports = function (apiClient) {
+	const exports = function (apiClient) {
 		this.apiClient = apiClient || ApiClient.instance;
 
 		/**
-		 * Copies an object to another object name in the same bucket.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {String} objectName URL-encoded object name
-		 * @param {String} newObjName URL-encoded Object key to use as the destination
+		 * Upload an object. If the specified object name already exists in the bucket, the uploaded content will overwrite the existing content for the bucket name/object name combination.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {String} objectKey object key (will be URL-encoded automatically)
+		 * @param {Integer} contentLength Indicates the size of the request body.
+		 * @param {File} body
+		 * @param {Object=} opts Optional parameters
+		 * @param {Integer=} opts.contentType Optional array of possible Content-Type header
+		 * @param {String=} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
+		 * @param {String=} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written.
+		 * @param {String=} opts.xAdsContentSha1 A SHA-1 checksum of the object represented as a hexadecimal string. If the SHA-1 hash in the header does not match the SHA-1 hash computed by the server for the uploaded object, the request fails (status code 400).
 		 * data is of type: {module:model/ObjectDetails}
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
-		 */
-		this.copyTo = function (bucketKey, objectName, newObjName, oauth2client, credentials) {
-			var postBody = null;
-
-			// verify the required parameter 'bucketKey' is set
-			if (bucketKey == undefined || bucketKey == null)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling copyTo");
-			// verify the required parameter 'objectName' is set
-			if (objectName == undefined || objectName == null)
-				return Promise.reject("Missing the required parameter 'objectName' when calling copyTo");
-			// verify the required parameter 'newObjName' is set
-			if (newObjName == undefined || newObjName == null)
-				return Promise.reject("Missing the required parameter 'newObjName' when calling copyTo");
-
-			var pathParams = {
-				'bucketKey': bucketKey,
-				'objectName': objectName,
-				'newObjName': newObjName
-			};
-			var queryParams = {};
-			var headerParams = {};
-			var formParams = {};
-
-			var contentTypes = ['application/json'];
-			var accepts = ['application/vnd.api+json', 'application/json'];
-			var returnType = ObjectDetails;
-
-			return this.apiClient.callApi(
-				'/oss/v2/buckets/{bucketKey}/objects/{objectName}/copyto/{newObjName}', 'PUT',
-				pathParams, queryParams, headerParams, formParams, postBody,
-				contentTypes, accepts, returnType, oauth2client, credentials
-			);
-		};
-
-		/**
-		 * This endpoint creates a signed URL that can be used to download an object within the specified expiration time. Be aware that if the object the signed URL points to is deleted or expires before the signed URL expires, then the signed URL will no longer be valid. A successful call to this endpoint requires bucket owner access.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {String} objectName URL-encoded object name
-		 * @param {module:model/PostBucketsSigned} postBucketsSigned Body Structure
-		 * @param {Object=} opts Optional parameters
-		 * @param {String} [opts.access=read] Access for signed resource Acceptable values: `read`, `write`, `readwrite`. Default value: `read`  (default to read)
-		 * data is of type: {module:model/PostObjectSigned}
-		 * @param {Object} oauth2client oauth2client for the call
-		 * @param {Object} credentials credentials for the call
-		 */
-		this.createSignedResource = function (bucketKey, objectName, postBucketsSigned, opts, oauth2client, credentials) {
-			opts = opts || {};
-			var postBody = postBucketsSigned;
-
-			// verify the required parameter 'bucketKey' is set
-			if (bucketKey == undefined || bucketKey == null)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling createSignedResource");
-			// verify the required parameter 'objectName' is set
-			if (objectName == undefined || objectName == null)
-				return Promise.reject("Missing the required parameter 'objectName' when calling createSignedResource");
-			// verify the required parameter 'postBucketsSigned' is set
-			if (postBucketsSigned == undefined || postBucketsSigned == null)
-				return Promise.reject("Missing the required parameter 'postBucketsSigned' when calling createSignedResource");
-			var pathParams = {
-				'bucketKey': bucketKey,
-				'objectName': objectName
-			};
-			var queryParams = {
-				'access': opts.access
-			};
-			var headerParams = {};
-			var formParams = {};
-
-			var contentTypes = ['application/json'];
-			var accepts = ['application/vnd.api+json', 'application/json'];
-			var returnType = PostObjectSigned;
-
-			return this.apiClient.callApi(
-				'/oss/v2/buckets/{bucketKey}/objects/{objectName}/signed', 'POST',
-				pathParams, queryParams, headerParams, formParams, postBody,
-				contentTypes, accepts, returnType, oauth2client, credentials
-			);
-		};
-
-		/**
-		 * Deletes an object from the bucket.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {String} objectName URL-encoded object name
-		 * @param {Object} oauth2client oauth2client for the call
-		 * @param {Object} credentials credentials for the call
-		 */
-		this.deleteObject = function (bucketKey, objectName, oauth2client, credentials) {
-			var postBody = null;
-
-			// verify the required parameter 'bucketKey' is set
-			if (bucketKey == undefined || bucketKey == null)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling deleteObject");
-			// verify the required parameter 'objectName' is set
-			if (objectName == undefined || objectName == null)
-				return Promise.reject("Missing the required parameter 'objectName' when calling deleteObject");
-
-			var pathParams = {
-				'bucketKey': bucketKey,
-				'objectName': objectName
-			};
-			var queryParams = {};
-			var headerParams = {};
-			var formParams = {};
-
-			var contentTypes = ['application/json'];
-			var accepts = [];
-			var returnType = null;
-
-			return this.apiClient.callApi(
-				'/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'DELETE',
-				pathParams, queryParams, headerParams, formParams, postBody,
-				contentTypes, accepts, returnType, oauth2client, credentials
-			);
-		};
-
-		/**
-		 * Delete a signed URL. A successful call to this endpoint requires bucket owner access.
-		 * @param {String} id Id of signed resource
-		 * @param {Object=} opts Optional parameters
-		 * @param {String} [opts.region=US] The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
-		 * @param {Object} oauth2client oauth2client for the call
-		 * @param {Object} credentials credentials for the call
-		 */
-		this.deleteSignedResource = function (id, opts, oauth2client, credentials) {
-			opts = opts || {};
-			var postBody = null;
-
-			// verify the required parameter 'id' is set
-			if (id == undefined || id == null)
-				return Promise.reject("Missing the required parameter 'id' when calling deleteSignedResource");
-
-			var pathParams = {
-				'id': id
-			};
-			var queryParams = {
-				'region': opts.region || 'US'
-			};
-			var headerParams = {};
-			var formParams = {};
-
-			var contentTypes = ['application/json'];
-			var accepts = ['text/plain'];
-			var returnType = null;
-
-			return this.apiClient.callApi(
-				'/oss/v2/signedresources/{id}', 'DELETE',
-				pathParams, queryParams, headerParams, formParams, postBody,
-				contentTypes, accepts, returnType, oauth2client, credentials
-			);
-		};
-
-		/**
-		 * Download an object.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {String} objectName URL-encoded object name
-		 * @param {Object=} opts Optional parameters
-		 * @param {String=} opts.range A range of bytes to download from the specified object.
-		 * @param {String=} opts.ifNoneMatch The value of this header is compared to the ETAG of the object. If they match, the body will not be included in the response. Only the object information will be included.
-		 * @param {Date=} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body.
-		 * @param {String=} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used.
-		 * @param {String=} opts.accepts Optional array of possible Accepts header
-		 * data is of type: {Object}
-		 * @param {Object} oauth2client oauth2client for the call
-		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-PUT/
+		 * @async
+		 * @returns {Promise<ObjectDetails>}
 		 * 
 		 * @deprecated
 		 */
-		this.getObject = function (bucketKey, objectName, opts, oauth2client, credentials) {
+		this.uploadObject = function (bucketKey, objectKey, contentLength, body, opts, oauth2client, credentials) {
 			opts = opts || {};
-			var postBody = null;
+			const postBody = body;
 
 			// verify the required parameter 'bucketKey' is set
-			if (bucketKey == undefined || bucketKey == null)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling getObject");
-			// verify the required parameter 'objectName' is set
-			if (objectName == undefined || objectName == null)
-				return Promise.reject("Missing the required parameter 'objectName' when calling getObject");
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling uploadObject"));
+			// verify the required parameter 'objectKey' is set
+			if (!objectKey)
+				return (Promise.reject("Missing the required parameter 'objectKey' when calling uploadObject"));
+			// verify the required parameter 'contentLength' is set
+			if (!contentLength)
+				return (Promise.reject("Missing the required parameter 'contentLength' when calling uploadObject"));
+			// verify the required parameter 'body' is set
+			if (!body)
+				return (Promise.reject("Missing the required parameter 'body' when calling uploadObject"));
 
-			var pathParams = {
-				'bucketKey': bucketKey,
-				'objectName': objectName
+			const pathParams = {
+				bucketKey,
+				objectKey,
 			};
-			var queryParams = {};
-			var headerParams = {
-				'Range': opts.range || opts.Range,
-				'If-None-Match': opts.ifNoneMatch,
-				'If-Modified-Since': opts.ifModifiedSince,
-				'Accept-Encoding': opts.acceptEncoding
+			const queryParams = {};
+			const headerParams = {
+				'Content-Length': contentLength,
+				'Content-Disposition': opts.contentDisposition || opts['Content-Disposition'],
+				'If-Match': opts.ifMatch || opts['If-Match'],
+				'x-ads-content-sha1': opts.xAdsContentSha1 || opts['x-ads-content-sha1'],
 			};
-			var formParams = {};
+			const formParams = {};
 
-			var contentTypes = ['application/json'];
-			var accepts = opts.accepts || ['application/octet-stream'];
-			var returnType = Object;
+			const contentTypes = opts.contentType || ['application/octet-stream'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = ObjectDetails;
 
-			return this.apiClient.callApi(
-				'/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'GET',
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects/{objectKey}', 'PUT',
 				pathParams, queryParams, headerParams, formParams, postBody,
 				contentTypes, accepts, returnType, oauth2client, credentials
-			);
-		};
-
-		/**
-		 * Returns object details in JSON format.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {String} objectName URL-encoded object name
-		 * @param {Object=} opts Optional parameters
-		 * @param {Date=} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body.
-		 * @param {(String|String[])=} opts._with Extra information in details; multiple uses are supported Acceptable values: `createdDate`, `lastAccessedDate`, `lastModifiedDate`
-		 * data is of type: {module:model/ObjectFullDetails}
-		 * @param {Object} oauth2client oauth2client for the call
-		 * @param {Object} credentials credentials for the call
-		 */
-		this.getObjectDetails = function (bucketKey, objectName, opts, oauth2client, credentials) {
-			opts = opts || {};
-			var postBody = null;
-
-			// verify the required parameter 'bucketKey' is set
-			if (bucketKey == undefined || bucketKey == null)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling getObjectDetails");
-			// verify the required parameter 'objectName' is set
-			if (objectName == undefined || objectName == null)
-				return Promise.reject("Missing the required parameter 'objectName' when calling getObjectDetails");
-
-			var pathParams = {
-				'bucketKey': bucketKey,
-				'objectName': objectName
-			};
-			var queryParams = {
-				'with': opts._with
-			};
-			var headerParams = {
-				'If-Modified-Since': opts.ifModifiedSince
-			};
-			var formParams = {};
-
-			var contentTypes = ['application/json'];
-			var accepts = ['application/vnd.api+json', 'application/json'];
-			var returnType = ObjectFullDetails;
-
-			return this.apiClient.callApi(
-				'/oss/v2/buckets/{bucketKey}/objects/{objectName}/details', 'GET',
-				pathParams, queryParams, headerParams, formParams, postBody,
-				contentTypes, accepts, returnType, oauth2client, credentials
-			);
-		};
-
-		/**
-		 * List objects in a bucket. It is only available to the bucket creator.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {Object=} opts Optional parameters
-		 * @param {Integer} [opts.limit=10] Limit to the response size, Acceptable values: 1-100 Default = 10  (default to 10)
-		 * @param {String=} opts.beginsWith Provides a way to filter the based on object key name
-		 * @param {String=} opts.startAt Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response
-		 * data is of type: {module:model/BucketObjects}
-		 * @param {Object} oauth2client oauth2client for the call
-		 * @param {Object} credentials credentials for the call
-		 */
-		this.getObjects = function (bucketKey, opts, oauth2client, credentials) {
-			opts = opts || {};
-			var postBody = null;
-
-			// verify the required parameter 'bucketKey' is set
-			if (bucketKey == undefined || bucketKey == null)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling getObjects");
-
-			var pathParams = {
-				'bucketKey': bucketKey
-			};
-			var queryParams = {
-				'limit': opts.limit,
-				'beginsWith': opts.beginsWith,
-				'startAt': opts.startAt
-			};
-			var headerParams = {};
-			var formParams = {};
-
-			var contentTypes = ['application/json'];
-			var accepts = ['application/vnd.api+json', 'application/json'];
-			var returnType = BucketObjects;
-
-			return this.apiClient.callApi(
-				'/oss/v2/buckets/{bucketKey}/objects', 'GET',
-				pathParams, queryParams, headerParams, formParams, postBody,
-				contentTypes, accepts, returnType, oauth2client, credentials
-			);
-		};
-
-		/**
-		 * Download an object using a signed URL.
-		 * @param {String} id Id of signed resource
-		 * @param {Object=} opts Optional parameters
-		 * @param {String=} opts.range A range of bytes to download from the specified object.
-		 * @param {String=} opts.ifNoneMatch The value of this header is compared to the ETAG of the object. If they match, the body will not be included in the response. Only the object information will be included.
-		 * @param {Date=} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body.
-		 * @param {String=} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used.
-		 * @param {String} [opts.region=US] The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
-		 * @param {String=} opts.accepts Optional array of possible Accepts header
-		 * data is of type: {Object}
-		 * @param {Object} oauth2client oauth2client for the call
-		 * @param {Object} credentials credentials for the call
-		 * 
-		 * @deprecated
-		 */
-		this.getSignedResource = function (id, opts, oauth2client, credentials) {
-			opts = opts || {};
-			var postBody = null;
-
-			// verify the required parameter 'id' is set
-			if (id == undefined || id == null)
-				return Promise.reject("Missing the required parameter 'id' when calling getSignedResource");
-
-			var pathParams = {
-				'id': id
-			};
-			var queryParams = {
-				'region': opts.region || 'US'
-			};
-			var headerParams = {
-				'Range': opts.range || opts.Range,
-				'If-None-Match': opts.ifNoneMatch,
-				'If-Modified-Since': opts.ifModifiedSince,
-				'Accept-Encoding': opts.acceptEncoding
-			};
-			var formParams = {};
-
-			var contentTypes = ['application/json'];
-			var accepts = opts.accepts || ['application/octet-stream'];
-			var returnType = Object;
-
-			return this.apiClient.callApi(
-				'/oss/v2/signedresources/{id}', 'GET',
-				pathParams, queryParams, headerParams, formParams, postBody,
-				contentTypes, accepts, returnType, oauth2client, credentials
-			);
-		};
-
-		/**
-		 * This endpoint returns status information about a resumable upload.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {String} objectName URL-encoded object name
-		 * @param {String} sessionId Unique identifier of a session of a file being uploaded
-		 * @param {Object} oauth2client oauth2client for the call
-		 * @param {Object} credentials credentials for the call
-		 */
-		this.getStatusBySessionId = function (bucketKey, objectName, sessionId, oauth2client, credentials) {
-			var postBody = null;
-
-			// verify the required parameter 'bucketKey' is set
-			if (bucketKey == undefined || bucketKey == null)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling getStatusBySessionId");
-			// verify the required parameter 'objectName' is set
-			if (objectName == undefined || objectName == null)
-				return Promise.reject("Missing the required parameter 'objectName' when calling getStatusBySessionId");
-			// verify the required parameter 'sessionId' is set
-			if (sessionId == undefined || sessionId == null)
-				return Promise.reject("Missing the required parameter 'sessionId' when calling getStatusBySessionId");
-
-			var pathParams = {
-				'bucketKey': bucketKey,
-				'objectName': objectName,
-				'sessionId': sessionId
-			};
-			var queryParams = {};
-			var headerParams = {};
-			var formParams = {};
-
-			var contentTypes = ['application/json'];
-			var accepts = ['application/vnd.api+json', 'application/json'];
-			var returnType = null;
-
-			return this.apiClient.callApi(
-				'/oss/v2/buckets/{bucketKey}/objects/{objectName}/status/{sessionId}', 'GET',
-				pathParams, queryParams, headerParams, formParams, postBody,
-				contentTypes, accepts, returnType, oauth2client, credentials
-			);
+			));
 		};
 
 		/**
 		 * This endpoint allows resumable uploads for large files in chunks.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {String} objectName URL-encoded object name
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {String} objectKey object key (will be URL-encoded automatically)
 		 * @param {Integer} contentLength Indicates the size of the request body.
 		 * @param {String} contentRange Byte range of a segment being uploaded
 		 * @param {String} sessionId Unique identifier of a session of a file being uploaded
@@ -454,113 +135,299 @@ module.exports = (function () {
 		 * data is of type: {module:model/ObjectDetails}
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-resumable-PUT/
+		 * @async
+		 * @returns {Promise<ObjectDetails>}
 		 * 
 		 * @deprecated
 		 */
-		this.uploadChunk = function (bucketKey, objectName, contentLength, contentRange, sessionId, body, opts, oauth2client, credentials) {
+		this.uploadChunk = function (bucketKey, objectKey, contentLength, contentRange, sessionId, body, opts, oauth2client, credentials) {
 			opts = opts || {};
-			var postBody = body;
+			const postBody = body;
 
 			// verify the required parameter 'bucketKey' is set
-			if (bucketKey == undefined || bucketKey == null)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling uploadChunk");
-			// verify the required parameter 'objectName' is set
-			if (objectName == undefined || objectName == null)
-				return Promise.reject("Missing the required parameter 'objectName' when calling uploadChunk");
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling uploadChunk"));
+			// verify the required parameter 'objectKey' is set
+			if (!objectKey)
+				return (Promise.reject("Missing the required parameter 'objectKey' when calling uploadChunk"));
 			// verify the required parameter 'contentLength' is set
-			if (contentLength == undefined || contentLength == null)
-				return Promise.reject("Missing the required parameter 'contentLength' when calling uploadChunk");
+			if (!contentLength)
+				return (Promise.reject("Missing the required parameter 'contentLength' when calling uploadChunk"));
 			// verify the required parameter 'contentRange' is set
-			if (contentRange == undefined || contentRange == null)
-				return Promise.reject("Missing the required parameter 'contentRange' when calling uploadChunk");
+			if (!contentRange)
+				return (Promise.reject("Missing the required parameter 'contentRange' when calling uploadChunk"));
 			// verify the required parameter 'sessionId' is set
-			if (sessionId == undefined || sessionId == null)
-				return Promise.reject("Missing the required parameter 'sessionId' when calling uploadChunk");
+			if (!sessionId)
+				return (Promise.reject("Missing the required parameter 'sessionId' when calling uploadChunk"));
 			// verify the required parameter 'body' is set
-			if (body == undefined || body == null)
-				return Promise.reject("Missing the required parameter 'body' when calling uploadChunk");
+			if (!body)
+				return (Promise.reject("Missing the required parameter 'body' when calling uploadChunk"));
 
-			var pathParams = {
-				'bucketKey': bucketKey,
-				'objectName': objectName
+			const pathParams = {
+				bucketKey,
+				objectKey
 			};
-			var queryParams = {};
-			var headerParams = {
+			const queryParams = {};
+			const headerParams = {
 				'Content-Length': contentLength,
 				'Content-Range': contentRange,
-				'Content-Disposition': opts.contentDisposition,
-				'x-ads-chunk-sha1': opts.xAdsChunkSha1,
+				'Content-Disposition': opts.contentDisposition || opts['Content-Disposition'],
+				'x-ads-chunk-sha1': opts.xAdsChunkSha1 || opts['x-ads-chunk-sha1'],
 				'Session-Id': sessionId,
 			};
-			var formParams = {};
+			const formParams = {};
 
-			var contentTypes = opts.contentType || ['application/octet-stream'];
-			var accepts = ['application/vnd.api+json', 'application/json'];
-			var returnType = ObjectDetails;
+			const contentTypes = opts.contentType || opts['Content-Type'] || ['application/octet-stream'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = ObjectDetails;
 
-			return this.apiClient.callApi(
-				'/oss/v2/buckets/{bucketKey}/objects/{objectName}/resumable', 'PUT',
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects/{objectKey}/resumable', 'PUT',
 				pathParams, queryParams, headerParams, formParams, postBody,
 				contentTypes, accepts, returnType, oauth2client, credentials
-			);
+			));
 		};
 
 		/**
-		 * Upload an object. If the specified object name already exists in the bucket, the uploaded content will overwrite the existing content for the bucket name/object name combination.
-		 * @param {String} bucketKey URL-encoded bucket key
-		 * @param {String} objectName URL-encoded object name
-		 * @param {Integer} contentLength Indicates the size of the request body.
-		 * @param {File} body
-		 * @param {Object=} opts Optional parameters
-		 * @param {Integer=} opts.contentType Optional array of possible Content-Type header
-		 * @param {String=} opts.contentDisposition The suggested default filename when downloading this object to a file after it has been uploaded.
-		 * @param {String=} opts.ifMatch If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written.
-		 * @param {String=} opts.xAdsContentSha1 A SHA-1 checksum of the object represented as a hexadecimal string. If the SHA-1 hash in the header does not match the SHA-1 hash computed by the server for the uploaded object, the request fails (status code 400).
-		 * data is of type: {module:model/ObjectDetails}
+		 * This endpoint returns status information about a resumable upload.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {String} objectKey object key (will be URL-encoded automatically)
+		 * @param {String} sessionId Unique identifier of a session of a file being uploaded
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-status-:sessionId-GET/
+		 * @async
+		 * @retuns {Promise<void>}
+		 */
+		this.getStatusBySessionId = function (bucketKey, objectKey, sessionId, oauth2client, credentials) {
+			const postBody = null;
+
+			// verify the required parameter 'bucketKey' is set
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getStatusBySessionId"));
+			// verify the required parameter 'objectKey' is set
+			if (!objectKey)
+				return (Promise.reject("Missing the required parameter 'objectKey' when calling getStatusBySessionId"));
+			// verify the required parameter 'sessionId' is set
+			if (!sessionId)
+				return (Promise.reject("Missing the required parameter 'sessionId' when calling getStatusBySessionId"));
+
+			const pathParams = {
+				bucketKey,
+				objectKey,
+				sessionId,
+			};
+			const queryParams = {};
+			const headerParams = {};
+			const formParams = {};
+
+			const contentTypes = ['application/json'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = null;
+
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects/{objectKey}/status/{sessionId}', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			));
+		};
+
+		/**
+		 * List objects in a bucket. It is only available to the bucket creator.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {Object=} opts Optional parameters
+		 * @param {Integer=} [opts.limit=10] Limit to the response size, Acceptable values: 1-100 Default = 10  (default to 10)
+		 * @param {String=} opts.beginsWith Provides a way to filter the based on object key name
+		 * @param {String=} opts.startAt Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response
+		 * data is of type: {module:model/BucketObjects}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-GET/
+		 * @async
+		 * @returns {Promise<BucketObjects>}
+		 */
+		this.getObjects = function (bucketKey, opts, oauth2client, credentials) {
+			opts = opts || {};
+			const postBody = null;
+
+			// verify the required parameter 'bucketKey' is set
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getObjects"));
+
+			const pathParams = {
+				bucketKey,
+			};
+			const queryParams = {
+				limit: opts.limit,
+				beginsWith: opts.beginsWith,
+				startAt: opts.startAt,
+			};
+			const headerParams = {};
+			const formParams = {};
+
+			const contentTypes = ['application/json'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = BucketObjects;
+
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			));
+		};
+
+		/**
+		 * Returns object details in JSON format.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {String} objectKey object key (will be URL-encoded automatically)
+		 * @param {Object=} opts Optional parameters
+		 * @param {Date=} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body.
+		 * @param {(String|String[])=} opts.with Extra information in details; multiple uses are supported Acceptable values: `createdDate`, `lastAccessedDate`, `lastModifiedDate`
+		 * data is of type: {module:model/ObjectFullDetails}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-details-GET/
+		 * @async
+		 * @returns {Promise<ObjectFullDetails>}
+		 */
+		this.getObjectDetails = function (bucketKey, objectKey, opts, oauth2client, credentials) {
+			opts = opts || {};
+			const postBody = null;
+
+			// verify the required parameter 'bucketKey' is set
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getObjectDetails"));
+			// verify the required parameter 'objectKey' is set
+			if (!objectKey)
+				return (Promise.reject("Missing the required parameter 'objectKey' when calling getObjectDetails"));
+
+			const pathParams = {
+				bucketKey,
+				objectKey
+			};
+			const queryParams = {
+				with: opts._with || opts.with,
+			};
+			const headerParams = {
+				'If-Modified-Since': opts.ifModifiedSince || opts['If-Modified-Since'],
+			};
+			const formParams = {};
+
+			const contentTypes = ['application/json'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = ObjectFullDetails;
+
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects/{objectKey}/details', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			));
+		};
+
+		/**
+		 * Download an object.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {String} objectKey object key (will be URL-encoded automatically)
+		 * @param {Object=} opts Optional parameters
+		 * @param {String=} opts.range A range of bytes to download from the specified object.
+		 * @param {String=} opts.ifNoneMatch The value of this header is compared to the ETAG of the object. If they match, the body will not be included in the response. Only the object information will be included.
+		 * @param {Date=} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body.
+		 * @param {String=} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used.
+		 * @param {String=} opts.accepts Optional array of possible Accepts header
+		 * data is of type: {Object}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-GET/
+		 * @async
+		 * @returns {Promise<any>}
 		 * 
 		 * @deprecated
 		 */
-		this.uploadObject = function (bucketKey, objectName, contentLength, body, opts, oauth2client, credentials) {
+		this.getObject = function (bucketKey, objectKey, opts, oauth2client, credentials) {
 			opts = opts || {};
-			var postBody = body;
+			const postBody = null;
 
 			// verify the required parameter 'bucketKey' is set
-			if (bucketKey == undefined || bucketKey == null)
-				return Promise.reject("Missing the required parameter 'bucketKey' when calling uploadObject");
-			// verify the required parameter 'objectName' is set
-			if (objectName == undefined || objectName == null)
-				return Promise.reject("Missing the required parameter 'objectName' when calling uploadObject");
-			// verify the required parameter 'contentLength' is set
-			if (contentLength == undefined || contentLength == null)
-				return Promise.reject("Missing the required parameter 'contentLength' when calling uploadObject");
-			// verify the required parameter 'body' is set
-			if (body == undefined || body == null)
-				return Promise.reject("Missing the required parameter 'body' when calling uploadObject");
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getObject"));
+			// verify the required parameter 'objectKey' is set
+			if (!objectKey)
+				return (Promise.reject("Missing the required parameter 'objectKey' when calling getObject"));
 
-			var pathParams = {
-				'bucketKey': bucketKey,
-				'objectName': objectName
+			const pathParams = {
+				bucketKey,
+				objectKey,
 			};
-			var queryParams = {};
-			var headerParams = {
-				'Content-Length': contentLength,
-				'Content-Disposition': opts.contentDisposition,
-				'If-Match': opts.ifMatch,
-				'x-ads-content-sha1': opts.xAdsContentSha1,
+			const queryParams = {};
+			const headerParams = {
+				Range: opts.range || opts.Range,
+				'If-None-Match': opts.ifNoneMatch || opts['If-None-Match'],
+				'If-Modified-Since': opts.ifModifiedSince || opts['If-Modified-Since'],
+				'Accept-Encoding': opts.acceptEncoding || opts['Accept-Encoding'],
 			};
-			var formParams = {};
+			const formParams = {};
 
-			var contentTypes = opts.contentType || ['application/octet-stream'];
-			var accepts = ['application/vnd.api+json', 'application/json'];
-			var returnType = ObjectDetails;
+			const contentTypes = ['application/json'];
+			const accepts = opts.accepts || ['application/octet-stream'];
+			const returnType = Object;
 
-			return this.apiClient.callApi(
-				'/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'PUT',
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects/{objectKey}', 'GET',
 				pathParams, queryParams, headerParams, formParams, postBody,
 				contentTypes, accepts, returnType, oauth2client, credentials
-			);
+			));
+		};
+
+		/**
+		 * This endpoint creates a signed URL that can be used to download an object within the specified expiration time. Be aware that if the object the signed URL points to is deleted or expires before the signed URL expires, then the signed URL will no longer be valid. A successful call to this endpoint requires bucket owner access.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {String} objectKey object key (will be URL-encoded automatically)
+		 * @param {module:model/PostBucketsSigned} postBucketsSigned Body Structure
+		 * @param {Object=} opts Optional parameters
+		 * @param {String} [opts.access=read] Access for signed resource Acceptable values: `read`, `write`, `readwrite`. Default value: `read`  (default to read)
+		 * @param {Boolean=} [opts.useCdn=false] If true, this will generate a CloudFront URL for the S3 object
+		 * data is of type: {module:model/PostObjectSigned}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signed-POST/
+		 * @async
+		 * @returns {Promise<PostObjectSigned>}
+		 */
+		this.createSignedResource = function (bucketKey, objectKey, postBucketsSigned, opts, oauth2client, credentials) {
+			opts = opts || {};
+			const postBody = postBucketsSigned;
+
+			// verify the required parameter 'bucketKey' is set
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling createSignedResource"));
+			// verify the required parameter 'objectKey' is set
+			if (!objectKey)
+				return (Promise.reject("Missing the required parameter 'objectKey' when calling createSignedResource"));
+			// verify the required parameter 'postBucketsSigned' is set
+			if (!postBucketsSigned)
+				return (Promise.reject("Missing the required parameter 'postBucketsSigned' when calling createSignedResource"));
+
+			const pathParams = {
+				bucketKey,
+				objectKey,
+			};
+			const queryParams = {
+				access: opts.access || 'read',
+				useCdn: opts.useCdn || false,
+			};
+			const headerParams = {};
+			const formParams = {};
+
+			const contentTypes = ['application/json'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = PostObjectSigned;
+
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects/{objectKey}/signed', 'POST',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			));
 		};
 
 		/**
@@ -576,45 +443,48 @@ module.exports = (function () {
 		 * data is of type: {module:model/ObjectDetails}
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/signedresources-:id-PUT/
+		 * @async
+		 * @returns {Promise<ObjectDetails>}
 		 * 
 		 * @deprecated
 		 */
 		this.uploadSignedResource = function (id, contentLength, body, opts, oauth2client, credentials) {
 			opts = opts || {};
-			var postBody = body;
+			const postBody = body;
 
 			// verify the required parameter 'id' is set
-			if (id == undefined || id == null)
-				return Promise.reject("Missing the required parameter 'id' when calling uploadSignedResource");
+			if (!id)
+				return (Promise.reject("Missing the required parameter 'id' when calling uploadSignedResource"));
 			// verify the required parameter 'contentLength' is set
-			if (contentLength == undefined || contentLength == null)
-				return Promise.reject("Missing the required parameter 'contentLength' when calling uploadSignedResource");
+			if (!contentLength)
+				return (Promise.reject("Missing the required parameter 'contentLength' when calling uploadSignedResource"));
 			// verify the required parameter 'body' is set
-			if (body == undefined || body == null)
-				return Promise.reject("Missing the required parameter 'body' when calling uploadSignedResource");
+			if (!body)
+				return (Promise.reject("Missing the required parameter 'body' when calling uploadSignedResource"));
 
-			var pathParams = {
-				'id': id
+			const pathParams = {
+				id,
 			};
-			var queryParams = {};
-			var headerParams = {
-				'Content-Length': contentLength,
-				'Content-Disposition': opts.contentDisposition,
-				'x-ads-region': opts.xAdsRegion || 'US',
-				'If-Match': opts.ifMatch,
-				'x-ads-content-sha1': opts.xAdsContentSha1,
+			const queryParams = {};
+			const headerParams = {
+				'Content-Length': contentLength || opts['Content-Length'],
+				'Content-Disposition': opts.contentDisposition || opts['Content-Disposition'],
+				'x-ads-region': opts.xAdsRegion || opts['x-ads-region'] || 'US',
+				'If-Match': opts.ifMatch || opts['If-Match'],
+				'x-ads-content-sha1': opts.xAdsContentSha1 || opts['x-ads-content-sha1'],
 			};
-			var formParams = {};
+			const formParams = {};
 
-			var contentTypes = opts.contentType || ['application/octet-stream'];
-			var accepts = ['application/vnd.api+json', 'application/json'];
-			var returnType = ObjectDetails;
+			const contentTypes = opts.contentType || ['application/octet-stream'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = ObjectDetails;
 
-			return this.apiClient.callApi(
+			return (this.apiClient.callApi(
 				'/oss/v2/signedresources/{id}', 'PUT',
 				pathParams, queryParams, headerParams, formParams, postBody,
 				contentTypes, accepts, returnType, oauth2client, credentials
-			);
+			));
 		};
 
 		/**
@@ -630,70 +500,1049 @@ module.exports = (function () {
 		 * data is of type: {module:model/ObjectDetails}
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/signedresources-:id-resumable-PUT/
+		 * @async
+		 * @returns {Promise<ObjectDetails>}
 		 * 
 		 * @deprecated
 		 */
 		this.uploadSignedResourcesChunk = function (id, contentRange, sessionId, body, opts, oauth2client, credentials) {
 			opts = opts || {};
-			var postBody = body;
+			const postBody = body;
 
 			// verify the required parameter 'id' is set
-			if (id == undefined || id == null)
-				return Promise.reject("Missing the required parameter 'id' when calling uploadSignedResourcesChunk");
+			if (!id)
+				return (Promise.reject("Missing the required parameter 'id' when calling uploadSignedResourcesChunk"));
 			// verify the required parameter 'contentRange' is set
-			if (contentRange == undefined || contentRange == null)
-				return Promise.reject("Missing the required parameter 'contentRange' when calling uploadSignedResourcesChunk");
+			if (!contentRange)
+				return (Promise.reject("Missing the required parameter 'contentRange' when calling uploadSignedResourcesChunk"));
 			// verify the required parameter 'sessionId' is set
-			if (sessionId == undefined || sessionId == null)
-				return Promise.reject("Missing the required parameter 'sessionId' when calling uploadSignedResourcesChunk");
-			// verify the required parameter 'body' is set
-			if (body == undefined || body == null)
-				return Promise.reject("Missing the required parameter 'body' when calling uploadSignedResourcesChunk");
+			if (!sessionId)
+				return (Promise.reject("Missing the required parameter 'sessionId' when calling uploadSignedResourcesChunk"));
+			if (!body)
+				// verify the required parameter 'body' is set
+				return (Promise.reject("Missing the required parameter 'body' when calling uploadSignedResourcesChunk"));
 
-			var pathParams = {
-				'id': id
+			const pathParams = {
+				id,
 			};
-			var queryParams = {};
-			var headerParams = {
-				'Content-Range': contentRange,
-				'Content-Disposition': opts.contentDisposition,
-				'x-ads-region': opts.xAdsRegion || 'US',
-				'x-ads-chunk-sha1': opts.xAdsChunkSha1,
-				'Session-Id': sessionId
+			const queryParams = {};
+			const headerParams = {
+				'Content-Range': contentRange || opts['Content-Range'],
+				'Content-Disposition': opts.contentDisposition || opts['Content-Disposition'],
+				'x-ads-region': opts.xAdsRegion || opts['x-ads-region'] || 'US',
+				'x-ads-chunk-sha1': opts.xAdsChunkSha1 || opts['x-ads-chunk-sha1'],
+				'Session-Id': sessionId,
 			};
-			var formParams = {};
+			const formParams = {};
 
-			var contentTypes = opts.contentType || ['application/octet-stream'];
-			var accepts = ['application/vnd.api+json', 'application/json'];
-			var returnType = ObjectDetails;
+			const contentTypes = opts.contentType || ['application/octet-stream'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = ObjectDetails;
 
-			return this.apiClient.callApi(
+			return (this.apiClient.callApi(
 				'/oss/v2/signedresources/{id}/resumable', 'PUT',
 				pathParams, queryParams, headerParams, formParams, postBody,
 				contentTypes, accepts, returnType, oauth2client, credentials
-			);
+			));
+		};
+
+		/**
+		 * Download an object using a signed URL.
+		 * @param {String} id Id of signed resource
+		 * @param {Object=} opts Optional parameters
+		 * @param {String=} opts.range A range of bytes to download from the specified object.
+		 * @param {String=} opts.ifNoneMatch The value of this header is compared to the ETAG of the object. If they match, the body will not be included in the response. Only the object information will be included.
+		 * @param {Date=} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body.
+		 * @param {String=} opts.acceptEncoding When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used.
+		 * @param {String} [opts.region=US] The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
+		 * @param {String=} opts.accepts Optional array of possible Accepts header
+		 * data is of type: {Object}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/signedresources-:id-GET/
+		 * @async
+		 * @returns {Promise<any>}
+		 * 
+		 * @deprecated
+		 */
+		this.getSignedResource = function (id, opts, oauth2client, credentials) {
+			opts = opts || {};
+			const postBody = null;
+
+			// verify the required parameter 'id' is set
+			if (!id)
+				return (Promise.reject("Missing the required parameter 'id' when calling getSignedResource"));
+
+			const pathParams = {
+				id,
+			};
+			const queryParams = {
+				region: opts.region || 'US'
+			};
+			const headerParams = {
+				Range: opts.range || opts.Range,
+				'If-None-Match': opts.ifNoneMatch || opts['If-None-Match'],
+				'If-Modified-Since': opts.ifModifiedSince || opts['If-Modified-Since'],
+				'Accept-Encoding': opts.acceptEncoding || opts['Accept-Encoding'],
+			};
+			const formParams = {};
+
+			const contentTypes = ['application/json'];
+			const accepts = opts.accepts || ['application/octet-stream'];
+			const returnType = Object;
+
+			return (this.apiClient.callApi(
+				'/oss/v2/signedresources/{id}', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			));
+		};
+
+		/**
+		 * Deletes an object from the bucket.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {String} objectKey object key (will be URL-encoded automatically)
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/signedresources-:id-DELETE/
+		 * @async
+		 * @returns {Promise<void>}
+		 */
+		this.deleteObject = function (bucketKey, objectKey, oauth2client, credentials) {
+			const postBody = null;
+
+			// verify the required parameter 'bucketKey' is set
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling deleteObject"));
+			// verify the required parameter 'objectKey' is set
+			if (!objectKey)
+				return (Promise.reject("Missing the required parameter 'objectKey' when calling deleteObject"));
+
+			const pathParams = {
+				bucketKey,
+				objectKey,
+			};
+			const queryParams = {};
+			const headerParams = {};
+			const formParams = {};
+
+			const contentTypes = ['application/json'];
+			const accepts = [];
+			const returnType = null;
+
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects/{objectKey}', 'DELETE',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			));
+		};
+
+		/**
+		 * Copies an object to another object name in the same bucket.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {String} objectKey object key (will be URL-encoded automatically)
+		 * @param {String} newObjectKey bject key to use as the destination (will be URL-encoded automatically)
+		 * data is of type: {module:model/ObjectDetails}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-copyto-:newObjectKey-PUT/
+		 * @async
+		 * @returns {Promise<ObjectDetails>}
+		 */
+		this.copyTo = function (bucketKey, objectKey, newObjectKey, oauth2client, credentials) {
+			const postBody = null;
+
+			// verify the required parameter 'bucketKey' is set
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling copyTo"));
+			// verify the required parameter 'objectKey' is set
+			if (!objectKey)
+				return (Promise.reject("Missing the required parameter 'objectKey' when calling copyTo"));
+			// verify the required parameter 'newObjName' is set
+			if (!newObjectKey)
+				return (Promise.reject("Missing the required parameter 'newObjectKey' when calling copyTo"));
+
+			const pathParams = {
+				bucketKey,
+				objectKey,
+				newObjectKey,
+			};
+			const queryParams = {};
+			const headerParams = {};
+			const formParams = {};
+
+			const contentTypes = ['application/json'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = ObjectDetails;
+
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects/{objectKey}/copyto/{newObjectKey}', 'PUT',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			));
+		};
+
+		/**
+		 * Delete a signed URL. A successful call to this endpoint requires bucket owner access.
+		 * @param {String} id Id of signed resource
+		 * @param {Object=} opts Optional parameters
+		 * @param {String=} [opts.region=US] The region where the bucket resides Acceptable values: `US`, `EMEA` Default is `US`  (default to US)
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-DELETE/
+		 * @async
+		 * @returns {Promise<void>}
+		 */
+		this.deleteSignedResource = function (id, opts, oauth2client, credentials) {
+			opts = opts || {};
+			const postBody = null;
+
+			// verify the required parameter 'id' is set
+			if (!id)
+				return (Promise.reject("Missing the required parameter 'id' when calling deleteSignedResource"));
+
+			const pathParams = {
+				id
+			};
+			const queryParams = {
+				region: opts.region || 'US'
+			};
+			const headerParams = {};
+			const formParams = {};
+
+			const contentTypes = ['application/json'];
+			const accepts = ['text/plain'];
+			const returnType = null;
+
+			return (this.apiClient.callApi(
+				'/oss/v2/signedresources/{id}', 'DELETE',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			));
+		};
+
+		// S3 direct access
+
+		/**
+		 * Returns a signed S3 URL.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {String} objectKey bucobjectket key (will be URL-encoded automatically)
+		 * @param {Object=} opts Optional parameters
+		 * @param {String=} opts.ifNoneMatch If the value of this header matches the ETag of the object, an entity will not be returned from the server; 
+		 * instead a 304 (not modified) response will be returned without any message-body.
+		 * @param {Date=} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, 
+		 * an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message-body.
+		 * @param {String=} opts.responseContentType Value of the Content-Type header that the client expects to receive. 
+		 * If this attribute is not provided, it defaults to the value corresponding to the object.
+		 * @param {String=} opts.responseContentDisposition Value of the Content Disposition header the client expects to receive. 
+		 * If this attribute is not provided, it defaults to the value corresponding to the object.
+		 * @param {String=} opts.responseCacheControl Value of the Cache-Control header that the client expects to receive. 
+		 * If this attribute is not provided, it defaults to the value corresponding to the object.
+		 * @param {Boolean=} opts.publicResourceFallback Allows fallback to OSS signed URLs in case of unmerged resumable uploads.
+		 * @param {Integer=2} opts.minutesExpiration The custom expiration time within the 1 to 60 minutes range, if not specified, default is 2 minutes.
+		 * data is of type: {module:model/ObjectS3Download}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3download-GET/
+		 * @async
+		 * @returns {Promise<ObjectS3Download>}
+		 */
+		this.getS3DownloadURL = function (bucketKey, objectKey, opts, oauth2client, credentials) {
+			opts = opts || {};
+			const postBody = null;
+
+			// verify the required parameter 'bucketKey' is set
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getS3Download"));
+			// verify the required parameter 'objectKey' is set
+			if (!objectKey)
+				return (Promise.reject("Missing the required parameter 'objectKey' when calling getS3Download"));
+
+			const pathParams = {
+				bucketKey,
+				objectKey,
+			};
+			const queryParams = {
+				'response-content-type': opts.responseContentType || opts['response-content-type'],
+				'response-content-disposition': opts.responseContentDisposition || opts['response-content-disposition'],
+				'response-cache-control': opts.responseCacheControl || opts['response-cache-control'],
+				'public-resource-fallback': opts.publicResourceFallback || opts['public-resource-fallback'],
+				minutesExpiration: opts.minutesExpiration || 2,
+			};
+			const headerParams = {
+				'If-None-Match': opts.ifNoneMatch || opts['If-None-Match'],
+				'If-Modified-Since': opts.ifModifiedSince || opts['If-Modified-Since'],
+			};
+			const formParams = {};
+
+			const contentTypes = ['application/json'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = ObjectS3Download;
+
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects/{objectKey}/signeds3download', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			));
+		};
+
+		/**
+		 * Gets one or more signed URLs to objects. The signed URLs can be used to download the objects directly from S3, skipping OSS servers.
+		 * Be aware that expiration time for the signed URL(s) is just 60 seconds. So, a request to the URL(s) must begin within 60 seconds; the transfer 
+		 * of the data can exceed 60 seconds.
+		 * A successful call to this endpoint requires bucket owner access.
+		 * Note that resumable uploads store each chunk individually. After upload completes, an async process merges all the chunks and creates the 
+		 * definitive OSS file. This async process can take time. If you request an S3 download URL before the async process completes, the response returns 
+		 * a map of S3 URLs, one per chunk where the key is the corresponding range bytes. In case you don’t want multiple URLs in the response, you can use 
+		 * OSS signed URL functionality , with the public-resource-fallback query parameter set to true.
+		 * Note: While this endpoint does not support range headers, the returned URL(s) can be used for ranged downloads. This way, downloads can be 
+		 * parallelized using multiple ranges for maximum speed.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {Object} body body parameter
+		 * @param {Object[]} body.requests An array of objects representing each request to get an S3 URL to download from.
+		 * @param {String} body.requests[].objectKey Object name to create a download S3 signed URL for
+		 * @param {String=} body.requests[].response-content-type Value of the Content-Type header that the client expects to receive. 
+		 * If this attribute is not provided, it defaults to the value corresponding to the object.
+		 * @param {String=} body.requests[].response-content-disposition Value of the Content Disposition header the client expects to receive. 
+		 * If this attribute is not provided, it defaults to the value corresponding to the object.
+		 * @param {String=} body.requests[].response-cache-control Value of the Cache-Control header that the client expects to receive. 
+		 * If this attribute is not provided, it defaults to the value corresponding to the object.
+		 * @param {String=} body.requests[].If-None-Match The value of this attribute is compared to the ETAG of the object. 
+		 * If they match, the response body will show the status of this item as “skipped” with the reason as “Not modified”.
+		 * @param {Date=} body.requests[].If-Modified-Since If the requested object has not been modified since the time specified in this attribute, 
+		 * the response body will show the status of this item as “skipped” with the reason as “Not modified”.
+		 * @param {Object=} opts Optional parameters
+		 * @param {Boolean=false } opts.publicResourceFallback (public-resource-fallback) Allows fallback to OSS signed URLs in case of unmerged resumable uploads.
+		 * @param {Boolean=false} opts.useCdn Will generate a CloudFront URL for the S3 object.
+		 * @param {Integer=2} opts.minutesExpiration The custom expiration time within the 1 to 60 minutes range, if not specified, default is 2 minutes.
+		 * data is of type: {Object.<module:model/ObjectS3Download>}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-batchsigneds3download-POST/
+		 * @async
+		 * @returns {Promise<any>}
+		 */
+		this.getS3DownloadURLs = function (bucketKey, body, opts, oauth2client, credentials) {
+			opts = opts || {};
+			const postBody = body;
+
+			// verify the required parameter 'bucketKey' is set
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getS3Downloads"));
+			// verify the required parameter 'body' is set
+			if (!body)
+				return (Promise.reject("Missing the required parameter 'body' when calling getS3Downloads"));
+			if (!body.requests || !Array.isArray(body.requests) || body.requests.length === 0)
+				return (Promise.reject("Missing the required parameter 'body.requests' when calling getS3Downloads"));
+			for (let i = 0; i < body.requests.length; i++) {
+				if (!body.requests[i].objectKey)
+					return (Promise.reject("Missing the required parameter 'body.requests[].objectKey' when calling getS3Downloads"));
+			}
+
+			const pathParams = {
+				bucketKey,
+			};
+			const queryParams = {
+				'public-resource-fallback': opts.publicResourceFallback || opts['public-resource-fallback'],
+				useCdn: opts.useCdn || false,
+				minutesExpiration: opts.minutesExpiration || 2,
+			};
+			const headerParams = {};
+			const formParams = {};
+
+			const contentTypes = ['application/json'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = Object;
+
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects/batchsigneds3download', 'POST',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			));
+		};
+
+		/**
+		 * Requests an S3 signed URL with which to upload an object, or an array of signed URLs with which to upload an object in multiple parts.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {String} objectKey object key (will be URL-encoded automatically)
+		 * @param {Object=} opts Optional parameters
+		 * @param {String=} opts.uploadKey Get a new set of signed urls if the ones that were generated before have already expired and the user 
+		 * still needs to upload some of them.
+		 * @param {Integer=} [opts.firstParts=1] For a multipart upload, is the starting index when getting upload part URL. 
+		 * If this parameter is not specified the default value is firstPart = 1. 
+		 * Example: To retrieve the parts from 10 to 15 you should pass firstPart = 10 and parts = 6, this will retrieve the parts 10, 11, 12, 13, 14 and 15.
+		 * @param {Integer=} [opts.parts=1] For a multipart upload, is the starting index when getting upload part URL. 
+		 * If this parameter is not specified the default value is firstPart = 1. 
+		 * Example: To retrieve the parts from 10 to 15 you should pass firstPart = 10 and parts = 6, this will retrieve the parts 10, 11, 12, 13, 14 and 15.
+		 * @param {Boolean=true} opts.useAcceleration Whether or not to generate an accelerated signed URL (ie: URLs of 
+		 * the form …s3-accelerate.amazonaws.com… vs …s3.amazonaws.com…).
+		 * When not specified, defaults to true. Providing non-boolean values will result in a 400 error.
+		 * @param {Integer=2} opts.minutesExpiration The custom expiration time within the 1 to 60 minutes range, if not specified, default is 2 minutes.
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-GET/
+		 * @async
+		 * @returns {Promise<any>}
+		 */
+		this.getS3UploadURL = function (bucketKey, objectKey, opts, oauth2client, credentials) {
+			opts = opts || {};
+			const postBody = null;
+
+			// verify the required parameter 'bucketKey' is set
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getS3Upload"));
+			// verify the required parameter 'objectKey' is set
+			if (!objectKey)
+				return (Promise.reject("Missing the required parameter 'objectKey' when calling getS3Upload"));
+
+			const pathParams = {
+				bucketKey,
+				objectKey,
+			};
+			const queryParams = {
+				uploadKey: opts.uploadKey,
+				firstPart: opts.firstPart || 1,
+				parts: opts.parts || 1,
+				useAcceleration: opts.useAcceleration,
+				minutesExpiration: opts.minutesExpiration || 2,
+			};
+			const headerParams = {};
+			const formParams = {};
+
+			const contentTypes = ['application/json'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = Object;
+
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects/{objectKey}/signeds3upload', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			));
+		};
+
+		/**
+		 * Instructs OSS to complete the object creation process after the bytes have been uploaded directly to S3.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {String} objectKey object key (will be URL-encoded automatically)
+		 * @param {Object} body 
+		 * @param {String} body.uploadKey The identifier of the upload session, which was provided by OSS in the response to the Get Upload URL/s request.
+		 * @param {Integer=} body.size The expected size of the uploaded object. If provided, OSS will check this against the blob in S3 and return 
+		 * an error if the size does not match.
+		 * @param {String[]=} body.eTags An array of eTags. S3 returns an eTag to each upload request, be it for a chunk or an entire file. 
+		 * For a single-part upload, this array contains the expected eTag of the entire object. For a multipart upload, this array contains the expected 
+		 * eTag of each part of the upload; the index of an eTag in the array corresponds to its part number in the upload. If provided, OSS will validate 
+		 * these eTags against the content in S3, and return an error if the eTags do not match (indicating some form of data corruption).
+		 * @param {Object=} opts Optional parameters
+		 * @param {Boolean=false} opts.useCdn Will generate a CloudFront URL for the S3 object.
+		 * @param {String=} opts.xAdsMetaContentType (x-ads-meta-Content-Type) The Content-Type value that OSS will store in the record for the uploaded object.
+		 * @param {String=} opts.xAdsMetaContentDisposition (x-ads-meta-Content-Disposition) The Content-Disposition value that OSS will store in the record for the uploaded object.
+		 * @param {String=} opts.xAdsMetaContentEncoding (x-ads-meta-Content-Encoding) The Content-Encoding value that OSS will store in the record for the uploaded object.
+		 * @param {String=} opts.xAdsMetaCacheControl (x-ads-meta-Cache-Control) The Cache-Control value that OSS will store in the record for the uploaded object.
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/
+		 * @async
+		 * @returns {Promise<any>}
+		 */
+		this.completeS3Upload = function (bucketKey, objectKey, body, opts, oauth2client, credentials) {
+			opts = opts || {};
+			const postBody = body;
+
+			// verify the required parameter 'bucketKey' is set
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling completeS3Upload"));
+			// verify the required parameter 'objectKey' is set
+			if (!objectKey)
+				return (Promise.reject("Missing the required parameter 'objectKey' when calling completeS3Upload"));
+
+			// verify the required parameter 'body' is set
+			if (!body)
+				return (Promise.reject("Missing the required parameter 'body' when calling completeS3Upload"));
+			if (!body.eTags && !Array.isArray(body.eTags) || body.eTags.length === 0)
+				return (Promise.reject("Invalid 'body.eTags' parameter when calling completeS3Upload"));
+			if (!body.uploadKey)
+				return (Promise.reject("Missing the required parameter 'body.uploadKey' when calling completeS3Upload"));
+
+			const pathParams = {
+				bucketKey,
+				objectKey,
+			};
+			const queryParams = {
+				useCdn: opts.useCdn || false,
+			};
+			const headerParams = {
+				'x-ads-meta-Content-Type': opts.xAdsMetaContentType || opts['x-ads-meta-Content-Type'],
+				'x-ads-meta-Content-Disposition': opts.xAdsMetaContentDisposition || opts['x-ads-meta-Content-Disposition'],
+				'x-ads-meta-Content-Encoding': opts.xAdsMetaContentEncoding || opts['x-ads-meta-Content-Encoding'],
+				'x-ads-meta-Cache-Control': opts.xAdsMetaCacheControl || opts['x-ads-meta-Cache-Control'],
+			};
+			const formParams = {};
+
+			const contentTypes = ['application/json'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = Object;
+
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects/{objectKey}/signeds3upload', 'POST',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			));
+		};
+
+		/**
+		 * Instructs OSS to complete the object creation process for numerous objects after their bytes have been uploaded directly to S3.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {Object} body body parameter
+		 * @param {Object[]} body.requests An array of objects representing each request to get an S3 URL to download from.
+		 * @param {String} body.requests[].objectKey The key/name of the object for which to complete an upload.
+		 * @param {String} body.requests[].uploadKey The identifier of the upload session, which was provided by OSS in the response to the Get Upload URL/s request.
+		 * @param {Integer=} body.requests[].size The expected size of the uploaded object. If provided, OSS will check this against the blob in S3 and return 
+		 * an error if the size does not match.
+		 * @param {String[]=} body.requests[].eTags An array of eTags. S3 returns an eTag to each upload request, be it for a chunk or an entire file. 
+		 * For a single-part upload, this array contains the expected eTag of the entire object. For a multipart upload, this array contains the expected 
+		 * eTag of each part of the upload; the index of an eTag in the array corresponds to its part number in the upload. If provided, OSS will validate 
+		 * these eTags against the content in S3, and return an error if the eTags do not match (indicating some form of data corruption).
+		 * @param {String=} body.requests[].xAdsMetaContentType (x-ads-meta-Content-Type) The Content-Type value that OSS will store in the record for the uploaded object.
+		 * @param {String=} body.requests[].xAdsMetaContentDisposition (x-ads-meta-Content-Disposition) The Content-Disposition value that OSS will store in the record for the uploaded object.
+		 * @param {String=} body.requests[].xAdsMetaContentEncoding (x-ads-meta-Content-Encoding) The Content-Encoding value that OSS will store in the record for the uploaded object.
+		 * @param {String=} body.requests[].xAdsMetaCacheControl (x-ads-meta-Cache-Control) The Cache-Control value that OSS will store in the record for the uploaded object.
+		 * @param {Object=} opts Optional parameters
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-batchcompleteupload-POST/
+		 * @async
+		 * @returns {Promise<any>}
+		 */
+		this.completeS3Uploads = function (bucketKey, body, opts, oauth2client, credentials) {
+			opts = opts || {};
+			const postBody = body;
+
+			// verify the required parameter 'bucketKey' is set
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling completeS3Upload"));
+			// verify the required parameter 'body' is set
+			if (!body)
+				return (Promise.reject("Missing the required parameter 'body' when calling completeS3Upload"));
+			if (!body.requests || !Array.isArray(body.requests) || body.requests.length === 0)
+				return (Promise.reject("Missing the required parameter 'body.requests' when calling completeS3Uploads"));
+			for (let i = 0; i < body.requests.length; i++) {
+				if (!body.requests[i].objectKey)
+					return (Promise.reject("Missing the required parameter 'body.requests[].objectKey' when calling completeS3Uploads"));
+				if (!body.requests[i].uploadKey)
+					return (Promise.reject("Missing the required parameter 'body.requests[].uploadKey' when calling completeS3Uploads"));
+				if (body.requests[i].eTags && (!Array.isArray(body.requests[i].eTags) || body.requests[i].eTags.length === 0))
+					return (Promise.reject("Invalid 'body.requests[i].eTags' parameter when calling completeS3Upload"));
+				body.requests[i]['x-ads-meta-Content-Type'] = body.requests[i]['x-ads-meta-Content-Type'] || body.requests[i].xAdsMetaContentType;
+				delete body.requests[i].xAdsMetaContentType;
+				body.requests[i]['x-ads-meta-Content-Disposition'] = body.requests[i]['x-ads-meta-Content-Disposition'] || body.requests[i].xAdsMetaContentDisposition;
+				delete body.requests[i].xAdsMetaContentDisposition;
+				body.requests[i]['x-ads-meta-Content-Encoding'] = body.requests[i]['x-ads-meta-Content-Encoding'] || body.requests[i].xAdsMetaContentEncoding;
+				delete body.requests[i].xAdsMetaContentEncoding;
+				body.requests[i]['x-ads-meta-Cache-Control'] = body.requests[i]['x-ads-meta-Cache-Control'] || body.requests[i].xAdsMetaCacheControl;
+				delete body.requests[i].xAdsMetaCacheControl;
+			}
+
+			const pathParams = {
+				bucketKey,
+			};
+			const queryParams = {};
+			const headerParams = {};
+			const formParams = {};
+
+			const contentTypes = ['application/json'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = Object;
+
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects/batchcompleteupload', 'POST',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			));
+		};
+
+		/**
+		 * Requests a batch of S3 signed URL with which to upload multiple objects or chunks of multiple objects.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {Object} body body parameter
+		 * @param {Object[]} body.requests An array of objects representing each request to get an S3 URL to download from.
+		 * @param {String} body.requests[].objectKey The key/name of the object for which to create an S3 upload URL. If neither the “part” nor “parts” 
+		 * attribute is provided, OSS will return a single upload URL with which to upload the entire object.
+		 * @param {String=} body.requests[].uploadKey Get a new set of signed urls if the ones that were generated before have already expired and the user 
+		 * still needs to upload some of them.
+		 * @param {Integer=} [body.requests[].firstParts=1] For a multipart upload, is the starting index when getting upload part URL. 
+		 * If this parameter is not specified the default value is firstPart = 1. 
+		 * Example: To retrieve the parts from 10 to 15 you should pass firstPart = 10 and parts = 6, this will retrieve the parts 10, 11, 12, 13, 14 and 15.
+		 * @param {Integer=} [body.requests[].parts=1] For a multipart upload, is the starting index when getting upload part URL. 
+		 * If this parameter is not specified the default value is firstPart = 1. 
+		 * Example: To retrieve the parts from 10 to 15 you should pass firstPart = 10 and parts = 6, this will retrieve the parts 10, 11, 12, 13, 14 and 15.
+		 * @param {Object=} opts Optional parameters
+		 * @param {Boolean=true} opts.useAcceleration Whether or not to generate an accelerated signed URL (ie: URLs of 
+		 * the form …s3-accelerate.amazonaws.com… vs …s3.amazonaws.com…).
+		 * When not specified, defaults to true. Providing non-boolean values will result in a 400 error.
+		 * @param {Integer=2} opts.minutesExpiration The custom expiration time within the 1 to 60 minutes range, if not specified, default is 2 minutes.
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-batchsigneds3upload-POST/
+		 * @async
+		 * @returns {Promise<any>}
+		 */
+		this.getS3UploadURLs = function (bucketKey, body, opts, oauth2client, credentials) {
+			opts = opts || {};
+			const postBody = body;
+
+			// verify the required parameter 'bucketKey' is set
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getS3Upload"));
+			// verify the required parameter 'body' is set
+			if (!body)
+				return (Promise.reject("Missing the required parameter 'body' when calling completeS3Upload"));
+			if (!body.requests || !Array.isArray(body.requests) || body.requests.length === 0)
+				return (Promise.reject("Missing the required parameter 'body.requests' when calling completeS3Uploads"));
+			for (let i = 0; i < body.requests.length; i++) {
+				if (!body.requests[i].objectKey)
+					return (Promise.reject("Missing the required parameter 'body.requests[].objectKey' when calling completeS3Uploads"));
+			}
+
+			const pathParams = {
+				bucketKey,
+			};
+			const queryParams = {
+				useAcceleration: opts.useAcceleration,
+				minutesExpiration: opts.minutesExpiration || 2,
+			};
+			const headerParams = {};
+			const formParams = {};
+
+			const contentTypes = ['application/json'];
+			const accepts = ['application/vnd.api+json', 'application/json'];
+			const returnType = Object;
+
+			return (this.apiClient.callApi(
+				'/oss/v2/buckets/{bucketKey}/objects/batchsigneds3upload', 'POST',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			));
 		};
 
 		// Workflow implementations
 
 		/**
+		 * Download a resource.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {Object|Object[]} objects Object or Object array of resource to uplaod with their parameters
+		 * @param {String} object[].objectKey object key
+		 * @param {String|Buffer|Stream} object[].saveTo Resource to upload (String | Stream)
+		 * If String, it is the expected response type (defaults to json) ['arraybuffer', 'document', 'json', 'text', 'stream']
+		 * If you provide a writable stream, the method will pipe content into it.
+		 * @param {Object=} opts Optional parameters
+		 * @param {Boolean=false} opts.publicResourceFallback Allows fallback to OSS signed URLs in case of unmerged resumable uploads.
+		 * @param {Boolean=false} opts.useCdn Will generate a CloudFront URL for the S3 object.
+		 * @param {Integer=2} opts.minutesExpiration The custom expiration time within the 1 to 60 minutes range, if not specified, default is 2 minutes.
+		 * @param {Integer=2} opts.onDownProgress (progressEvent) => {}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @async
+		 * @returns {Promise<any[]>}
+		 */
+		this.downloadResources = async function (bucketKey, objects, opts, auth2client, credentials) {
+			const _this = this;
+			opts = opts || {};
+
+			const isWritableStream = ApiClient.isWritableStream;
+
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling downloadResources"));
+			if (!objects)
+				return (Promise.reject("Missing the required parameter 'objects' when calling downloadResources"));
+			if (!Array.isArray(objects))
+				objects = [objects];
+			for (let i = 0; i < objects.length; i++) {
+				if (!objects[i].objectKey)
+					return (Promise.reject("Missing the required parameter 'objects[].objectKey' when calling downloadResources"));
+				if (objects[i].saveTo === undefined)
+					return (Promise.reject("Missing the required parameter 'objects[].saveTo' when calling downloadResources"));
+				if (objects[i].saveTo !== null && typeof objects[i].saveTo !== 'string' && !isWritableStream(objects[i].saveTo))
+					return (Promise.reject("Required parameter 'objects[].saveTo' is neither a string, Buffer, or Stream when calling downloadResources"));
+			}
+
+			const requestSize = async (bucketKey, objects) => {
+				try {
+					const requests = objects.map((entry) => ({ objectKey: entry.objectKey, }));
+					const downloadParams = await _this.getS3DownloadURLs(
+						bucketKey,
+						{ requests },
+						{ minutesExpiration: 1 },
+						auth2client, credentials
+					); // Automatically retries 429 and 500-599 responses
+
+					const size = Object.keys(downloadParams.body.results).map((objectKey) => {
+						return (downloadParams.body.results[objectKey].status === 'complete' ?
+							downloadParams.body.results[objectKey].size
+							: 0
+						);
+					}).reduce((total, len) => total + len, 0);
+					return (size);
+				} catch (ex) { }
+				return (0);
+			};
+
+			const requestURL = async (bucketKey, record) => {
+				try {
+					record.downloadParams = await _this.getS3DownloadURLs(
+						bucketKey,
+						{ requests: [{ objectKey: record.objectKey, }], },
+						opts,
+						auth2client, credentials
+					); // Automatically retries 429 and 500-599 responses
+					if (record.downloadParams.body.results[record.objectKey].status === 'complete')
+						record.downloadUrl = record.downloadParams.body.results[record.objectKey].url;
+					else
+						record.error = true;
+				} catch (ex) {
+					record.error = true;
+					record.downloads = ex;
+				}
+				return (record);
+			};
+
+			const pipeItAll = async (data, to) => {
+				return (new Promise((resolve, reject) => {
+					data.pipe(to);
+					let error = null;
+					to.on('error', (err) => {
+						error = err;
+						to.close();
+						reject(err);
+					});
+					to.on('close', () => {
+						if (!error)
+							resolve(true);
+						// no need to call the reject here, as it will have been called in the 'error' stream;
+					});
+				}));
+			};
+
+			const downloadData = async (record) => {
+				try {
+					if (record.error || !record.downloadUrl)
+						return;
+					const isStreamEntry = isWritableStream(record.saveTo);
+
+					// `responseType` indicates the type of data that the server will respond with
+					// options are: 'arraybuffer', 'document', 'json', 'text', 'stream' (default json)
+					// 'stream' with response.data.pipe(__fs.createWriteStream('...'))
+
+					let responseType = 'json'; // jshint ignore:line
+					if (isStreamEntry)
+						responseType = 'stream';
+					else if (typeof record.saveTo === 'string')
+						responseType = record.saveTo;
+
+					const headers = {}
+					Object.keys(record).map((key) => {
+						if (key.startsWith('response-'))
+							headers[key.substring(9)] = record[key];
+					});
+
+					record.download = await axios({
+						method: 'GET',
+						url: record.downloadUrl,
+						maxContentLength: Infinity,
+						maxBodyLength: Infinity,
+						headers,
+						responseType,
+
+						// onDownloadProgress: (progressEvent) => {
+						// 	let percentComplete = progressEvent.loaded / progressEvent.total
+						// 	percentComplete = parseInt(percentComplete * 100);
+						// 	console.log(percentComplete);
+						// },
+
+					});
+					if (isStreamEntry)
+						await pipeItAll(record.download.data, record.saveTo);
+					else
+						record.saveTo = record.download.data;
+					return (record.download);
+				} catch (err) {
+					record.error = true;
+					record.download = err;
+				}
+			};
+
+			const startTS = Date.now();
+			opts.onDownloadProgress && opts.onDownloadProgress({ progress: 0, elapsed: 0, }); // jshint ignore:line
+			const totalSize = await requestSize(bucketKey, objects);
+			let dataRead = 0;
+			for (let entry = 0; entry < objects.length; entry++) {
+				const record = objects[entry];
+				const isStreamTarget = isWritableStream(record.saveTo);
+
+				await requestURL(bucketKey, record);
+				await downloadData(record);
+
+				dataRead += record.downloadParams.body.results[record.objectKey].size || 0;
+				opts.onDownloadProgress && opts.onDownloadProgress({
+					progress: dataRead / totalSize,
+					elapsed: Date.now() - startTS,
+					objectKey: record.objectKey,
+					[record.objectKey]: 1,
+					record,
+				}); // jshint ignore:line
+			}
+			opts.onDownloadProgress && opts.onDownloadProgress({
+				progress: 1,
+				elapsed: Date.now() - startTS,
+			}); // jshint ignore:line
+			return (objects);
+		};
+
+		/**
+		 * Upload a resource. If the specified object name already exists in the bucket, the uploaded content will overwrite the existing content for the bucket name/object name combination.
+		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
+		 * @param {Object|Object[]} objects Object or Object array of resource to uplaod with their parameters
+		 * @param {String} object[].objectKey object key
+		 * @param {String|Buffer|Stream} object[].fileOrContent Resource to upload (String| Buffer | Stream)
+		 * @param {String[]=} object[].eTags An array of eTags. S3 returns an eTag to each upload request, be it for a chunk or an entire file. 
+		 * For a single-part upload, this array contains the expected eTag of the entire object. For a multipart upload, this array contains the expected 
+		 * eTag of each part of the upload; the index of an eTag in the array corresponds to its part number in the upload. If provided, OSS will validate 
+		 * these eTags against the content in S3, and return an error if the eTags do not match (indicating some form of data corruption).
+		 * @param {String=} object[].xAdsMetaContentType (x-ads-meta-Content-Type) The Content-Type value that OSS will store in the record for the uploaded object.
+		 * @param {String=} object[].xAdsMetaContentDisposition (x-ads-meta-Content-Disposition) The Content-Disposition value that OSS will store in the record for the uploaded object.
+		 * @param {String=} object[].xAdsMetaContentEncoding (x-ads-meta-Content-Encoding) The Content-Encoding value that OSS will store in the record for the uploaded object.
+		 * @param {String=} object[].xAdsMetaCacheControl (x-ads-meta-Cache-Control) The Cache-Control value that OSS will store in the record for the uploaded object.
+		 * @param {Object=} opts Optional parameters
+		 * @param {Integer=5} chunkSize Chunk size in Mb. Should not be below 5Mb.
+		 * @param {Integer=25} maxBatches Maximum batch to produces. Should not be above 25 or below 1.
+		 * @param {Boolean=true} opts.useAcceleration Whether or not to generate an accelerated signed URL (ie: URLs of 
+		 * the form …s3-accelerate.amazonaws.com… vs …s3.amazonaws.com…).
+		 * When not specified, defaults to true. Providing non-boolean values will result in a 400 error.
+		 * @param {Integer=2} opts.minutesExpiration The custom expiration time within the 1 to 60 minutes range, if not specified, default is 2 minutes.
+		 * @param {Integer=2} opts.onUploadProgress (progressEvent) => {}
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 * @async
+		 * @returns {Promise<any[]>}
+		 */
+		this.uploadResources = async function (bucketKey, objects, opts, auth2client, credentials) {
+			const _this = this;
+			opts = opts || {};
+
+			const isReadableStream = ApiClient.isReadableStream;
+
+			if (!bucketKey)
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling uploadResources"));
+			if (!objects)
+				return (Promise.reject("Missing the required parameter 'objects' when calling uploadResources"));
+			if (!Array.isArray(objects))
+				objects = [objects];
+			for (let i = 0; i < objects.length; i++) {
+				if (!objects[i].objectKey)
+					return (Promise.reject("Missing the required parameter 'objects[].objectKey' when calling uploadResources"));
+				if (!objects[i].fileOrContent)
+					return (Promise.reject("Missing the required parameter 'objects[].fileOrContent' when calling uploadResources"));
+				if (typeof objects[i].fileOrContent !== 'string' && !Buffer.isBuffer(objects[i].fileOrContent) && !isReadableStream(objects[i].fileOrContent))
+					return (Promise.reject("Required parameter 'objects[].fileOrContent' is neither a string, Buffer, or Stream when calling uploadResources"));
+			}
+			if (opts && opts.chunkSize && opts.chunkSize < 5)
+				return (Promise.reject("Required parameter 'opts.chunkSize' should be >= 5 when calling uploadResources"));
+			if (opts && opts.maxBatches && (opts.maxBatches < 1 || opts.maxBatches > 25))
+				return (Promise.reject("Required parameter 'opts.maxBatches' should be >= 1 and <= 25 when calling uploadResources"));
+
+			const requestURLs = async (bucketKey, record, firstParts, parts) => {
+				try {
+					const uploadParams = await _this.getS3UploadURLs(
+						bucketKey,
+						{ requests: [{ objectKey: record.objectKey, uploadKey: record.uploadKey, firstParts, parts, }], },
+						opts,
+						auth2client, credentials
+					); // Automatically retries 429 and 500-599 responses
+					record.uploadUrls = uploadParams.body.results[record.objectKey].urls.slice();
+					record.uploadKey = uploadParams.body.results[record.objectKey].uploadKey;
+				} catch (ex) {
+					record.error = true;
+					record.uploads = ex;
+				}
+				return (record);
+			};
+
+			const completeObjects = async (bucketKey, record) => {
+				try {
+					record.completedResponse = await _this.completeS3Uploads(
+						bucketKey,
+						{
+							requests: [
+								{
+									objectKey: record.objectKey,
+									uploadKey: record.uploadKey,
+									'Content-Type': (record.contentType || record['Content-Type']),
+									eTags: record.eTags,
+									'x-ads-meta-Content-Type': record.xAdsMetaContentType || record['x-ads-meta-Content-Type'],
+									'x-ads-meta-Content-Disposition': record.xAdsMetaContentDisposition || record['x-ads-meta-Content-Disposition'],
+									'x-ads-meta-Content-Encoding': record.xAdsMetaContentEncoding || record['x-ads-meta-Content-Encoding'],
+									'x-ads-meta-Cache-Control': record.xAdsMetaCacheControl || record['x-ads-meta-Cache-Control'],
+								},
+							],
+						},
+						opts,
+						auth2client, credentials
+					);
+					//console.log(record.completed);
+					delete record.uploadUrls;
+					record.completed = record.completedResponse.body.results[record.objectKey];
+					if (record.completed.status === 'error')
+						record.error = true;
+				} catch (ex) {
+					record.error = true;
+					record.completed = ex;
+				}
+				return (record);
+			};
+
+			const uploadData = async (url, record) => {
+				try {
+					// `responseType` indicates the type of data that the server will respond with
+					// options are: 'arraybuffer', 'document', 'json', 'text', 'stream' (default json)
+
+					const res = await axios({
+						method: 'PUT',
+						url,
+						maxContentLength: Infinity,
+						maxBodyLength: Infinity,
+						data: record.chunk,
+
+						// onUploadProgress: (progressEvent) => {
+						// 	let percentComplete = progressEvent.loaded / progressEvent.total;
+						// 	percentComplete = parseInt(percentComplete * 100);
+						// 	console.log(percentComplete);
+						// },
+
+						// transformRequest: [(data, headers) => { return (data); }],
+
+					});
+					return (res);
+				} catch (err) {
+					const status = err.response && err.response.status;
+					if (status === 403) {
+						_this.apiClient.debug('Got 403, refreshing upload URLs');
+						record.uploadUrls = []; // Couldn't this cause an infinite loop? (i.e., could the server keep responding with 403 indefinitely?)
+					} else {
+						throw err;
+					}
+				}
+				return (false);
+			};
+
+			async function* bufferChunks (input, minChunkSize) { // jshint ignore:line
+				const buffer = Buffer.alloc(2 * minChunkSize);
+				let bytesRead = 0;
+				for await (const chunk of input) {
+					chunk.copy(buffer, bytesRead);
+					bytesRead += chunk.byteLength;
+					if (bytesRead >= minChunkSize) {
+						yield buffer.slice(0, bytesRead);
+						bytesRead = 0;
+					}
+				}
+				if (bytesRead > 0)
+					yield buffer.slice(0, bytesRead);
+			}
+
+			const processChunk = async (bucketKey, record, partsUploaded, totalParts, MaxBatches) => {
+				while (true) {
+					_this.apiClient.debug('Uploading part', bucketKey, record.objectKey, partsUploaded + 1, '/', totalParts);
+					if (!record.uploadUrls || record.uploadUrls.length === 0)
+						await requestURLs(bucketKey, record, partsUploaded + 1, Math.min(totalParts - partsUploaded, MaxBatches));
+
+					const url = record.uploadUrls.shift();
+					const res = await uploadData(url, record);
+					if (res)
+						break;
+				}
+			};
+
+			const startTS = Date.now();
+			const totalSize = objects
+				.map((record) => record.length || record.fileOrContent.length || record.fileOrContent.byteLength)
+				.reduce((total, len) => total + len, 0);
+			let dataSent = 0;
+			const ChunkSize = opts.chunkSize ? opts.chunkSize << 20 : 5 << 20;
+			const MaxBatches = opts.maxBatches || 25;
+			opts.onUploadProgress && opts.onUploadProgress({ progress: 0, elapsed: 0, }); // jshint ignore:line
+			for (let entry = 0; entry < objects.length; entry++) {
+				const record = objects[entry];
+				const isStreamEntry = isReadableStream(record.fileOrContent);
+				if (isStreamEntry && !record.length)
+					throw new Error('Missing parameter length for a stream object');
+				const totalParts = Math.ceil((record.length || record.fileOrContent.length || record.fileOrContent.byteLength) / ChunkSize);
+				let partsUploaded = 0;
+				if (isStreamEntry) {
+					for await (const chunk of bufferChunks(record.fileOrContent, ChunkSize)) {
+						record.chunk = chunk;
+						await processChunk(bucketKey, record, partsUploaded, totalParts, MaxBatches);
+						dataSent += record.chunk.length;
+						delete record.chunk;
+						_this.apiClient.debug('Part successfully uploaded', partsUploaded + 1);
+						partsUploaded++;
+						opts.onUploadProgress && opts.onUploadProgress({
+							progress: dataSent / totalSize,
+							elapsed: Date.now() - startTS,
+							objectKey: record.objectKey,
+							[record.objectKey]: partsUploaded / totalParts,
+							record,
+						}); // jshint ignore:line
+					}
+				} else {
+					while (partsUploaded < totalParts) {
+						//record.chunk = record.fileOrContent;
+						record.chunk = record.fileOrContent.slice(
+							partsUploaded * ChunkSize,
+							Math.min((partsUploaded + 1) * ChunkSize, record.fileOrContent.byteLength || record.fileOrContent.length)
+						);
+						await processChunk(bucketKey, record, partsUploaded, totalParts, MaxBatches);
+						dataSent += (record.chunk.length || record.chunk.byteLength);
+						delete record.chunk;
+						_this.apiClient.debug('Part successfully uploaded', partsUploaded + 1);
+						partsUploaded++;
+						opts.onUploadProgress && opts.onUploadProgress({
+							progress: dataSent / totalSize,
+							elapsed: Date.now() - startTS,
+							objectKey: record.objectKey,
+							[record.objectKey]: partsUploaded / totalParts,
+							record,
+						}); // jshint ignore:line
+					}
+				}
+				_this.apiClient.debug('Completing parts upload');
+				await completeObjects(bucketKey, record);
+			}
+			opts.onUploadProgress && opts.onUploadProgress({
+				progress: 1,
+				elapsed: Date.now() - startTS,
+			}); // jshint ignore:line
+			return (objects);
+		};
+
+		/**
 		 * Calc SHA1
 		 * @param {String|Buffer|Stream} strorbuffer Content to calc SHA1 for
 		 * @async
-		 * @returns {string}
+		 * @returns {Promise<String>}
 		 */
-		this.calculateSHA1 = function (strorbuffer) {
+		this.calculateSHA1 = function (strorbufferorstream) {
 			return (new Promise((fulfill, reject) => {
-				var shasum = crypto.createHash('sha1');
-				if (strorbuffer.readable) { // this is a stream
-					strorbuffer.on('end', () => {
+				const shasum = crypto.createHash('sha1');
+				if (ApiClient.isReadableStream(strorbufferorstream) || ApiClient.isWritableStream(strorbufferorstream)) { // this is a stream
+					const tmp = __fs.createReadStream(strorbufferorstream.path);
+					tmp.on('end', () => {
 						//shasum.end(); .read();
 						fulfill(shasum.digest('hex'));
 					});
-					strorbuffer.pipe(shasum);
+					tmp.pipe(shasum);
 					return;
 				}
-				shasum.update(strorbuffer);
+				shasum.update(strorbufferorstream);
 				fulfill(shasum.digest('hex'));
 			}));
 		};

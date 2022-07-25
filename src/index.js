@@ -21,11 +21,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*jshint esversion: 9 */
 
 module.exports = (function () {
 	'use strict';
 
-	var ApiClient = require('./ApiClient'),
+	const ApiClient = require('./ApiClient'),
 		BadInput = require('./model/BadInput'),
 		BaseAttributesCreatedUpdated = require('./model/BaseAttributesCreatedUpdated'),
 		BaseAttributesCreatedUpdatedAttributes = require('./model/BaseAttributesCreatedUpdatedAttributes'),
@@ -179,7 +180,7 @@ module.exports = (function () {
 		VersionsApi = require('./api/VersionsApi'),
 		WebhooksApi = require('./api/WebhooksApi'),
 		TokensApi = require('./api/TokensApi'),
-    IssuesApi = require('./api/IssuesApi'),
+		IssuesApi = require('./api/IssuesApi'),
 		authClientTwoLegged = require('./auth/OAuth2TwoLegged'),
 		authClientThreeLegged = require('./auth/OAuth2ThreeLegged');
 
@@ -189,12 +190,12 @@ module.exports = (function () {
 	 * <p>
 	 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
 	 * <pre>
-	 * var ForgeSdk = require('index'); // See note below*.
-	 * var xxxSvc = new ForgeSdk.XxxApi(); // Allocate the API class we're going to use.
-	 * var yyyModel = new ForgeSdk.Yyy(); // Construct a model instance.
+	 * const ForgeSdk = require('index'); // See note below*.
+	 * const xxxSvc = new ForgeSdk.XxxApi(); // Allocate the API class we're going to use.
+	 * const yyyModel = new ForgeSdk.Yyy(); // Construct a model instance.
 	 * yyyModel.someProperty = 'someValue';
 	 * ...
-	 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
+	 * const zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
 	 * ...
 	 * </pre>
 	 * <em>*NOTE: For a top-level AMD script, use require(['index'], function(){...})
@@ -203,17 +204,17 @@ module.exports = (function () {
 	 * <p>
 	 * A non-AMD browser application (discouraged) might do something like this:
 	 * <pre>
-	 * var xxxSvc = new ForgeSdk.XxxApi(); // Allocate the API class we're going to use.
-	 * var yyy = new ForgeSdk.Yyy(); // Construct a model instance.
+	 * const xxxSvc = new ForgeSdk.XxxApi(); // Allocate the API class we're going to use.
+	 * const yyy = new ForgeSdk.Yyy(); // Construct a model instance.
 	 * yyyModel.someProperty = 'someValue';
 	 * ...
-	 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
+	 * const zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
 	 * ...
 	 * </pre>
 	 * </p>
 	 * @module index
 	 */
-	var exports = {
+	const exports = {
 		/**
 		 * The ApiClient constructor.
 		 * @property {module:ApiClient}
@@ -984,10 +985,10 @@ module.exports = (function () {
 		 * @property {module:api/TokensApi}
 		 */
 		TokensApi: TokensApi,
-    /**
-		 * The IssuesApi service constructor.
-		 * @property {module:api/IssuesApi}
-		 */
+		/**
+			 * The IssuesApi service constructor.
+			 * @property {module:api/IssuesApi}
+			 */
 		IssuesApi: IssuesApi,
 		/**
 		 * The AuthClient service constructor for 2-legged flow.

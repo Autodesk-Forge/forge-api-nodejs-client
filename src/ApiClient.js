@@ -21,11 +21,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*jshint esversion: 9 */
 
 module.exports = (function () {
 	'use strict';
 
-	var superagent = require('superagent');
+	const axios = require('axios');
 
 	/**
 	 * @module ApiClient
@@ -38,15 +39,14 @@ module.exports = (function () {
 	 * @alias module:ApiClient
 	 * @class
 	 */
-	var exports = function (basepath) {
+	const exports = function (basepath) {
 		/**
 		 * The base URL against which to resolve every API call's (relative) path.
 		 * @type {String}
 		 * @default https://developer.api.autodesk.com
 		 */
-		this.basePath = 'https://developer.api.autodesk.com'.replace(/\/+$/, '');
-		if ( basepath !== undefined )
-			this.basePath = basepath.replace(/\/+$/, '');
+		this.basePath = (basepath || 'https://developer.api.autodesk.com').replace(/\/+$/, '');
+
 
 		/**
 		 * The default HTTP headers to be included for all API calls.
@@ -91,21 +91,16 @@ module.exports = (function () {
 	 * @returns {String} The encoded path with parameter values substituted.
 	 */
 	exports.prototype.buildUrl = function (path, pathParams) {
-		if (!path.match(/^\//)) {
+		const _this = this;
+		if (!path.match(/^\//))
 			path = '/' + path;
-		}
-		var url = this.basePath + path;
-		var _this = this;
-		url = url.replace(/\{([\w-]+)}/g, function (fullMatch, key) {
-			var value;
-			if (pathParams.hasOwnProperty(key)) {
+		let url = (this.basePath + path).replace(/\{([\w-]+)}/g, function (fullMatch, key) {
+			let value = fullMatch;
+			if (pathParams.hasOwnProperty(key))
 				value = _this.paramToString(pathParams[key]);
-			} else {
-				value = fullMatch;
-			}
-			return encodeURIComponent(value);
+			return (encodeURIComponent(value));
 		});
-		return url;
+		return (url);
 	};
 
 	/**
@@ -129,12 +124,11 @@ module.exports = (function () {
 	 * @returns {String} The chosen content type, preferring JSON.
 	 */
 	exports.prototype.jsonPreferredMime = function (contentTypes) {
-		for (var i = 0; i < contentTypes.length; i++) {
-			if (this.isJsonMime(contentTypes[i])) {
+		for (let i = 0; i < contentTypes.length; i++) {
+			if (this.isJsonMime(contentTypes[i]))
 				return contentTypes[i];
-			}
 		}
-		return contentTypes[0];
+		return (contentTypes[0]);
 	};
 
 	/**
@@ -143,7 +137,7 @@ module.exports = (function () {
 	 * @returns {Boolean} <code>true</code> if <code>param</code> represents a file.
 	 */
 	exports.prototype.isFileParam = function (param) {
-		var type = typeof param;
+		const type = typeof param;
 		if ((type === 'number') || (type === 'boolean') || (type === 'string') || (type === 'undefined')) {
 			return false;
 		}
@@ -161,10 +155,10 @@ module.exports = (function () {
 	 * @returns {Object.<String, Object>} normalized parameters.
 	 */
 	exports.prototype.normalizeParams = function (params) {
-		var newParams = {};
-		for (var key in params) {
+		const newParams = {};
+		for (const key in params) {
 			if (params.hasOwnProperty(key) && params[key] !== undefined && params[key] !== null) {
-				var value = params[key];
+				const value = params[key];
 				if (this.isFileParam(value) || Array.isArray(value)) {
 					newParams[key] = value;
 				} else {
@@ -238,14 +232,14 @@ module.exports = (function () {
 
 	/**
 	 * Applies authentication header to the request.
-	 * @param {Object} requestParams - The requestParams object created by a <code>superagent()</code> call.
+	 * @param {Object} requestParams - The requestParams object created by a <code>axios()</code> call.
 	 * @param {Object} headers - The headers that passed to this method
 	 * @param {Object} oauth2client - OAuth2 client that has a credentials object
 	 * @param {Object} credentials - The credentials object
 	 */
 	exports.prototype.applyAuthToRequest = function (requestParams, headers, oauth2client, credentials) {
 
-		var _this = this;
+		const _this = this;
 
 		function setAuthHeader(credentials) {
 			if (credentials && credentials.access_token) {
@@ -254,24 +248,17 @@ module.exports = (function () {
 		}
 
 		return new Promise(function (resolve, reject) {
-			//if the request doesn't require authentication, just resolve the promise
-			if (!credentials || (credentials && !credentials.access_token)) {
-				resolve();
-			}
+			// if the request doesn't require authentication, just resolve the promise
+			if (!credentials || (credentials && !credentials.access_token))
+				return(resolve());
 
 			// let's see if the token is already expired?
 			// be careful access tokens are validated once teh query was received by the server, not when emitted
 			// for this reason, we need to aknowledge the time to upload payload/file/etc... (300 == 5min)
 			if (oauth2client && oauth2client.autoRefresh && new Date(credentials.expires_at).getTime() - 300000 <= Date.now()) {
-
 				// set the correct promiseObj, for 2 or 3 legged token
-				var isCredentialsTypeTwoLegged = true;
-
-				if (credentials.refresh_token) {
-					isCredentialsTypeTwoLegged = false;
-				}
-
-				var getCredentialsPromise = isCredentialsTypeTwoLegged ?
+				let isCredentialsTypeTwoLegged = credentials.refresh_token === undefined;
+				const getCredentialsPromise = isCredentialsTypeTwoLegged ?
 					oauth2client.authenticate() // 2-legged: create a new credentials object
 					:
 					oauth2client.refreshToken(credentials); // 3-legged: use refresh
@@ -302,15 +289,37 @@ module.exports = (function () {
 	 */
 	exports.prototype.debug = function debug() {
 		if (this.isDebugMode) {
-			var args = Array.prototype.slice.call(arguments);
-			args.map(function (arg) {
-				if (typeof arg === 'string') {
-					console.log(arg + ': ');
-				} else {
-					console.log(arg);
-				}
-			});
+			const args = Array.prototype.slice.call(arguments);
+			console.log(...args);
 		}
+	};
+
+	exports.prototype.warn = function warn () {
+		if (this.isDebugMode) {
+			const args = Array.prototype.slice.call(arguments);
+			console.warn(args);
+		}
+	};
+
+	exports.prototype.error = function error () {
+		if (this.isDebugMode) {
+			const args = Array.prototype.slice.call(arguments);
+			console.error(['\x1b[31mError:', ...args, '\x1b[0m']);
+		}
+	};
+
+	/**
+	 * Is this obj a readable stream
+	 */
+	exports.isReadableStream = function (obj) {
+		return (obj && typeof obj.pipe === 'function' && typeof obj._read === 'function' && typeof obj._readableState === 'object');
+	};
+
+	/**
+	 * Is this obj a writable stream
+	 */
+	exports.isWritableStream = function (obj) {
+		return (obj && typeof obj.pipe === 'function' && typeof obj._write === 'function' && typeof obj._writableState === 'object');
 	};
 
 	/**
@@ -335,18 +344,17 @@ module.exports = (function () {
 		returnType, oauth2client, credentials
 	) {
 
-		var _this = this;
-		var requestParams = {};
+		const _this = this;
+		const requestParams = {};
 		requestParams.uri = this.buildUrl(path, pathParams);
 		requestParams.method = httpMethod;
-		var headers = {};
+		const headers = {};
 		requestParams.qs = this.normalizeParams(queryParams);
 		requestParams.timeout = this.timeout;
 
-		var contentType = this.jsonPreferredMime(contentTypes);
-		if (contentType) {
+		const contentType = this.jsonPreferredMime(contentTypes);
+		if (contentType)
 			headers['Content-Type'] = contentType;
-		}
 
 		if (contentType === 'application/x-www-form-urlencoded') {
 			requestParams.form = this.normalizeParams(formParams);
@@ -354,23 +362,21 @@ module.exports = (function () {
 			requestParams.formData = this.normalizeParams(formParams);
 		} else if (bodyParam) {
 			requestParams.body = bodyParam;
-			if (this.isJsonMime(contentType)) {
+			if (this.isJsonMime(contentType))
 				requestParams.json = true;
-			}
 		}
 
 		if (accepts.length > 0) {
 			headers['Accept'] = accepts.join(','); // jshint ignore:line
-			for (var i = 0; i < accepts.length; i++) {
-				if (accepts[i] === 'application/octet-stream') {
+			for (let i = 0; i < accepts.length; i++) {
+				if (accepts[i] === 'application/octet-stream')
 					requestParams.encoding = null;
-				}
 			}
 		}
-		if (headerParams['Accept-Encoding'] === 'gzip, deflate') {
+		if (headerParams['Accept-Encoding'] === 'gzip, deflate')
 			requestParams.encoding = null;
-		}
-		_this.debug('superagent params were', requestParams);
+		headerParams['User-Agent'] = 'forge-apis/0.9.1';
+		_this.debug('request params were', requestParams);
 
 		return new Promise(function (resolve, reject) {
 			_this.applyAuthToRequest(requestParams, headers, oauth2client, credentials).then(function () {
@@ -385,29 +391,35 @@ module.exports = (function () {
 				requestParams.headers && Object.keys(requestParams.headers).map((key) => {
 					if (requestParams.headers[key] === undefined)
 						delete requestParams.headers[key];
-				});
+				}); // jshint ignore:line
 
-				superagent (requestParams.method, requestParams.uri)
-					.set(requestParams.headers)
-					.send(requestParams.body)
-					.query(requestParams.qs || {})
-					.buffer(true)
+				axios({
+					method: requestParams.method,
+					url: requestParams.uri,
+					headers: requestParams.headers,
+					params: requestParams.qs || {},
+					maxContentLength: Infinity,
+					maxBodyLength: Infinity,
+					data: requestParams.body,
+				})
 					.then((response) => {
 						if (response.statusCode >= 400) {
 							_this.debug('error response', {
-								statusCode: response.statusCode,
-								statusMessage: response.statusMessage
+								statusCode: response.status || response.statusCode,
+								statusMessage: response.statusText || response.statusMessage,
+								headers: response.headers,
 							});
 							reject({
-								statusCode: response.statusCode,
-								statusMessage: response.statusMessage,
-								statusBody: response.body
+								statusCode: response.status || response.statusCode,
+								statusMessage: response.statusText || response.statusMessage,
+								headers: response.headers,
+								statusBody: response.data,
 							});
 						} else {
 							resolve({
-								statusCode: response.statusCode,
+								statusCode: response.status || response.statusCode,
 								headers: response.headers,
-								body: response.body
+								body: response.data,
 							});
 						}
 					})
@@ -460,33 +472,39 @@ module.exports = (function () {
 					return type.constructFromObject(data);
 				} else if (Array.isArray(type)) {
 					// for array type like: ['String']
-					var itemType = type[0];
+					const itemType = type[0];
 					return data.map(function (item) {
 						return exports.convertToType(item, itemType);
 					});
 				} else if (typeof type === 'object') {
 					// for plain object type like: {'String': 'Integer'}
-					var keyType, valueType;
-					for (var k in type) {
+					let keyType, valueType;
+					for (const k in type) {
 						if (type.hasOwnProperty(k)) {
 							keyType = k;
 							valueType = type[k];
 							break;
 						}
 					}
-					var result = {};
-					for (var j in data) {
+					const result = {};
+					for (const j in data) {
 						if (data.hasOwnProperty(j)) {
-							var key = exports.convertToType(j, keyType);
+							const key = exports.convertToType(j, keyType);
 							result[key] = exports.convertToType(data[j], valueType);
 						}
 					}
-					return result;
+					return (result);
 				} else {
 					// for unknown type, return the data directly
-					return data;
+					return (data);
 				}
 		}
+	};
+
+	exports.version = '0.9.1';
+
+	exports.userAgentHeaders = {
+		'User-Agent': `forge-apis/${exports.version} nodejs api wrappers library`,
 	};
 
 	/**

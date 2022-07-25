@@ -21,33 +21,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*jshint esversion: 9 */
 
 module.export = (function () {
 	'use strict';
 
-	var expect = require('expect.js'),
-		sinon = require('sinon'),
-		ForgeSdk = require('../../src'),
-		instance,
-		oauth2client,
-		credentials,
-		mockedApiClientRequest,
-		ApiClient = require('../../src/ApiClient'),
-		BucketObjects = require('../../src/model/BucketObjects'),
-		ObjectDetails = require('../../src/model/ObjectDetails'),
-		ObjectFullDetails = require('../../src/model/ObjectFullDetails'),
-		ObjectS3Download = require('../../src/model/ObjectS3Download'),
-		PostBucketsSigned = require('../../src/model/PostBucketsSigned'),
-		PostObjectSigned = require('../../src/model/PostObjectSigned'),
-		Reason = require('../../src/model/Reason'),
-		Result = require('../../src/model/Result');
+	const expect = require('expect.js');
+	const sinon = require('sinon');
+	const ForgeSdk = require('../../src');
+	const ApiClient = require('../../src/ApiClient');
+	const BucketObjects = require('../../src/model/BucketObjects');
+	const ObjectDetails = require('../../src/model/ObjectDetails');
+	const ObjectFullDetails = require('../../src/model/ObjectFullDetails');
+	const ObjectS3Download = require('../../src/model/ObjectS3Download');
+	const PostBucketsSigned = require('../../src/model/PostBucketsSigned');
+	const PostObjectSigned = require('../../src/model/PostObjectSigned');
+	const Reason = require('../../src/model/Reason');
+	const Result = require('../../src/model/Result');
 
-	var sampleStrParam = 'test_string';
-	var sampleIntParam = 10;
-	var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
-	var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
+	let instance;
+	let oauth2client;
+	let credentials;
+	let mockedApiClientRequest;
 
-	var apiClient = new ApiClient();
+	const sampleStrParam = 'test_string';
+	const sampleIntParam = 10;
+	const FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
+	const FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
+
+	const apiClient = new ApiClient();
 	apiClient.defaultHeaders = { 'x-ads-test': sampleStrParam };
 
 	before(function () {
@@ -63,31 +65,39 @@ module.export = (function () {
 		apiClient.callApi.restore();
 	});
 
-
 	describe('ObjectsApi', function () {
-		describe('copyTo', function () {
-			it('should call copyTo successfully', function (done) {
-				var postBody = null;
-
-				var pathParams = {
-					'bucketKey': sampleStrParam,
-					'objectName': sampleStrParam,
-					'newObjName': sampleStrParam
+		describe('uploadObject', function () {
+			it('should call uploadObject successfully', function (done) {
+				const opts = {
+					contentDisposition: 'application/octet-stream',
+					ifMatch: sampleStrParam,
+					xAdsContentSha1: sampleStrParam,
 				};
-				var queryParams = {};
-				var headerParams = {};
-				var formParams = {};
+				const postBody = sampleStrParam;
 
-				var contentTypes = ['application/json'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = ObjectDetails;
+				const pathParams = {
+					bucketKey: sampleStrParam,
+					objectKey: sampleStrParam
+				};
+				const queryParams = {};
+				const headerParams = {
+					'Content-Length': sampleIntParam,
+					'Content-Disposition': opts.contentDisposition,
+					'If-Match': opts.ifMatch,
+					'x-ads-content-sha1': opts.xAdsContentSha1,
+				};
+				const formParams = {};
 
-				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectName}/copyto/{newObjName}', 'PUT',
+				const contentTypes = ['application/octet-stream'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = ObjectDetails;
+
+				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectKey}', 'PUT',
 					pathParams, queryParams, headerParams, formParams, postBody,
 					contentTypes, accepts, returnType, oauth2client, credentials
 				).returns(Promise.resolve('Success result'));
 
-				instance.copyTo(sampleStrParam, sampleStrParam, sampleStrParam, oauth2client, credentials)
+				instance.uploadObject(sampleStrParam, sampleStrParam, sampleIntParam, sampleStrParam, opts, oauth2client, credentials)
 					.then(function (response) {
 						expect(response).to.be.ok();
 						done();
@@ -96,31 +106,39 @@ module.export = (function () {
 					});
 			});
 		});
-		describe('createSignedResource', function () {
-			it('should call createSignedResource successfully', function (done) {
-				var opts = {};
-				var postBody = sampleStrParam;
-
-				var pathParams = {
-					'bucketKey': sampleStrParam,
-					'objectName': sampleStrParam
+		describe('uploadChunk', function () {
+			it('should call uploadChunk successfully', function (done) {
+				const opts = {
+					contentDisposition: 'application/octet-stream',
+					contentType: 'application/octet-stream',
+					xAdsChunkSha1: sampleStrParam,
 				};
-				var queryParams = {
-					'access': opts.access
+				const postBody = sampleStrParam;
+
+				const pathParams = {
+					bucketKey: sampleStrParam,
+					objectKey: sampleStrParam
 				};
-				var headerParams = {};
-				var formParams = {};
+				const queryParams = {};
+				const headerParams = {
+					'Content-Length': sampleIntParam,
+					'Content-Range': sampleStrParam,
+					'Content-Disposition': opts.contentDisposition,
+					'x-ads-chunk-sha1': opts.xAdsChunkSha1,
+					'Session-Id': sampleStrParam
+				};
+				const formParams = {};
 
-				var contentTypes = ['application/json'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = PostObjectSigned;
+				const contentTypes = opts.contentType || ['application/octet-stream'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = ObjectDetails;
 
-				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectName}/signed', 'POST',
+				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectKey}/resumable', 'PUT',
 					pathParams, queryParams, headerParams, formParams, postBody,
 					contentTypes, accepts, returnType, oauth2client, credentials
 				).returns(Promise.resolve('Success result'));
 
-				instance.createSignedResource(sampleStrParam, sampleStrParam, sampleStrParam, opts, oauth2client, credentials)
+				instance.uploadChunk(sampleStrParam, sampleStrParam, sampleIntParam, sampleStrParam, sampleStrParam, sampleStrParam, opts, oauth2client, credentials)
 					.then(function (response) {
 						expect(response).to.be.ok();
 						done();
@@ -129,134 +147,30 @@ module.export = (function () {
 					});
 			});
 		});
-		describe('deleteObject', function () {
-			it('should call deleteObject successfully', function (done) {
-				var postBody = null;
+		describe('getStatusBySessionId', function () {
+			it('should call getStatusBySessionId successfully', function (done) {
 
-				var pathParams = {
-					'bucketKey': sampleStrParam,
-					'objectName': sampleStrParam
+				const postBody = null;
+
+				const pathParams = {
+					bucketKey: sampleStrParam,
+					objectKey: sampleStrParam,
+					sessionId: sampleStrParam
 				};
-				var queryParams = {};
-				var headerParams = {};
-				var formParams = {};
+				const queryParams = {};
+				const headerParams = {};
+				const formParams = {};
 
-				var contentTypes = ['application/json'];
-				var accepts = [];
-				var returnType = null;
+				const contentTypes = ['application/json'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = null;
 
-				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'DELETE',
+				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectKey}/status/{sessionId}', 'GET',
 					pathParams, queryParams, headerParams, formParams, postBody,
 					contentTypes, accepts, returnType, oauth2client, credentials
 				).returns(Promise.resolve('Success result'));
 
-				instance.deleteObject(sampleStrParam, sampleStrParam, oauth2client, credentials)
-					.then(function (response) {
-						expect(response).to.be.ok();
-						done();
-					}, function (err) {
-						done(err);
-					});
-			});
-		});
-		describe('deleteSignedResource', function () {
-			it('should call deleteSignedResource successfully', function (done) {
-				var opts = {
-					region: 'US'
-				};
-
-				var postBody = null;
-
-				var pathParams = {
-					'id': sampleStrParam
-				};
-				var queryParams = {
-					'region': opts.region
-				};
-				var headerParams = {};
-				var formParams = {};
-
-				var contentTypes = ['application/json'];
-				var accepts = ['text/plain'];
-				var returnType = null;
-
-				mockedApiClientRequest.withArgs('/oss/v2/signedresources/{id}', 'DELETE',
-					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials
-				).returns(Promise.resolve('Success result'));
-
-				instance.deleteSignedResource(sampleStrParam, opts, oauth2client, credentials)
-					.then(function (response) {
-						expect(response).to.be.ok();
-						done();
-					}, function (err) {
-						done(err);
-					});
-			});
-		});
-		describe('getObject', function () {
-			it('should call getObject successfully', function (done) {
-				var opts = {};
-				var postBody = null;
-
-				var pathParams = {
-					'bucketKey': sampleStrParam,
-					'objectName': sampleStrParam
-				};
-				var queryParams = {};
-				var headerParams = {
-					'Range': opts.range,
-					'If-None-Match': opts.ifNoneMatch,
-					'If-Modified-Since': opts.ifModifiedSince,
-					'Accept-Encoding': opts.acceptEncoding
-				};
-				var formParams = {};
-
-				var contentTypes = ['application/json'];
-				var accepts = ['application/octet-stream'];
-				var returnType = Object;
-
-				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'GET',
-					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials
-				).returns(Promise.resolve('Success result'));
-
-				instance.getObject(sampleStrParam, sampleStrParam, opts, oauth2client, credentials)
-					.then(function (response) {
-						expect(response).to.be.ok();
-						done();
-					}, function (err) {
-						done(err);
-					});
-			});
-		});
-		describe('getObjectDetails', function () {
-			it('should call getObjectDetails successfully', function (done) {
-				var opts = {};
-				var postBody = null;
-
-				var pathParams = {
-					'bucketKey': sampleStrParam,
-					'objectName': sampleStrParam
-				};
-				var queryParams = {
-					'with': opts._with
-				};
-				var headerParams = {
-					'If-Modified-Since': opts.ifModifiedSince
-				};
-				var formParams = {};
-
-				var contentTypes = ['application/json'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = ObjectFullDetails;
-
-				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectName}/details', 'GET',
-					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials
-				).returns(Promise.resolve('Success result'));
-
-				instance.getObjectDetails(sampleStrParam, sampleStrParam, opts, oauth2client, credentials)
+				instance.getStatusBySessionId(sampleStrParam, sampleStrParam, sampleStrParam, oauth2client, credentials)
 					.then(function (response) {
 						expect(response).to.be.ok();
 						done();
@@ -267,23 +181,23 @@ module.export = (function () {
 		});
 		describe('getObjects', function () {
 			it('should call getObjects successfully', function (done) {
-				var opts = {};
-				var postBody = null;
+				const opts = {};
+				const postBody = null;
 
-				var pathParams = {
-					'bucketKey': sampleStrParam
+				const pathParams = {
+					bucketKey: sampleStrParam,
 				};
-				var queryParams = {
-					'limit': opts.limit,
-					'beginsWith': opts.beginsWith,
-					'startAt': opts.startAt
+				const queryParams = {
+					limit: opts.limit,
+					beginsWith: opts.beginsWith,
+					startAt: opts.startAt,
 				};
-				var headerParams = {};
-				var formParams = {};
+				const headerParams = {};
+				const formParams = {};
 
-				var contentTypes = ['application/json'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = BucketObjects;
+				const contentTypes = ['application/json'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = BucketObjects;
 
 				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects', 'GET',
 					pathParams, queryParams, headerParams, formParams, postBody,
@@ -299,42 +213,69 @@ module.export = (function () {
 					});
 			});
 		});
-		describe('getSignedResource', function () {
-			it('should call getSignedResource successfully', function (done) {
-				var opts = {
-					region: 'US',
-					range: sampleStrParam,
-					ifNoneMatch: sampleStrParam,
-					ifModifiedSince: sampleStrParam,
-					acceptEncoding: sampleStrParam
-				};
+		describe('getObjectDetails', function () {
+			it('should call getObjectDetails successfully', function (done) {
+				const opts = {};
+				const postBody = null;
 
-				var postBody = null;
+				const pathParams = {
+					bucketKey: sampleStrParam,
+					objectKey: sampleStrParam,
+				};
+				const queryParams = {
+					with: opts.with,
+				};
+				const headerParams = {
+					'If-Modified-Since': opts.ifModifiedSince,
+				};
+				const formParams = {};
 
-				var pathParams = {
-					'id': sampleStrParam
+				const contentTypes = ['application/json'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = ObjectFullDetails;
+
+				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectKey}/details', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
+
+				instance.getObjectDetails(sampleStrParam, sampleStrParam, opts, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
+			});
+		});
+		describe('getObject', function () {
+			it('should call getObject successfully', function (done) {
+				const opts = {};
+				const postBody = null;
+
+				const pathParams = {
+					bucketKey: sampleStrParam,
+					objectKey: sampleStrParam,
 				};
-				var queryParams = {
-					region: opts.region
-				};
-				var headerParams = {
-					'Range': opts.range,
+				const queryParams = {};
+				const headerParams = {
+					Range: opts.range,
 					'If-None-Match': opts.ifNoneMatch,
 					'If-Modified-Since': opts.ifModifiedSince,
-					'Accept-Encoding': opts.acceptEncoding
+					'Accept-Encoding': opts.acceptEncoding,
 				};
-				var formParams = {};
+				const formParams = {};
 
-				var contentTypes = ['application/json'];
-				var accepts = ['application/octet-stream'];
-				var returnType = Object;
+				const contentTypes = ['application/json'];
+				const accepts = ['application/octet-stream'];
+				const returnType = Object;
 
-				mockedApiClientRequest.withArgs('/oss/v2/signedresources/{id}', 'GET',
+				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectKey}', 'GET',
 					pathParams, queryParams, headerParams, formParams, postBody,
 					contentTypes, accepts, returnType, oauth2client, credentials
 				).returns(Promise.resolve('Success result'));
 
-				instance.getSignedResource(sampleStrParam, opts, oauth2client, credentials)
+				instance.getObject(sampleStrParam, sampleStrParam, opts, oauth2client, credentials)
 					.then(function (response) {
 						expect(response).to.be.ok();
 						done();
@@ -343,111 +284,35 @@ module.export = (function () {
 					});
 			});
 		});
-		describe('getStatusBySessionId', function () {
-			it('should call getStatusBySessionId successfully', function (done) {
-
-				var postBody = null;
-
-				var pathParams = {
-					'bucketKey': sampleStrParam,
-					'objectName': sampleStrParam,
-					'sessionId': sampleStrParam
+		describe('createSignedResource', function () {
+			it('should call createSignedResource successfully', function (done) {
+				const opts = {
+					access: 'read',
+					useCdn: true,
 				};
-				var queryParams = {};
-				var headerParams = {};
-				var formParams = {};
+				const postBody = {};
 
-				var contentTypes = ['application/json'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = null;
+				const pathParams = {
+					bucketKey: sampleStrParam,
+					objectKey: sampleStrParam,
+				};
+				const queryParams = {
+					access: opts.access,
+					useCdn: opts.useCdn,
+				};
+				const headerParams = {};
+				const formParams = {};
 
-				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectName}/status/{sessionId}', 'GET',
+				const contentTypes = ['application/json'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = PostObjectSigned;
+
+				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectKey}/signed', 'POST',
 					pathParams, queryParams, headerParams, formParams, postBody,
 					contentTypes, accepts, returnType, oauth2client, credentials
 				).returns(Promise.resolve('Success result'));
 
-				instance.getStatusBySessionId(sampleStrParam, sampleStrParam, sampleStrParam, oauth2client, credentials)
-					.then(function (response) {
-						expect(response).to.be.ok();
-						done();
-					}, function (err) {
-						done(err);
-					});
-			});
-		});
-		describe('uploadChunk', function () {
-			it('should call uploadChunk successfully', function (done) {
-				var opts = {
-					contentDisposition: 'application/octet-stream',
-					contentType: 'application/octet-stream',
-					xAdsChunkSha1: sampleStrParam,
-				};
-				var postBody = sampleStrParam;
-
-				var pathParams = {
-					'bucketKey': sampleStrParam,
-					'objectName': sampleStrParam
-				};
-				var queryParams = {};
-				var headerParams = {
-					'Content-Length': sampleIntParam,
-					'Content-Range': sampleStrParam,
-					'Content-Disposition': opts.contentDisposition,
-					'x-ads-chunk-sha1': opts.xAdsChunkSha1,
-					'Session-Id': sampleStrParam
-				};
-				var formParams = {};
-
-				var contentTypes = opts.contentType || ['application/octet-stream'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = ObjectDetails;
-
-				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectName}/resumable', 'PUT',
-					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials
-				).returns(Promise.resolve('Success result'));
-
-				instance.uploadChunk(sampleStrParam, sampleStrParam, sampleIntParam, sampleStrParam, sampleStrParam, sampleStrParam, opts, oauth2client, credentials)
-					.then(function (response) {
-						expect(response).to.be.ok();
-						done();
-					}, function (err) {
-						done(err);
-					});
-			});
-		});
-		describe('uploadObject', function () {
-			it('should call uploadObject successfully', function (done) {
-				var opts = {
-					contentDisposition: 'application/octet-stream',
-					ifMatch: sampleStrParam,
-					xAdsContentSha1: sampleStrParam,
-				};
-				var postBody = sampleStrParam;
-
-				var pathParams = {
-					'bucketKey': sampleStrParam,
-					'objectName': sampleStrParam
-				};
-				var queryParams = {};
-				var headerParams = {
-					'Content-Length': sampleIntParam,
-					'Content-Disposition': opts.contentDisposition,
-					'If-Match': opts.ifMatch,
-					'x-ads-content-sha1': opts.xAdsContentSha1,
-				};
-				var formParams = {};
-
-				var contentTypes = ['application/octet-stream'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = ObjectDetails;
-
-				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectName}', 'PUT',
-					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials
-				).returns(Promise.resolve('Success result'));
-
-				instance.uploadObject(sampleStrParam, sampleStrParam, sampleIntParam, sampleStrParam, opts, oauth2client, credentials)
+				instance.createSignedResource(pathParams.bucketKey, pathParams.objectKey, postBody, opts, oauth2client, credentials)
 					.then(function (response) {
 						expect(response).to.be.ok();
 						done();
@@ -458,30 +323,31 @@ module.export = (function () {
 		});
 		describe('uploadSignedResource', function () {
 			it('should call uploadSignedResource successfully', function (done) {
-				var opts = {
-					xAdsRegion: 'US',
+				const opts = {
+					contentLength: sampleIntParam,
 					contentDisposition: 'application/octet-stream',
+					xAdsRegion: 'US',
 					ifMatch: sampleStrParam,
 					xAdsContentSha1: sampleStrParam
 				};
-				var postBody = sampleStrParam;
+				const postBody = sampleStrParam;
 
-				var pathParams = {
+				const pathParams = {
 					'id': sampleStrParam
 				};
-				var queryParams = {};
-				var headerParams = {
-					'Content-Length': sampleIntParam,
+				const queryParams = {};
+				const headerParams = {
+					'Content-Length': opts.contentLength,
 					'Content-Disposition': opts.contentDisposition,
 					'x-ads-region': opts.xAdsRegion,
 					'If-Match': opts.ifMatch,
 					'x-ads-content-sha1': opts.xAdsContentSha1,
 				};
-				var formParams = {};
+				const formParams = {};
 
-				var contentTypes = ['application/octet-stream'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = ObjectDetails;
+				const contentTypes = ['application/octet-stream'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = ObjectDetails;
 
 				mockedApiClientRequest.withArgs('/oss/v2/signedresources/{id}', 'PUT',
 					pathParams, queryParams, headerParams, formParams, postBody,
@@ -499,38 +365,39 @@ module.export = (function () {
 		});
 		describe('uploadSignedResourcesChunk', function () {
 			it('should call uploadSignedResourcesChunk successfully', function (done) {
-				var opts = {
+				const opts = {
+					contentRange: sampleStrParam,
 					xAdsRegion: 'US',
 					contentDisposition: 'application/octet-stream',
 					ifMatch: sampleStrParam,
-					xAdsChunkSha1: sampleStrParam
+					xAdsChunkSha1: sampleStrParam,
 				};
 
-				var postBody = sampleStrParam;
+				const postBody = sampleStrParam;
 
-				var pathParams = {
-					'id': sampleStrParam
+				const pathParams = {
+					id: sampleStrParam,
 				};
-				var queryParams = {};
-				var headerParams = {
-					'Content-Range': sampleStrParam,
+				const queryParams = {};
+				const headerParams = {
+					'Content-Range': opts.contentRange,
 					'Content-Disposition': opts.contentDisposition,
 					'x-ads-region': opts.xAdsRegion,
 					'x-ads-chunk-sha1': opts.xAdsChunkSha1,
-					'Session-Id': sampleStrParam
+					'Session-Id': sampleStrParam,
 				};
-				var formParams = {};
+				const formParams = {};
 
-				var contentTypes = ['application/octet-stream'];
-				var accepts = ['application/vnd.api+json', 'application/json'];
-				var returnType = ObjectDetails;
+				const contentTypes = ['application/octet-stream'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = ObjectDetails;
 
 				mockedApiClientRequest.withArgs('/oss/v2/signedresources/{id}/resumable', 'PUT',
 					pathParams, queryParams, headerParams, formParams, postBody,
 					contentTypes, accepts, returnType, oauth2client, credentials
 				).returns(Promise.resolve('Success result'));
 
-				instance.uploadSignedResourcesChunk(pathParams.id, headerParams['Content-Range'], headerParams['Session-Id'], postBody, opts, oauth2client, credentials)
+				instance.uploadSignedResourcesChunk(pathParams.id, opts.contentRange, headerParams['Session-Id'], postBody, opts, oauth2client, credentials)
 					.then(function (response) {
 						expect(response).to.be.ok();
 						done();
@@ -539,6 +406,408 @@ module.export = (function () {
 					});
 			});
 		});
+		describe('getSignedResource', function () {
+			it('should call getSignedResource successfully', function (done) {
+				const opts = {
+					region: 'US',
+					range: sampleStrParam,
+					ifNoneMatch: sampleStrParam,
+					ifModifiedSince: sampleStrParam,
+					acceptEncoding: sampleStrParam
+				};
+
+				const postBody = null;
+
+				const pathParams = {
+					id: sampleStrParam,
+				};
+				const queryParams = {
+					region: opts.region,
+				};
+				const headerParams = {
+					Range: opts.range,
+					'If-None-Match': opts.ifNoneMatch,
+					'If-Modified-Since': opts.ifModifiedSince,
+					'Accept-Encoding': opts.acceptEncoding,
+				};
+				const formParams = {};
+
+				const contentTypes = ['application/json'];
+				const accepts = ['application/octet-stream'];
+				const returnType = Object;
+
+				mockedApiClientRequest.withArgs('/oss/v2/signedresources/{id}', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
+
+				instance.getSignedResource(sampleStrParam, opts, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
+			});
+		});
+		describe('deleteObject', function () {
+			it('should call deleteObject successfully', function (done) {
+				const postBody = null;
+
+				const pathParams = {
+					bucketKey: sampleStrParam,
+					objectKey: sampleStrParam,
+				};
+				const queryParams = {};
+				const headerParams = {};
+				const formParams = {};
+
+				const contentTypes = ['application/json'];
+				const accepts = [];
+				const returnType = null;
+
+				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectKey}', 'DELETE',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
+
+				instance.deleteObject(sampleStrParam, sampleStrParam, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
+			});
+		});
+		describe('copyTo', function () {
+			it('should call copyTo successfully', function (done) {
+				const postBody = null;
+
+				const pathParams = {
+					bucketKey: sampleStrParam,
+					objectKey: sampleStrParam,
+					newObjectKey: sampleStrParam,
+				};
+				const queryParams = {};
+				const headerParams = {};
+				const formParams = {};
+
+				const contentTypes = ['application/json'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = ObjectDetails;
+
+				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectKey}/copyto/{newObjectKey}', 'PUT',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
+
+				instance.copyTo(pathParams.bucketKey, pathParams.objectKey, pathParams.newObjectKey, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
+			});
+		});
+		describe('deleteSignedResource', function () {
+			it('should call deleteSignedResource successfully', function (done) {
+				const opts = {
+					region: 'US'
+				};
+
+				const postBody = null;
+
+				const pathParams = {
+					id: sampleStrParam,
+				};
+				const queryParams = {
+					region: opts.region,
+				};
+				const headerParams = {};
+				const formParams = {};
+
+				const contentTypes = ['application/json'];
+				const accepts = ['text/plain'];
+				const returnType = null;
+
+				mockedApiClientRequest.withArgs('/oss/v2/signedresources/{id}', 'DELETE',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
+
+				instance.deleteSignedResource(sampleStrParam, opts, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
+			});
+		});
+
+		// S3 direct access
+
+		describe('getS3DownloadURL', function () {
+			it('should call getS3DownloadURL successfully', function (done) {
+				const opts = {
+					responseContentType: sampleStrParam,
+					responseContentDisposition: sampleStrParam,
+					responseCacheControl: sampleStrParam,
+					publicResourceFallback: sampleStrParam,
+					minutesExpiration: sampleIntParam,
+
+					ifNoneMatch: sampleStrParam,
+					ifModifiedSince: sampleStrParam,
+				};
+				const postBody = null;
+
+				const pathParams = {
+					bucketKey: sampleStrParam,
+					objectKey: sampleStrParam,
+				};
+				const queryParams = {
+					'response-content-type': opts.responseContentType,
+					'response-content-disposition': opts.responseContentDisposition,
+					'response-cache-control': opts.responseCacheControl,
+					'public-resource-fallback': opts.publicResourceFallback,
+					minutesExpiration: opts.minutesExpiration,
+				};
+				const headerParams = {
+					'If-None-Match': opts.ifNoneMatch,
+					'If-Modified-Since': opts.ifModifiedSince,
+				};
+				const formParams = {};
+
+				const contentTypes = ['application/json'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = ObjectS3Download;
+
+				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectKey}/signeds3download', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
+
+				instance.getS3DownloadURL(sampleStrParam, sampleStrParam, opts, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
+			});
+		});
+		describe('getS3DownloadURLs', function () {
+			it('should call getS3DownloadURLs successfully', function (done) {
+				const opts = {
+					useCdn: true,
+					publicResourceFallback: sampleStrParam,
+					minutesExpiration: sampleIntParam,
+				};
+				const postBody = {
+					requests: [
+						{ objectKey: sampleStrParam, },
+					],
+				};
+
+				const pathParams = {
+					bucketKey: sampleStrParam,
+				};
+				const queryParams = {
+					useCdn: opts.useCdn,
+					'public-resource-fallback': opts.publicResourceFallback,
+					minutesExpiration: opts.minutesExpiration,
+				};
+				const headerParams = {};
+				const formParams = {};
+
+				const contentTypes = ['application/json'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = Object;
+
+				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/batchsigneds3download', 'POST',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
+
+				instance.getS3DownloadURLs(pathParams.bucketKey, postBody, opts, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
+			});
+		});
+		describe('getS3UploadURL', function () {
+			it('should call getS3UploadURL successfully', function (done) {
+				const opts = {
+					uploadKey: sampleStrParam,
+					firstPart: sampleIntParam,
+					parts: sampleIntParam,
+					useAcceleration: true,
+					minutesExpiration: sampleIntParam,
+				};
+				const postBody = null;
+
+				const pathParams = {
+					bucketKey: sampleStrParam,
+					objectKey: sampleStrParam,
+				};
+				const queryParams = {
+					uploadKey: opts.uploadKey,
+					firstPart: opts.firstPart,
+					parts: opts.parts,
+					useAcceleration: opts.useAcceleration,
+					minutesExpiration: opts.minutesExpiration,
+				};
+				const headerParams = {};
+				const formParams = {};
+
+				const contentTypes = ['application/json'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = Object;
+
+				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectKey}/signeds3upload', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
+
+				instance.getS3UploadURL(pathParams.bucketKey, pathParams.objectKey, opts, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
+			});
+		});
+		describe('completeS3Upload', function () {
+			it('should call completeS3Upload successfully', function (done) {
+				const opts = {
+					useCdn: true,
+
+					xAdsMetaContentType: sampleStrParam,
+					xAdsMetaContentDisposition: sampleStrParam,
+					xAdsMetaContentEncoding: sampleStrParam,
+					xAdsMetaCacheControl: sampleStrParam,
+				};
+				const postBody = {
+					uploadKey: sampleStrParam,
+					eTags: [sampleStrParam,],
+				};
+
+				const pathParams = {
+					bucketKey: sampleStrParam,
+					objectKey: sampleStrParam,
+				};
+				const queryParams = {
+					useCdn: opts.useCdn,
+				};
+				const headerParams = {
+					'x-ads-meta-Content-Type': opts.xAdsMetaContentType,
+					'x-ads-meta-Content-Disposition': opts.xAdsMetaContentDisposition,
+					'x-ads-meta-Content-Encoding': opts.xAdsMetaContentEncoding,
+					'x-ads-meta-Cache-Control': opts.xAdsMetaCacheControl,
+				};
+				const formParams = {};
+
+				const contentTypes = ['application/json'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = Object;
+
+				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectKey}/signeds3upload', 'POST',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
+
+				instance.completeS3Upload(pathParams.bucketKey, pathParams.objectKey, postBody, opts, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
+			});
+		});
+		describe('completeS3Uploads', function () {
+			it('should call completeS3Uploads successfully', function (done) {
+				const opts = {
+				};
+				const postBody = {
+					requests: [{
+						objectKey: sampleStrParam,
+						uploadKey: sampleStrParam,
+					}],
+				};
+
+				const pathParams = {
+					bucketKey: sampleStrParam,
+				};
+				const queryParams = {};
+				const headerParams = {};
+				const formParams = {};
+
+				const contentTypes = ['application/json'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = Object;
+
+				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/batchcompleteupload', 'POST',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
+
+				instance.completeS3Uploads(pathParams.bucketKey, postBody, opts, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
+			});
+		});
+		describe('getS3UploadURLs', function () {
+			it('should call getS3UploadURLs successfully', function (done) {
+				const opts = {
+					useAcceleration: true,
+					minutesExpiration: sampleIntParam,
+				};
+				const postBody = {
+					requests: [
+						{ objectKey: sampleStrParam, },
+					],
+				};
+
+				const pathParams = {
+					bucketKey: sampleStrParam,
+				};
+				const queryParams = {
+					useAcceleration: opts.useAcceleration,
+					minutesExpiration: opts.minutesExpiration,
+				};
+				const headerParams = {};
+				const formParams = {};
+
+				const contentTypes = ['application/json'];
+				const accepts = ['application/vnd.api+json', 'application/json'];
+				const returnType = Object;
+
+				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/batchsigneds3upload', 'POST',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
+
+				instance.getS3UploadURLs(pathParams.bucketKey, postBody, opts, oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
+			});
+		});
+
 	});
 
 }());

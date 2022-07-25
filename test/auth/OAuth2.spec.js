@@ -21,13 +21,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*jshint esversion: 9 */
 
 module.exports = (function() {
     'use strict';
 
     var expect = require('expect.js'),
         sinon = require('sinon'),
-        superagent = require('superagent'),
         OAuth2 = require('../../src/auth/OAuth2'),
         OAuth2TwoLegged = require('../../src/auth/OAuth2TwoLegged'),
         OAuth2ThreeLegged = require('../../src/auth/OAuth2ThreeLegged'),
@@ -100,7 +100,7 @@ module.exports = (function() {
                     });
 
                 oauth2client2legged.doPostRequest(urlBasePath + '/foo', {}, function(response){
-                    expect(response).to.be.an('object');
+                    expect(response).to.be.an('string');
                     done();
                 }, function(err){
                     done(err);

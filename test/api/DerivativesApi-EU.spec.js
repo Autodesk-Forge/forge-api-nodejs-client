@@ -21,6 +21,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*jshint esversion: 9 */
 
 module.export = (function () {
 	'use strict';
@@ -162,7 +163,8 @@ module.export = (function () {
 				};
 				var queryParams = {
 					'width': opts.width,
-					'height': opts.height
+					'height': opts.height,
+					'guid': opts.guid
 				};
 				var headerParams = {};
 				var formParams = {};

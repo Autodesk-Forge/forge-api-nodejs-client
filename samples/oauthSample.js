@@ -19,7 +19,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-
 /*jshint esversion: 9 */
 
 const ForgeSDK = require('./../src/index');
@@ -43,7 +42,7 @@ const oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_
 (async () => {
 	try {
 		let credentials = await oAuth2TwoLegged.authenticate();
-		console.log("**** Got Credentials", credentials);
+		console.log("**** Got Credentials", JSON.stringify(credentials, null, 4));
 	} catch (ex) {
 		console.error('\x1b[31m Error:', ex, '\x1b[0m');
 	}

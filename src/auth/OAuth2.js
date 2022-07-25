@@ -21,12 +21,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*jshint esversion: 9 */
 
 module.exports = (function () {
 	'use strict';
 
-	var superagent = require('superagent');
-	var ApiClient = require('../ApiClient').instance;
+	//var rax = require('retry-axios');
+	var axios = require('axios');
+	const jwksClient = require('jwks-rsa');
+	const jwt = require('jsonwebtoken');
+	var ApiClient = require('../ApiClient');
 
 	/**
 	 * Construct the scope string
@@ -60,7 +64,8 @@ module.exports = (function () {
 	 */
 	var doPostRequest = function (url, params, callbackSuccess, callbackError) {
 		var headers = {
-			'Content-Type': 'application/x-www-form-urlencoded'
+			...ApiClient.userAgentHeaders,
+			'Content-Type': 'application/x-www-form-urlencoded',
 		};
 
 		var paramsBody = [];
@@ -70,10 +75,44 @@ module.exports = (function () {
 			}
 		}
 
-		superagent
-			.post(url)
-			.set(headers)
-			.send(paramsBody.join('&'))
+		axios({
+			method: 'POST',
+			url,
+			headers,
+			data: paramsBody.join('&'),
+		})
+			.then((res) => callbackSuccess(res.data))
+			.catch((err) => callbackError(err));
+	};
+
+	/**
+	 * A general POST request
+	 * @param url
+	 * @param params
+	 * @param headers
+	 * @param callbackSuccess
+	 * @param callbackError
+	 */
+	const doPostRequestWithHeaders = function (url, params, headers, callbackSuccess, callbackError) {
+		headers = headers || {};
+		headers = {
+			...headers,
+			...ApiClient.userAgentHeaders,
+			'Content-Type': 'application/x-www-form-urlencoded',
+		};
+
+		let paramsBody = [];
+		for (let key in params) {
+			if (params.hasOwnProperty(key))
+				paramsBody.push(key + '=' + params[key]);
+		}
+
+		axios({
+			method: 'POST',
+			url,
+			headers,
+			data: paramsBody.join('&'),
+		})
 			.then((res) => callbackSuccess(res.body))
 			.catch((err) => callbackError(err));
 	};
@@ -88,7 +127,7 @@ module.exports = (function () {
 	 * @alias module:auth/OAuth2
 	 */
 	var OAuth2 = function (clientId, clientSecret, scope, autoRefresh, apiClient) {
-		ApiClient = apiClient || require('../ApiClient').instance;
+		const _ApiClient = apiClient || require('../ApiClient').instance;
 
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
@@ -97,7 +136,7 @@ module.exports = (function () {
 		this.autoRefresh = autoRefresh || false; // don't auto refresh by default
 
 		//set the base path for the auth endpoints
-		this.basePath = ApiClient.basePath;
+		this.basePath = _ApiClient.basePath;
 
 		// Implement a sort of interface in JS
 		if (!this.hasMember('authentication')) {
@@ -114,6 +153,49 @@ module.exports = (function () {
 	};
 
 	OAuth2.prototype.doPostRequest = doPostRequest;
+	OAuth2.prototype.doPostRequestWithHeaders = doPostRequestWithHeaders;
+
+	const BasicAuthorization = function (clientId, clientSecret) {
+		let basic = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
+		return (`Basic ${basic}`);
+	};
+	OAuth2.prototype.BasicAuthorization = BasicAuthorization;
+
+	const verifyToken = function (token) {
+		const _this = this;
+		return (new Promise((resolve, reject) => {
+			//console.debug('Verifying JWT token');
+			const well_known_jwks_url = `${this.basePath}/authentication/v2/keys`;
+			const decoded = jwt.decode(token, { complete: true });
+			const verifyOptions = {
+				algorithms: ['RS256'],
+				header: decoded.header
+			};
+			const client = jwksClient({ jwksUri: well_known_jwks_url });
+
+			const getKey = (header, callback) => {
+				client.getSigningKey(header.kid, (err, key) => {
+					const signingKey = key.publicKey || key.rsaPublicKey;
+					//console.log(`signingKey ${signingKey}`);
+					callback(null, signingKey);
+				});
+			};
+			jwt.verify(
+				token,
+				getKey,
+				verifyOptions,
+				(err, fullyDecoded) => {
+					// This will display the decoded JWT token.
+					if (typeof fullyDecoded !== 'undefined' && fullyDecoded) {
+						resolve(fullyDecoded);
+					} else {
+						reject(new Error('Invalid token'));
+					}
+				}
+			);
+		}));
+	};
+	OAuth2.prototype.verifyToken = verifyToken;
 
 	// This allows us to create class members that
 	// must be present in the child object

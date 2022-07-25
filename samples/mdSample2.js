@@ -19,40 +19,39 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-
 /*jshint esversion: 9 */
 
-var fs = require('fs');
-var _path = require('path');
-var ForgeSDK = require('../src/index');
+const fs = require('fs');
+const _path = require('path');
+const ForgeSDK = require('../src/index');
 
 // ForgeSDK.ApiClient.instance.switchServerPath('https://developer-stg.api.autodesk.com');
-// var StgApiClient = new ForgeSDK.ApiClient('https://developer-stg.api.autodesk.com');
-// var bucketsApiStg = new ForgeSDK.BucketsApi(StgApiClient);
-// var oAuth2TwoLeggedStg = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read'], true, StgApiClient);
-// var oAuth2TwoLeggedtest = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read'], true); // back to prod
+// const StgApiClient = new ForgeSDK.ApiClient('https://developer-stg.api.autodesk.com');
+// const bucketsApiStg = new ForgeSDK.BucketsApi(StgApiClient);
+// const oAuth2TwoLeggedStg = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read'], true, StgApiClient);
+// const oAuth2TwoLeggedtest = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read'], true); // back to prod
 
 // TODO - insert your CLIENT_ID and CLIENT_SECRET
-var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || 'your forge client id';
-var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || 'your forge client secret';
+const FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || 'your forge client id';
+const FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || 'your forge client secret';
 
 // TODO - Choose a bucket key - a unique name to assign to a bucket. It must be globally unique across all applications and
 // regions, otherwise the call will fail. Possible values: -_.a-z0-9 (between 3-128 characters in
 // length). Note that you cannot change a bucket key.
-var BUCKET_KEY = 'forge_sample_' + FORGE_CLIENT_ID.toLowerCase();
+const BUCKET_KEY = 'forge_sample_' + FORGE_CLIENT_ID.toLowerCase();
 
 // TODO - Choose a filename - a key for the uploaded object
-var FILE_NAME = 'test.nwd';
+const FILE_NAME = 'test.nwd';
 
 // TODO - specify the full filename and path
-var FILE_PATH = _path.resolve(__dirname + '/test.nwd');
+const FILE_PATH = _path.resolve(__dirname + '/test.nwd');
 
-var bucketsApi = new ForgeSDK.BucketsApi(),
+const bucketsApi = new ForgeSDK.BucketsApi(),
 	objectsApi = new ForgeSDK.ObjectsApi(),
 	derivativesApi = new ForgeSDK.DerivativesApi(/* undefined, ForgeSDK.JobPayloadDestination.RegionEnum.EMEA */);
 
 // Initialize the 2-legged oauth2 client
-var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,
+const oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,
 	['data:write', 'data:read', 'bucket:read', 'bucket:update', 'bucket:create'], true);
 
 /**
@@ -70,7 +69,7 @@ function defaultHandleError (err) {
  * @param {String} objectKey
  * @returns {Promise}
  */
-var getObjectDetails = function (bucketKey, objectKey) {
+const getObjectDetails = function (bucketKey, objectKey) {
 	console.log("**** Get object details :", bucketKey, objectKey);
 	return objectsApi.getObjectDetails(bucketKey, objectKey, {}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
 };
@@ -81,7 +80,7 @@ var getObjectDetails = function (bucketKey, objectKey) {
  * @param {String} urn
  * @returns {Promise}
  */
-var getManifest = function (urn) {
+const getManifest = function (urn) {
 	console.log("**** Get resource manifest:", urn);
 	return derivativesApi.getManifest(urn, {}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
 };
@@ -92,7 +91,7 @@ var getManifest = function (urn) {
  * @param {String} urn
  * @returns {Promise}
  */
-var getMetadata = function (urn) {
+const getMetadata = function (urn) {
 	console.log("**** Get resource metadata:", urn);
 	return derivativesApi.getMetadata(urn, {}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
 };
@@ -104,7 +103,7 @@ var getMetadata = function (urn) {
  * @param {String} fileName
  * @returns {Promise}
  */
-var deleteFile = function (bucketKey, fileName) {
+const deleteFile = function (bucketKey, fileName) {
 	console.log("**** Deleting file from bucket:" + bucketKey + ", filename:" + fileName);
 	return objectsApi.deleteObject(bucketKey, fileName, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
 };
@@ -116,10 +115,10 @@ var deleteFile = function (bucketKey, fileName) {
  * @param {String} guid
  * @returns {Promise}
  */
-var createObj = function (urn, guid) {
+const createObj = function (urn, guid) {
 	console.log("**** Creating OBJ : " + urn);
 
-	var job = new ForgeSDK.JobPayload({
+	const job = new ForgeSDK.JobPayload({
 		input: new ForgeSDK.JobPayloadInput(urn),
 		output: new ForgeSDK.JobPayloadOutput(
 			[
@@ -156,8 +155,8 @@ oAuth2TwoLegged.authenticate()
 			.then(function (details) {
 				console.log("**** Object details:", details.body);
 
-				var _details = new ForgeSDK.ObjectDetails(details.body); // ObjectFullDetails
-				var urn = Buffer.from(_details.objectId).toString('base64')
+				const _details = new ForgeSDK.ObjectDetails(details.body); // ObjectFullDetails
+				const urn = Buffer.from(_details.objectId).toString('base64')
 					.replace(/\+/g, '-') // Convert '+' to '-'
 					.replace(/\//g, '_') // Convert '/' to '_'
 					.replace(/=+$/, '');
@@ -166,8 +165,8 @@ oAuth2TwoLegged.authenticate()
 					.then (function (metadata) {
 						console.log("**** Metadata requested:", metadata.body);
 
-						var _metadata = ForgeSDK.Metadata.constructFromObject (metadata.body);
-						var guid = _metadata.data.metadata [0].guid;
+						const _metadata = ForgeSDK.Metadata.constructFromObject (metadata.body);
+						const guid = _metadata.data.metadata [0].guid;
 
 						createObj(urn, guid)
 							.then(function (reponse) {
@@ -177,7 +176,7 @@ oAuth2TwoLegged.authenticate()
 									.then(function (manifest) {
 										console.log("**** Manifest:", manifest.body);
 
-										var _manifest = new ForgeSDK.Manifest.constructFromObject(manifest.body);
+										const _manifest = new ForgeSDK.Manifest.constructFromObject(manifest.body);
 										console.log("**** Manifest:", _manifest);
 
 									}, defaultHandleError);

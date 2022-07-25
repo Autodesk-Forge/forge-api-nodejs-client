@@ -1,19 +1,11 @@
 {
 	"name": "forge-apis",
-	"version": "0.9.0",
+	"version": "0.9.1",
 	"description": "The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.",
 	"license": "Apache-2.0",
 	"main": "src/index.js",
 	"engines": {
 		"node": ">= 10.12.0"
-	},
-	"scripts": {
-		"test": "./node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 ./test",
-		"test-oauth": "./node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 ./test/auth",
-		"test-api": "./node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 ./test/api",
-		"test-model": "./node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 ./test/model",
-		"test-hubs": "./node_modules/mocha/bin/mocha --colors --timeout 10000 ./test/api/HubsApi.spec",
-		"coverage": "nyc npm run test"
 	},
 	"repository": {
 		"type": "git",
@@ -27,9 +19,6 @@
 		"Cyrille Fauvel <cyrille@autodesk.com>",
 		"Augusto Goncalves <augusto.goncalves@autodesk.com>"
 	],
-	"dependencies": {
-		"superagent": "^7.1.1"
-	},
 	"keywords": [
 		"autodesk",
 		"autodesk-forge",
@@ -37,6 +26,20 @@
 		"restful",
 		"api"
 	],
+	"scripts": {
+		"test": "./node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 ./test",
+		"test-oauth": "./node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 ./test/auth",
+		"test-api": "./node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 ./test/api",
+		"test-model": "./node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 ./test/model",
+		"test-hubs": "./node_modules/mocha/bin/mocha --colors --timeout 10000 ./test/api/HubsApi.spec",
+		"coverage": "nyc npm run test"
+	},
+	"dependencies": {
+		"axios": "^0.27.2",
+		"jsonwebtoken": "^8.5.1",
+		"jwks-rsa": "^2.1.4",
+		"retry-axios": "^3.0.0"
+	},
 	"devDependencies": {
 		"expect.js": "^0.3.1",
 		"mocha": "^9.2.1",

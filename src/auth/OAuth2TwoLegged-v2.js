@@ -21,27 +21,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*jshint esversion: 9 */
 
 module.exports = (function () {
 	'use strict';
 
-	var OAuth2 = require('./OAuth2');
-	var ApiClient = require('../ApiClient');
+	let OAuth2 = require('./OAuth2');
+	let ApiClient = require('../ApiClient');
 
 	/**
-	 * @module auth/OAuth2TwoLegged
+	 * @module auth/OAuth2TwoLeggedV2
 	 */
 
 	/**
-	 * Constructs a new <code>OAuth2TwoLegged</code>.
+	 * Constructs a new <code>OAuth2TwoLeggedV2</code>.
 	 * Inherits from OAuth2
-	 * @alias module:auth/OAuth2TwoLegged
+	 * @alias module:auth/OAuth2TwoLeggedV2
 	 */
-	var OAuth2TwoLegged = function (clientId, clientSecret, scope, autoRefresh, apiClient) {
+	let OAuth2TwoLeggedV2 = function (clientId, clientSecret, scope, autoRefresh, apiClient) {
 		const _ApiClient = apiClient || require('../ApiClient').instance;
 
 		this.authentication = {
-			tokenUrl: '/authentication/v1/authenticate',
+			tokenUrl: '/authentication/v2/token',
+			revokeTokenUrl: '/authentication/v2/revoke',
 			scopes: {
 				'data:read': 'The application will be able to read the end user’s data within the Autodesk ecosystem.',
 				'data:write': 'The application will be able to create, update, and delete data on behalf of the end user within the Autodesk ecosystem.',
@@ -58,69 +60,73 @@ module.exports = (function () {
 				'viewables:read': 'The application will have read access to viewable resources such as thumbnails. This scope is a subset of data:read.'
 			}
 		};
-
 		this.authName = 'oauth2_application';
-
 		OAuth2.call(this, clientId, clientSecret, scope, autoRefresh, _ApiClient);
 	};
 
 	// inherit from OAuth2 class
-	OAuth2TwoLegged.prototype = Object.create(OAuth2.prototype);
+	OAuth2TwoLeggedV2.prototype = Object.create(OAuth2.prototype);
 
 	// Set the "constructor" property to refer to OAuth2
-	OAuth2TwoLegged.prototype.constructor = OAuth2TwoLegged;
+	OAuth2TwoLeggedV2.prototype.constructor = OAuth2TwoLeggedV2;
 
 	/**
 	 * Set the credentials manually
 	 * @param credentials
 	 */
-	OAuth2TwoLegged.prototype.setCredentials = function (credentials) {
+	OAuth2TwoLeggedV2.prototype.setCredentials = function (credentials) {
 		this.credentials = credentials;
 	};
 
 	/**
 	 * Get the credentials
 	 */
-	OAuth2TwoLegged.prototype.getCredentials = function () {
-		return this.credentials;
+	OAuth2TwoLeggedV2.prototype.getCredentials = function () {
+		return (this.credentials);
 	};
 
 	/**
 	 * Check if token is authorized
 	 * @returns {boolean}
 	 */
-	OAuth2TwoLegged.prototype.isAuthorized = function () {
-		return !!(this.credentials && this.credentials.expires_at && this.credentials.expires_at > Date.now());
+	OAuth2TwoLeggedV2.prototype.isAuthorized = function () {
+		return (!!(this.credentials && this.credentials.expires_at && this.credentials.expires_at > Date.now()));
 	};
 
 	/**
-	 * Authorize and get an access token
+	 * Authorize and get a 2 legged access token
 	 * @return Promise
 	 */
-	OAuth2TwoLegged.prototype.authenticate = function () {
-		var _this = this;
+	OAuth2TwoLeggedV2.prototype.authenticate = function () {
+		const _this = this;
 		return new Promise(function (resolve, reject) {
 			if (_this.authentication && _this.authentication.tokenUrl) {
-				var url = _this.basePath + _this.authentication.tokenUrl;
+				let url = _this.basePath + _this.authentication.tokenUrl;
 
-				var body = {
+				let body = {
 					grant_type: 'client_credentials',
-					client_id: _this.clientId,
-					client_secret: _this.clientSecret,
-					scope: _this.scope
+					scope: _this.scope,
 				};
 
-				_this.doPostRequest(url, body, function (response) {
-					// add expires_at property
-					var credentials = Object.assign({}, response, {
-						expires_at: new Date(Date.now() + response.expires_in * 1000)
+				let Authorization = OAuth2.BasicAuthorization(_this.clientId, _this.clientSecret);
+
+				_this.doPostRequestWithHeaders(
+					url,
+					body,
+					{ Authorization },
+					(response) => {
+						// add expires_at property
+						let credentials = {
+							...response,
+							expires_at: new Date(Date.now() + response.expires_in * 1000)
+						};
+						_this.setCredentials(credentials);
+						resolve(credentials);
+					},
+					(errResponse) => {
+						ApiClient.instance.debug('authenticate error', errResponse);
+						reject(errResponse);
 					});
-					_this.setCredentials(credentials);
-					resolve(credentials);
-				}, function (errResponse) {
-					ApiClient.instance.debug('authenticate error', errResponse);
-					reject(errResponse);
-				});
 
 			} else {
 				ApiClient.instance.debug('tokenUrl is not defined in the authentication object');
@@ -129,5 +135,41 @@ module.exports = (function () {
 		});
 	};
 
-	return OAuth2TwoLegged;
+	/**
+	 * Revoke a 2 legged access token
+	 * @return Promise
+	 */
+	OAuth2TwoLeggedV2.prototype.revokeToken = function () {
+		const _this = this;
+		return (new Promise(function (resolve, reject) {
+			if (_this.authentication && _this.authentication.revokeTokenUrl) {
+				let url = _this.basePath + _this.authentication.revokeTokenUrl;
+
+				let body = {
+					token: _this.getCredentials().access_token,
+					token_type_hint: 'access_token',
+					client_id: _this.clientId,
+				};
+
+				_this.doPostRequestWithHeaders(
+					url,
+					body,
+					{},
+					() => {
+						_this.setCredentials(undefined);
+						resolve();
+					},
+					(errResponse) => {
+						ApiClient.instance.debug('authenticate error', errResponse);
+						reject(errResponse);
+					});
+
+			} else {
+				ApiClient.instance.debug('revokeTokenUrl is not defined in the authentication object');
+				reject(new Error('revokeTokenUrl is not defined in the authentication object'));
+			}
+		}));
+	};
+
+	return (OAuth2TwoLeggedV2);
 }());

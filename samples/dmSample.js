@@ -19,55 +19,48 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-
 /*jshint esversion: 9 */
 
-var fs = require('fs');
-var _path = require('path');
+const _fs = require('fs/promises');
+const _path = require('path');
 
-var ForgeSDK = require('./../src/index');
+const ForgeSDK = require('./../src/index');
 
 // TODO - insert your CLIENT_ID and CLIENT_SECRET
-var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || 'your forge client id';
-var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || 'your forge client secret';
+const FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || 'your forge client id';
+const FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || 'your forge client secret';
 
 // TODO - Choose a bucket key - a unique name to assign to a bucket. It must be globally unique across all applications and
 // regions, otherwise the call will fail. Possible values: -_.a-z0-9 (between 3-128 characters in
 // length). Note that you cannot change a bucket key.
-var BUCKET_KEY = 'forge_sample_' + FORGE_CLIENT_ID.toLowerCase();
+const BUCKET_KEY = 'forge_sample_' + FORGE_CLIENT_ID.toLowerCase();
 
 // TODO - Choose a filename - a key for the uploaded object
-var FILE_NAME = 'test.nwd';
+const FILE_NAME = 'test.nwd';
 
 // TODO - specify the full filename and path
-var FILE_PATH = _path.resolve(__dirname + '/test.nwd');
+const FILE_PATH = _path.resolve(__dirname + '/test.nwd');
 
-var apiClient = new ForgeSDK.ApiClient();
+const apiClient = new ForgeSDK.ApiClient();
 apiClient.defaultHeaders = { 'x-ads-test': BUCKET_KEY };
 
-var bucketsApi = new ForgeSDK.BucketsApi(apiClient), // Buckets Client
-	objectsApi = new ForgeSDK.ObjectsApi(apiClient); // Objects Client
+const bucketsApi = new ForgeSDK.BucketsApi(apiClient); // Buckets Client
+const objectsApi = new ForgeSDK.ObjectsApi(apiClient); // Objects Client
 
 // Initialize the 2-legged oauth2 client
-var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,
-	['data:write', 'data:read', 'bucket:read', 'bucket:update', 'bucket:create'], true);
-
-/**
- * General error handling method
- * @param err
- */
-function defaultHandleError(err) {
-	console.error('\x1b[31m Error:', err, '\x1b[0m');
-}
+const oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(
+	FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,
+	['data:write', 'data:read', 'bucket:read', 'bucket:update', 'bucket:create'], true
+);
 
 /**
  * Gets the details of a bucket specified by a bucketKey.
  * Uses the oAuth2TwoLegged object that you retrieved previously.
  * @param bucketKey
  */
-var getBucketDetails = function (bucketKey) {
-	console.log("**** Getting bucket details : " + bucketKey);
-	return bucketsApi.getBucketDetails(bucketKey, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
+const getBucketDetails = (bucketKey) => {
+	console.log(`**** Getting bucket details: ${bucketKey}`);
+	return (bucketsApi.getBucketDetails(bucketKey, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials()));
 };
 
 /**
@@ -75,13 +68,13 @@ var getBucketDetails = function (bucketKey) {
  * Uses the oAuth2TwoLegged object that you retrieved previously.
  * @param bucketKey
  */
-var createBucket = function (bucketKey) {
-	console.log("**** Creating Bucket : " + bucketKey);
-	var createBucketJson = {
+const createBucket = (bucketKey) => {
+	console.log(`**** Creating Bucket: ${bucketKey}`);
+	const createBucketJson = {
 		'bucketKey': bucketKey,
 		'policyKey': 'temporary'
 	};
-	return bucketsApi.createBucket(createBucketJson, {}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
+	return (bucketsApi.createBucket(createBucketJson, {}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials()));
 };
 
 /**
@@ -90,26 +83,15 @@ var createBucket = function (bucketKey) {
  * @param bucketKey
  * @returns {Promise - details of the bucket in Forge}
  */
-var createBucketIfNotExist = function (bucketKey) {
-	console.log("**** Creating bucket if not exist :", bucketKey);
-
-	return new Promise(function (resolve, reject) {
-		getBucketDetails(bucketKey).then(function (resp) {
-				resolve(resp);
-			},
-			function (err) {
-				if (err.statusCode === 404) {
-					createBucket(bucketKey).then(function (res) {
-							resolve(res);
-						},
-						function (err) {
-							reject(err);
-						})
-				} else {
-					reject(err);
-				}
-			});
-	});
+const createBucketIfNotExist = async (bucketKey) => {
+	try {
+		console.log(`**** Creating bucket if not exist: ${bucketKey}`);
+		return (await getBucketDetails(bucketKey));
+	} catch (err) {
+		if (err.statusCode === 404)
+			return (await createBucket(bucketKey));
+		throw err;
+	}
 };
 
 /**
@@ -120,24 +102,10 @@ var createBucketIfNotExist = function (bucketKey) {
  * @param fileName
  * @returns {Promise}
  */
-var uploadFile = function (bucketKey, filePath, fileName) {
-	console.log("**** Uploading file. bucket:" + bucketKey + " filePath:" + filePath);
-	return new Promise(function (resolve, reject) {
-		fs.readFile(filePath, function (err, data) {
-			if (err) {
-				reject(err);
-			} else {
-				objectsApi.uploadObject(bucketKey, fileName, data.length, data, {}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials()).then(
-					function (res) {
-						resolve(res);
-					},
-					function (err) {
-						reject(err);
-					}
-				)
-			}
-		});
-	});
+const uploadFile = async (bucketKey, filePath, fileName) => {
+	console.log('**** Uploading file. bucket:' + bucketKey + ' filePath:' + filePath);
+	const data = await _fs.readFile(filePath);
+	return (objectsApi.uploadObject(bucketKey, fileName, data.length, data, {}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials()));
 };
 
 /**
@@ -146,51 +114,45 @@ var uploadFile = function (bucketKey, filePath, fileName) {
  * @param bucketKey
  * @param fileName
  */
-var deleteFile = function (bucketKey, fileName) {
-	console.log("**** Deleting file from bucket:" + bucketKey + ", filename:" + fileName);
-	return objectsApi.deleteObject(bucketKey, fileName, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
+const deleteFile = function (bucketKey, fileName) {
+	console.log(`**** Deleting file from bucket: ${bucketKey}, filename: ${fileName}`);
+	return (objectsApi.deleteObject(bucketKey, fileName, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials()));
 };
 
 /**
  * Get the buckets owned by an application.
  * Uses the oAuth2TwoLegged object that you retrieved previously.
  */
-var getBuckets = function () {
-	console.log("**** Getting all buckets");
-	return bucketsApi.getBuckets({}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
+const getBuckets = function () {
+	console.log('**** Getting all buckets');
+	return (bucketsApi.getBuckets({}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials()));
 };
 
 /**
  * Create an access token and run the API calls.
  */
-oAuth2TwoLegged.authenticate().then(function (credentials) {
+oAuth2TwoLegged.authenticate()
+	.then(async (credentials) => {
+		try {
+			console.log('**** Got Credentials', credentials);
 
-	console.log("**** Got Credentials", credentials);
+			const createBucketRes = await createBucketIfNotExist(BUCKET_KEY);
+			console.log('**** Create bucket if not exist response:', createBucketRes.body);
 
-	createBucketIfNotExist(BUCKET_KEY).then(
+			const getBucketsRes = await getBuckets();
+			console.log('**** Get all buckets response:');
+			const bucketsArray = getBucketsRes.body.items;
+			bucketsArray.map((currentBucket) => console.log(currentBucket.bucketKey));
 
-		function (createBucketRes) {
-			console.log("**** Create bucket if not exist response:", createBucketRes.body);
+			const uploadRes = await uploadFile(BUCKET_KEY, FILE_PATH, FILE_NAME);
+			console.log('**** Upload file response:', uploadRes.body);
 
-			getBuckets().then(function (getBucketsRes) {
-				console.log("**** Get all buckets response:");
-				var bucketsArray = getBucketsRes.body.items;
-				bucketsArray.map(function (currentBucket) {
-					console.log(currentBucket.bucketKey);
-				})
-			}, function (err) {
-				console.error(err);
-			});
-
-			uploadFile(BUCKET_KEY, FILE_PATH, FILE_NAME).then(function (uploadRes) {
-				console.log("**** Upload file response:", uploadRes.body);
-
-				deleteFile(BUCKET_KEY, FILE_NAME).then(function (deleteRes) {
-					console.log("**** Delete file response status code:", deleteRes.statusCode);
-				}, defaultHandleError);
-
-			}, defaultHandleError);
-
-		}, defaultHandleError);
-
-}, defaultHandleError);
+			const deleteRes = await deleteFile(BUCKET_KEY, FILE_NAME);
+			console.log('**** Delete file response status code:', deleteRes.statusCode);
+		} catch (err) {
+			console.error('\x1b[31mError:', err, '\x1b[0m');
+		}
+	})
+	.catch((err) => {
+		console.error('\x1b[31mError:', err, '\x1b[0m');
+	});

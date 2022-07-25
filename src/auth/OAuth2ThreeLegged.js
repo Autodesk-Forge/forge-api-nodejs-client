@@ -26,7 +26,7 @@ module.exports = (function () {
 	'use strict';
 
 	var OAuth2 = require('./OAuth2');
-	var ApiClient = require('../ApiClient').instance;
+	var ApiClient = require('../ApiClient');
 
 	/**
 	 * @module auth/OAuth2ThreeLegged
@@ -38,7 +38,7 @@ module.exports = (function () {
 	 * @alias module:auth/OAuth2ThreeLegged
 	 */
 	var OAuth2ThreeLegged = function (clientId, clientSecret, redirectUri, scope, autoRefresh, apiClient) {
-		ApiClient = apiClient || require('../ApiClient').instance;
+		const _ApiClient = apiClient || require('../ApiClient').instance;
 
 		this.authentication = {
 			authorizationUrl: '/authentication/v1/authorize',
@@ -62,9 +62,7 @@ module.exports = (function () {
 		};
 
 		this.authName = 'oauth2_access_code';
-
-		OAuth2.call(this, clientId, clientSecret, scope, autoRefresh, ApiClient);
-
+		OAuth2.call(this, clientId, clientSecret, scope, autoRefresh, _ApiClient);
 		this.redirectUri = redirectUri;
 	};
 
@@ -92,7 +90,7 @@ module.exports = (function () {
 
 			return redirectionUrl;
 		} else {
-			ApiClient.debug('authorizationUrl is not defined in the authentication object');
+			ApiClient.instance.debug('authorizationUrl is not defined in the authentication object');
 			return new Error('authorizationUrl is not defined in the authentication object');
 		}
 	};
@@ -124,11 +122,11 @@ module.exports = (function () {
 					});
 					resolve(credentials);
 				}, function (errResponse) {
-					ApiClient.debug('getToken error', errResponse);
+					ApiClient.instance.debug('getToken error', errResponse);
 					reject(errResponse);
 				});
 			} else {
-				ApiClient.debug('tokenUrl is not defined in the authentication object');
+				ApiClient.instance.debug('tokenUrl is not defined in the authentication object');
 				reject(new Error('tokenUrl is not defined in the authentication object'));
 			}
 		});
@@ -165,19 +163,19 @@ module.exports = (function () {
 							});
 							resolve(credentials);
 						} else {
-							ApiClient.debug('refreshToken error', response);
+							ApiClient.instance.debug('refreshToken error', response);
 							reject(response);
 						}
 					}, function (errResponse) {
-						ApiClient.debug('refreshToken error', errResponse);
+						ApiClient.instance.debug('refreshToken error', errResponse);
 						reject(errResponse);
 					});
 				} else {
-					ApiClient.debug('No refresh token present');
+					ApiClient.instance.debug('No refresh token present');
 					reject(new Error('No refresh token present'));
 				}
 			} else {
-				ApiClient.debug('refreshTokenUrl is not defined in the authentication object');
+				ApiClient.instance.debug('refreshTokenUrl is not defined in the authentication object');
 				reject(new Error('refreshTokenUrl is not defined in the authentication object'));
 			}
 		});

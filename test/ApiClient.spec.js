@@ -21,13 +21,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*jshint esversion: 9 */
 
 module.exports = (function () {
     'use strict';
 
     var expect = require('expect.js'),
         sinon = require('sinon'),
-        superagent = require('superagent'),
         ForgeSdk = require('../src'),
         nock = require('nock');
 

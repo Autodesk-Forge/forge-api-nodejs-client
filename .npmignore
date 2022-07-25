@@ -6,6 +6,7 @@ package-lock.json
 
 # Dependency directory
 node_modules/
+.nyc_output/
 
 # Runtime data
 pids
@@ -20,5 +21,6 @@ coverage
 .idea/
 
 samples/test.nwd
+samples/test-large.dwfx
 
 .DS_Store

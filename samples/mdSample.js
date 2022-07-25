@@ -19,34 +19,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-
 /*jshint esversion: 9 */
 
-var fs = require('fs');
-var _path = require('path');
-var ForgeSDK = require('../src/index');
+const fs = require('fs');
+const _path = require('path');
+const ForgeSDK = require('../src/index');
 
 // TODO - insert your CLIENT_ID and CLIENT_SECRET
-var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || 'your forge client id';
-var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || 'your forge client secret';
+const FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || 'your forge client id';
+const FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || 'your forge client secret';
 
 // TODO - Choose a bucket key - a unique name to assign to a bucket. It must be globally unique across all applications and
 // regions, otherwise the call will fail. Possible values: -_.a-z0-9 (between 3-128 characters in
 // length). Note that you cannot change a bucket key.
-var BUCKET_KEY = 'forge_sample_' + FORGE_CLIENT_ID.toLowerCase();
+const BUCKET_KEY = 'forge_sample_' + FORGE_CLIENT_ID.toLowerCase();
 
 // TODO - Choose a filename - a key for the uploaded object
-var FILE_NAME = 'test.nwd';
+const FILE_NAME = 'test.nwd';
 
 // TODO - specify the full filename and path
-var FILE_PATH = _path.resolve(__dirname + '/test.nwd');
+const FILE_PATH = _path.resolve(__dirname + '/test.nwd');
 
-var bucketsApi = new ForgeSDK.BucketsApi(),
+const bucketsApi = new ForgeSDK.BucketsApi(),
 	objectsApi = new ForgeSDK.ObjectsApi(),
 	derivativesApi = new ForgeSDK.DerivativesApi(/* undefined, ForgeSDK.JobPayloadDestination.RegionEnum.EMEA */);
 
 // Initialize the 2-legged oauth2 client
-var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,
+const oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,
 	['data:write', 'data:read', 'bucket:read', 'bucket:update', 'bucket:create'], true);
 
 /**
@@ -63,7 +62,7 @@ function defaultHandleError (err) {
  * @param {String} bucketKey
  * @returns {Promise}
  */
-var getBucketDetails = function (bucketKey) {
+const getBucketDetails = function (bucketKey) {
 	console.log("**** Getting bucket details : " + bucketKey);
 	return bucketsApi.getBucketDetails(bucketKey, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
 };
@@ -74,9 +73,9 @@ var getBucketDetails = function (bucketKey) {
  * @param {String} bucketKey
  * @returns {Promise}
  */
-var createBucket = function (bucketKey) {
+const createBucket = function (bucketKey) {
 	console.log("**** Creating Bucket : " + bucketKey);
-	var createBucketJson = {
+	const createBucketJson = {
 		'bucketKey': bucketKey,
 		'policyKey': 'temporary'
 	};
@@ -89,7 +88,7 @@ var createBucket = function (bucketKey) {
  * @param {String} bucketKey
  * @returns {Promise - details of the bucket in Forge}
  */
-var createBucketIfNotExist = function (bucketKey) {
+const createBucketIfNotExist = function (bucketKey) {
 	console.log("**** Creating bucket if not exist :", bucketKey);
 
 	return new Promise(function (resolve, reject) {
@@ -103,7 +102,7 @@ var createBucketIfNotExist = function (bucketKey) {
 					},
 						function (err) {
 							reject(err);
-						})
+						});
 				} else {
 					reject(err);
 				}
@@ -118,7 +117,7 @@ var createBucketIfNotExist = function (bucketKey) {
  * @param {String} objectKey
  * @returns {Promise}
  */
-var getObjectDetails = function (bucketKey, objectKey) {
+const getObjectDetails = function (bucketKey, objectKey) {
 	console.log("**** Get object details :", bucketKey, objectKey);
 	return objectsApi.getObjectDetails(bucketKey, objectKey, {}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
 };
@@ -131,7 +130,7 @@ var getObjectDetails = function (bucketKey, objectKey) {
  * @param {String} fileName
  * @returns {Promise}
  */
-var uploadFileIfNotExist = function (bucketKey, filePath, fileName) {
+const uploadFileIfNotExist = function (bucketKey, filePath, fileName) {
 	console.log("**** Uploading file. bucket:" + bucketKey + " filePath:" + filePath);
 	return new Promise(function (resolve, reject) {
 		fs.readFile(__dirname + '/' + filePath, function (err, data) {
@@ -165,7 +164,7 @@ var uploadFileIfNotExist = function (bucketKey, filePath, fileName) {
  * @param {String} fileName
  * @returns {Promise}
  */
-var deleteFile = function (bucketKey, fileName) {
+const deleteFile = function (bucketKey, fileName) {
 	console.log("**** Deleting file from bucket:" + bucketKey + ", filename:" + fileName);
 	return objectsApi.deleteObject(bucketKey, fileName, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
 };
@@ -176,10 +175,10 @@ var deleteFile = function (bucketKey, fileName) {
  * @param {String} urn
  * @returns {Promise}
  */
-var createSvf = function (urn) {
+const createSvf = function (urn) {
 	console.log("**** Creating SVF : " + urn);
 
-	var job = new ForgeSDK.JobPayload({
+	const job = new ForgeSDK.JobPayload({
 		input: new ForgeSDK.JobPayloadInput(urn),
 		output: new ForgeSDK.JobPayloadOutput(
 			[
@@ -203,10 +202,10 @@ var createSvf = function (urn) {
  * @param {String} urn
  * @returns {Promise}
  */
-var createSvf2 = function (urn) {
+const createSvf2 = function (urn) {
 	console.log("**** Creating SVF : " + urn);
 
-	var job = new ForgeSDK.JobPayload({
+	const job = new ForgeSDK.JobPayload({
 		input: new ForgeSDK.JobPayloadInput(urn),
 		output: new ForgeSDK.JobPayloadOutput(
 			[
@@ -240,8 +239,8 @@ oAuth2TwoLegged.authenticate()
 					.then(function (uploadRes) {
 						console.log("**** Upload file response:", uploadRes.body);
 
-						var details = new ForgeSDK.ObjectDetails(uploadRes.body); // ObjectFullDetails
-						var urn = Buffer.from(details.objectId).toString('base64')
+						const details = new ForgeSDK.ObjectDetails(uploadRes.body); // ObjectFullDetails
+						const urn = Buffer.from(details.objectId).toString('base64')
 							.replace(/\+/g, '-') // Convert '+' to '-'
 							.replace(/\//g, '_') // Convert '/' to '_'
 							.replace(/=+$/, '');
@@ -249,7 +248,7 @@ oAuth2TwoLegged.authenticate()
 						// createSvf (urn)
 						// 	.then (function (res) {
 						// 		console.log("**** SVF requested:", res.body);
-						// 		var result = new ForgeSDK.Job(undefined, undefined, res.body);
+						// 		const result = new ForgeSDK.Job(undefined, undefined, res.body);
 						// 		console.log ("*** URN: ", result.urn);
 
 						// 		// deleteFile(BUCKET_KEY, FILE_NAME).then(function (deleteRes) {
@@ -261,7 +260,7 @@ oAuth2TwoLegged.authenticate()
 						createSvf2(urn)
 							.then(function (res) {
 								console.log("**** SVF2 requested:", res.body);
-								var result = new ForgeSDK.Job(undefined, undefined, res.body);
+								const result = new ForgeSDK.Job(undefined, undefined, res.body);
 								console.log("*** URN: ", result.urn);
 
 								// deleteFile(BUCKET_KEY, FILE_NAME).then(function (deleteRes) {
