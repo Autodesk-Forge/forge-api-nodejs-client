@@ -162,7 +162,7 @@ const verifyServerObjectsSha1 = async (bucketKey, objects) => {
 	const sha1s = await Promise.all(objects.map(async (resp) => { // SHA1 takes time to be processed in the server, need to wait sometimes
 		if (resp.error)
 			return (null);
-		const srcSha1 = await objectsApi.calculateSHA1(resp.fileOrContent);
+		const srcSha1 = await objectsApi.calculateSHA1(resp.data);
 		for (; ;) {
 			const serverSha1Resp = await objectsApi.getObjectDetails(bucketKey, resp.objectKey, {}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
 			const serverSha1 = serverSha1Resp.body.sha1;
@@ -171,7 +171,7 @@ const verifyServerObjectsSha1 = async (bucketKey, objects) => {
 				continue;
 			}
 			if (srcSha1 !== serverSha1) {
-				console.error('\x1b[31mError:', `SHA1 differs for object ${resp.objectKey} (${resp.fileOrContent.length || resp.length} vs ${serverSha1Resp.body.size})`, '\x1b[0m');
+				console.error('\x1b[31mError:', `SHA1 differs for object ${resp.objectKey} (${resp.data.length || resp.length} vs ${serverSha1Resp.body.size})`, '\x1b[0m');
 				console.log(serverSha1Resp.body);
 			}
 			return (srcSha1);
@@ -217,9 +217,9 @@ const compareObjects = async (uploadRes, downloadRes) => {
 	const sha1s = await Promise.all(uploadRes.map(async (upload) => { // SHA1 takes time to be processed in the server, need to wait sometimes
 		if (upload.error)
 			return (null);
-		const srcSha1 = await objectsApi.calculateSHA1(upload.fileOrContent);
+		const srcSha1 = await objectsApi.calculateSHA1(upload.data);
 		const target = downloadRes.filter((rec) => rec.objectKey === upload.objectKey)[0];
-		const targetSha1 = await objectsApi.calculateSHA1(target.saveTo);
+		const targetSha1 = await objectsApi.calculateSHA1(target.data);
 		if (srcSha1 !== targetSha1) {
 			console.error('\x1b[31mError:', `SHA1 differs for object ${upload.objectKey}`, '\x1b[0m');
 			console.log(target.downloadParams);
@@ -253,18 +253,20 @@ oAuth2TwoLegged.authenticate()
 			let uploadRes = await uploadObjects(
 				BUCKET_KEY,
 				[
-					{ objectKey: FILE_NAME0, fileOrContent: 'this is a string', }, // string test
-					{ objectKey: FILE_NAME1 + '.txt', fileOrContent: _buffer.toString('utf8'), }, // file:// test, we know it is a text file
-					{ objectKey: FILE_NAME1, fileOrContent: _buffer, }, // file:// test, but as Buffer this time
-					{ objectKey: FILE_NAME1 + '.bin', fileOrContent: _stream, length: _buffer.length, }, // file:// test, but as ReadableStream this time
+					{ objectKey: FILE_NAME0, data: 'this is a string', }, // string test
+					{ objectKey: FILE_NAME1 + '.txt', data: _buffer.toString('utf8'), }, // file:// test, we know it is a text file
+					{ objectKey: FILE_NAME1, data: _buffer, }, // file:// test, but as Buffer this time
+					{ objectKey: FILE_NAME1 + '.bin', data: _stream, length: _buffer.length, }, // file:// test, but as ReadableStream this time
 				],
 				{
 					// chunkSize: 3, // use 3Mb to make it fails, use a debug ApiClient, objectsApi.apiClient.isDebugMode = true
 					// minutesExpiration: 2,
 					// useAcceleration: true,
+			// concurrentJobs: 5,
 					onUploadProgress: (data) => console.warn(data),
 				}
 			);
+
 			console.log('**** Upload object(s) response(s):');
 			//uploadRes.map((resp) => console.log(JSON.stringify(resp.completed, null, 4)));
 			uploadRes.map((resp) => console.log(resp.completed));
@@ -275,10 +277,10 @@ oAuth2TwoLegged.authenticate()
 			let downloadRes = await downloadObjects(
 				BUCKET_KEY,
 				[
-					{ objectKey: FILE_NAME0, saveTo: 'text', }, // string test
-					{ objectKey: FILE_NAME1 + '.txt', saveTo: 'arraybuffer', }, // Buffer
-					{ objectKey: FILE_NAME1, saveTo: 'arraybuffer', }, // Buffer
-					{ objectKey: FILE_NAME1 + '.bin', saveTo: _stream, }, // file:// test, but as WritableStream this time
+					{ objectKey: FILE_NAME0, responseType: 'text', }, // string test
+					{ objectKey: FILE_NAME1 + '.txt', responseType: 'arraybuffer', }, // Buffer
+					{ objectKey: FILE_NAME1, responseType: 'arraybuffer', }, // Buffer
+					{ objectKey: FILE_NAME1 + '.bin', responseType: 'stream', data: _stream, }, // file:// test, but as WritableStream this time
 				],
 				{
 					// publicResourceFallback: true, // Allows fallback to OSS signed URLs in case of unmerged resumable uploads.
@@ -305,10 +307,10 @@ oAuth2TwoLegged.authenticate()
 			uploadRes = await uploadObjects(
 				BUCKET_KEY,
 				[
-					{ objectKey: FILE_NAME2, fileOrContent: _buffer, },
-					{ objectKey: FILE_NAME2 + '.bin', fileOrContent: _stream, length: _buffer.length, },
-					{ objectKey: FILE_NAME3, fileOrContent: _buffer3, },
-					{ objectKey: FILE_NAME3 + '.bin', fileOrContent: _stream3, length: size.size, },
+					{ objectKey: FILE_NAME2, data: _buffer, },
+					{ objectKey: FILE_NAME2 + '.bin', data: _stream, length: _buffer.length, },
+					{ objectKey: FILE_NAME3, data: _buffer3, },
+					{ objectKey: FILE_NAME3 + '.bin', data: _stream3, length: size.size, },
 				],
 				{
 					//chunkSize: 3, // use 3Mb to make it fails, use a debug ApiClient, objectsApi.apiClient.isDebugMode = true
@@ -327,10 +329,10 @@ oAuth2TwoLegged.authenticate()
 			downloadRes = await downloadObjects(
 				BUCKET_KEY,
 				[
-					{ objectKey: FILE_NAME2, saveTo: 'arraybuffer', }, // Buffer
-					{ objectKey: FILE_NAME2 + '.bin', saveTo: _stream, },
-					{ objectKey: FILE_NAME3, saveTo: 'arraybuffer', }, // Buffer
-					{ objectKey: FILE_NAME3 + '.bin', saveTo: _stream3, },
+					{ objectKey: FILE_NAME2, responseType: 'arraybuffer', }, // Buffer
+					{ objectKey: FILE_NAME2 + '.bin', responseType: _stream, },
+					{ objectKey: FILE_NAME3, responseType: 'arraybuffer', }, // Buffer
+					{ objectKey: FILE_NAME3 + '.bin', responseType: 'stream', data: _stream3, },
 				],
 				{
 					// publicResourceFallback: true, // Allows fallback to OSS signed URLs in case of unmerged resumable uploads.

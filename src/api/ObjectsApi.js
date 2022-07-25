@@ -1132,14 +1132,14 @@ module.exports = (function () {
 		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
 		 * @param {Object|Object[]} objects Object or Object array of resource to uplaod with their parameters
 		 * @param {String} object[].objectKey object key
-		 * @param {String|Buffer|Stream} object[].saveTo Resource to upload (String | Stream)
+		 * @param {String} object[].responseType Resource to upload
 		 * If String, it is the expected response type (defaults to json) ['arraybuffer', 'document', 'json', 'text', 'stream']
-		 * If you provide a writable stream, the method will pipe content into it.
+		 * If you 'stream', you need to provide a writable stream ('data'), the method will pipe content into it.
 		 * @param {Object=} opts Optional parameters
 		 * @param {Boolean=false} opts.publicResourceFallback Allows fallback to OSS signed URLs in case of unmerged resumable uploads.
 		 * @param {Boolean=false} opts.useCdn Will generate a CloudFront URL for the S3 object.
 		 * @param {Integer=2} opts.minutesExpiration The custom expiration time within the 1 to 60 minutes range, if not specified, default is 2 minutes.
-		 * @param {Integer=2} opts.onDownProgress (progressEvent) => {}
+		 * @param {Integer=2} opts.onDownloadProgress (progressEvent) => {}
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
 		 * @async
@@ -1160,10 +1160,10 @@ module.exports = (function () {
 			for (let i = 0; i < objects.length; i++) {
 				if (!objects[i].objectKey)
 					return (Promise.reject("Missing the required parameter 'objects[].objectKey' when calling downloadResources"));
-				if (objects[i].saveTo === undefined)
-					return (Promise.reject("Missing the required parameter 'objects[].saveTo' when calling downloadResources"));
-				if (objects[i].saveTo !== null && typeof objects[i].saveTo !== 'string' && !isWritableStream(objects[i].saveTo))
-					return (Promise.reject("Required parameter 'objects[].saveTo' is neither a string, Buffer, or Stream when calling downloadResources"));
+				if (!objects[i].responseType)
+					return (Promise.reject("Missing the required parameter 'objects[].responseType' when calling downloadResources"));
+				if (objects[i].responseType === 'stream' && (!objects[i].data || !isWritableStream(objects[i].data)))
+					return (Promise.reject("Missing the required parameter 'objects[].data' when calling downloadResources with responseType === 'stream'"));
 			}
 
 			const requestSize = async (bucketKey, objects) => {
@@ -1227,7 +1227,7 @@ module.exports = (function () {
 				try {
 					if (record.error || !record.downloadUrl)
 						return;
-					const isStreamEntry = isWritableStream(record.saveTo);
+					const isStreamEntry = isWritableStream(record.data);
 
 					// `responseType` indicates the type of data that the server will respond with
 					// options are: 'arraybuffer', 'document', 'json', 'text', 'stream' (default json)
@@ -1236,8 +1236,8 @@ module.exports = (function () {
 					let responseType = 'json'; // jshint ignore:line
 					if (isStreamEntry)
 						responseType = 'stream';
-					else if (typeof record.saveTo === 'string')
-						responseType = record.saveTo;
+					else if (typeof record.responseType === 'string')
+						responseType = record.responseType;
 
 					const headers = {}
 					Object.keys(record).map((key) => {
@@ -1261,9 +1261,9 @@ module.exports = (function () {
 
 					});
 					if (isStreamEntry)
-						await pipeItAll(record.download.data, record.saveTo);
+						await pipeItAll(record.download.data, record.data);
 					else
-						record.saveTo = record.download.data;
+						record.data = record.download.data;
 					return (record.download);
 				} catch (err) {
 					record.error = true;
@@ -1272,28 +1272,28 @@ module.exports = (function () {
 			};
 
 			const startTS = Date.now();
-			opts.onDownloadProgress && opts.onDownloadProgress({ progress: 0, elapsed: 0, }); // jshint ignore:line
+			opts.onDownloadProgress && opts.onDownloadProgress({ progress: 0, elapsed: 0, objects, }); // jshint ignore:line
 			const totalSize = await requestSize(bucketKey, objects);
 			let dataRead = 0;
 			for (let entry = 0; entry < objects.length; entry++) {
 				const record = objects[entry];
-				const isStreamTarget = isWritableStream(record.saveTo);
+				const isStreamTarget = isWritableStream(record.data);
 
 				await requestURL(bucketKey, record);
 				await downloadData(record);
 
 				dataRead += record.downloadParams.body.results[record.objectKey].size || 0;
+				record.progress = 1;
 				opts.onDownloadProgress && opts.onDownloadProgress({
 					progress: dataRead / totalSize,
 					elapsed: Date.now() - startTS,
-					objectKey: record.objectKey,
-					[record.objectKey]: 1,
-					record,
+					objects,
 				}); // jshint ignore:line
 			}
 			opts.onDownloadProgress && opts.onDownloadProgress({
 				progress: 1,
 				elapsed: Date.now() - startTS,
+				//objects,
 			}); // jshint ignore:line
 			return (objects);
 		};
@@ -1303,7 +1303,7 @@ module.exports = (function () {
 		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
 		 * @param {Object|Object[]} objects Object or Object array of resource to uplaod with their parameters
 		 * @param {String} object[].objectKey object key
-		 * @param {String|Buffer|Stream} object[].fileOrContent Resource to upload (String| Buffer | Stream)
+		 * @param {String|Buffer|Stream} object[].data Resource to upload (String| Buffer | Stream)
 		 * @param {String[]=} object[].eTags An array of eTags. S3 returns an eTag to each upload request, be it for a chunk or an entire file. 
 		 * For a single-part upload, this array contains the expected eTag of the entire object. For a multipart upload, this array contains the expected 
 		 * eTag of each part of the upload; the index of an eTag in the array corresponds to its part number in the upload. If provided, OSS will validate 
@@ -1340,10 +1340,10 @@ module.exports = (function () {
 			for (let i = 0; i < objects.length; i++) {
 				if (!objects[i].objectKey)
 					return (Promise.reject("Missing the required parameter 'objects[].objectKey' when calling uploadResources"));
-				if (!objects[i].fileOrContent)
-					return (Promise.reject("Missing the required parameter 'objects[].fileOrContent' when calling uploadResources"));
-				if (typeof objects[i].fileOrContent !== 'string' && !Buffer.isBuffer(objects[i].fileOrContent) && !isReadableStream(objects[i].fileOrContent))
-					return (Promise.reject("Required parameter 'objects[].fileOrContent' is neither a string, Buffer, or Stream when calling uploadResources"));
+				if (!objects[i].data)
+					return (Promise.reject("Missing the required parameter 'objects[].data' when calling uploadResources"));
+				if (typeof objects[i].data !== 'string' && !Buffer.isBuffer(objects[i].data) && !isReadableStream(objects[i].data))
+					return (Promise.reject("Required parameter 'objects[].data' is neither a string, Buffer, or Stream when calling uploadResources"));
 			}
 			if (opts && opts.chunkSize && opts.chunkSize < 5)
 				return (Promise.reject("Required parameter 'opts.chunkSize' should be >= 5 when calling uploadResources"));
@@ -1464,53 +1464,51 @@ module.exports = (function () {
 
 			const startTS = Date.now();
 			const totalSize = objects
-				.map((record) => record.length || record.fileOrContent.length || record.fileOrContent.byteLength)
+				.map((record) => record.length || record.data.length || record.data.byteLength)
 				.reduce((total, len) => total + len, 0);
 			let dataSent = 0;
 			const ChunkSize = opts.chunkSize ? opts.chunkSize << 20 : 5 << 20;
 			const MaxBatches = opts.maxBatches || 25;
-			opts.onUploadProgress && opts.onUploadProgress({ progress: 0, elapsed: 0, }); // jshint ignore:line
+			opts.onUploadProgress && opts.onUploadProgress({ progress: 0, elapsed: 0, objects, }); // jshint ignore:line
 			for (let entry = 0; entry < objects.length; entry++) {
 				const record = objects[entry];
-				const isStreamEntry = isReadableStream(record.fileOrContent);
+				const isStreamEntry = isReadableStream(record.data);
 				if (isStreamEntry && !record.length)
 					throw new Error('Missing parameter length for a stream object');
-				const totalParts = Math.ceil((record.length || record.fileOrContent.length || record.fileOrContent.byteLength) / ChunkSize);
+				const totalParts = Math.ceil((record.length || record.data.length || record.data.byteLength) / ChunkSize);
 				let partsUploaded = 0;
 				if (isStreamEntry) {
-					for await (const chunk of bufferChunks(record.fileOrContent, ChunkSize)) {
+					for await (const chunk of bufferChunks(record.data, ChunkSize)) {
 						record.chunk = chunk;
 						await processChunk(bucketKey, record, partsUploaded, totalParts, MaxBatches);
 						dataSent += record.chunk.length;
 						delete record.chunk;
 						_this.apiClient.debug('Part successfully uploaded', partsUploaded + 1);
 						partsUploaded++;
+						record.progress = partsUploaded / totalParts;
 						opts.onUploadProgress && opts.onUploadProgress({
 							progress: dataSent / totalSize,
 							elapsed: Date.now() - startTS,
-							objectKey: record.objectKey,
-							[record.objectKey]: partsUploaded / totalParts,
-							record,
+							objects,
 						}); // jshint ignore:line
 					}
 				} else {
 					while (partsUploaded < totalParts) {
-						//record.chunk = record.fileOrContent;
-						record.chunk = record.fileOrContent.slice(
+						//record.chunk = record.data;
+						record.chunk = record.data.slice(
 							partsUploaded * ChunkSize,
-							Math.min((partsUploaded + 1) * ChunkSize, record.fileOrContent.byteLength || record.fileOrContent.length)
+							Math.min((partsUploaded + 1) * ChunkSize, record.data.byteLength || record.data.length)
 						);
 						await processChunk(bucketKey, record, partsUploaded, totalParts, MaxBatches);
 						dataSent += (record.chunk.length || record.chunk.byteLength);
 						delete record.chunk;
 						_this.apiClient.debug('Part successfully uploaded', partsUploaded + 1);
 						partsUploaded++;
+						record.progress = partsUploaded / totalParts;
 						opts.onUploadProgress && opts.onUploadProgress({
 							progress: dataSent / totalSize,
 							elapsed: Date.now() - startTS,
-							objectKey: record.objectKey,
-							[record.objectKey]: partsUploaded / totalParts,
-							record,
+							objects,
 						}); // jshint ignore:line
 					}
 				}
@@ -1520,6 +1518,7 @@ module.exports = (function () {
 			opts.onUploadProgress && opts.onUploadProgress({
 				progress: 1,
 				elapsed: Date.now() - startTS,
+				//objects,
 			}); // jshint ignore:line
 			return (objects);
 		};
