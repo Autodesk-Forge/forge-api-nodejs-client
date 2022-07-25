@@ -46,6 +46,7 @@ apiClient.defaultHeaders = { 'x-ads-test': BUCKET_KEY };
 
 const bucketsApi = new ForgeSDK.BucketsApi(apiClient); // Buckets Client
 const objectsApi = new ForgeSDK.ObjectsApi(apiClient); // Objects Client
+// objectsApi.apiClient.isDebugMode = true;
 
 // Initialize the 2-legged oauth2 client
 const oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(
