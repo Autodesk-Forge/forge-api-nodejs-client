@@ -167,7 +167,7 @@ const verifyServerObjectsSha1 = async (bucketKey, objects) => {
 			const serverSha1Resp = await objectsApi.getObjectDetails(bucketKey, resp.objectKey, {}, oAuth2TwoLegged, oAuth2TwoLegged.getCredentials());
 			const serverSha1 = serverSha1Resp.body.sha1;
 			if (!serverSha1) {
-				await sleep(5); // 10 seconds - usually it is faster, but for large objects might take a bit longer
+				await sleep(5); // 5 seconds - usually it is faster, but for large objects might take a bit longer
 				continue;
 			}
 			if (srcSha1 !== serverSha1) {
@@ -329,7 +329,7 @@ oAuth2TwoLegged.authenticate()
 				BUCKET_KEY,
 				[
 					{ objectKey: FILE_NAME2, responseType: 'arraybuffer', }, // Buffer
-					{ objectKey: FILE_NAME2 + '.bin', responseType: _stream, },
+					{ objectKey: FILE_NAME2 + '.bin', responseType: 'steam', data: _stream, },
 					{ objectKey: FILE_NAME3, responseType: 'arraybuffer', }, // Buffer
 					{ objectKey: FILE_NAME3 + '.bin', responseType: 'stream', data: _stream3, },
 				],
