@@ -20,7 +20,12 @@ coverage
 .vscode/
 .idea/
 
+samples/test.js
 samples/test.nwd
 samples/test-large.dwfx
+samples/1gb.bin
+samples/2gb.bin
+samples/6gb.mp4
+samples/11mb.bin
 
 .DS_Store
