@@ -253,7 +253,7 @@ module.exports = (function () {
 			// let's see if the token is already expired?
 			// be careful access tokens are validated once teh query was received by the server, not when emitted
 			// for this reason, we need to aknowledge the time to upload payload/file/etc... (300 == 5min)
-			if (oauth2client && oauth2client.autoRefresh && new Date(credentials.expires_at).getTime() - 300000 <= Date.now()) {
+			if (oauth2client && oauth2client.autoRefresh && credentials.expires_at - 300000 <= Date.now()) {
 				// set the correct promiseObj, for 2 or 3 legged token
 				let isCredentialsTypeTwoLegged = credentials.refresh_token === undefined;
 				const getCredentialsPromise = isCredentialsTypeTwoLegged ?
@@ -373,7 +373,7 @@ module.exports = (function () {
 		}
 		if (headerParams['Accept-Encoding'] === 'gzip, deflate')
 			requestParams.encoding = null;
-		headerParams['User-Agent'] = 'forge-apis/0.9.3 (nodejs)';
+		headerParams['User-Agent'] = 'forge-apis/0.9.4 (nodejs)';
 		_this.debug('request params were', requestParams);
 
 		return new Promise(function (resolve, reject) {
@@ -499,7 +499,7 @@ module.exports = (function () {
 		}
 	};
 
-	exports.version = '0.9.3';
+	exports.version = '0.9.4';
 
 	exports.userAgentHeaders = {
 		'User-Agent': `forge-apis/${exports.version} nodejs api wrappers library`,

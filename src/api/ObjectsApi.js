@@ -1148,7 +1148,8 @@ module.exports = (function () {
 		this.downloadResources = async function (bucketKey, objects, opts, auth2client, credentials) {
 			const _this = this;
 			opts = opts || {};
-			auth2client.setCredentials(credentials);
+			if (auth2client)
+				auth2client.setCredentials(credentials);
 
 			const isWritableStream = ApiClient.isWritableStream;
 
@@ -1169,9 +1170,16 @@ module.exports = (function () {
 
 			const requestSize = async (bucketKey, objects) => {
 				try {
-					if (auth2client.isAboutToExpire() && opts.onRefreshToken) {
-						credentials = await opts.onRefreshToken();
-						auth2client.setCredentials(credentials);
+					if (opts.onRefreshToken
+						&& ((auth2client && auth2client.isAboutToExpire())
+							|| (credentials.expires_at && credentials.expires_at - 300000 < Date.now())
+						)
+					) {
+						let temp = await opts.onRefreshToken();
+						if (temp)
+							credentials = temp;
+						if (auth2client)
+							auth2client.setCredentials(credentials);
 					}
 					const requests = objects.map((entry) => ({ objectKey: entry.objectKey, }));
 					const downloadParams = await _this.getS3DownloadURLs(
@@ -1194,9 +1202,16 @@ module.exports = (function () {
 
 			const requestURL = async (bucketKey, record) => {
 				try {
-					if (auth2client.isAboutToExpire() && opts.onRefreshToken) {
-						credentials = await opts.onRefreshToken();
-						auth2client.setCredentials(credentials);
+					if (opts.onRefreshToken
+						&& ((auth2client && auth2client.isAboutToExpire())
+							|| (credentials.expires_at && credentials.expires_at - 300000 < Date.now())
+						)
+					) {
+						let temp = await opts.onRefreshToken();
+						if (temp)
+							credentials = temp;
+						if (auth2client)
+							auth2client.setCredentials(credentials);
 					}
 					record.downloadParams = await _this.getS3DownloadURLs(
 						bucketKey,
@@ -1338,7 +1353,8 @@ module.exports = (function () {
 		this.uploadResources = async function (bucketKey, objects, opts, auth2client, credentials) {
 			const _this = this;
 			opts = opts || {};
-			auth2client.setCredentials(credentials);
+			if (auth2client)
+				auth2client.setCredentials(credentials);
 
 			const isReadableStream = ApiClient.isReadableStream;
 
@@ -1363,9 +1379,16 @@ module.exports = (function () {
 
 			const requestURLs = async (bucketKey, record, firstParts, parts) => {
 				try {
-					if (auth2client.isAboutToExpire() && opts.onRefreshToken) {
-						credentials = await opts.onRefreshToken();
-						auth2client.setCredentials(credentials);
+					if (opts.onRefreshToken
+						&& ((auth2client && auth2client.isAboutToExpire())
+							|| (credentials.expires_at && credentials.expires_at - 300000 < Date.now())
+						)
+					) {
+						let temp = await opts.onRefreshToken();
+						if (temp)
+							credentials = temp;
+						if (auth2client)
+							auth2client.setCredentials(credentials);
 					}
 					const uploadParams = await _this.getS3UploadURLs(
 						bucketKey,
@@ -1385,9 +1408,16 @@ module.exports = (function () {
 
 			const completeObjects = async (bucketKey, record) => {
 				try {
-					if (auth2client.isAboutToExpire() && opts.onRefreshToken) {
-						credentials = await opts.onRefreshToken();
-						auth2client.setCredentials(credentials);
+					if (opts.onRefreshToken
+						&& ((auth2client && auth2client.isAboutToExpire())
+							|| (credentials.expires_at && credentials.expires_at - 300000 < Date.now())
+						)
+					) {
+						let temp = await opts.onRefreshToken();
+						if (temp)
+							credentials = temp;
+						if (auth2client)
+							auth2client.setCredentials(credentials);
 					}
 					record.completedResponse = await _this.completeS3Uploads(
 						bucketKey,
@@ -1439,7 +1469,7 @@ module.exports = (function () {
 						// transformRequest: [(data, headers) => { return (data); }],
 					});
 					record.eTags = record.eTags || [];
-					record.eTags.push (res.headers.etag.replace (/"/g, ''));
+					record.eTags.push(res.headers.etag.replace(/"/g, ''));
 					return (res);
 				} catch (err) {
 					const status = err.response && err.response.status;
