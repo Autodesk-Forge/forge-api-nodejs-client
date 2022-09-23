@@ -409,7 +409,7 @@ module.exports = (function () {
 		 * @param {String} guid Unique model view ID. Call [GET {urn}/metadata](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/urn-metadata-GET) to get the ID
 		 * @param {Object} opts Optional parameters
 		 * @param {String} opts.acceptEncoding If specified with `gzip` or `*`, content will be compressed and returned in a GZIP format.
-		 * @param {Boolean} opts.xAdsForce Force retrieve the object tree even though it failed to be extracted (got 404 with error message) previously. (default is false) retrieve the object tree, and previously failures are not replaced.
+		 * @param {Boolean} opts.xAdsForce Force retrieve the object tree even though it failed to be extracted (got 404 - NOT_FOUND with error message) previously. (default is false) retrieve the object tree, and previously failures are not replaced.
 		 * @param {String} opts.xAdsFormat fallback: fallback to SVF format; latest: returns SVF2 if available. Possible values: latest / fallback; Default to latest.
 		 * @param {Boolean} opts.forceget To force get the large resource even if it exceeded the expected maximum length (20 MB). Possible values: true, false. The the implicit value is false.
 		 * data is of type: {module:model/Metadata}
@@ -461,7 +461,7 @@ module.exports = (function () {
 		 * @param {String} guid Unique model view ID. Call [GET {urn}/metadata](https://developer.autodesk.com/en/docs/model-derivative/v2/reference/http/urn-metadata-GET) to get the ID
 		 * @param {Object} opts Optional parameters
 		 * @param {String} opts.acceptEncoding If specified with `gzip` or `*`, content will be compressed and returned in a GZIP format.
-		 * @param {Boolean} opts.xAdsForce Force retrieve the object tree even though it failed to be extracted (got 404 with error message) previously. (default is false) retrieve the object tree, and previously failures are not replaced.
+		 * @param {Boolean} opts.xAdsForce Force retrieve the object tree even though it failed to be extracted (got 404 - NOT_FOUND with error message) previously. (default is false) retrieve the object tree, and previously failures are not replaced.
 		 * @param {String} opts.xAdsFormat fallback: fallback to SVF format; latest: returns SVF2 if available. Possible values: latest / fallback; Default to latest.
 		 * @param {Boolean} opts.forceget To force get the large resource even if it exceeded the expected maximum length (20 MB). Possible values: true, false. The the implicit value is false.
 		 * @param {Integer} opts.objectid Object id which you want to query properties for.

@@ -20,6 +20,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*jshint esversion: 9 */
 
 module.exports = (function () {
 	'use strict';
@@ -81,7 +82,7 @@ module.exports = (function () {
 	 * Get the credentials
 	 */
 	OAuth2TwoLegged.prototype.getCredentials = function () {
-		return this.credentials;
+		return (this.credentials);
 	};
 
 	/**
@@ -89,7 +90,24 @@ module.exports = (function () {
 	 * @returns {boolean}
 	 */
 	OAuth2TwoLegged.prototype.isAuthorized = function () {
-		return !!(this.credentials && this.credentials.expires_at && this.credentials.expires_at > Date.now());
+		return (!!(this.credentials && this.credentials.expires_at && this.credentials.expires_at > Date.now()));
+	};
+
+	/**
+	 * Check if token has expired
+	 * @returns {boolean}
+	 */
+	OAuth2TwoLegged.prototype.hasExpired = function () {
+		return (!this.credentials || !this.credentials.expires_at || this.credentials.expires_at <= Date.now());
+	};
+
+	/**
+	 * Check if token is about to expire
+	 * @returns {boolean}
+	 */
+	OAuth2TwoLegged.prototype.isAboutToExpire = function (threadHoldInSeconds) {
+		threadHoldInSeconds = threadHoldInSeconds || 300;
+		return (!this.credentials || !this.credentials.expires_at || this.credentials.expires_at - threadHoldInSeconds * 1000 < Date.now());
 	};
 
 	/**
@@ -98,7 +116,7 @@ module.exports = (function () {
 	 */
 	OAuth2TwoLegged.prototype.authenticate = function () {
 		var _this = this;
-		return new Promise(function (resolve, reject) {
+		return (new Promise(function (resolve, reject) {
 			if (_this.authentication && _this.authentication.tokenUrl) {
 				var url = _this.basePath + _this.authentication.tokenUrl;
 
@@ -111,9 +129,10 @@ module.exports = (function () {
 
 				_this.doPostRequest(url, body, function (response) {
 					// add expires_at property
-					var credentials = Object.assign({}, response, {
-						expires_at: new Date(Date.now() + response.expires_in * 1000)
-					});
+					let credentials = {
+						...response,
+						expires_at: Date.now() + response.expires_in * 1000
+					};
 					_this.setCredentials(credentials);
 					resolve(credentials);
 				}, function (errResponse) {
@@ -125,8 +144,8 @@ module.exports = (function () {
 				ApiClient.instance.debug('tokenUrl is not defined in the authentication object');
 				reject(new Error('tokenUrl is not defined in the authentication object'));
 			}
-		});
+		}));
 	};
 
-	return OAuth2TwoLegged;
+	return (OAuth2TwoLegged);
 }());

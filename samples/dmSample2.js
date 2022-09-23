@@ -91,7 +91,7 @@ const createBucketIfNotExist = async (bucketKey) => {
 		console.log(`**** Creating bucket if not exist: ${bucketKey}`);
 		return (await getBucketDetails(bucketKey));
 	} catch (err) {
-		if (err.statusCode === 404)
+		if (err.statusCode === 404 /* NOT_FOUND */)
 			return (await createBucket(bucketKey));
 		throw err;
 	}

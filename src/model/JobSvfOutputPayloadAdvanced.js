@@ -210,6 +210,11 @@ module.exports = (function () {
      * @const
      */
     "modern": "modern",
+    /**
+     * value: "v3"
+     * @const
+     */
+    "v3": "v3",
   };
 
   /**

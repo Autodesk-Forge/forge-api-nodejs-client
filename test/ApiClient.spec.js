@@ -383,7 +383,7 @@ module.exports = (function () {
 
                 nock(apiClient.basePath)
                     .delete(path)
-                    .reply(200, {
+                    .reply(200 /* OK */, {
                         result: 'success'
                     });
 
@@ -419,7 +419,7 @@ module.exports = (function () {
 
                 nock(apiClient.basePath)
                     .delete(path)
-                    .reply(200, {
+                    .reply(200 /* OK */, {
                         result: 'success'
                     });
 

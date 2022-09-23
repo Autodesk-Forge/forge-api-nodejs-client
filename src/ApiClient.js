@@ -74,12 +74,12 @@ module.exports = (function () {
 	 */
 	exports.prototype.paramToString = function (param) {
 		if (param === undefined || param === null) {
-			return '';
+			return ('');
 		}
 		if (param instanceof Date) {
-			return param.toJSON();
+			return (param.toJSON());
 		}
-		return param.toString();
+		return (param.toString());
 	};
 
 	/**
@@ -114,7 +114,7 @@ module.exports = (function () {
 	 * @returns {Boolean} <code>true</code> if <code>contentType</code> represents JSON, otherwise <code>false</code>.
 	 */
 	exports.prototype.isJsonMime = function (contentType) {
-		return Boolean(contentType !== undefined && contentType !== null && contentType.match(/^application\/(vnd.api\+)?json(;.*)?$/i));
+		return (Boolean(contentType !== undefined && contentType !== null && contentType.match(/^application\/(vnd.api\+)?json(;.*)?$/i)));
 	};
 
 	/**
@@ -165,7 +165,7 @@ module.exports = (function () {
 				}
 			}
 		}
-		return newParams;
+		return (newParams);
 	};
 
 	/**
@@ -241,9 +241,8 @@ module.exports = (function () {
 		const _this = this;
 
 		function setAuthHeader (credentials) {
-			if (credentials && credentials.access_token) {
+			if (credentials && credentials.access_token)
 				headers['Authorization'] = 'Bearer ' + credentials.access_token; // jshint ignore:line
-			}
 		}
 
 		return new Promise(function (resolve, reject) {
@@ -374,7 +373,7 @@ module.exports = (function () {
 		}
 		if (headerParams['Accept-Encoding'] === 'gzip, deflate')
 			requestParams.encoding = null;
-		headerParams['User-Agent'] = 'forge-apis/0.9.2 (nodejs)';
+		headerParams['User-Agent'] = 'forge-apis/0.9.3 (nodejs)';
 		_this.debug('request params were', requestParams);
 
 		return new Promise(function (resolve, reject) {
@@ -438,7 +437,7 @@ module.exports = (function () {
 	 * @returns {Date} The parsed date object.
 	 */
 	exports.parseDate = function (str) {
-		return new Date(str.replace(/T/i, ' '));
+		return (new Date(str.replace(/T/i, ' ')));
 	};
 
 	/**
@@ -453,28 +452,28 @@ module.exports = (function () {
 	exports.convertToType = function (data, type) {
 		switch (type) {
 			case 'Boolean':
-				return Boolean(data);
+				return (Boolean(data));
 			case 'Integer':
-				return parseInt(data, 10);
+				return (parseInt(data, 10));
 			case 'Number':
-				return parseFloat(data);
+				return (parseFloat(data));
 			case 'String':
-				return String(data);
+				return (String(data));
 			case 'Date':
-				return this.parseDate(String(data));
+				return (this.parseDate(String(data)));
 			default:
 				if (type === Object) {
 					// generic object, return directly
-					return data;
+					return (data);
 				} else if (typeof type === 'function') {
 					// for model type like: User
-					return type.constructFromObject(data);
+					return (type.constructFromObject(data));
 				} else if (Array.isArray(type)) {
 					// for array type like: ['String']
 					const itemType = type[0];
-					return data.map(function (item) {
-						return exports.convertToType(item, itemType);
-					});
+					return (data.map(function (item) {
+						return (exports.convertToType(item, itemType));
+					}));
 				} else if (typeof type === 'object') {
 					// for plain object type like: {'String': 'Integer'}
 					let keyType, valueType;
@@ -500,7 +499,7 @@ module.exports = (function () {
 		}
 	};
 
-	exports.version = '0.9.2';
+	exports.version = '0.9.3';
 
 	exports.userAgentHeaders = {
 		'User-Agent': `forge-apis/${exports.version} nodejs api wrappers library`,
@@ -512,5 +511,5 @@ module.exports = (function () {
 	 */
 	exports.instance = new exports();
 
-	return exports;
+	return (exports);
 }());

@@ -115,7 +115,7 @@ module.exports = (function () {
             });
 
             it('isAuthorized should work as expected', function () {
-                var futureTime = new Date(Date.now() + 300 * 1000);
+                var futureTime = Date.now() + 300 * 1000;
                 oauth2client2legged.setCredentials({ access_token: 'abcd', expires_at: futureTime });
                 expect(oauth2client2legged.isAuthorized()).to.equal(true);
             });

@@ -93,12 +93,29 @@ module.exports = (function () {
 	};
 
 	/**
+	 * Check if token has expired
+	 * @returns {boolean}
+	 */
+	OAuth2TwoLeggedV2.prototype.hasExpired = function () {
+		return (!this.credentials || !this.credentials.expires_at || this.credentials.expires_at <= Date.now());
+	};
+
+	/**
+	 * Check if token is about to expire
+	 * @returns {boolean}
+	 */
+	OAuth2TwoLeggedV2.prototype.isAboutToExpire = function (threadHoldInSeconds) {
+		threadHoldInSeconds = threadHoldInSeconds || 300;
+		return (!this.credentials || !this.credentials.expires_at || this.credentials.expires_at - threadHoldInSeconds * 1000 < Date.now());
+	};
+
+	/**
 	 * Authorize and get a 2 legged access token
 	 * @return Promise
 	 */
 	OAuth2TwoLeggedV2.prototype.authenticate = function () {
 		const _this = this;
-		return new Promise(function (resolve, reject) {
+		return (new Promise(function (resolve, reject) {
 			if (_this.authentication && _this.authentication.tokenUrl) {
 				let url = _this.basePath + _this.authentication.tokenUrl;
 
@@ -117,7 +134,7 @@ module.exports = (function () {
 						// add expires_at property
 						let credentials = {
 							...response,
-							expires_at: new Date(Date.now() + response.expires_in * 1000)
+							expires_at: Date.now() + response.expires_in * 1000
 						};
 						_this.setCredentials(credentials);
 						resolve(credentials);
@@ -131,7 +148,7 @@ module.exports = (function () {
 				ApiClient.instance.debug('tokenUrl is not defined in the authentication object');
 				reject(new Error('tokenUrl is not defined in the authentication object'));
 			}
-		});
+		}));
 	};
 
 	/**

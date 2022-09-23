@@ -1137,7 +1137,9 @@ module.exports = (function () {
 		 * @param {Boolean=} [opts.publicResourceFallback=false] Allows fallback to OSS signed URLs in case of unmerged resumable uploads.
 		 * @param {Boolean=} [opts.useCdn=true] Will generate a CloudFront URL for the S3 object.
 		 * @param {Integer=} [opts.minutesExpiration=2] The custom expiration time within the 1 to 60 minutes range, if not specified, default is 2 minutes.
+		 * @param {Integer=0} opts.chunkSize Chunk size in Mb. Should not be below 5Mb. Default is 0, download file in one piece.
 		 * @param {Function=} opts.onDownloadProgress (progressEvent) => {}
+		 * @param {Function=} opts.onRefreshToken () => {}
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
 		 * @async
@@ -1146,6 +1148,7 @@ module.exports = (function () {
 		this.downloadResources = async function (bucketKey, objects, opts, auth2client, credentials) {
 			const _this = this;
 			opts = opts || {};
+			auth2client.setCredentials(credentials);
 
 			const isWritableStream = ApiClient.isWritableStream;
 
@@ -1166,11 +1169,15 @@ module.exports = (function () {
 
 			const requestSize = async (bucketKey, objects) => {
 				try {
+					if (auth2client.isAboutToExpire() && opts.onRefreshToken) {
+						credentials = await opts.onRefreshToken();
+						auth2client.setCredentials(credentials);
+					}
 					const requests = objects.map((entry) => ({ objectKey: entry.objectKey, }));
 					const downloadParams = await _this.getS3DownloadURLs(
 						bucketKey,
 						{ requests },
-						{ minutesExpiration: 1 },
+						opts,
 						auth2client, credentials
 					); // Automatically retries 429 and 500-599 responses
 
@@ -1187,6 +1194,10 @@ module.exports = (function () {
 
 			const requestURL = async (bucketKey, record) => {
 				try {
+					if (auth2client.isAboutToExpire() && opts.onRefreshToken) {
+						credentials = await opts.onRefreshToken();
+						auth2client.setCredentials(credentials);
+					}
 					record.downloadParams = await _this.getS3DownloadURLs(
 						bucketKey,
 						{ requests: [{ objectKey: record.objectKey, }], },
@@ -1317,7 +1328,8 @@ module.exports = (function () {
 		 * the form …s3-accelerate.amazonaws.com… vs …s3.amazonaws.com…).
 		 * When not specified, defaults to true. Providing non-boolean values will result in a 400 error.
 		 * @param {Integer=2} opts.minutesExpiration The custom expiration time within the 1 to 60 minutes range, if not specified, default is 2 minutes.
-		 * @param {Integer=2} opts.onUploadProgress (progressEvent) => {}
+		 * @param {Function=} opts.onUploadProgress (progressEvent) => {}
+		 * @param {Function=} opts.onRefreshToken () => {}
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
 		 * @async
@@ -1326,6 +1338,7 @@ module.exports = (function () {
 		this.uploadResources = async function (bucketKey, objects, opts, auth2client, credentials) {
 			const _this = this;
 			opts = opts || {};
+			auth2client.setCredentials(credentials);
 
 			const isReadableStream = ApiClient.isReadableStream;
 
@@ -1350,6 +1363,10 @@ module.exports = (function () {
 
 			const requestURLs = async (bucketKey, record, firstParts, parts) => {
 				try {
+					if (auth2client.isAboutToExpire() && opts.onRefreshToken) {
+						credentials = await opts.onRefreshToken();
+						auth2client.setCredentials(credentials);
+					}
 					const uploadParams = await _this.getS3UploadURLs(
 						bucketKey,
 						{ requests: [{ objectKey: record.objectKey, uploadKey: record.uploadKey, firstParts, parts, }], },
@@ -1357,7 +1374,8 @@ module.exports = (function () {
 						auth2client, credentials
 					); // Automatically retries 429 and 500-599 responses
 					record.uploadUrls = uploadParams.body.results[record.objectKey].urls.slice();
-					record.uploadKey = uploadParams.body.results[record.objectKey].uploadKey;
+					if (record.uploadKey === undefined)
+						record.uploadKey = uploadParams.body.results[record.objectKey].uploadKey;
 				} catch (ex) {
 					record.error = true;
 					record.uploads = ex;
@@ -1367,6 +1385,10 @@ module.exports = (function () {
 
 			const completeObjects = async (bucketKey, record) => {
 				try {
+					if (auth2client.isAboutToExpire() && opts.onRefreshToken) {
+						credentials = await opts.onRefreshToken();
+						auth2client.setCredentials(credentials);
+					}
 					record.completedResponse = await _this.completeS3Uploads(
 						bucketKey,
 						{
@@ -1409,22 +1431,21 @@ module.exports = (function () {
 						maxContentLength: Infinity,
 						maxBodyLength: Infinity,
 						data: record.chunk,
-
 						// onUploadProgress: (progressEvent) => {
 						// 	let percentComplete = progressEvent.loaded / progressEvent.total;
 						// 	percentComplete = parseInt(percentComplete * 100);
 						// 	console.log(percentComplete);
 						// },
-
 						// transformRequest: [(data, headers) => { return (data); }],
-
 					});
+					record.eTags = record.eTags || [];
+					record.eTags.push (res.headers.etag.replace (/"/g, ''));
 					return (res);
 				} catch (err) {
 					const status = err.response && err.response.status;
-					if (status === 403) {
+					if (status === 403 /* FORBIDDEN */) {
 						_this.apiClient.debug('Got 403, refreshing upload URLs');
-						record.uploadUrls = []; // Couldn't this cause an infinite loop? (i.e., could the server keep responding with 403 indefinitely?)
+						record.uploadUrls = []; // Couldn't this cause an infinite loop? (i.e., could the server keep responding with 403 - FORBIDDEN indefinitely?)
 					} else {
 						throw err;
 					}

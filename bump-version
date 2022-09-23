@@ -1,0 +1,18 @@
+#!/bin/bash
+
+current_version="0.9.3"
+new_version=$1
+if [ "$new_version" == "" ]; then
+	[[ "$current_version" =~ ([0-9]+).+([0-9]+).+([0-9]+)$ ]] && new_version="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.$((${BASH_REMATCH[3]} + 1))"
+fi
+echo "Bumping v${current_version} to v${new_version}"
+
+search=$(echo "$current_version" | sed -r 's/\./\\\./g')
+fnlist=$(find . -type f \( \( -iname "*.json" ! -iname "*-lock.json" \) -or -iname "*.js" -or -iname "bump-version" \) -print | xargs grep -l $search)
+for file in $fnlist
+do
+    echo $file
+	sed "s/${current_version}/${new_version}/g" $file > temp.txt && rm $file && mv temp.txt $file
+	#echo $text > $file
+done
+chmod aog+x ./bump-version

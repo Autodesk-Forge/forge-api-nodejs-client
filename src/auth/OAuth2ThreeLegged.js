@@ -20,6 +20,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*jshint esversion: 9 */
 
 module.exports = (function () {
 	'use strict';
@@ -72,6 +73,46 @@ module.exports = (function () {
 	OAuth2ThreeLegged.prototype.constructor = OAuth2ThreeLegged;
 
 	/**
+	 * Set the credentials manually
+	 * @param credentials
+	 */
+	OAuth2ThreeLegged.prototype.setCredentials = function (credentials) {
+		this.credentials = credentials;
+	};
+
+	/**
+	 * Get the credentials
+	 */
+	OAuth2ThreeLegged.prototype.getCredentials = function () {
+		return (this.credentials);
+	};
+
+	/**
+	 * Check if token is authorized
+	 * @returns {boolean}
+	 */
+	OAuth2ThreeLegged.prototype.isAuthorized = function () {
+		return (!!(this.credentials && this.credentials.expires_at && this.credentials.expires_at > Date.now()));
+	};
+
+	/**
+	 * Check if token has expired
+	 * @returns {boolean}
+	 */
+	OAuth2ThreeLegged.prototype.hasExpired = function () {
+		return (!this.credentials || !this.credentials.expires_at || this.credentials.expires_at <= Date.now());
+	};
+
+	/**
+	 * Check if token is about to expire
+	 * @returns {boolean}
+	 */
+	OAuth2ThreeLegged.prototype.isAboutToExpire = function (threadHoldInSeconds) {
+		threadHoldInSeconds = threadHoldInSeconds || 300;
+		return (!this.credentials || !this.credentials.expires_at || this.credentials.expires_at - threadHoldInSeconds * 1000 < Date.now());
+	};
+
+	/**
 	 * Get Authorize URL
 	 * @param {String} state - parameter that allows you to restore the previous state of your application
 	 * @param {String} flow - enum string to define the grant flow type [code: Code grant type, token: Implicit grant type]. Default: code
@@ -87,10 +128,10 @@ module.exports = (function () {
 				'&scope=' + this.scope +
 				'&state=' + state;
 
-			return redirectionUrl;
+			return (redirectionUrl);
 		} else {
 			ApiClient.instance.debug('authorizationUrl is not defined in the authentication object');
-			return new Error('authorizationUrl is not defined in the authentication object');
+			return (new Error('authorizationUrl is not defined in the authentication object'));
 		}
 	};
 
@@ -101,7 +142,7 @@ module.exports = (function () {
 	 */
 	OAuth2ThreeLegged.prototype.getToken = function (code) {
 		var _this = this;
-		return new Promise(function (resolve, reject) {
+		return (new Promise(function (resolve, reject) {
 			if (_this.authentication && _this.authentication.tokenUrl) {
 				var url = _this.basePath + _this.authentication.tokenUrl;
 
@@ -116,9 +157,11 @@ module.exports = (function () {
 
 				_this.doPostRequest(url, body, function (response) {
 					// add expires_at property
-					var credentials = Object.assign({}, response, {
-						expires_at: new Date(Date.now() + response.expires_in * 1000)
-					});
+					let credentials = {
+						...response,
+						expires_at: Date.now() + response.expires_in * 1000
+					};
+					_this.setCredentials(credentials);
 					resolve(credentials);
 				}, function (errResponse) {
 					ApiClient.instance.debug('getToken error', errResponse);
@@ -128,7 +171,7 @@ module.exports = (function () {
 				ApiClient.instance.debug('tokenUrl is not defined in the authentication object');
 				reject(new Error('tokenUrl is not defined in the authentication object'));
 			}
-		});
+		}));
 
 	};
 
@@ -140,7 +183,7 @@ module.exports = (function () {
 	 */
 	OAuth2ThreeLegged.prototype.refreshToken = function (credentials, scope) {
 		var _this = this;
-		return new Promise(function (resolve, reject) {
+		return (new Promise(function (resolve, reject) {
 			if (_this.authentication && _this.authentication.refreshTokenUrl) {
 				if (credentials && credentials.refresh_token) {
 					var url = _this.basePath + _this.authentication.refreshTokenUrl;
@@ -157,9 +200,11 @@ module.exports = (function () {
 					}
 					_this.doPostRequest(url, body, function (response) {
 						if (response.access_token) {
-							var credentials = Object.assign({}, response, {
-								expires_at: new Date(Date.now() + response.expires_in * 1000)
-							});
+							let credentials = {
+								...response,
+								expires_at: Date.now() + response.expires_in * 1000
+							};
+							_this.setCredentials(credentials);
 							resolve(credentials);
 						} else {
 							ApiClient.instance.debug('refreshToken error', response);
@@ -177,8 +222,8 @@ module.exports = (function () {
 				ApiClient.instance.debug('refreshTokenUrl is not defined in the authentication object');
 				reject(new Error('refreshTokenUrl is not defined in the authentication object'));
 			}
-		});
+		}));
 	};
 
-	return OAuth2ThreeLegged;
+	return (OAuth2ThreeLegged);
 }());

@@ -102,7 +102,7 @@ const createBucketIfNotExist = async (bucketKey) => {
 		console.log(`**** Creating bucket if not exist: ${bucketKey}`);
 		return (await getBucketDetails(bucketKey));
 	} catch (err) {
-		if (err.statusCode === 404)
+		if (err.statusCode === 404 /* NOT_FOUND */)
 			return (await createBucket(bucketKey));
 		throw err;
 	}
@@ -229,6 +229,11 @@ const compareObjects = async (uploadRes, downloadRes) => {
 	return (sha1s);
 };
 
+const onRefreshToken = async () => {
+	let credentials = await oAuth2TwoLegged.authenticate();
+	return (credentials);
+};
+
 /**
  * Create an access token and run the API calls.
  */
@@ -263,6 +268,7 @@ oAuth2TwoLegged.authenticate()
 					// minutesExpiration: 2,
 					// useAcceleration: true,
 					onUploadProgress: (data) => console.warn(data),
+					onRefreshToken,
 				}
 			);
 
@@ -286,6 +292,7 @@ oAuth2TwoLegged.authenticate()
 					// useCdn: true, // Will generate a CloudFront URL for the S3 object.
 					// minutesExpiration: 2,
 					onDownloadProgress: (data) => console.warn(data),
+					onRefreshToken,
 				}
 			);
 			console.log('**** Verifying SHA1 codes with downloads');
@@ -315,6 +322,7 @@ oAuth2TwoLegged.authenticate()
 					//chunkSize: 3, // use 3Mb to make it fails, use a debug ApiClient, objectsApi.apiClient.isDebugMode = true
 					minutesExpiration: 60, // use 1 to stress error code 403 - Forbidden
 					onUploadProgress: (data) => console.warn(data),
+					onRefreshToken,
 				}
 			);
 			console.log('**** Upload file(s) response(s):');
@@ -338,6 +346,7 @@ oAuth2TwoLegged.authenticate()
 					// useCdn: true, // Will generate a CloudFront URL for the S3 object.
 					minutesExpiration: 5, // use 1 to stress error code 403 - Forbidden
 					onDownloadProgress: (data) => console.warn(data),
+					onRefreshToken,
 				}
 			);
 			console.log('**** Verifying SHA1 codes with downloads');
