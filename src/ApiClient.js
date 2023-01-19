@@ -373,7 +373,7 @@ module.exports = (function () {
 		}
 		if (headerParams['Accept-Encoding'] === 'gzip, deflate')
 			requestParams.encoding = null;
-		headerParams['User-Agent'] = 'forge-apis/0.9.4 (nodejs)';
+		headerParams['User-Agent'] = 'forge-apis/0.9.5 (nodejs)';
 		_this.debug('request params were', requestParams);
 
 		return new Promise(function (resolve, reject) {
@@ -499,7 +499,7 @@ module.exports = (function () {
 		}
 	};
 
-	exports.version = '0.9.4';
+	exports.version = '0.9.5';
 
 	exports.userAgentHeaders = {
 		'User-Agent': `forge-apis/${exports.version} nodejs api wrappers library`,

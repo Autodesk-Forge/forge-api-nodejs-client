@@ -164,7 +164,7 @@ module.exports = (function () {
 		const _this = this;
 		return (new Promise((resolve, reject) => {
 			//console.debug('Verifying JWT token');
-			const well_known_jwks_url = `${this.basePath}/authentication/v2/keys`;
+			const well_known_jwks_url = `${_this.basePath}/authentication/v2/keys`;
 			const decoded = jwt.decode(token, { complete: true });
 			const verifyOptions = {
 				algorithms: ['RS256'],
@@ -174,6 +174,8 @@ module.exports = (function () {
 
 			const getKey = (header, callback) => {
 				client.getSigningKey(header.kid, (err, key) => {
+					if (err)
+						return (callback(err, null));
 					const signingKey = key.publicKey || key.rsaPublicKey;
 					//console.log(`signingKey ${signingKey}`);
 					callback(null, signingKey);

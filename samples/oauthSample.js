@@ -43,6 +43,9 @@ const oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_
 	try {
 		let credentials = await oAuth2TwoLegged.authenticate();
 		console.log("**** Got Credentials", JSON.stringify(credentials, null, 4));
+
+		const result = await oAuth2TwoLegged.verifyToken(credentials.access_token);
+		console.log("**** Credentials verified", JSON.stringify(result, null, 4));
 	} catch (ex) {
 		console.error('\x1b[31m Error:', ex, '\x1b[0m');
 	}
