@@ -139,6 +139,7 @@ module.exports = (function () {
 		ObjectFullDetailsDeltas = require('./model/ObjectFullDetailsDeltas'),
 		ObjectS3Download = require('./model/ObjectS3Download'),
 		ObjectS3Upload = require('./model/ObjectS3Upload'),
+		ObjectCompleteS3Upload = require('./model/ObjectCompleteS3Upload'),
 		Permission = require('./model/Permission'),
 		PostBucketsPayload = require('./model/PostBucketsPayload'),
 		PostBucketsPayloadAllow = require('./model/PostBucketsPayloadAllow'),
@@ -784,6 +785,11 @@ module.exports = (function () {
 		 * @property {module:model/ObjectS3Upload}
 		 */
 		ObjectS3Upload: ObjectS3Upload,
+		/**
+		 * The ObjectCompleteS3Upload model constructor.
+		 * @property {module:model/ObjectCompleteS3Upload}
+		 */
+		ObjectCompleteS3Upload: ObjectCompleteS3Upload,
 		/**
 		 * The Permission model constructor.
 		 * @property {module:model/Permission}

@@ -33,6 +33,8 @@ module.export = (function () {
 	const ObjectDetails = require('../../src/model/ObjectDetails');
 	const ObjectFullDetails = require('../../src/model/ObjectFullDetails');
 	const ObjectS3Download = require('../../src/model/ObjectS3Download');
+	const ObjectS3Upload = require('../../src/model/ObjectS3Upload');
+	const ObjectCompleteS3Upload = require('../../src/model/ObjectCompleteS3Upload');
 	const PostBucketsSigned = require('../../src/model/PostBucketsSigned');
 	const PostObjectSigned = require('../../src/model/PostObjectSigned');
 	const Reason = require('../../src/model/Reason');
@@ -555,6 +557,7 @@ module.export = (function () {
 					responseContentDisposition: sampleStrParam,
 					responseCacheControl: sampleStrParam,
 					publicResourceFallback: sampleStrParam,
+					useCdn: true,
 					minutesExpiration: sampleIntParam,
 
 					ifNoneMatch: sampleStrParam,
@@ -571,6 +574,7 @@ module.export = (function () {
 					'response-content-disposition': opts.responseContentDisposition,
 					'response-cache-control': opts.responseCacheControl,
 					'public-resource-fallback': opts.publicResourceFallback,
+					useCdn: opts.useCdn,
 					minutesExpiration: opts.minutesExpiration,
 				};
 				const headerParams = {
@@ -694,7 +698,8 @@ module.export = (function () {
 				};
 				const postBody = {
 					uploadKey: sampleStrParam,
-					eTags: [sampleStrParam,],
+					eTags: [sampleStrParam],
+					size: 1024,
 				};
 
 				const pathParams = {
@@ -714,7 +719,7 @@ module.export = (function () {
 
 				const contentTypes = ['application/json'];
 				const accepts = ['application/vnd.api+json', 'application/json'];
-				const returnType = Object;
+				const returnType = ObjectCompleteS3Upload;
 
 				mockedApiClientRequest.withArgs('/oss/v2/buckets/{bucketKey}/objects/{objectKey}/signeds3upload', 'POST',
 					pathParams, queryParams, headerParams, formParams, postBody,

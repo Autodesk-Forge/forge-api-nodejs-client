@@ -43,7 +43,7 @@ module.exports = (function () {
 			obj = obj || new exports();
 
 			if (data.hasOwnProperty('status'))
-				obj.bucketKey = ApiClient.convertToType(data.status, 'String');
+				obj.status = ApiClient.convertToType(data.status, 'String');
 			if (data.hasOwnProperty('url'))
 				obj.url = ApiClient.convertToType(data.url, 'String');
 			if (data.hasOwnProperty('urls'))

@@ -31,6 +31,7 @@ module.exports = (function () {
 	const ObjectFullDetails = require('../model/ObjectFullDetails');
 	const ObjectS3Download = require('../model/ObjectS3Download');
 	const ObjectS3Upload = require('../model/ObjectS3Upload');
+	const ObjectCompleteS3Upload = require('../model/ObjectCompleteS3Upload');
 	const PostBucketsSigned = require('../model/PostBucketsSigned');
 	const PostObjectSigned = require('../model/PostObjectSigned');
 	const Reason = require('../model/Reason');
@@ -754,10 +755,10 @@ module.exports = (function () {
 
 			// verify the required parameter 'bucketKey' is set
 			if (!bucketKey)
-				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getS3Download"));
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getS3DownloadURL"));
 			// verify the required parameter 'objectKey' is set
 			if (!objectKey)
-				return (Promise.reject("Missing the required parameter 'objectKey' when calling getS3Download"));
+				return (Promise.reject("Missing the required parameter 'objectKey' when calling getS3DownloadURL"));
 
 			const pathParams = {
 				bucketKey,
@@ -830,15 +831,15 @@ module.exports = (function () {
 
 			// verify the required parameter 'bucketKey' is set
 			if (!bucketKey)
-				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getS3Downloads"));
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getS3DownloadURLs"));
 			// verify the required parameter 'body' is set
 			if (!body)
-				return (Promise.reject("Missing the required parameter 'body' when calling getS3Downloads"));
+				return (Promise.reject("Missing the required parameter 'body' when calling getS3DownloadURLs"));
 			if (!body.requests || !Array.isArray(body.requests) || body.requests.length === 0)
-				return (Promise.reject("Missing the required parameter 'body.requests' when calling getS3Downloads"));
+				return (Promise.reject("Missing the required parameter 'body.requests' when calling getS3DownloadURLs"));
 			for (let i = 0; i < body.requests.length; i++) {
 				if (!body.requests[i].objectKey)
-					return (Promise.reject("Missing the required parameter 'body.requests[].objectKey' when calling getS3Downloads"));
+					return (Promise.reject("Missing the required parameter 'body.requests[].objectKey' when calling getS3DownloadURLs"));
 			}
 
 			const pathParams = {
@@ -892,10 +893,10 @@ module.exports = (function () {
 
 			// verify the required parameter 'bucketKey' is set
 			if (!bucketKey)
-				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getS3Upload"));
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getS3UploadURL"));
 			// verify the required parameter 'objectKey' is set
 			if (!objectKey)
-				return (Promise.reject("Missing the required parameter 'objectKey' when calling getS3Upload"));
+				return (Promise.reject("Missing the required parameter 'objectKey' when calling getS3UploadURL"));
 
 			const pathParams = {
 				bucketKey,
@@ -959,6 +960,8 @@ module.exports = (function () {
 			// verify the required parameter 'body' is set
 			if (!body)
 				return (Promise.reject("Missing the required parameter 'body' when calling completeS3Upload"));
+			if (!body.eTags)
+				return (Promise.reject("Missing the required parameter 'eTags' when calling completeS3Upload"));
 			if (body.eTags && (!Array.isArray(body.eTags) || body.eTags.length === 0))
 				return (Promise.reject("Invalid 'body.eTags' parameter when calling completeS3Upload"));
 			if (!body.uploadKey)
@@ -968,7 +971,9 @@ module.exports = (function () {
 				bucketKey,
 				objectKey,
 			};
-			const queryParams = {};
+			const queryParams = {
+				useCdn: opts.useCdn,
+			};
 			const headerParams = {
 				'x-ads-meta-Content-Type': opts.xAdsMetaContentType || opts['x-ads-meta-Content-Type'],
 				'x-ads-meta-Content-Disposition': opts.xAdsMetaContentDisposition || opts['x-ads-meta-Content-Disposition'],
@@ -979,7 +984,7 @@ module.exports = (function () {
 
 			const contentTypes = ['application/json'];
 			const accepts = ['application/vnd.api+json', 'application/json'];
-			const returnType = Object;
+			const returnType = ObjectCompleteS3Upload;
 
 			return (this.apiClient.callApi(
 				'/oss/v2/buckets/{bucketKey}/objects/{objectKey}/signeds3upload', 'POST',
@@ -1022,8 +1027,10 @@ module.exports = (function () {
 			// verify the required parameter 'body' is set
 			if (!body)
 				return (Promise.reject("Missing the required parameter 'body' when calling completeS3Upload"));
-			if (!body.requests || !Array.isArray(body.requests) || body.requests.length === 0)
+			if (!body.requests)
 				return (Promise.reject("Missing the required parameter 'body.requests' when calling completeS3Uploads"));
+			if (body.requests && (!Array.isArray(body.requests) || body.requests.length === 0))
+				return (Promise.reject("Invalid 'body.requests' parameter when calling completeS3Uploads"));
 			for (let i = 0; i < body.requests.length; i++) {
 				if (!body.requests[i].objectKey)
 					return (Promise.reject("Missing the required parameter 'body.requests[].objectKey' when calling completeS3Uploads"));
@@ -1091,15 +1098,15 @@ module.exports = (function () {
 
 			// verify the required parameter 'bucketKey' is set
 			if (!bucketKey)
-				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getS3Upload"));
+				return (Promise.reject("Missing the required parameter 'bucketKey' when calling getS3UploadURLs"));
 			// verify the required parameter 'body' is set
 			if (!body)
-				return (Promise.reject("Missing the required parameter 'body' when calling completeS3Upload"));
+				return (Promise.reject("Missing the required parameter 'body' when calling getS3UploadURLs"));
 			if (!body.requests || !Array.isArray(body.requests) || body.requests.length === 0)
-				return (Promise.reject("Missing the required parameter 'body.requests' when calling completeS3Uploads"));
+				return (Promise.reject("Missing the required parameter 'body.requests' when calling getS3UploadURLs"));
 			for (let i = 0; i < body.requests.length; i++) {
 				if (!body.requests[i].objectKey)
-					return (Promise.reject("Missing the required parameter 'body.requests[].objectKey' when calling completeS3Uploads"));
+					return (Promise.reject("Missing the required parameter 'body.requests[].objectKey' when calling getS3UploadURLs"));
 			}
 
 			const pathParams = {
