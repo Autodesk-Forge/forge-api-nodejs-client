@@ -61,6 +61,13 @@ module.exports = (function () {
 			}
 		};
 
+		for (const key in scope) {
+			const match = scope[key].match(/^data:read:(urn:adsk\.[^*\\"]+)$/);
+			if (match !== null) {
+				this.authentication.scopes[scope[key]] = `The application will have read access to the resource with URN '${match[1]}'.`;
+			}
+		}
+
 		this.authName = 'oauth2_access_code';
 		OAuth2.call(this, clientId, clientSecret, scope, autoRefresh, _ApiClient);
 		this.redirectUri = redirectUri;
