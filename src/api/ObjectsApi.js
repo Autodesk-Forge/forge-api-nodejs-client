@@ -1270,7 +1270,7 @@ module.exports = (function () {
 					else if (typeof record.responseType === 'string')
 						responseType = record.responseType;
 
-					// const headers = {}
+					const headers = {}
 					// Object.keys(record).map((key) => {
 					// 	if (key.startsWith('response-'))
 					// 		headers[key.substring(9)] = record[key];
