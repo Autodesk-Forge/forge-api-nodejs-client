@@ -132,7 +132,7 @@ module.exports = (function () {
 					scope: _this.scope,
 				};
 
-				let Authorization = OAuth2.BasicAuthorization(_this.clientId, _this.clientSecret);
+				let Authorization = _this.BasicAuthorization(_this.clientId, _this.clientSecret);
 
 				_this.doPostRequestWithHeaders(
 					url,

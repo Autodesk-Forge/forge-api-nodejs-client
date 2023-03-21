@@ -148,19 +148,19 @@ module.exports = (function () {
 	 * @return Promise
 	 */
 	OAuth2ThreeLeggedV2.prototype.getToken = function (code) {
-		var _this = this;
+		const _this = this;
 		return (new Promise(function (resolve, reject) {
 			if (_this.authentication && _this.authentication.tokenUrl) {
-				var url = _this.basePath + _this.authentication.tokenUrl;
+				let url = _this.basePath + _this.authentication.tokenUrl;
 
-				var body = {
+				let body = {
 					grant_type: 'authorization_code',
 					code: code,
 					response_type: 'code',
 					redirect_uri: _this.redirectUri
 				};
 
-				let Authorization = OAuth2.BasicAuthorization(_this.clientId, _this.clientSecret);
+				let Authorization = _this.BasicAuthorization(_this.clientId, _this.clientSecret);
 
 				_this.doPostRequestWithHeaders(
 					url,
@@ -205,7 +205,7 @@ module.exports = (function () {
 						refresh_token: credentials.refresh_token
 					};
 
-					let Authorization = OAuth2.BasicAuthorization(_this.clientId, _this.clientSecret);
+					let Authorization = _this.BasicAuthorization(_this.clientId, _this.clientSecret);
 
 					if (scope) {
 						body.scope = scope.join(' ');

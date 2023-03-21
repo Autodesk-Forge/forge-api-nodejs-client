@@ -112,7 +112,7 @@ module.exports = (function () {
 			headers,
 			data: paramsBody.join('&'),
 		})
-			.then((res) => callbackSuccess(res.body))
+			.then((res) => callbackSuccess(res.data))
 			.catch((err) => callbackError(err));
 	};
 
