@@ -75,7 +75,7 @@ module.exports = (function () {
 		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-PUT/
 		 * @async
 		 * @returns {Promise<ObjectDetails>}
-		 * 
+		 *
 		 * @deprecated
 		 */
 		this.uploadObject = function (bucketKey, objectKey, contentLength, body, opts, oauth2client, credentials) {
@@ -138,7 +138,7 @@ module.exports = (function () {
 		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-resumable-PUT/
 		 * @async
 		 * @returns {Promise<ObjectDetails>}
-		 * 
+		 *
 		 * @deprecated
 		 */
 		this.uploadChunk = function (bucketKey, objectKey, contentLength, contentRange, sessionId, body, opts, oauth2client, credentials) {
@@ -341,7 +341,7 @@ module.exports = (function () {
 		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-GET/
 		 * @async
 		 * @returns {Promise<any>}
-		 * 
+		 *
 		 * @deprecated
 		 */
 		this.getObject = function (bucketKey, objectKey, opts, oauth2client, credentials) {
@@ -446,7 +446,7 @@ module.exports = (function () {
 		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/signedresources-:id-PUT/
 		 * @async
 		 * @returns {Promise<ObjectDetails>}
-		 * 
+		 *
 		 * @deprecated
 		 */
 		this.uploadSignedResource = function (id, contentLength, body, opts, oauth2client, credentials) {
@@ -503,7 +503,7 @@ module.exports = (function () {
 		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/signedresources-:id-resumable-PUT/
 		 * @async
 		 * @returns {Promise<ObjectDetails>}
-		 * 
+		 *
 		 * @deprecated
 		 */
 		this.uploadSignedResourcesChunk = function (id, contentRange, sessionId, body, opts, oauth2client, credentials) {
@@ -563,7 +563,7 @@ module.exports = (function () {
 		 * @remark https://forge.autodesk.com/en/docs/data/v2/reference/http/signedresources-:id-GET/
 		 * @async
 		 * @returns {Promise<any>}
-		 * 
+		 *
 		 * @deprecated
 		 */
 		this.getSignedResource = function (id, opts, oauth2client, credentials) {
@@ -729,15 +729,15 @@ module.exports = (function () {
 		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
 		 * @param {String} objectKey bucobjectket key (will be URL-encoded automatically)
 		 * @param {Object=} opts Optional parameters
-		 * @param {String=} opts.ifNoneMatch If the value of this header matches the ETag of the object, an entity will not be returned from the server; 
+		 * @param {String=} opts.ifNoneMatch If the value of this header matches the ETag of the object, an entity will not be returned from the server;
 		 * instead a 304 (not modified) response will be returned without any message-body.
-		 * @param {Date=} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field, 
+		 * @param {Date=} opts.ifModifiedSince If the requested object has not been modified since the time specified in this field,
 		 * an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message-body.
-		 * @param {String=} opts.responseContentType Value of the Content-Type header that the client expects to receive. 
+		 * @param {String=} opts.responseContentType Value of the Content-Type header that the client expects to receive.
 		 * If this attribute is not provided, it defaults to the value corresponding to the object.
-		 * @param {String=} opts.responseContentDisposition Value of the Content Disposition header the client expects to receive. 
+		 * @param {String=} opts.responseContentDisposition Value of the Content Disposition header the client expects to receive.
 		 * If this attribute is not provided, it defaults to the value corresponding to the object.
-		 * @param {String=} opts.responseCacheControl Value of the Cache-Control header that the client expects to receive. 
+		 * @param {String=} opts.responseCacheControl Value of the Cache-Control header that the client expects to receive.
 		 * If this attribute is not provided, it defaults to the value corresponding to the object.
 		 * @param {Boolean=} [opts.publicResourceFallback=false] Allows fallback to OSS signed URLs in case of unmerged resumable uploads.
 		 * @param {Boolean=} [opts.useCdn=true] Will generate a CloudFront URL for the S3 object.
@@ -791,28 +791,28 @@ module.exports = (function () {
 
 		/**
 		 * Gets one or more signed URLs to objects. The signed URLs can be used to download the objects directly from S3, skipping OSS servers.
-		 * Be aware that expiration time for the signed URL(s) is just 60 seconds. So, a request to the URL(s) must begin within 60 seconds; the transfer 
+		 * Be aware that expiration time for the signed URL(s) is just 60 seconds. So, a request to the URL(s) must begin within 60 seconds; the transfer
 		 * of the data can exceed 60 seconds.
 		 * A successful call to this endpoint requires bucket owner access.
-		 * Note that resumable uploads store each chunk individually. After upload completes, an async process merges all the chunks and creates the 
-		 * definitive OSS file. This async process can take time. If you request an S3 download URL before the async process completes, the response returns 
-		 * a map of S3 URLs, one per chunk where the key is the corresponding range bytes. In case you don’t want multiple URLs in the response, you can use 
+		 * Note that resumable uploads store each chunk individually. After upload completes, an async process merges all the chunks and creates the
+		 * definitive OSS file. This async process can take time. If you request an S3 download URL before the async process completes, the response returns
+		 * a map of S3 URLs, one per chunk where the key is the corresponding range bytes. In case you don’t want multiple URLs in the response, you can use
 		 * OSS signed URL functionality, with the public-resource-fallback query parameter set to true.
-		 * Note: While this endpoint does not support range headers, the returned URL(s) can be used for ranged downloads. This way, downloads can be 
+		 * Note: While this endpoint does not support range headers, the returned URL(s) can be used for ranged downloads. This way, downloads can be
 		 * parallelized using multiple ranges for maximum speed.
 		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
 		 * @param {Object} body body parameter
 		 * @param {Object[]} body.requests An array of objects representing each request to get an S3 URL to download from.
 		 * @param {String} body.requests[].objectKey Object name to create a download S3 signed URL for
-		 * @param {String=} body.requests[].response-content-type Value of the Content-Type header that the client expects to receive. 
+		 * @param {String=} body.requests[].response-content-type Value of the Content-Type header that the client expects to receive.
 		 * If this attribute is not provided, it defaults to the value corresponding to the object.
-		 * @param {String=} body.requests[].response-content-disposition Value of the Content Disposition header the client expects to receive. 
+		 * @param {String=} body.requests[].response-content-disposition Value of the Content Disposition header the client expects to receive.
 		 * If this attribute is not provided, it defaults to the value corresponding to the object.
-		 * @param {String=} body.requests[].response-cache-control Value of the Cache-Control header that the client expects to receive. 
+		 * @param {String=} body.requests[].response-cache-control Value of the Cache-Control header that the client expects to receive.
 		 * If this attribute is not provided, it defaults to the value corresponding to the object.
-		 * @param {String=} body.requests[].If-None-Match The value of this attribute is compared to the ETAG of the object. 
+		 * @param {String=} body.requests[].If-None-Match The value of this attribute is compared to the ETAG of the object.
 		 * If they match, the response body will show the status of this item as “skipped” with the reason as “Not modified”.
-		 * @param {Date=} body.requests[].If-Modified-Since If the requested object has not been modified since the time specified in this attribute, 
+		 * @param {Date=} body.requests[].If-Modified-Since If the requested object has not been modified since the time specified in this attribute,
 		 * the response body will show the status of this item as “skipped” with the reason as “Not modified”.
 		 * @param {Object=} opts Optional parameters
 		 * @param {Boolean=} [opts.publicResourceFallback=false] (public-resource-fallback) Allows fallback to OSS signed URLs in case of unmerged resumable uploads.
@@ -869,15 +869,15 @@ module.exports = (function () {
 		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
 		 * @param {String} objectKey object key (will be URL-encoded automatically)
 		 * @param {Object=} opts Optional parameters
-		 * @param {String=} opts.uploadKey Get a new set of signed urls if the ones that were generated before have already expired and the user 
+		 * @param {String=} opts.uploadKey Get a new set of signed urls if the ones that were generated before have already expired and the user
 		 * still needs to upload some of them.
-		 * @param {Integer=} [opts.firstParts=1] For a multipart upload, is the starting index when getting upload part URL. 
-		 * If this parameter is not specified the default value is firstPart = 1. 
+		 * @param {Integer=} [opts.firstParts=1] For a multipart upload, is the starting index when getting upload part URL.
+		 * If this parameter is not specified the default value is firstPart = 1.
 		 * Example: To retrieve the parts from 10 to 15 you should pass firstPart = 10 and parts = 6, this will retrieve the parts 10, 11, 12, 13, 14 and 15.
-		 * @param {Integer=} [opts.parts=1] For a multipart upload, is the starting index when getting upload part URL. 
-		 * If this parameter is not specified the default value is firstPart = 1. 
+		 * @param {Integer=} [opts.parts=1] For a multipart upload, is the starting index when getting upload part URL.
+		 * If this parameter is not specified the default value is firstPart = 1.
 		 * Example: To retrieve the parts from 10 to 15 you should pass firstPart = 10 and parts = 6, this will retrieve the parts 10, 11, 12, 13, 14 and 15.
-		 * @param {Boolean=true} opts.useAcceleration Whether or not to generate an accelerated signed URL (ie: URLs of 
+		 * @param {Boolean=true} opts.useAcceleration Whether or not to generate an accelerated signed URL (ie: URLs of
 		 * the form …s3-accelerate.amazonaws.com… vs …s3.amazonaws.com…).
 		 * When not specified, defaults to true. Providing non-boolean values will result in a 400 error.
 		 * @param {Integer=2} opts.minutesExpiration The custom expiration time within the 1 to 60 minutes range, if not specified, default is 2 minutes.
@@ -927,13 +927,13 @@ module.exports = (function () {
 		 * Instructs OSS to complete the object creation process after the bytes have been uploaded directly to S3.
 		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
 		 * @param {String} objectKey object key (will be URL-encoded automatically)
-		 * @param {Object} body 
+		 * @param {Object} body
 		 * @param {String} body.uploadKey The identifier of the upload session, which was provided by OSS in the response to the Get Upload URL/s request.
-		 * @param {Integer=} body.size The expected size of the uploaded object. If provided, OSS will check this against the blob in S3 and return 
+		 * @param {Integer=} body.size The expected size of the uploaded object. If provided, OSS will check this against the blob in S3 and return
 		 * an error if the size does not match.
-		 * @param {String[]=} body.eTags An array of eTags. S3 returns an eTag to each upload request, be it for a chunk or an entire file. 
-		 * For a single-part upload, this array contains the expected eTag of the entire object. For a multipart upload, this array contains the expected 
-		 * eTag of each part of the upload; the index of an eTag in the array corresponds to its part number in the upload. If provided, OSS will validate 
+		 * @param {String[]=} body.eTags An array of eTags. S3 returns an eTag to each upload request, be it for a chunk or an entire file.
+		 * For a single-part upload, this array contains the expected eTag of the entire object. For a multipart upload, this array contains the expected
+		 * eTag of each part of the upload; the index of an eTag in the array corresponds to its part number in the upload. If provided, OSS will validate
 		 * these eTags against the content in S3, and return an error if the eTags do not match (indicating some form of data corruption).
 		 * @param {Object=} opts Optional parameters
 		 * @param {String=} opts.xAdsMetaContentType (x-ads-meta-Content-Type) The Content-Type value that OSS will store in the record for the uploaded object.
@@ -960,8 +960,8 @@ module.exports = (function () {
 			// verify the required parameter 'body' is set
 			if (!body)
 				return (Promise.reject("Missing the required parameter 'body' when calling completeS3Upload"));
-			if (!body.eTags)
-				return (Promise.reject("Missing the required parameter 'eTags' when calling completeS3Upload"));
+			// if (!body.eTags)
+			// 	return (Promise.reject("Missing the required parameter 'eTags' when calling completeS3Upload"));
 			if (body.eTags && (!Array.isArray(body.eTags) || body.eTags.length === 0))
 				return (Promise.reject("Invalid 'body.eTags' parameter when calling completeS3Upload"));
 			if (!body.uploadKey)
@@ -1000,11 +1000,11 @@ module.exports = (function () {
 		 * @param {Object[]} body.requests An array of objects representing each request to get an S3 URL to download from.
 		 * @param {String} body.requests[].objectKey The key/name of the object for which to complete an upload.
 		 * @param {String} body.requests[].uploadKey The identifier of the upload session, which was provided by OSS in the response to the Get Upload URL/s request.
-		 * @param {Integer=} body.requests[].size The expected size of the uploaded object. If provided, OSS will check this against the blob in S3 and return 
+		 * @param {Integer=} body.requests[].size The expected size of the uploaded object. If provided, OSS will check this against the blob in S3 and return
 		 * an error if the size does not match.
-		 * @param {String[]=} body.requests[].eTags An array of eTags. S3 returns an eTag to each upload request, be it for a chunk or an entire file. 
-		 * For a single-part upload, this array contains the expected eTag of the entire object. For a multipart upload, this array contains the expected 
-		 * eTag of each part of the upload; the index of an eTag in the array corresponds to its part number in the upload. If provided, OSS will validate 
+		 * @param {String[]=} body.requests[].eTags An array of eTags. S3 returns an eTag to each upload request, be it for a chunk or an entire file.
+		 * For a single-part upload, this array contains the expected eTag of the entire object. For a multipart upload, this array contains the expected
+		 * eTag of each part of the upload; the index of an eTag in the array corresponds to its part number in the upload. If provided, OSS will validate
 		 * these eTags against the content in S3, and return an error if the eTags do not match (indicating some form of data corruption).
 		 * @param {String=} body.requests[].xAdsMetaContentType (x-ads-meta-Content-Type) The Content-Type value that OSS will store in the record for the uploaded object.
 		 * @param {String=} body.requests[].xAdsMetaContentDisposition (x-ads-meta-Content-Disposition) The Content-Disposition value that OSS will store in the record for the uploaded object.
@@ -1071,18 +1071,18 @@ module.exports = (function () {
 		 * @param {String} bucketKey bucket key (will be URL-encoded automatically)
 		 * @param {Object} body body parameter
 		 * @param {Object[]} body.requests An array of objects representing each request to get an S3 URL to download from.
-		 * @param {String} body.requests[].objectKey The key/name of the object for which to create an S3 upload URL. If neither the “part” nor “parts” 
+		 * @param {String} body.requests[].objectKey The key/name of the object for which to create an S3 upload URL. If neither the “part” nor “parts”
 		 * attribute is provided, OSS will return a single upload URL with which to upload the entire object.
-		 * @param {String=} body.requests[].uploadKey Get a new set of signed urls if the ones that were generated before have already expired and the user 
+		 * @param {String=} body.requests[].uploadKey Get a new set of signed urls if the ones that were generated before have already expired and the user
 		 * still needs to upload some of them.
-		 * @param {Integer=} [body.requests[].firstParts=1] For a multipart upload, is the starting index when getting upload part URL. 
-		 * If this parameter is not specified the default value is firstPart = 1. 
+		 * @param {Integer=} [body.requests[].firstParts=1] For a multipart upload, is the starting index when getting upload part URL.
+		 * If this parameter is not specified the default value is firstPart = 1.
 		 * Example: To retrieve the parts from 10 to 15 you should pass firstPart = 10 and parts = 6, this will retrieve the parts 10, 11, 12, 13, 14 and 15.
-		 * @param {Integer=} [body.requests[].parts=1] For a multipart upload, is the starting index when getting upload part URL. 
-		 * If this parameter is not specified the default value is firstPart = 1. 
+		 * @param {Integer=} [body.requests[].parts=1] For a multipart upload, is the starting index when getting upload part URL.
+		 * If this parameter is not specified the default value is firstPart = 1.
 		 * Example: To retrieve the parts from 10 to 15 you should pass firstPart = 10 and parts = 6, this will retrieve the parts 10, 11, 12, 13, 14 and 15.
 		 * @param {Object=} opts Optional parameters
-		 * @param {Boolean=} [opts.useAcceleration=true] Whether or not to generate an accelerated signed URL (ie: URLs of 
+		 * @param {Boolean=} [opts.useAcceleration=true] Whether or not to generate an accelerated signed URL (ie: URLs of
 		 * the form …s3-accelerate.amazonaws.com… vs …s3.amazonaws.com…).
 		 * When not specified, defaults to true. Providing non-boolean values will result in a 400 error.
 		 * @param {Integer=} [opts.minutesExpiration=2] The custom expiration time within the 1 to 60 minutes range, if not specified, default is 2 minutes.
@@ -1335,9 +1335,9 @@ module.exports = (function () {
 		 * @param {Object|Object[]} objects Object or Object array of resource to uplaod with their parameters
 		 * @param {String} object[].objectKey object key
 		 * @param {String|Buffer|Stream} object[].data Resource to upload (String| Buffer | Stream)
-		 * @param {String[]=} object[].eTags An array of eTags. S3 returns an eTag to each upload request, be it for a chunk or an entire file. 
-		 * For a single-part upload, this array contains the expected eTag of the entire object. For a multipart upload, this array contains the expected 
-		 * eTag of each part of the upload; the index of an eTag in the array corresponds to its part number in the upload. If provided, OSS will validate 
+		 * @param {String[]=} object[].eTags An array of eTags. S3 returns an eTag to each upload request, be it for a chunk or an entire file.
+		 * For a single-part upload, this array contains the expected eTag of the entire object. For a multipart upload, this array contains the expected
+		 * eTag of each part of the upload; the index of an eTag in the array corresponds to its part number in the upload. If provided, OSS will validate
 		 * these eTags against the content in S3, and return an error if the eTags do not match (indicating some form of data corruption).
 		 * @param {String=} object[].xAdsMetaContentType (x-ads-meta-Content-Type) The Content-Type value that OSS will store in the record for the uploaded object.
 		 * @param {String=} object[].xAdsMetaContentDisposition (x-ads-meta-Content-Disposition) The Content-Disposition value that OSS will store in the record for the uploaded object.
@@ -1346,7 +1346,7 @@ module.exports = (function () {
 		 * @param {Object=} opts Optional parameters
 		 * @param {Integer=5} chunkSize Chunk size in Mb. Should not be below 5Mb.
 		 * @param {Integer=25} maxBatches Maximum batch to produces. Should not be above 25 or below 1.
-		 * @param {Boolean=true} opts.useAcceleration Whether or not to generate an accelerated signed URL (ie: URLs of 
+		 * @param {Boolean=true} opts.useAcceleration Whether or not to generate an accelerated signed URL (ie: URLs of
 		 * the form …s3-accelerate.amazonaws.com… vs …s3.amazonaws.com…).
 		 * When not specified, defaults to true. Providing non-boolean values will result in a 400 error.
 		 * @param {Integer=2} opts.minutesExpiration The custom expiration time within the 1 to 60 minutes range, if not specified, default is 2 minutes.
