@@ -335,11 +335,12 @@ module.exports = (function () {
 	 *    constructor for a complex type.
 	 * @param {Object} oauth2client oauth2client for the call
 	 * @param {Object} credentials credentials for the call
+	 * @param {String} responseType The type of the response data
 	 * @returns {Object} A Promise object.
 	 */
 	exports.prototype.callApi = function callApi (path, httpMethod, pathParams,
 		queryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
-		returnType, oauth2client, credentials
+		returnType, oauth2client, credentials, responseType
 	) {
 
 		const _this = this;
@@ -349,6 +350,7 @@ module.exports = (function () {
 		const headers = {};
 		requestParams.qs = this.normalizeParams(queryParams);
 		requestParams.timeout = this.timeout;
+		requestParams.responseType = responseType;
 
 		const contentType = this.jsonPreferredMime(contentTypes);
 		if (contentType)
@@ -399,6 +401,7 @@ module.exports = (function () {
 					maxContentLength: Infinity,
 					maxBodyLength: Infinity,
 					data: requestParams.body,
+					responseType: requestParams.responseType
 				})
 					.then((response) => {
 						if (response.statusCode >= 400) {

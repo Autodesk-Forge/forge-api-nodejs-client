@@ -199,11 +199,12 @@ module.exports = (function () {
 			var contentTypes = ['application/json'];
 			var accepts = ['application/octet-stream'];
 			var returnType = Object;
+			var responseType = 'arraybuffer';
 
 			return this.apiClient.callApi(
 				this.regionPaths[this.region] + '/designdata/{urn}/thumbnail', 'GET',
 				pathParams, queryParams, headerParams, formParams, postBody,
-				contentTypes, accepts, returnType, oauth2client, credentials
+				contentTypes, accepts, returnType, oauth2client, credentials, responseType
 			);
 		};
 

@@ -171,10 +171,11 @@ module.export = (function () {
 				var contentTypes = ['application/json'];
 				var accepts = ['application/octet-stream'];
 				var returnType = Object;
+				var responseType = 'arraybuffer';
 
 				mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/thumbnail', 'GET',
 					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+					contentTypes, accepts, returnType, oauth2client, credentials, responseType).returns(Promise.resolve('Success result'));
 
 				instance.getThumbnail(sampleStrParam, opts, oauth2client, credentials).then(function (response) {
 					expect(response).to.be.ok();
