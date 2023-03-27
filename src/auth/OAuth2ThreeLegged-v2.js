@@ -25,24 +25,25 @@
 module.exports = (function () {
 	'use strict';
 
-	let OAuth2 = require('./OAuth2');
-	let ApiClient = require('../ApiClient');
+	var OAuth2 = require('./OAuth2');
+	var ApiClient = require('../ApiClient');
 
 	/**
-	 * @module auth/OAuth2TwoLeggedV2
+	 * @module auth/OAuth2ThreeLeggedV2
 	 */
 
 	/**
-	 * Constructs a new <code>OAuth2TwoLeggedV2</code>.
+	 * Constructs a new <code>OAuth2ThreeLeggedV2</code>.
 	 * Inherits from OAuth2
-	 * @alias module:auth/OAuth2TwoLeggedV2
+	 * @alias module:auth/OAuth2ThreeLeggedV2
 	 */
-	let OAuth2TwoLeggedV2 = function (clientId, clientSecret, scope, autoRefresh, apiClient) {
+	var OAuth2ThreeLeggedV2 = function (clientId, clientSecret, redirectUri, scope, autoRefresh, apiClient) {
 		const _ApiClient = apiClient || require('../ApiClient').instance;
 
 		this.authentication = {
+			authorizationUrl: '/authentication/v2/authorize',
 			tokenUrl: '/authentication/v2/token',
-			revokeTokenUrl: '/authentication/v2/revoke',
+			refreshTokenUrl: '/authentication/v2/token',
 			scopes: {
 				'data:read': 'The application will be able to read the end user’s data within the Autodesk ecosystem.',
 				'data:write': 'The application will be able to create, update, and delete data on behalf of the end user within the Autodesk ecosystem.',
@@ -67,28 +68,29 @@ module.exports = (function () {
 			}
 		}
 
-		this.authName = 'oauth2_application';
+		this.authName = 'oauth2_access_code';
 		OAuth2.call(this, clientId, clientSecret, scope, autoRefresh, _ApiClient);
+		this.redirectUri = redirectUri;
 	};
 
 	// inherit from OAuth2 class
-	OAuth2TwoLeggedV2.prototype = Object.create(OAuth2.prototype);
+	OAuth2ThreeLeggedV2.prototype = Object.create(OAuth2.prototype);
 
 	// Set the "constructor" property to refer to OAuth2
-	OAuth2TwoLeggedV2.prototype.constructor = OAuth2TwoLeggedV2;
+	OAuth2ThreeLeggedV2.prototype.constructor = OAuth2ThreeLeggedV2;
 
 	/**
 	 * Set the credentials manually
 	 * @param credentials
 	 */
-	OAuth2TwoLeggedV2.prototype.setCredentials = function (credentials) {
+	OAuth2ThreeLeggedV2.prototype.setCredentials = function (credentials) {
 		this.credentials = credentials;
 	};
 
 	/**
 	 * Get the credentials
 	 */
-	OAuth2TwoLeggedV2.prototype.getCredentials = function () {
+	OAuth2ThreeLeggedV2.prototype.getCredentials = function () {
 		return (this.credentials);
 	};
 
@@ -96,7 +98,7 @@ module.exports = (function () {
 	 * Check if token is authorized
 	 * @returns {boolean}
 	 */
-	OAuth2TwoLeggedV2.prototype.isAuthorized = function () {
+	OAuth2ThreeLeggedV2.prototype.isAuthorized = function () {
 		return (!!(this.credentials && this.credentials.expires_at && this.credentials.expires_at > Date.now()));
 	};
 
@@ -104,7 +106,7 @@ module.exports = (function () {
 	 * Check if token has expired
 	 * @returns {boolean}
 	 */
-	OAuth2TwoLeggedV2.prototype.hasExpired = function () {
+	OAuth2ThreeLeggedV2.prototype.hasExpired = function () {
 		return (!this.credentials || !this.credentials.expires_at || this.credentials.expires_at <= Date.now());
 	};
 
@@ -112,24 +114,50 @@ module.exports = (function () {
 	 * Check if token is about to expire
 	 * @returns {boolean}
 	 */
-	OAuth2TwoLeggedV2.prototype.isAboutToExpire = function (threadHoldInSeconds) {
+	OAuth2ThreeLeggedV2.prototype.isAboutToExpire = function (threadHoldInSeconds) {
 		threadHoldInSeconds = threadHoldInSeconds || 300;
 		return (!this.credentials || !this.credentials.expires_at || this.credentials.expires_at - threadHoldInSeconds * 1000 < Date.now());
 	};
 
 	/**
-	 * Authorize and get a 2 legged access token
+	 * Get Authorize URL
+	 * @param {String} state - parameter that allows you to restore the previous state of your application
+	 * @param {String} flow - enum string to define the grant flow type [code: Code grant type, token: Implicit grant type]. Default: code
+	 * @return String
+	 */
+	OAuth2ThreeLeggedV2.prototype.generateAuthUrl = function (state, flow) {
+		flow = flow || 'code';
+		if (this.authentication && this.authentication.authorizationUrl) {
+			var redirectionUrl = this.basePath + this.authentication.authorizationUrl +
+				'?response_type=' + flow +
+				'&client_id=' + this.clientId +
+				'&redirect_uri=' + this.redirectUri +
+				'&scope=' + this.scope +
+				'&state=' + state;
+
+			return (redirectionUrl);
+		} else {
+			ApiClient.instance.debug('authorizationUrl is not defined in the authentication object');
+			return (new Error('authorizationUrl is not defined in the authentication object'));
+		}
+	};
+
+	/**
+	 * Get a 3-legged access token
+	 * @param {String} code - The code that needs to be exchanged to get the access token
 	 * @return Promise
 	 */
-	OAuth2TwoLeggedV2.prototype.authenticate = function () {
+	OAuth2ThreeLeggedV2.prototype.getToken = function (code) {
 		const _this = this;
 		return (new Promise(function (resolve, reject) {
 			if (_this.authentication && _this.authentication.tokenUrl) {
 				let url = _this.basePath + _this.authentication.tokenUrl;
 
 				let body = {
-					grant_type: 'client_credentials',
-					scope: _this.scope,
+					grant_type: 'authorization_code',
+					code: code,
+					response_type: 'code',
+					redirect_uri: _this.redirectUri
 				};
 
 				let Authorization = _this.BasicAuthorization(_this.clientId, _this.clientSecret);
@@ -137,7 +165,7 @@ module.exports = (function () {
 				_this.doPostRequestWithHeaders(
 					url,
 					body,
-					{ Authorization },
+					{ Authorization, 'Accept': 'application/json' },
 					(response) => {
 						// add expires_at property
 						let credentials = {
@@ -148,52 +176,70 @@ module.exports = (function () {
 						resolve(credentials);
 					},
 					(errResponse) => {
-						ApiClient.instance.debug('authenticate error', errResponse);
+						ApiClient.instance.debug('getToken error', errResponse);
 						reject(errResponse);
 					});
-
 			} else {
 				ApiClient.instance.debug('tokenUrl is not defined in the authentication object');
 				reject(new Error('tokenUrl is not defined in the authentication object'));
 			}
 		}));
+
 	};
 
 	/**
-	 * Revoke a 2 legged access token
+	 * Refresh a 3-legged token
+	 * @param credentials - name-value pairs (refresh_token)
+	 * @param scope - optional scope for new token. It must be subset of the scopes used for original token.
 	 * @return Promise
 	 */
-	OAuth2TwoLeggedV2.prototype.revokeToken = function () {
-		const _this = this;
+	OAuth2ThreeLeggedV2.prototype.refreshToken = function (credentials, scope) {
+		var _this = this;
 		return (new Promise(function (resolve, reject) {
-			if (_this.authentication && _this.authentication.revokeTokenUrl) {
-				let url = _this.basePath + _this.authentication.revokeTokenUrl;
+			if (_this.authentication && _this.authentication.refreshTokenUrl) {
+				if (credentials && credentials.refresh_token) {
+					var url = _this.basePath + _this.authentication.refreshTokenUrl;
 
-				let body = {
-					token: _this.getCredentials().access_token,
-					token_type_hint: 'access_token',
-					client_id: _this.clientId,
-				};
+					var body = {
+						grant_type: 'refresh_token',
+						refresh_token: credentials.refresh_token
+					};
 
-				_this.doPostRequestWithHeaders(
-					url,
-					body,
-					{},
-					() => {
-						_this.setCredentials(undefined);
-						resolve();
-					},
-					(errResponse) => {
-						ApiClient.instance.debug('authenticate error', errResponse);
-						reject(errResponse);
-					});
+					let Authorization = _this.BasicAuthorization(_this.clientId, _this.clientSecret);
 
+					if (scope) {
+						body.scope = scope.join(' ');
+					}
+					_this.doPostRequestWithHeaders(
+						url,
+						body,
+						{ Authorization, 'Accept': 'application/json' },
+						(response) => {
+							if (response.access_token) {
+								let credentials = {
+									...response,
+									expires_at: Date.now() + response.expires_in * 1000
+								};
+								_this.setCredentials(credentials);
+								resolve(credentials);
+							} else {
+								ApiClient.instance.debug('refreshToken error', response);
+								reject(response);
+							}
+						}, (errResponse) => {
+							ApiClient.instance.debug('refreshToken error', errResponse);
+							reject(errResponse);
+						});
+				} else {
+					ApiClient.instance.debug('No refresh token present');
+					reject(new Error('No refresh token present'));
+				}
 			} else {
-				ApiClient.instance.debug('revokeTokenUrl is not defined in the authentication object');
-				reject(new Error('revokeTokenUrl is not defined in the authentication object'));
+				ApiClient.instance.debug('refreshTokenUrl is not defined in the authentication object');
+				reject(new Error('refreshTokenUrl is not defined in the authentication object'));
 			}
 		}));
 	};
 
-	return (OAuth2TwoLeggedV2);
+	return (OAuth2ThreeLeggedV2);
 }());

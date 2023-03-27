@@ -30,10 +30,12 @@ module.exports = (function () {
         OAuth2 = require('../../src/auth/OAuth2'),
         OAuth2TwoLegged = require('../../src/auth/OAuth2TwoLegged'),
         OAuth2ThreeLegged = require('../../src/auth/OAuth2ThreeLegged'),
+        OAuth2TwoLeggedV2 = require('../../src/auth/OAuth2TwoLegged-v2'),
+        OAuth2ThreeLeggedV2 = require('../../src/auth/OAuth2ThreeLegged-v2'),
         mockedPostRequest,
         nock = require('nock');
 
-    var oauth2, oauth2client2legged, oauth2client3legged;
+    var oauth2, oauth2client2legged, oauth2client3legged, oauth2client2leggedV2, oauth2client3leggedV2;
 
     before(function () {
         var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
@@ -42,6 +44,8 @@ module.exports = (function () {
 
         oauth2client2legged = new OAuth2TwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
         oauth2client3legged = new OAuth2ThreeLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, FORGE_CALLBACK, ['data:read', 'data:write']);
+        oauth2client2leggedV2 = new OAuth2TwoLeggedV2(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
+        oauth2client3leggedV2 = new OAuth2ThreeLeggedV2(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, FORGE_CALLBACK, ['data:read', 'data:write']);
     });
 
     describe('OAuth2', function () {
@@ -70,6 +74,18 @@ module.exports = (function () {
                 expect(oauth2client2legged).to.have.property('credentials');
                 expect(oauth2client2legged).to.have.property('autoRefresh');
 
+                // 2-legged v2 client
+                expect(oauth2client2leggedV2).to.have.property('clientId');
+                expect(oauth2client2leggedV2).to.have.property('authName');
+                expect(oauth2client2leggedV2).to.have.property('clientSecret');
+                expect(oauth2client2leggedV2).to.have.property('authentication');
+                expect(oauth2client2leggedV2.authentication).to.have.property('tokenUrl');
+                expect(oauth2client2leggedV2.authentication).to.have.property('scopes');
+                expect(oauth2client2leggedV2).to.have.property('scope');
+                expect(oauth2client2leggedV2).to.have.property('basePath');
+                expect(oauth2client2leggedV2).to.have.property('credentials');
+                expect(oauth2client2leggedV2).to.have.property('autoRefresh');
+
                 // 3-legged client
                 expect(oauth2client3legged).to.have.property('clientId');
                 expect(oauth2client3legged).to.have.property('authName');
@@ -81,6 +97,18 @@ module.exports = (function () {
                 expect(oauth2client3legged).to.have.property('basePath');
                 expect(oauth2client3legged).to.have.property('credentials');
                 expect(oauth2client3legged).to.have.property('autoRefresh');
+
+                // 3-legged v2 client
+                expect(oauth2client3leggedV2).to.have.property('clientId');
+                expect(oauth2client3leggedV2).to.have.property('authName');
+                expect(oauth2client3leggedV2).to.have.property('clientSecret');
+                expect(oauth2client3leggedV2).to.have.property('authentication');
+                expect(oauth2client3leggedV2.authentication).to.have.property('tokenUrl');
+                expect(oauth2client3leggedV2.authentication).to.have.property('scopes');
+                expect(oauth2client3leggedV2).to.have.property('scope');
+                expect(oauth2client3leggedV2).to.have.property('basePath');
+                expect(oauth2client3leggedV2).to.have.property('credentials');
+                expect(oauth2client3leggedV2).to.have.property('autoRefresh');
             });
 
             it('should be able to call doPostRequest', function (done) {
@@ -99,6 +127,29 @@ module.exports = (function () {
                     });
 
                 oauth2client2legged.doPostRequest(urlBasePath + '/foo', {}, function (response) {
+                    expect(response).to.be.an('string');
+                    done();
+                }, function (err) {
+                    done(err);
+                });
+            });
+
+            it('should be able to call doPostRequestWithHeaders', function (done) {
+                expect(oauth2client2leggedV2.doPostRequestWithHeaders).to.be.a(Function);
+                expect(oauth2client3leggedV2.doPostRequestWithHeaders).to.be.a(Function);
+
+                var host = 'localtest.com',
+                    urlBasePath = 'http://' + host;
+
+                nock(urlBasePath)
+                    .post('/foo', {})
+                    .reply(200, function (uri, respBody) {
+                        expect(this.req.headers).to.have.property('content-type');
+                        expect(this.req.headers.host).to.equal(host);
+                        return respBody;
+                    });
+
+                oauth2client2leggedV2.doPostRequestWithHeaders(urlBasePath + '/foo', {}, function (response) {
                     expect(response).to.be.an('string');
                     done();
                 }, function (err) {
@@ -129,6 +180,38 @@ module.exports = (function () {
                 };
                 mockedPostRequest.yields(credentials);
                 oauth2client2legged.authenticate().then(function (response) {
+                    expect(response).to.be.ok();
+                    expect(response).to.have.property('expires_at');
+                    mockedPostRequest.restore();
+                    done();
+                }, function (err) {
+                    done(err);
+                });
+            });
+        });
+
+        describe('OAuth2 two-legged v2 client', function () {
+            it('setCredentials and getCredentials should work as expected', function () {
+                expect(oauth2client2leggedV2.setCredentials).to.be.a(Function);
+                oauth2client2leggedV2.setCredentials({ access_token: 'abcd' });
+                expect(oauth2client2leggedV2.getCredentials()).to.eql({ access_token: 'abcd' });
+            });
+
+            it('isAuthorized should work as expected', function () {
+                var futureTime = Date.now() + 300 * 1000;
+                oauth2client2leggedV2.setCredentials({ access_token: 'abcd', expires_at: futureTime });
+                expect(oauth2client2leggedV2.isAuthorized()).to.equal(true);
+            });
+
+            it('authenticate should work', function (done) {
+
+                mockedPostRequest = sinon.stub(oauth2client2leggedV2, 'doPostRequestWithHeaders');
+                var credentials = {
+                    access_token: 'abcdef',
+                    expires_in: 1800
+                };
+                mockedPostRequest.yields(credentials);
+                oauth2client2leggedV2.authenticate().then(function (response) {
                     expect(response).to.be.ok();
                     expect(response).to.have.property('expires_at');
                     mockedPostRequest.restore();
@@ -181,6 +264,58 @@ module.exports = (function () {
                 mockedPostRequest.yields(credentials);
 
                 oauth2client3legged.refreshToken(credentials).then(function (response) {
+                    expect(response).to.be.ok();
+                    expect(response).to.have.property('expires_at');
+                    mockedPostRequest.restore();
+                    done();
+                }, function (err) {
+                    done(err);
+                });
+            });
+        });
+
+        describe('OAuth2 three-legged v2 client', function () {
+            it('should have redirectUri property', function () {
+                expect(oauth2client3leggedV2).to.have.property('redirectUri');
+            });
+
+            it('generateAuthUrl should work as expected', function () {
+                expect(oauth2client3leggedV2.generateAuthUrl).to.be.a(Function);
+                expect(oauth2client3leggedV2.generateAuthUrl()).to.contain('authentication/v2/authorize');
+                expect(oauth2client3leggedV2.generateAuthUrl()).to.contain('response_type=code');
+                expect(oauth2client3leggedV2.generateAuthUrl('state-test')).to.contain('state=state-test');
+            });
+
+            it('getToken should work', function (done) {
+
+                mockedPostRequest = sinon.stub(oauth2client3leggedV2, 'doPostRequestWithHeaders');
+                var credentials = {
+                    access_token: 'abcdef',
+                    expires_in: 1800
+                };
+                mockedPostRequest.yields(credentials);
+
+                oauth2client3leggedV2.getToken('some_code').then(function (response) {
+                    expect(response).to.be.ok();
+                    expect(response).to.have.property('expires_at');
+                    mockedPostRequest.restore();
+                    done();
+                }, function (err) {
+                    done(err);
+                });
+            });
+
+            it('refreshToken should work', function (done) {
+
+                mockedPostRequest = sinon.stub(oauth2client3leggedV2, 'doPostRequestWithHeaders');
+                var credentials = {
+                    access_token: 'abcdef',
+                    refresh_token: 'foobar',
+                    expires_in: 1800
+                };
+                mockedPostRequest.yields(credentials);
+
+                oauth2client3leggedV2.refreshToken(credentials).then(function (response) {
                     expect(response).to.be.ok();
                     expect(response).to.have.property('expires_at');
                     mockedPostRequest.restore();

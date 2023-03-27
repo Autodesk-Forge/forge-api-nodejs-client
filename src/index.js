@@ -182,7 +182,9 @@ module.exports = (function () {
 		TokensApi = require('./api/TokensApi'),
 		IssuesApi = require('./api/IssuesApi'),
 		authClientTwoLegged = require('./auth/OAuth2TwoLegged'),
-		authClientThreeLegged = require('./auth/OAuth2ThreeLegged');
+		authClientThreeLegged = require('./auth/OAuth2ThreeLegged'),
+		authClientTwoLeggedV2 = require('./auth/OAuth2TwoLegged-v2'),
+		authClientThreeLeggedV2 = require('./auth/OAuth2ThreeLegged-v2');
 
 	/**
 	 * The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering..<br>
@@ -1005,6 +1007,16 @@ module.exports = (function () {
 		 * @property {module:auth/OAuth2ThreeLegged}
 		 */
 		AuthClientThreeLegged: authClientThreeLegged,
+		/**
+		 * The AuthClient service constructor for 2-legged flow.
+		 * @property {module:auth/OAuth2TwoLegged-v2}
+		 */
+		AuthClientTwoLeggedV2: authClientTwoLeggedV2,
+		/**
+		 * The AuthClient service constructor for 3-legged flow.
+		 * @property {module:auth/OAuth2ThreeLegged-v2}
+		 */
+		AuthClientThreeLeggedV2: authClientThreeLeggedV2,
 		/**
 		 * Optionally enable debugging
 		 * @param isDebug
