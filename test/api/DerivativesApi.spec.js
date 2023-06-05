@@ -307,6 +307,36 @@ module.export = (function () {
 			});
 		});
 
+		describe('getDerivativeDownloadUrl', function () {
+			it('should call getDerivativeDownloadUrl successfully', function (done) {
+				var opts = {};
+				var postBody = null;
+
+				var pathParams = {
+					'urn': sampleStrParam,
+					'derivativeUrn': sampleStrParam
+				};
+				var queryParams = {};
+				var headerParams = {};
+				var formParams = {};
+
+				var contentTypes = [];
+				var accepts = [];
+				var returnType = null;
+
+				mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/manifest/{derivativeUrn}/signedcookies', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+				instance.getDerivativeDownloadUrl(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+
 		describe('getMetadata', function () {
 			it('should call getMetadata successfully', function (done) {
 				var opts = {};

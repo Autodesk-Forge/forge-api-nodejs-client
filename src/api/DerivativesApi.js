@@ -367,6 +367,55 @@ module.exports = (function () {
 		};
 
 		/**
+		 * Returns a download URL and a set of signed cookies, which lets you securely download the derivative specified by the derivativeUrn URI parameter.  
+		 * The signed cookies have a lifetime of 6 hours.  
+		 * Although you cannot use range headers for this endpoint, you can use range headers for the returned download URL to download the derivative in chunks, in parallel.  
+		 * See: https://aps.autodesk.com/en/docs/model-derivative/v2/reference/http/urn-manifest-derivativeUrn-signedcookies-GET/
+		 * @param {String} urn The Base64 (URL Safe) encoded design URN
+		 * @param {String} derivativeUrn The URL-encoded URN of the derivatives. The URN is retrieved from the GET :urn/manifest endpoint.
+		 * @param {Object} opts Optional parameters
+		 * @param {Integer} opts.minutesExpiration Specifies how many minutes the signed cookies should remain valid. Default value is 360 minutes. The value you specify must be lower than the default value for this parameter. If you specify a value greater than the default value, the Model Derivative service will return an error with an HTTP status code of 400.
+		 * @param {String} opts.responseContentDisposition The value that must be returned with the download URL as the response-content-disposition query string parameter. Must begin with attachment. This value defaults to the default value corresponding to the derivative/file.
+		 * @param {Object} oauth2client oauth2client for the call
+		 * @param {Object} credentials credentials for the call
+		 */
+		this.getDerivativeDownloadUrl = function (urn, derivativeUrn, opts, oauth2client, credentials) {
+			opts = opts || {};
+			var postBody = null;
+
+			// verify the required parameter 'urn' is set
+			if (urn == undefined || urn == null) {
+				return Promise.reject("Missing the required parameter 'urn' when calling getDerivativeDownloadUrl");
+			}
+
+			// verify the required parameter 'derivativeUrn' is set
+			if (derivativeUrn == undefined || derivativeUrn == null) {
+				return Promise.reject("Missing the required parameter 'derivativeUrn' when calling getDerivativeDownloadUrl");
+			}
+
+			var pathParams = {
+				'urn': urn,
+				'derivativeUrn': derivativeUrn
+			};
+			var queryParams = {
+				'minutes-expiration': opts.minutesExpiration,
+				'response-content-disposition': opts.responseContentDisposition
+			};
+			var headerParams = {};
+			var formParams = {};
+
+			var contentTypes = [];
+			var accepts = [];
+			var returnType = null;
+
+			return this.apiClient.callApi(
+				this.regionPaths[this.region] + '/designdata/{urn}/manifest/{derivativeUrn}/signedcookies', 'GET',
+				pathParams, queryParams, headerParams, formParams, postBody,
+				contentTypes, accepts, returnType, oauth2client, credentials
+			);
+		};
+
+		/**
 		 * Returns a list of model view (metadata) IDs for a design model. The metadata ID enables end users to select an object tree and properties for a specific model view.  Although most design apps (e.g., Fusion and Inventor) only allow a single model view (object tree and set of properties), some apps (e.g., Revit) allow users to design models with multiple model views (e.g., HVAC, architecture, perspective).  Note that you can only retrieve metadata from an input file that has been translated into an SVF file.
 		 * @param {String} urn The Base64 (URL Safe) encoded design URN
 		 * @param {Object} opts Optional parameters
