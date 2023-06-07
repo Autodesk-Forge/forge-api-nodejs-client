@@ -33,6 +33,7 @@ module.exports = (function () {
 		Manifest = require('../model/Manifest'),
 		Metadata = require('../model/Metadata'),
 		Result = require('../model/Result');
+		DerivativeDownloadUrl = require('../model/DerivativeDownloadUrl');
 
 	/**
 	 * Derivatives service.
@@ -404,9 +405,9 @@ module.exports = (function () {
 			var headerParams = {};
 			var formParams = {};
 
-			var contentTypes = [];
-			var accepts = [];
-			var returnType = null;
+			var contentTypes = ['application/json'];
+			var accepts = ['*/*'];
+			var returnType = DerivativeDownloadUrl;
 
 			return this.apiClient.callApi(
 				this.regionPaths[this.region] + '/designdata/{urn}/manifest/{derivativeUrn}/signedcookies', 'GET',
