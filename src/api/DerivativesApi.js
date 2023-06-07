@@ -32,7 +32,7 @@ module.exports = (function () {
 		JobPayload = require('../model/JobPayload'),
 		Manifest = require('../model/Manifest'),
 		Metadata = require('../model/Metadata'),
-		Result = require('../model/Result');
+		Result = require('../model/Result'),
 		DerivativeDownloadUrl = require('../model/DerivativeDownloadUrl');
 
 	/**

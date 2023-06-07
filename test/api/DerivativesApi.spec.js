@@ -40,6 +40,7 @@ module.export = (function () {
 	var Manifest = require('../../src/model/Manifest');
 	var Metadata = require('../../src/model/Metadata');
 	var Result = require('../../src/model/Result');
+	var DerivativeDownloadUrl = require('../../src/model/DerivativeDownloadUrl');
 
 	var sampleStrParam = 'test_string';
 	var sampleIntParam = 10;
@@ -316,13 +317,16 @@ module.export = (function () {
 					'urn': sampleStrParam,
 					'derivativeUrn': sampleStrParam
 				};
-				var queryParams = {};
+				var queryParams = {
+					'minutes-expiration': opts.minutesExpiration,
+					'response-content-disposition': opts.responseContentDisposition
+				};
 				var headerParams = {};
 				var formParams = {};
 
-				var contentTypes = [];
-				var accepts = [];
-				var returnType = null;
+				var contentTypes = ['application/json'];
+				var accepts = ['*/*'];
+				var returnType = DerivativeDownloadUrl;
 
 				mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/manifest/{derivativeUrn}/signedcookies', 'GET',
 					pathParams, queryParams, headerParams, formParams, postBody,
