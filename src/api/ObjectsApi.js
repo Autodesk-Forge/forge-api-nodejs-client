@@ -344,9 +344,10 @@ module.exports = (function () {
 		 *
 		 * @deprecated
 		 */
-		this.getObject = function (bucketKey, objectKey, opts, oauth2client, credentials) {
+		this.getObject = function (bucketKey, objectKey, opts, oauth2client, credentials, responseType) {
 			opts = opts || {};
 			const postBody = null;
+			responseType = responseType || 'arraybuffer'
 
 			// verify the required parameter 'bucketKey' is set
 			if (!bucketKey)
@@ -375,7 +376,8 @@ module.exports = (function () {
 			return (this.apiClient.callApi(
 				'/oss/v2/buckets/{bucketKey}/objects/{objectKey}', 'GET',
 				pathParams, queryParams, headerParams, formParams, postBody,
-				contentTypes, accepts, returnType, oauth2client, credentials
+				contentTypes, accepts, returnType, oauth2client, credentials,
+				responseType
 			));
 		};
 
