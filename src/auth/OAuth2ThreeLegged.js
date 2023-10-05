@@ -41,9 +41,9 @@ module.exports = (function () {
 		const _ApiClient = apiClient || require('../ApiClient').instance;
 
 		this.authentication = {
-			authorizationUrl: '/authentication/v1/authorize',
-			tokenUrl: '/authentication/v1/gettoken',
-			refreshTokenUrl: '/authentication/v1/refreshtoken',
+			authorizationUrl: '/authentication/v2/authorize',
+			tokenUrl: '/authentication/v2/token',
+			refreshTokenUrl: '/authentication/v2/token',
 			scopes: {
 				'data:read': 'The application will be able to read the end user’s data within the Autodesk ecosystem.',
 				'data:write': 'The application will be able to create, update, and delete data on behalf of the end user within the Autodesk ecosystem.',
@@ -148,32 +148,37 @@ module.exports = (function () {
 	 * @return Promise
 	 */
 	OAuth2ThreeLegged.prototype.getToken = function (code) {
-		var _this = this;
+		const _this = this;
 		return (new Promise(function (resolve, reject) {
 			if (_this.authentication && _this.authentication.tokenUrl) {
-				var url = _this.basePath + _this.authentication.tokenUrl;
+				let url = _this.basePath + _this.authentication.tokenUrl;
 
-				var body = {
+				let body = {
 					grant_type: 'authorization_code',
-					client_id: _this.clientId,
-					client_secret: _this.clientSecret,
 					code: code,
 					response_type: 'code',
 					redirect_uri: _this.redirectUri
 				};
 
-				_this.doPostRequest(url, body, function (response) {
-					// add expires_at property
-					let credentials = {
-						...response,
-						expires_at: Date.now() + response.expires_in * 1000
-					};
-					_this.setCredentials(credentials);
-					resolve(credentials);
-				}, function (errResponse) {
-					ApiClient.instance.debug('getToken error', errResponse);
-					reject(errResponse);
-				});
+				let Authorization = _this.BasicAuthorization(_this.clientId, _this.clientSecret);
+
+				_this.doPostRequestWithHeaders(
+					url,
+					body,
+					{ Authorization, 'Accept': 'application/json' },
+					(response) => {
+						// add expires_at property
+						let credentials = {
+							...response,
+							expires_at: Date.now() + response.expires_in * 1000
+						};
+						_this.setCredentials(credentials);
+						resolve(credentials);
+					},
+					(errResponse) => {
+						ApiClient.instance.debug('getToken error', errResponse);
+						reject(errResponse);
+					});
 			} else {
 				ApiClient.instance.debug('tokenUrl is not defined in the authentication object');
 				reject(new Error('tokenUrl is not defined in the authentication object'));
@@ -197,30 +202,34 @@ module.exports = (function () {
 
 					var body = {
 						grant_type: 'refresh_token',
-						client_id: _this.clientId,
-						client_secret: _this.clientSecret,
 						refresh_token: credentials.refresh_token
 					};
+
+					let Authorization = _this.BasicAuthorization(_this.clientId, _this.clientSecret);
 
 					if (scope) {
 						body.scope = scope.join(' ');
 					}
-					_this.doPostRequest(url, body, function (response) {
-						if (response.access_token) {
-							let credentials = {
-								...response,
-								expires_at: Date.now() + response.expires_in * 1000
-							};
-							_this.setCredentials(credentials);
-							resolve(credentials);
-						} else {
-							ApiClient.instance.debug('refreshToken error', response);
-							reject(response);
-						}
-					}, function (errResponse) {
-						ApiClient.instance.debug('refreshToken error', errResponse);
-						reject(errResponse);
-					});
+					_this.doPostRequestWithHeaders(
+						url,
+						body,
+						{ Authorization, 'Accept': 'application/json' },
+						(response) => {
+							if (response.access_token) {
+								let credentials = {
+									...response,
+									expires_at: Date.now() + response.expires_in * 1000
+								};
+								_this.setCredentials(credentials);
+								resolve(credentials);
+							} else {
+								ApiClient.instance.debug('refreshToken error', response);
+								reject(response);
+							}
+						}, (errResponse) => {
+							ApiClient.instance.debug('refreshToken error', errResponse);
+							reject(errResponse);
+						});
 				} else {
 					ApiClient.instance.debug('No refresh token present');
 					reject(new Error('No refresh token present'));

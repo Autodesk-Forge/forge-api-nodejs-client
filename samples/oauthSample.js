@@ -21,15 +21,20 @@
 //
 /*jshint esversion: 9 */
 
-const ForgeSDK = require('./../src/index');
+const ForgeSDK = require("./../src/index");
 
 // TODO - insert your CLIENT_ID and CLIENT_SECRET
-const FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || 'your forge client id';
-const FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || 'your forge client secret';
+const FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || "your forge client id";
+const FORGE_CLIENT_SECRET =
+  process.env.FORGE_CLIENT_SECRET || "your forge client secret";
 
 // Initialize the 2-legged oauth2 client
-const oAuth2TwoLeggedV2 = new ForgeSDK.AuthClientTwoLeggedV2(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,
-	['data:read'], true);
+const oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(
+  FORGE_CLIENT_ID,
+  FORGE_CLIENT_SECRET,
+  ["data:read"],
+  true
+);
 
 // oAuth2TwoLegged.authenticate()
 // 	.then((credentials) => {
@@ -40,13 +45,13 @@ const oAuth2TwoLeggedV2 = new ForgeSDK.AuthClientTwoLeggedV2(FORGE_CLIENT_ID, FO
 // 	});
 
 (async () => {
-	try {
-		let credentials = await oAuth2TwoLeggedV2.authenticate();
-		console.log("**** Got Credentials", JSON.stringify(credentials, null, 4));
+  try {
+    let credentials = await oAuth2TwoLegged.authenticate();
+    console.log("**** Got Credentials", JSON.stringify(credentials, null, 4));
 
-		const result = await oAuth2TwoLeggedV2.verifyToken(credentials.access_token);
-		console.log("**** Credentials verified", JSON.stringify(result, null, 4));
-	} catch (ex) {
-		console.error('\x1b[31m Error:', ex, '\x1b[0m');
-	}
+    const result = await oAuth2TwoLegged.verifyToken(credentials.access_token);
+    console.log("**** Credentials verified", JSON.stringify(result, null, 4));
+  } catch (ex) {
+    console.error("\x1b[31m Error:", ex, "\x1b[0m");
+  }
 })();
