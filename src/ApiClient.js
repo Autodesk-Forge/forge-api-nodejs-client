@@ -502,6 +502,7 @@ module.exports = (function () {
 		}
 	};
 
+
 	exports.version = '0.9.7';
 
 	exports.userAgentHeaders = {

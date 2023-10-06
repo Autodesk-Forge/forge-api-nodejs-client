@@ -1,7 +1,7 @@
 # Forge Node.js SDK [![Build Status](https://travis-ci.org/Autodesk-Forge/forge-api-nodejs-client.svg?branch=master)](https://travis-ci.org/Autodesk-Forge/forge-api-nodejs-client)
 
 *Forge API*:
-[![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](https://forge.autodesk.com/developer/documentation)
+[![oAuth2](https://img.shields.io/badge/oAuth2-v2-green.svg)](https://forge.autodesk.com/developer/documentation)
 [![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](https://forge.autodesk.com/developer/documentation)
 [![OSS](https://img.shields.io/badge/OSS-v2-green.svg)](https://forge.autodesk.com/developer/documentation)
 [![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](https://forge.autodesk.com/developer/documentation)
@@ -192,15 +192,18 @@ Class | Method | HTTP request | Description
 *ForgeSdk.BucketsApi* | [**deleteBucket**](docs/BucketsApi.md#deleteBucket) | **DELETE** /oss/v2/buckets/{bucketKey} |
 *ForgeSdk.BucketsApi* | [**getBucketDetails**](docs/BucketsApi.md#getBucketDetails) | **GET** /oss/v2/buckets/{bucketKey}/details |
 *ForgeSdk.BucketsApi* | [**getBuckets**](docs/BucketsApi.md#getBuckets) | **GET** /oss/v2/buckets |
+*ForgeSdk.DerivativesApi* | [**getFormats**](docs/DerivativesApi.md#getFormats) | **GET** /modelderivative/v2/designdata/formats |
+*ForgeSdk.DerivativesApi* | [**translate**](docs/DerivativesApi.md#translate) | **POST** /modelderivative/v2/designdata/job |
+*ForgeSdk.DerivativesApi* | [**setReferences**](docs/DerivativesApi.md#setReferences) | **POST** /modelderivative/v2/designdata/{urn}/references |
+*ForgeSdk.DerivativesApi* | [**getThumbnail**](docs/DerivativesApi.md#getThumbnail) | **GET** /modelderivative/v2/designdata/{urn}/thumbnail |
+*ForgeSdk.DerivativesApi* | [**getManifest**](docs/DerivativesApi.md#getManifest) | **GET** /modelderivative/v2/designdata/{urn}/manifest |
 *ForgeSdk.DerivativesApi* | [**deleteManifest**](docs/DerivativesApi.md#deleteManifest) | **DELETE** /modelderivative/v2/designdata/{urn}/manifest |
 *ForgeSdk.DerivativesApi* | [**getDerivativeManifest**](docs/DerivativesApi.md#getDerivativeManifest) | **GET** /modelderivative/v2/designdata/{urn}/manifest/{derivativeUrn} |
-*ForgeSdk.DerivativesApi* | [**getFormats**](docs/DerivativesApi.md#getFormats) | **GET** /modelderivative/v2/designdata/formats |
-*ForgeSdk.DerivativesApi* | [**getManifest**](docs/DerivativesApi.md#getManifest) | **GET** /modelderivative/v2/designdata/{urn}/manifest |
+*ForgeSdk.DerivativesApi* | [**getDerivativeManifestInfo**](docs/DerivativesApi.md#getDerivativeManifestInfo) | **HEAD** /modelderivative/v2/designdata/{urn}/manifest/{derivativeUrn} |
+*ForgeSdk.DerivativesApi* | [**getDerivativeDownloadUrl**](docs/DerivativesApi.md#getDerivativeDownloadUrl) | **GET** /modelderivative/v2/designdata/{urn}/manifest/{derivativeUrn}/signedcookies |
 *ForgeSdk.DerivativesApi* | [**getMetadata**](docs/DerivativesApi.md#getMetadata) | **GET** /modelderivative/v2/designdata/{urn}/metadata |
 *ForgeSdk.DerivativesApi* | [**getModelviewMetadata**](docs/DerivativesApi.md#getModelviewMetadata) | **GET** /modelderivative/v2/designdata/{urn}/metadata/{guid} |
 *ForgeSdk.DerivativesApi* | [**getModelviewProperties**](docs/DerivativesApi.md#getModelviewProperties) | **GET** /modelderivative/v2/designdata/{urn}/metadata/{guid}/properties |
-*ForgeSdk.DerivativesApi* | [**getThumbnail**](docs/DerivativesApi.md#getThumbnail) | **GET** /modelderivative/v2/designdata/{urn}/thumbnail |
-*ForgeSdk.DerivativesApi* | [**translate**](docs/DerivativesApi.md#translate) | **POST** /modelderivative/v2/designdata/job |
 *ForgeSdk.FoldersApi* | [**getFolder**](docs/FoldersApi.md#getFolder) | **GET** /data/v1/projects/{project_id}/folders/{folder_id} |
 *ForgeSdk.FoldersApi* | [**getFolderContents**](docs/FoldersApi.md#getFolderContents) | **GET** /data/v1/projects/{project_id}/folders/{folder_id}/contents |
 *ForgeSdk.FoldersApi* | [**getFolderParent**](docs/FoldersApi.md#getFolderParent) | **GET** /data/v1/projects/{project_id}/folders/{folder_id}/parent |
