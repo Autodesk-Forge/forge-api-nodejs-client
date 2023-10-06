@@ -47,14 +47,14 @@ module.export = (function () {
 
 	const sampleStrParam = 'test_string';
 	const sampleIntParam = 10;
-	const FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
-	const FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
+	const APS_CLIENT_ID = process.env.APS_CLIENT_ID || '<your forge client ID>';
+	const APS_CLIENT_SECRET = process.env.APS_CLIENT_SECRET || '<your forge client secret>';
 
 	const apiClient = new ApiClient();
 	apiClient.defaultHeaders = { 'x-ads-test': sampleStrParam };
 
 	before(function () {
-		oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
+		oauth2client = new ForgeSdk.AuthClientTwoLegged(APS_CLIENT_ID, APS_CLIENT_SECRET, ['data:read', 'data:write']);
 		credentials = {
 			access_token: 'abce'
 		};

@@ -28,17 +28,17 @@ const ForgeSDK = require('../src/index');
 // ForgeSDK.ApiClient.instance.switchServerPath('https://developer-stg.api.autodesk.com');
 // const StgApiClient = new ForgeSDK.ApiClient('https://developer-stg.api.autodesk.com');
 // const bucketsApiStg = new ForgeSDK.BucketsApi(StgApiClient);
-// const oAuth2TwoLeggedStg = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read'], true, StgApiClient);
-// const oAuth2TwoLeggedtest = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read'], true); // back to prod
+// const oAuth2TwoLeggedStg = new ForgeSDK.AuthClientTwoLegged(APS_CLIENT_ID, APS_CLIENT_SECRET, ['data:read'], true, StgApiClient);
+// const oAuth2TwoLeggedtest = new ForgeSDK.AuthClientTwoLegged(APS_CLIENT_ID, APS_CLIENT_SECRET, ['data:read'], true); // back to prod
 
 // TODO - insert your CLIENT_ID and CLIENT_SECRET
-const FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || 'your forge client id';
-const FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || 'your forge client secret';
+const APS_CLIENT_ID = process.env.APS_CLIENT_ID || 'your forge client id';
+const APS_CLIENT_SECRET = process.env.APS_CLIENT_SECRET || 'your forge client secret';
 
 // TODO - Choose a bucket key - a unique name to assign to a bucket. It must be globally unique across all applications and
 // regions, otherwise the call will fail. Possible values: -_.a-z0-9 (between 3-128 characters in
 // length). Note that you cannot change a bucket key.
-const BUCKET_KEY = 'forge_sample_' + FORGE_CLIENT_ID.toLowerCase();
+const BUCKET_KEY = 'forge_sample_' + APS_CLIENT_ID.toLowerCase();
 
 // TODO - Choose a filename - a key for the uploaded object
 const FILE_NAME = 'test.nwd';
@@ -51,14 +51,14 @@ const bucketsApi = new ForgeSDK.BucketsApi(),
 	derivativesApi = new ForgeSDK.DerivativesApi(/* undefined, ForgeSDK.JobPayloadDestination.RegionEnum.EMEA */);
 
 // Initialize the 2-legged oauth2 client
-const oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,
+const oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(APS_CLIENT_ID, APS_CLIENT_SECRET,
 	['data:write', 'data:read', 'bucket:read', 'bucket:update', 'bucket:create'], true);
 
 /**
  * General error handling method
  * @param err
  */
-function defaultHandleError (err) {
+function defaultHandleError(err) {
 	console.error('\x1b[31m Error:', err, '\x1b[0m');
 }
 
@@ -161,12 +161,12 @@ oAuth2TwoLegged.authenticate()
 					.replace(/\//g, '_') // Convert '/' to '_'
 					.replace(/=+$/, '');
 
-				getMetadata (urn)
-					.then (function (metadata) {
+				getMetadata(urn)
+					.then(function (metadata) {
 						console.log("**** Metadata requested:", metadata.body);
 
-						const _metadata = ForgeSDK.Metadata.constructFromObject (metadata.body);
-						const guid = _metadata.data.metadata [0].guid;
+						const _metadata = ForgeSDK.Metadata.constructFromObject(metadata.body);
+						const guid = _metadata.data.metadata[0].guid;
 
 						createObj(urn, guid)
 							.then(function (reponse) {
@@ -182,11 +182,11 @@ oAuth2TwoLegged.authenticate()
 									}, defaultHandleError);
 
 							}, defaultHandleError);
-						
+
 					}, defaultHandleError);
 
 			}, defaultHandleError);
 
 	}, defaultHandleError)
-	
+
 	.catch(defaultHandleError);

@@ -52,13 +52,13 @@ To get a 2-legged token run the following code. Note that you need to replace `y
 
 ``` JavaScript
 var ForgeSDK = require('forge-apis');
-var FORGE_CLIENT_ID = '<your-client-id>' , FORGE_CLIENT_SECRET = '<your-client-secret>';
+var APS_CLIENT_ID = '<your-client-id>' , APS_CLIENT_SECRET = '<your-client-secret>';
 
 // Initialize the 2-legged OAuth2 client, set specific scopes and optionally set the `autoRefresh` parameter to true
 // if you want the token to auto refresh
 var autoRefresh = true; // or false
 
-var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, [
+var oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(APS_CLIENT_ID, APS_CLIENT_SECRET, [
     'data:read',
     'data:write'
 ], autoRefresh);
@@ -84,12 +84,12 @@ Note that the redirect URL must match the pattern of the callback URL field of t
 
 ``` JavaScript
 var ForgeSDK = require('forge-apis');
-var FORGE_CLIENT_ID = '<your-client-id>', FORGE_CLIENT_SECRET = '<your-client-secret>', REDIRECT_URL = '<your-redirect-url>';
+var APS_CLIENT_ID = '<your-client-id>', APS_CLIENT_SECRET = '<your-client-secret>', REDIRECT_URL = '<your-redirect-url>';
 
 // Initialize the 3-legged OAuth2 client, set specific scopes and optionally set the `autoRefresh` parameter to true
 // if you want the token to auto refresh
 var autoRefresh = true;
-var oAuth2ThreeLegged = new ForgeSDK.AuthClientThreeLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, REDIRECT_URL, [
+var oAuth2ThreeLegged = new ForgeSDK.AuthClientThreeLegged(APS_CLIENT_ID, APS_CLIENT_SECRET, REDIRECT_URL, [
     'data:read',
     'data:write'
 ], autoRefresh);

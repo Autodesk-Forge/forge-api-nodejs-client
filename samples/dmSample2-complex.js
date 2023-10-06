@@ -29,13 +29,13 @@ const { ApiClient } = require('../src/index');
 const ForgeSDK = require('../src/index');
 
 // TODO - insert your CLIENT_ID and CLIENT_SECRET
-const FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || 'your forge client id';
-const FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || 'your forge client secret';
+const APS_CLIENT_ID = process.env.APS_CLIENT_ID || 'your forge client id';
+const APS_CLIENT_SECRET = process.env.APS_CLIENT_SECRET || 'your forge client secret';
 
 // TODO - Choose a bucket key - a unique name to assign to a bucket. It must be globally unique across all applications and
 // regions, otherwise the call will fail. Possible values: -_.a-z0-9 (between 3-128 characters in
 // length). Note that you cannot change a bucket key.
-const BUCKET_KEY = 'forge_sample_' + FORGE_CLIENT_ID.toLowerCase();
+const BUCKET_KEY = 'forge_sample_' + APS_CLIENT_ID.toLowerCase();
 
 // TODO - Choose a filename - a key for the uploaded object
 const FILE_NAME0 = 'test.txt';
@@ -57,7 +57,7 @@ const objectsApi = new ForgeSDK.ObjectsApi(apiClient); // Objects Client
 
 // Initialize the 2-legged oauth2 client
 const oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(
-	FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,
+	APS_CLIENT_ID, APS_CLIENT_SECRET,
 	['data:write', 'data:read', 'bucket:read', 'bucket:update', 'bucket:create'], true
 );
 
@@ -300,7 +300,7 @@ oAuth2TwoLegged.authenticate()
 
 			console.log('**** Deleting server files(s)');
 			await deleteAllServerObjects(BUCKET_KEY, uploadRes);
-			try { await _fs.unlink(FILE_PATH1 + '.out'); } catch (ex) {}
+			try { await _fs.unlink(FILE_PATH1 + '.out'); } catch (ex) { }
 
 			// Large Files < 5Mb <
 			console.log('**** Testing Large files');
