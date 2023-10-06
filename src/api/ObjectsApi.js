@@ -344,9 +344,10 @@ module.exports = (function () {
 		 *
 		 * @deprecated
 		 */
-		this.getObject = function (bucketKey, objectKey, opts, oauth2client, credentials) {
+		this.getObject = function (bucketKey, objectKey, opts, oauth2client, credentials, responseType) {
 			opts = opts || {};
 			const postBody = null;
+			responseType = responseType || 'arraybuffer'
 
 			// verify the required parameter 'bucketKey' is set
 			if (!bucketKey)
