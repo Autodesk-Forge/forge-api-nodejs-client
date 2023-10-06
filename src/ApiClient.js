@@ -502,7 +502,8 @@ module.exports = (function () {
 		}
 	};
 
-	exports.version = '0.9.10';
+
+	exports.version = '0.9.7';
 
 	exports.userAgentHeaders = {
 		'User-Agent': `forge-apis/${exports.version} nodejs api wrappers library`,
