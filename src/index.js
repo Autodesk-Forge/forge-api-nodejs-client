@@ -161,8 +161,7 @@ module.exports = (function () {
 		StorageRelationshipsTarget = require('./model/StorageRelationshipsTarget'),
 		StorageRelationshipsTargetData = require('./model/StorageRelationshipsTargetData'),
 		TopFolders = require('./model/TopFolders'),
-		UserProfile = require('./model/UserProfile'),
-		UserProfileProfileImages = require('./model/UserProfileProfileImages'),
+		User = require('./model/UserProfile'),
 		Version = require('./model/Version'),
 		VersionAttributes = require('./model/VersionAttributes'),
 		VersionCreated = require('./model/VersionCreated'),
@@ -898,15 +897,10 @@ module.exports = (function () {
 		 */
 		TopFolders: TopFolders,
 		/**
-		 * The UserProfile model constructor.
-		 * @property {module:model/UserProfile}
+		 * The User model constructor.
+		 * @property {module:model/User}
 		 */
-		UserProfile: UserProfile,
-		/**
-		 * The UserProfileProfileImages model constructor.
-		 * @property {module:model/UserProfileProfileImages}
-		 */
-		UserProfileProfileImages: UserProfileProfileImages,
+		User: User,
 		/**
 		 * The Version model constructor.
 		 * @property {module:model/Version}

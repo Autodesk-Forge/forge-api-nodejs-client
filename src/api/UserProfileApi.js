@@ -41,8 +41,8 @@ module.exports = (function () {
 	 * default to {@link module:ApiClient#instance} if unspecified.
 	 */
 	var exports = function (apiClient) {
-		this.apiClient = apiClient || ApiClient.instance;
-
+		this.apiClient = apiClient || new ApiClient('https://api.userprofile.autodesk.com');
+		
 		/**
 		 * Returns the profile information of an authorizing end user.
 		 * data is of type: {module:model/UserProfile}
@@ -61,8 +61,10 @@ module.exports = (function () {
 			var accepts = ['application/vnd.api+json', 'application/json'];
 			var returnType = UserProfile;
 
+			// https://aps.autodesk.com/en/docs/oauth/v2/reference/http/userinfo-GET/
+			// https://api.userprofile.autodesk.com/userinfo
 			return this.apiClient.callApi(
-				'/userprofile/v1/users/@me', 'GET',
+				'/userinfo', 'GET',
 				pathParams, queryParams, headerParams, formParams, postBody,
 				contentTypes, accepts, returnType, oauth2client, credentials
 			);

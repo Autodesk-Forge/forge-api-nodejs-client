@@ -22,16 +22,16 @@
  */
 
 module.export = (function () {
-  'use strict';
+	'use strict';
 
-  var expect = require('expect.js'),
-    ForgeSdk = require('../../src');
+	var expect = require('expect.js');
+	var ForgeSdk = require('../../src');
 
-  describe('UserProfileProfileImages', function () {
-    it('should create an instance of UserProfileProfileImages', function () {
-      var instance = new ForgeSdk.UserProfileProfileImages();
-      expect(instance).to.be.a(ForgeSdk.UserProfileProfileImages);
-    });
-  });
+	describe('User', function () {
+		it('should create an instance of User', function () {
+			var instance = new ForgeSdk.User();
+			expect(instance).to.be.a(ForgeSdk.User);
+		});
+	});
 
 }());
