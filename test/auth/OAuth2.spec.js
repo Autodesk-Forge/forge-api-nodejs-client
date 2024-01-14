@@ -172,8 +172,7 @@ module.exports = (function () {
 			});
 
 			it('authenticate should work', function (done) {
-
-				mockedPostRequest = sinon.stub(oauth2client2legged, 'doPostRequest');
+				mockedPostRequest = sinon.stub(oauth2client2legged, 'doPostRequestWithHeaders');
 				var credentials = {
 					access_token: 'abcdef',
 					expires_in: 1800
@@ -204,7 +203,6 @@ module.exports = (function () {
 			});
 
 			it('authenticate should work', function (done) {
-
 				mockedPostRequest = sinon.stub(oauth2client2leggedV2, 'doPostRequestWithHeaders');
 				var credentials = {
 					access_token: 'abcdef',
