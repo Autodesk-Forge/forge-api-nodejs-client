@@ -28,11 +28,12 @@
 	],
 	"scripts": {
 		"test": "node node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test",
-		"test-oauth": "node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test/auth",
-		"test-api": "node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test/api",
-		"test-model": "node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test/model",
-		"test-hubs": "node_modules/mocha/bin/mocha --colors --timeout 10000 test/api/HubsApi.spec",
-		"test-oss": "node_modules/mocha/bin/mocha --colors --timeout 10000 test/api/ObjectsApi.spec",
+		"test-oauth": "node node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test/auth",
+		"test-api": "node node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test/api",
+		"test-model": "node node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test/model",
+		"test-hubs": "node node_modules/mocha/bin/mocha --colors --timeout 10000 test/api/HubsApi.spec",
+		"test-oss": "node node_modules/mocha/bin/mocha --colors --timeout 10000 test/api/ObjectsApi.spec",
+		"test-user": "node node_modules/mocha/bin/mocha --colors --timeout 10000 --inspect-brk test/api/UserProfileApi.spec",
 		"coverage": "nyc npm run test"
 	},
 	"dependencies": {

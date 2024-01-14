@@ -72,16 +72,19 @@ module.export = (function () {
 				var accepts = ['application/vnd.api+json', 'application/json'];
 				var returnType = UserProfile;
 
-				mockedApiClientRequest.withArgs('/userprofile/v1/users/@me', 'GET',
+				mockedApiClientRequest.withArgs(
+					'/userinfo', 'GET',
 					pathParams, queryParams, headerParams, formParams, postBody,
-					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+					contentTypes, accepts, returnType, oauth2client, credentials
+				).returns(Promise.resolve('Success result'));
 
-				instance.getUserProfile(oauth2client, credentials).then(function (response) {
-					expect(response).to.be.ok();
-					done();
-				}, function (err) {
-					done(err);
-				});
+				instance.getUserProfile(oauth2client, credentials)
+					.then(function (response) {
+						expect(response).to.be.ok();
+						done();
+					}, function (err) {
+						done(err);
+					});
 			});
 		});
 	});
