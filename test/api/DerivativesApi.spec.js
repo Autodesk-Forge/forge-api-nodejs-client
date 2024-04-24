@@ -40,17 +40,18 @@ module.export = (function () {
 	var Manifest = require('../../src/model/Manifest');
 	var Metadata = require('../../src/model/Metadata');
 	var Result = require('../../src/model/Result');
+	var DerivativeDownloadUrl = require('../../src/model/DerivativeDownloadUrl');
 
 	var sampleStrParam = 'test_string';
 	var sampleIntParam = 10;
-	var FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || '<your forge client ID>';
-	var FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || '<your forge client secret>';
+	var APS_CLIENT_ID = process.env.APS_CLIENT_ID || '<your forge client ID>';
+	var APS_CLIENT_SECRET = process.env.APS_CLIENT_SECRET || '<your forge client secret>';
 
 	var apiClient = new ApiClient();
 	apiClient.defaultHeaders = { 'x-ads-test': sampleStrParam };
 
 	before(function () {
-		oauth2client = new ForgeSdk.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, ['data:read', 'data:write']);
+		oauth2client = new ForgeSdk.AuthClientTwoLegged(APS_CLIENT_ID, APS_CLIENT_SECRET, ['data:read', 'data:write']);
 		credentials = {
 			access_token: 'abce'
 		};
@@ -299,6 +300,39 @@ module.export = (function () {
 					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
 
 				instance.getDerivativeManifestInfo(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function (response) {
+					expect(response).to.be.ok();
+					done();
+				}, function (err) {
+					done(err);
+				});
+			});
+		});
+
+		describe('getDerivativeDownloadUrl', function () {
+			it('should call getDerivativeDownloadUrl successfully', function (done) {
+				var opts = {};
+				var postBody = null;
+
+				var pathParams = {
+					'urn': sampleStrParam,
+					'derivativeUrn': sampleStrParam
+				};
+				var queryParams = {
+					'minutes-expiration': opts.minutesExpiration,
+					'response-content-disposition': opts.responseContentDisposition
+				};
+				var headerParams = {};
+				var formParams = {};
+
+				var contentTypes = ['application/json'];
+				var accepts = ['*/*'];
+				var returnType = DerivativeDownloadUrl;
+
+				mockedApiClientRequest.withArgs('/modelderivative/v2/designdata/{urn}/manifest/{derivativeUrn}/signedcookies', 'GET',
+					pathParams, queryParams, headerParams, formParams, postBody,
+					contentTypes, accepts, returnType, oauth2client, credentials).returns(Promise.resolve('Success result'));
+
+				instance.getDerivativeDownloadUrl(sampleStrParam, sampleStrParam, opts, oauth2client, credentials).then(function (response) {
 					expect(response).to.be.ok();
 					done();
 				}, function (err) {

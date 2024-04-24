@@ -24,11 +24,11 @@
 const ForgeSDK = require('./../src/index');
 
 // TODO - insert your CLIENT_ID and CLIENT_SECRET
-const FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || 'your forge client id';
-const FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || 'your forge client secret';
+const APS_CLIENT_ID = process.env.APS_CLIENT_ID || 'your forge client id';
+const APS_CLIENT_SECRET = process.env.APS_CLIENT_SECRET || 'your forge client secret';
 
 // Initialize the 2-legged oauth2 client
-const oAuth2TwoLeggedV2 = new ForgeSDK.AuthClientTwoLeggedV2(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,
+const oAuth2TwoLeggedV2 = new ForgeSDK.AuthClientTwoLeggedV2(APS_CLIENT_ID, APS_CLIENT_SECRET,
 	['data:read'], true);
 
 // oAuth2TwoLegged.authenticate()

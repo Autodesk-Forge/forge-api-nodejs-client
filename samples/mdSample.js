@@ -26,13 +26,13 @@ const _path = require('path');
 const ForgeSDK = require('../src/index');
 
 // TODO - insert your CLIENT_ID and CLIENT_SECRET
-const FORGE_CLIENT_ID = process.env.FORGE_CLIENT_ID || 'your forge client id';
-const FORGE_CLIENT_SECRET = process.env.FORGE_CLIENT_SECRET || 'your forge client secret';
+const APS_CLIENT_ID = process.env.APS_CLIENT_ID || 'your forge client id';
+const APS_CLIENT_SECRET = process.env.APS_CLIENT_SECRET || 'your forge client secret';
 
 // TODO - Choose a bucket key - a unique name to assign to a bucket. It must be globally unique across all applications and
 // regions, otherwise the call will fail. Possible values: -_.a-z0-9 (between 3-128 characters in
 // length). Note that you cannot change a bucket key.
-const BUCKET_KEY = 'forge_sample_' + FORGE_CLIENT_ID.toLowerCase();
+const BUCKET_KEY = 'forge_sample_' + APS_CLIENT_ID.toLowerCase();
 
 // TODO - Choose a filename - a key for the uploaded object
 const FILE_NAME = 'test.nwd';
@@ -45,14 +45,14 @@ const bucketsApi = new ForgeSDK.BucketsApi(),
 	derivativesApi = new ForgeSDK.DerivativesApi(/* undefined, ForgeSDK.JobPayloadDestination.RegionEnum.EMEA */);
 
 // Initialize the 2-legged oauth2 client
-const oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET,
+const oAuth2TwoLegged = new ForgeSDK.AuthClientTwoLegged(APS_CLIENT_ID, APS_CLIENT_SECRET,
 	['data:write', 'data:read', 'bucket:read', 'bucket:update', 'bucket:create'], true);
 
 /**
  * General error handling method
  * @param err
  */
-function defaultHandleError (err) {
+function defaultHandleError(err) {
 	console.error('\x1b[31m Error:', err, '\x1b[0m');
 }
 

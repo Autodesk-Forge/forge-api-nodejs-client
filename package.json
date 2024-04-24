@@ -1,6 +1,6 @@
 {
 	"name": "forge-apis",
-	"version": "0.9.61",
+	"version": "0.9.9",
 	"description": "The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.",
 	"license": "Apache-2.0",
 	"main": "src/index.js",
@@ -28,24 +28,26 @@
 	],
 	"scripts": {
 		"test": "node node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test",
-		"test-oauth": "node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test/auth",
-		"test-api": "node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test/api",
-		"test-model": "node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test/model",
-		"test-hubs": "node_modules/mocha/bin/mocha --colors --timeout 10000 test/api/HubsApi.spec",
-		"test-oss": "node_modules/mocha/bin/mocha --colors --timeout 10000 test/api/ObjectsApi.spec",
+		"test-oauth": "node node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test/auth",
+		"test-api": "node node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test/api",
+		"test-model": "node node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test/model",
+		"test-hubs": "node node_modules/mocha/bin/mocha --colors --timeout 10000 test/api/HubsApi.spec",
+		"test-oss": "node node_modules/mocha/bin/mocha --colors --timeout 10000 test/api/ObjectsApi.spec",
+		"test-user": "node node_modules/mocha/bin/mocha --colors --timeout 10000 --inspect-brk test/api/UserProfileApi.spec",
 		"coverage": "nyc npm run test"
 	},
 	"dependencies": {
-		"axios": "^0.27.2",
-		"jsonwebtoken": "^9.0.1",
-		"jwks-rsa": "^3.0.1",
-		"retry-axios": "^3.0.0"
+		"axios": "^1.6.5",
+		"jsonwebtoken": "^9.0.2",
+		"jwks-rsa": "^3.1.0",
+		"retry-axios": "^3.1.3"
 	},
 	"devDependencies": {
+		"eslint": "^8.42.0",
 		"expect.js": "^0.3.1",
-		"mocha": "^9.2.1",
-		"nock": "^13.2.4",
+		"mocha": "^10.2.0",
+		"nock": "^13.4.0",
 		"nyc": "^15.1.0",
-		"sinon": "^13.0.1"
+		"sinon": "^17.0.1"
 	}
 }

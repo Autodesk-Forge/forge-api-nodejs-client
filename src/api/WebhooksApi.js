@@ -239,6 +239,9 @@ module.exports = (function () {
 		 * @param {String} opts.filter JsonPath expression to filter the callbacks you receive
 		 * @param {String} opts.hubId Optional field which should be provided if the user is a member of a large number of projects. This hub ID corresponds to an account ID in the BIM 360 API, prefixed by “b.”
 		 * @param {String} opts.projectId Optional field which should be provided if the user is a member of a large number of projects. This project ID corresponds to the project ID in the BIM 360 API, prefixed by “b.”
+		 * @param {Boolean} opts.autoReactivateHook Optional. Flag to enable the hook for the automatic reactivation flow. Please see Event Delivery Guarantees for more details.
+		 * @param {String} opts.hookExpiry Optional. ISO8601 formatted date and time when the hook should expire and automatically be deleted. Not providing this parameter means the hook never expires.
+		 * @param {Boolean} opts.callbackWithEventPayloadOnly Optional. If “true”, the callback request payload only contains the event payload, without additional information on the hook. Hook attributes will not be accessible if this is “true”. Defaults to “false”.
 		 * @param {Object} oauth2client oauth2client for the call
 		 * @param {Object} credentials credentials for the call
 		 */
@@ -269,6 +272,12 @@ module.exports = (function () {
 				postBody.hubId = opts.hubId;
 			if (opts.projectId != undefined && opts.projectId != null)
 				postBody.projectId = opts.projectId;
+			if (opts.autoReactivateHook != undefined && opts.autoReactivateHook != null)
+				postBody.autoReactivateHook = opts.autoReactivateHook;
+			if (opts.hookExpiry != undefined && opts.hookExpiry != null)
+				postBody.hookExpiry = opts.hookExpiry;
+			if (opts.callbackWithEventPayloadOnly != undefined && opts.callbackWithEventPayloadOnly != null)
+				postBody.callbackWithEventPayloadOnly = opts.callbackWithEventPayloadOnly;
 
 			var pathParams = {
 				'webhooksSystem': webhooksSystem,

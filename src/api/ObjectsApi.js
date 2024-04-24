@@ -372,7 +372,7 @@ module.exports = (function () {
 			const contentTypes = ['application/json'];
 			const accepts = opts.accepts || ['application/octet-stream'];
 			const returnType = Object;
-
+			
 			return (this.apiClient.callApi(
 				'/oss/v2/buckets/{bucketKey}/objects/{objectKey}', 'GET',
 				pathParams, queryParams, headerParams, formParams, postBody,
@@ -873,7 +873,7 @@ module.exports = (function () {
 		 * @param {Object=} opts Optional parameters
 		 * @param {String=} opts.uploadKey Get a new set of signed urls if the ones that were generated before have already expired and the user
 		 * still needs to upload some of them.
-		 * @param {Integer=} [opts.firstParts=1] For a multipart upload, is the starting index when getting upload part URL.
+		 * @param {Integer=} [opts.firstPart=1] For a multipart upload, is the starting index when getting upload part URL.
 		 * If this parameter is not specified the default value is firstPart = 1.
 		 * Example: To retrieve the parts from 10 to 15 you should pass firstPart = 10 and parts = 6, this will retrieve the parts 10, 11, 12, 13, 14 and 15.
 		 * @param {Integer=} [opts.parts=1] For a multipart upload, is the starting index when getting upload part URL.
@@ -1077,7 +1077,7 @@ module.exports = (function () {
 		 * attribute is provided, OSS will return a single upload URL with which to upload the entire object.
 		 * @param {String=} body.requests[].uploadKey Get a new set of signed urls if the ones that were generated before have already expired and the user
 		 * still needs to upload some of them.
-		 * @param {Integer=} [body.requests[].firstParts=1] For a multipart upload, is the starting index when getting upload part URL.
+		 * @param {Integer=} [body.requests[].firstPart=1] For a multipart upload, is the starting index when getting upload part URL.
 		 * If this parameter is not specified the default value is firstPart = 1.
 		 * Example: To retrieve the parts from 10 to 15 you should pass firstPart = 10 and parts = 6, this will retrieve the parts 10, 11, 12, 13, 14 and 15.
 		 * @param {Integer=} [body.requests[].parts=1] For a multipart upload, is the starting index when getting upload part URL.
@@ -1386,7 +1386,7 @@ module.exports = (function () {
 			if (opts && opts.maxBatches && (opts.maxBatches < 1 || opts.maxBatches > 25))
 				return (Promise.reject("Required parameter 'opts.maxBatches' should be >= 1 and <= 25 when calling uploadResources"));
 
-			const requestURLs = async (bucketKey, record, firstParts, parts) => {
+			const requestURLs = async (bucketKey, record, firstPart, parts) => {
 				try {
 					if (opts.onRefreshToken
 						&& ((auth2client && auth2client.isAboutToExpire())
@@ -1401,7 +1401,7 @@ module.exports = (function () {
 					}
 					const uploadParams = await _this.getS3UploadURLs(
 						bucketKey,
-						{ requests: [{ objectKey: record.objectKey, uploadKey: record.uploadKey, firstParts, parts, }], },
+						{ requests: [{ objectKey: record.objectKey, uploadKey: record.uploadKey, firstPart, parts, }], },
 						opts,
 						auth2client, credentials
 					); // Automatically retries 429 and 500-599 responses
