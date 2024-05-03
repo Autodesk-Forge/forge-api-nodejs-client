@@ -57,7 +57,12 @@ module.exports = (function () {
 				'account:read': 'For Product APIs, the application will be able to read the account data the end user has entitlements to.',
 				'account:write': 'For Product APIs, the application will be able to update the account data the end user has entitlements to.',
 				'user-profile:read': 'The application will be able to read the end user’s profile data.',
-				'viewables:read': 'The application will have read access to viewable resources such as thumbnails. This scope is a subset of data:read.'
+				'viewables:read': 'The application will have read access to viewable resources such as thumbnails. This scope is a subset of data:read.',
+				'user:read': 'The application will be able to read the end user’s profile data, including associated products and services.',
+				'user:write': 'The application will be able to create, update, and delete the end user’s profile data, including associated products and services.',
+				'openid': 'The application requires this scope to generate an id_token.',
+
+				'data:read:*': 'dynamic scope which allow client to access the specific resource',
 			}
 		};
 
