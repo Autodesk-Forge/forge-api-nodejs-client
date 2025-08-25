@@ -208,7 +208,7 @@ module.exports = (function () {
 	 * @returns {String|Array} A string representation of the supplied collection, using the specified delimiter. Returns
 	 * <code>param</code> as is if <code>collectionFormat</code> is <code>multi</code>.
 	 */
-	exports.prototype.buildCollectionParam = function buildCollectionParam (param, collectionFormat) {
+	exports.prototype.buildCollectionParam = function buildCollectionParam(param, collectionFormat) {
 		if (param === undefined || param === null) {
 			return null;
 		}
@@ -240,7 +240,7 @@ module.exports = (function () {
 
 		const _this = this;
 
-		function setAuthHeader (credentials) {
+		function setAuthHeader(credentials) {
 			if (credentials && credentials.access_token)
 				headers['Authorization'] = 'Bearer ' + credentials.access_token; // jshint ignore:line
 		}
@@ -285,21 +285,21 @@ module.exports = (function () {
 	 * Enable working in debug mode
 	 * To activate, simple set ForgeSdk.setDebug(true);
 	 */
-	exports.prototype.debug = function debug () {
+	exports.prototype.debug = function debug() {
 		if (this.isDebugMode) {
 			const args = Array.prototype.slice.call(arguments);
 			console.log(...args);
 		}
 	};
 
-	exports.prototype.warn = function warn () {
+	exports.prototype.warn = function warn() {
 		if (this.isDebugMode) {
 			const args = Array.prototype.slice.call(arguments);
 			console.warn(args);
 		}
 	};
 
-	exports.prototype.error = function error () {
+	exports.prototype.error = function error() {
 		if (this.isDebugMode) {
 			const args = Array.prototype.slice.call(arguments);
 			console.error(['\x1b[31mError:', ...args, '\x1b[0m']);
@@ -338,7 +338,7 @@ module.exports = (function () {
 	 * @param {String} responseType The type of the response data
 	 * @returns {Object} A Promise object.
 	 */
-	exports.prototype.callApi = function callApi (path, httpMethod, pathParams,
+	exports.prototype.callApi = function callApi(path, httpMethod, pathParams,
 		queryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
 		returnType, oauth2client, credentials, responseType
 	) {
@@ -375,7 +375,7 @@ module.exports = (function () {
 		}
 		if (headerParams['Accept-Encoding'] === 'gzip, deflate')
 			requestParams.encoding = null;
-		headerParams['User-Agent'] = 'forge-apis/0.9.11 (nodejs)';
+		headerParams['User-Agent'] = 'forge-apis/0.9.12 (nodejs)';
 		_this.debug('request params were', requestParams);
 
 		return new Promise(function (resolve, reject) {
@@ -503,7 +503,7 @@ module.exports = (function () {
 	};
 
 
-	exports.version = '0.9.11';
+	exports.version = '0.9.12';
 
 	exports.userAgentHeaders = {
 		'User-Agent': `forge-apis/${exports.version} nodejs api wrappers library`,

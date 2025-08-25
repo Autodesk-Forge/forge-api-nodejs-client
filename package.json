@@ -1,15 +1,17 @@
 {
 	"name": "forge-apis",
-	"version": "0.9.11",
-	"description": "The Forge Platform contains an expanding collection of web service components that can be used with Autodesk cloud-based products or your own technologies. Take advantage of Autodesk’s expertise in design and engineering.",
+	"version": "0.9.12",
+	"deprecated": true,
+	"description": "⚠️ Deprecated: This package is no longer maintained. Use 'https://github.com/autodesk-platform-services/aps-sdk-node' instead.",
 	"license": "Apache-2.0",
 	"main": "src/index.js",
 	"engines": {
 		"node": ">= 10.12.0"
 	},
+	"homepage": "https://www.npmjs.com/package/@aps_sdk/autodesk-sdkmanager",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Autodesk-Forge/forge-api-nodejs-client"
+		"url": "https://github.com/autodesk-platform-services/aps-sdk-node"
 	},
 	"bugs": {
 		"url": "https://github.com/Autodesk-Forge/forge-api-nodejs-client/issues"
@@ -27,6 +29,7 @@
 		"api"
 	],
 	"scripts": {
+		"postinstall": "echo 'WARNING: This package is deprecated. Please use https://github.com/autodesk-platform-services/aps-sdk-node instead.'",
 		"test": "node node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test",
 		"test-oauth": "node node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test/auth",
 		"test-api": "node node_modules/mocha/bin/mocha --colors --recursive --timeout 10000 test/api",

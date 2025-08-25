@@ -1,5 +1,9 @@
 # Forge Node.js SDK [![Build Status](https://travis-ci.org/Autodesk-Forge/forge-api-nodejs-client.svg?branch=master)](https://travis-ci.org/Autodesk-Forge/forge-api-nodejs-client)
 
+<font color="red"><b>! This is a legacy package, please use the modern one instead.</b></font>  
+https://github.com/autodesk-platform-services/aps-sdk-node
+
+
 *Forge API*:
 [![oAuth2](https://img.shields.io/badge/oAuth2-v2-green.svg)](https://forge.autodesk.com/developer/documentation)
 [![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](https://forge.autodesk.com/developer/documentation)
