@@ -63,6 +63,7 @@ module.exports = (function () {
 				'openid': 'The application requires this scope to generate an id_token.',
 
 				'data:read:*': 'dynamic scope which allow client to access the specific resource',
+				'*': 'dynamic scope which allow client to access all resources',
 			}
 		};
 
@@ -150,10 +151,13 @@ module.exports = (function () {
 	/**
 	 * Get a 3-legged access token
 	 * @param {String} code - The code that needs to be exchanged to get the access token
+	 * @param {Object} opts Optional parameters
+	 * @param {String} opts.region can be undefined, "CAN", "DEU", "GBR", "IND", "JPN", "USA", "AUS", "IRL"
 	 * @return Promise
 	 */
-	OAuth2ThreeLeggedV2.prototype.getToken = function (code) {
+	OAuth2ThreeLeggedV2.prototype.getToken = function (code, opts) {
 		const _this = this;
+		opts = opts || {};
 		return (new Promise(function (resolve, reject) {
 			if (_this.authentication && _this.authentication.tokenUrl) {
 				let url = _this.basePath + _this.authentication.tokenUrl;
@@ -170,7 +174,7 @@ module.exports = (function () {
 				_this.doPostRequestWithHeaders(
 					url,
 					body,
-					{ Authorization, 'Accept': 'application/json' },
+					{ Authorization, 'Accept': 'application/json', region: opts.region },
 					(response) => {
 						// add expires_at property
 						let credentials = {

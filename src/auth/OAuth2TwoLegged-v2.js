@@ -62,6 +62,7 @@ module.exports = (function () {
 				'openid': 'The application requires this scope to generate an id_token.',
 
 				'data:read:*': 'dynamic scope which allow client to access the specific resource',
+				'*': 'dynamic scope which allow client to access all resources',
 			}
 		};
 
@@ -120,14 +121,17 @@ module.exports = (function () {
 	OAuth2TwoLeggedV2.prototype.isAboutToExpire = function (threadHoldInSeconds) {
 		threadHoldInSeconds = threadHoldInSeconds || 300;
 		return (!this.credentials || !this.credentials.expires_at || this.credentials.expires_at - threadHoldInSeconds * 1000 < Date.now());
-	};
+	};	
 
 	/**
 	 * Authorize and get a 2 legged access token
+	 * @param {Object} opts Optional parameters
+	 * @param {String} opts.region can be undefined, "CAN", "DEU", "GBR", "IND", "JPN", "USA", "AUS", "IRL"
 	 * @return Promise
 	 */
-	OAuth2TwoLeggedV2.prototype.authenticate = function () {
+	OAuth2TwoLeggedV2.prototype.authenticate = function (opts) {
 		const _this = this;
+		opts = opts || {};
 		return (new Promise(function (resolve, reject) {
 			if (_this.authentication && _this.authentication.tokenUrl) {
 				let url = _this.basePath + _this.authentication.tokenUrl;
@@ -142,7 +146,7 @@ module.exports = (function () {
 				_this.doPostRequestWithHeaders(
 					url,
 					body,
-					{ Authorization },
+					{ Authorization, region: opts.region },
 					(response) => {
 						// add expires_at property
 						let credentials = {
